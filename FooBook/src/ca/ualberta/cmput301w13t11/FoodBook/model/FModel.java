@@ -1,3 +1,4 @@
+package ca.ualberta.cmput301w13t11.FoodBook.model;
 // generic model interface
 public interface FModel<V implements FView> {
 

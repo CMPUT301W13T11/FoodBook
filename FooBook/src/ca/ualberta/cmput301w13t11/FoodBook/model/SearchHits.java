@@ -1,4 +1,4 @@
-package ca.ualberta.cmput301w13t11.FoodBank.model;
+package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import java.util.Collection;
 

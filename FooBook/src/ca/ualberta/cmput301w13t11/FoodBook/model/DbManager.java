@@ -1,3 +1,9 @@
+package ca.ualberta.cmput301w13t11.FoodBook.model;
+
+import java.util.Collection;
+
+import android.content.ContentValues;
+
 public class DbManager<V implements FView> implements FModel<V implements FView> {
   
   private Collection<V> views;
