@@ -1,5 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook.test;
 
+import android.test.ActivityInstrumentationTestCase2;
+
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
@@ -13,6 +15,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.User;
+
 public class ClientHelperTests extends TestCase {
 ClientHelper helper = new ClientHelper();
 	

@@ -32,14 +32,14 @@ public class DbManager<V extends FView> implements FModel<V> {
   public void load() {
     
   }
-
+/*
   public void insert(Recipe recipe) {
     ContentValues values = RecipeToMap(recipe);
     db.insert("UserRecipes", null, values);
   }
   
   public void delete(Recipe recipe) {
-    db.delete("UserRecipes", "Name = " + recipe.getName()); // FIX!
+    db.delete("UserRecipes", "Name = " + recipe.getTitle()); // FIX!
   }
 
   public void insert(Ingredient ingred) {
@@ -50,5 +50,6 @@ public class DbManager<V extends FView> implements FModel<V> {
   public void delete(Ingredient ingred) {
     db.delete("UserIngredients", "Name = " + ingred.getName()); // FIX!
   }
+  */
 
 }

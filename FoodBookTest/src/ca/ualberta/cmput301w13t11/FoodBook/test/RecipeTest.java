@@ -1,9 +1,11 @@
 package ca.ualberta.cmput301w13t11.FoodBook.test;
 
+import junit.framework.TestCase;
+
 import org.junit.Test;
 
-import junit.framework.TestCase;
-import ca.ualberta.cmput301w13t11.FoodBook.model.*;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
+import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 
 /**
  * Unit tests for the Recipe class.
@@ -16,6 +18,7 @@ public class RecipeTest extends TestCase {
 	public void testRecipe()
 	{
 		Recipe recipe = new Recipe(new User("test"), "Test Recipe");
+		assertTrue(recipe != null);
 		
 	}
 }
