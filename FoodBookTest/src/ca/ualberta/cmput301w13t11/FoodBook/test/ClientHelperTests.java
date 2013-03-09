@@ -1,4 +1,4 @@
-package es.softwareprocess.bogopicgen.test;
+package ca.ualberta.cmput301w13t11.FoodBook.test;
 
 import java.util.ArrayList;
 
@@ -8,11 +8,11 @@ import org.apache.http.entity.StringEntity;
 import org.junit.Test;
 
 import android.graphics.Bitmap;
-import ca.ualberta.cmput301w13t11.FoodBank.model.ClientHelper;
-import ca.ualberta.cmput301w13t11.FoodBank.model.Ingredient;
-import ca.ualberta.cmput301w13t11.FoodBank.model.Photo;
-import ca.ualberta.cmput301w13t11.FoodBank.model.Recipe;
-import ca.ualberta.cmput301w13t11.FoodBank.model.User;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ClientHelper;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
+import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 public class ClientHelperTests extends TestCase {
 ClientHelper helper = new ClientHelper();
 	

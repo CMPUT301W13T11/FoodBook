@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import android.content.ContentValues;
 
-public class DbManager<V implements FView> implements FModel<V implements FView> {
+public class DbManager<V extends FView> implements FModel<V> {
   
   private Collection<V> views;
 

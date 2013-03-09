@@ -16,5 +16,6 @@ public class RecipeTest extends TestCase {
 	public void testRecipe()
 	{
 		Recipe recipe = new Recipe(new User("test"), "Test Recipe");
+		
 	}
 }
