@@ -69,12 +69,16 @@ public class ServerClient {
 			HttpResponse response = httpclient.execute(httppost);
 			int ret = response.getStatusLine().getStatusCode();
 			logger.log(Level.INFO, "Connection test return status: ");
-			if (ret == HttpStatus.SC_OK)
+			if (ret == HttpStatus.SC_OK) {
+				httppost.releaseConnection();
 				return true;
+			}
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Exception occured when testing connection:" + e.getMessage());
 		}
 		/* Something above failed, so we return false. */
+		httppost.releaseConnection();
+
 		return false;
 	}
 	
@@ -111,6 +115,8 @@ public class ServerClient {
 		
 		status = response.getEntity().toString();
 		logger.log(Level.INFO, "upload request server response: " + response);
+		httpPost.releaseConnection();
+
 	}
 	
 	/**
@@ -167,5 +173,10 @@ public class ServerClient {
 	public void attachPhotoToRecipe(Photo photo, Recipe recipe)
 	{
 		//TODO: implement
+	}
+	
+	public String getServerUrl()
+	{
+		return test_server_string;
 	}
 }
