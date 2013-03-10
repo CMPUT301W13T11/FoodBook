@@ -9,6 +9,7 @@
     <string name="search">Search</string>
     <string name="my_ingredients">My Ingredients</string>
     <string name="my_recipes">My Recipes</string>
+    <string name="title_activity_main">MainScreen</string>
     <string name="title_activity_my_ingredients">MyIngredients</string>
     <string name="title_activity_search">SearchActivity</string>
     <string name="title_activity_add_recipes">AddRecipesActivity</string>
