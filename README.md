@@ -1,4 +1,4 @@
 FoodBook
 ========
 
-Mark: hmmm can't figure out how to push my new classes
+Marko, I've changed the uri attribute from String to long (Mark)
