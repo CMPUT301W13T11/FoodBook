@@ -17,7 +17,7 @@ public class ServerRecipe{
 	private String instructions;
 	private ArrayList<Ingredient> ingredients;
 	private ArrayList<ServerPhoto> photos;
-	private String uri;
+	private long uri;
 	
 	public ServerRecipe(Recipe recipe)
 	{
@@ -116,7 +116,7 @@ public class ServerRecipe{
 	/**
 	 * @return the uri
 	 */
-	public String getUri() {
+	public long getUri() {
 		return uri;
 	}
 
@@ -124,7 +124,7 @@ public class ServerRecipe{
 	/**
 	 * @param uri the uri to set
 	 */
-	public void setUri(String uri) {
+	public void setUri(long uri) {
 		this.uri = uri;
 	}
 }

@@ -1,6 +1,8 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +39,7 @@ public class ServerClient {
 	/**
 	 * Empty constructor.
 	 */
-	public ServerClient()
+	private ServerClient()
 	{
 		
 	}
@@ -139,7 +141,14 @@ public class ServerClient {
 			return ReturnCode.ERROR;
 		}
 		
-		search_results = helper.toRecipeList(response);
+
+		BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
+		String out, json = "";
+		
+		while ((out = br.readLine()) != null) {
+			json += out;
+		}
+		search_results = helper.toRecipeList(json);
 		
 		/* 
 		 * If no results were found, inform the caller by setting ReturnCode to 

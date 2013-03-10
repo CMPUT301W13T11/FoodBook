@@ -1,6 +1,11 @@
 package ca.ualberta.cmput301w13t11.FoodBook.test;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 
 import junit.framework.TestCase;
@@ -59,11 +64,16 @@ public class ClientHelperTests extends TestCase {
 	 */
 	public void testToRecipeEmptyReturn()
 	{
+		String json = "", out;
 		HttpResponse response;
 		HttpPost httppost = new HttpPost("http://www.google.com");
 		try {
 			response = httpclient.execute(httppost);
-			ArrayList<Recipe> ret = helper.toRecipeList(response);
+			BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));			
+			while ((out = br.readLine()) != null) {
+				json += out;
+			}
+			ArrayList<Recipe> ret = helper.toRecipeList(json);
 			assertTrue(ret.isEmpty());
 		} catch (ClientProtocolException cpe) {
 			fail("cpe");
@@ -75,11 +85,35 @@ public class ClientHelperTests extends TestCase {
 	
 	@Test
 	/*
-	 * Query a server location we know has 
+	 * Pass valid server response to toRecipeList() and make sure it returns the known\
+	 * contents of the response.
 	 */
 	public void testToRecipePass()
 	{
+		String out, json = "";
+
+		ArrayList<Recipe> result = null;
+
+		try {
+			FileReader file = new FileReader("docs/JSONServerResponse.txt");
+			BufferedReader br = new BufferedReader(file);
+			
+			while ((out = br.readLine()) != null) {
+				json += out;
+				System.out.println(out);
+			}
+			result = helper.toRecipeList(json);
+
+		} catch (FileNotFoundException fnfe) {
+			fail("file not found");
+		} catch (IOException ioe) {
+			fail("IOException");
+		}
 		
+
+		for (Recipe r: result) {
+		}
+		assertTrue(!(result.isEmpty()));
 	}
 
 }

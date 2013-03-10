@@ -60,17 +60,11 @@ public class ClientHelper {
 	 * @return
 	 * @throws IOException
 	 */
-	public ArrayList<Recipe> toRecipeList(HttpResponse response) throws IOException
+	public ArrayList<Recipe> toRecipeList(String json) throws IOException
 	{
 
-		BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
-		String out, json = "";
 		ServerSearchResponse<ServerRecipe> search_response;
 		ArrayList<Recipe> search_results = new ArrayList<Recipe>();
-		
-		while ((out = br.readLine()) != null) {
-			json += out;
-		}
 		
 		Type serverSearchResponseType = new TypeToken<ServerSearchResponse<ServerRecipe>>(){}.getType();
 		try {

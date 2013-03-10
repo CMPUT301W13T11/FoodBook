@@ -1,8 +1,9 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import android.app.Application;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
-import android.app.Application;
 
 public class RecipeApplication extends Application {
 
@@ -21,7 +22,7 @@ public class RecipeApplication extends Application {
 
 	  public static ServerClient getServerClient() {
 	    if (client == null) {
-	      client = new ServerClient();
+	      client = ServerClient.getInstance();
 	    }
 	    return client;
 	  }
@@ -31,7 +32,7 @@ public class RecipeApplication extends Application {
 
 	  public static DbController getDbController() {
 	    if (dbController == null) {
-	      dbController = new dbController();
+	      dbController = new DbController();
 	    }
 	    return dbController;
 	  }
