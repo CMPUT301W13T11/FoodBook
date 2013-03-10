@@ -10,18 +10,15 @@ import java.util.logging.Logger;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.fluent.Content;
-
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
+import org.apache.http.params.HttpParams;
 /**
  * Communicates with the server to perform searches, upload recipes and upload photos to recipes.
  * Implements the singleton design pattern.
@@ -34,7 +31,7 @@ public class ServerClient {
 	private static ServerClient instance = null;
 	static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
 	static private String test_server_string = "http://cmput301.softwareprocess.es:8080/testing/cmput301w13t11/";
-	private HttpClient httpclient = new DefaultHttpClient();
+	private HttpClient httpclient = this.getThreadSafeClient();
 	private ClientHelper helper = new ClientHelper();
 	private static enum ReturnCode
 	{
@@ -122,6 +119,20 @@ public class ServerClient {
 	}
 	
 	/**
+	 * Gets a thread safe client.
+	 */
+	public static DefaultHttpClient getThreadSafeClient()
+	{
+		DefaultHttpClient client = new DefaultHttpClient();
+		ClientConnectionManager manager = client.getConnectionManager();
+		HttpParams params = client.getParams();
+		
+		client = new DefaultHttpClient(new ThreadSafeClientConnManager(params,
+										manager.getSchemeRegistry()), params);
+		return client;
+	}
+	
+	/**
 	 * Performs a search of online recipes by keywords.
 	 * @param str The string of keywords we wish to search by.
 	 * @return True on successful connection + return of 
@@ -150,7 +161,6 @@ public class ServerClient {
 		}
 		
 		HttpEntity entity = response.getEntity();
-		EntityUtils.consume(entity);
 		BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
 		String out, json = "";
 		

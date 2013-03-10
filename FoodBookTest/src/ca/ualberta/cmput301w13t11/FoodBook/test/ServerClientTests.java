@@ -27,6 +27,7 @@ public class ServerClientTests extends TestCase {
 		} catch (IOException ioe) {
 			fail("ioe");
 		}
+		/* If we got here, we successfully uploaded a recipe. */
 		assertTrue(1 == 1);
 	}
 
