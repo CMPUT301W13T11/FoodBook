@@ -47,11 +47,19 @@ public class DbManager extends FModel<FView> {
     	return instance;
     }
     
+    /**
+     * Returns an ArrayList of all the Recipes stored in the database.
+     * @return An ArrayList of all the Recipes stored in the database.
+     */
     public ArrayList<Recipe> getUserRecipes() {
     	Cursor cursor = db.rawQuery(getUserRecipesSQL, null);
     	return CursorToRecipes(cursor);
     }
 
+    /**
+     * Inserts a recipe into the database.
+     * @param recipe The Recipe to be stored in the database.
+     */
     public void insert(Recipe recipe) {
       ContentValues values = RecipeToMap(recipe);
       db.insert("UserRecipes", null, values);
@@ -60,19 +68,37 @@ public class DbManager extends FModel<FView> {
       }
     }
     
+    /**
+     * Deletes the given Recipe from the database.
+     * @param recipe The Recipe to be deleted.
+     */
     public void delete(Recipe recipe) {
       db.delete("UserRecipes", "URI = " + recipe.getUri(), null);
     }
 
+    /**
+     * Inserts the given Ingredient into the database.
+     * @param ingred The ingredient to be stored.
+     */
     public void insert(Ingredient ingred) {
       ContentValues values = IngredientToMap(ingred);
       db.insert("UserIngredients", null, values);
     }
     
+    /**
+     * Deletes the given Ingredient from the database.
+     * @param ingred the ingredient to be deleted.
+     */
     public void delete(Ingredient ingred) {
       db.delete("UserIngredients", "name = " + ingred.getName(), null);
     }
 
+    /**
+     * Inserts the given Ingredient into the database such that it is associated with the
+     * recipe identified by recipeURI.
+     * @param ingred The ingredient to be inserted.
+     * @param recipeURI The URI of the Recipe with which to associate the Ingredient.
+     */
     private void insert(Ingredient ingred, long recipeURI) {
         ContentValues values = new ContentValues();
         values.put("recipeURI", recipeURI);
