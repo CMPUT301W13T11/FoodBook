@@ -1,0 +1,60 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppBaseTheme"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    tools:context=".EditPhotos" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="@string/edit_photos"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/menu_button"
+        style="@style/OrangeButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="18dp"
+        android:onClick="OnGotoMainMenu"
+        android:text="@string/go_back"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/delete_photo"
+        style="@style/BlueButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/menu_button"
+        android:layout_alignBottom="@+id/menu_button"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:onClick="OnDeletePhoto"
+        android:text="@string/delete_photo"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/take_photo"
+        style="@style/GreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/menu_button"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:onClick="OnTakePhoto"
+        android:text="@string/take_photo"
+        android:textSize="20sp" />
+
+</RelativeLayout>

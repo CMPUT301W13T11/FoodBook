@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ca.ualberta.cmput301w13t11.FoodBook"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="15" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppBaseTheme" >
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.MainScreen"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.MyRecipes"
+            android:label="@string/title_activity_my_recipes" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.MyIngredients"
+            android:label="@string/title_activity_my_ingredients" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.SearchActivity"
+            android:label="@string/title_activity_search" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.AddRecipesActivity"
+            android:label="@string/title_activity_add_recipes" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.EditRecipeActivity"
+            android:label="@string/title_activity_edit_recipe" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.ViewSearchResultActivity"
+            android:label="@string/title_activity_view_search_result" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.ViewRecipeActivity"
+            android:label="@string/title_activity_view_recipe" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.SearchResultsActivity"
+            android:label="@string/title_activity_search_results" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.ViewPhotosActivity"
+            android:label="@string/title_activity_view_photos" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.Edit"
+            android:label="@string/title_activity_edit" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.EditPhotos"
+            android:label="@string/title_activity_edit_photos" >
+        </activity>
+        <activity
+            android:name=".TakePhotosActivity"
+            android:label="@string/title_activity_take_photos" >
+        </activity>
+    </application>
+
+</manifest>
