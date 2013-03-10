@@ -1,24 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.foodbook"
+    package="com.team11.foodbook"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="15"
         android:targetSdkVersion="15" />
 
     <application
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
+            android:name="com.team11.foodbook.MainScreen"
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.team11.foodbook.MyRecipes"
+            android:label="@string/title_activity_my_recipes" >
+        </activity>
+        <activity
+            android:name="com.team11.foodbook.MyIngredients"
+            android:label="@string/title_activity_my_ingredients" >
+        </activity>
+        <activity
+            android:name="com.team11.foodbook.SearchActivity"
+            android:label="@string/title_activity_search" >
+        </activity>
+        <activity
+            android:name="com.team11.foodbook.AddRecipesActivity"
+            android:label="@string/title_activity_add_recipes" >
+        </activity>
+        <activity
+            android:name="com.team11.foodbook.EditRecipeActivity"
+            android:label="@string/title_activity_edit_recipe" >
+        </activity>
+        <activity
+            android:name="com.team11.foodbook.ViewSearchResultActivity"
+            android:label="@string/title_activity_view_search_result" >
+        </activity>
+        <activity
+            android:name="com.team11.foodbook.ViewRecipeActivity"
+            android:label="@string/title_activity_view_recipe" >
+        </activity>
+        <activity
+            android:name="com.team11.foodbook.SearchResultsActivity"
+            android:label="@string/title_activity_search_results" >
+        </activity>
+        <activity
+            android:name="com.team11.foodbook.ViewPhotosActivity"
+            android:label="@string/title_activity_view_photos" >
+        </activity>
+        <activity
+            android:name="com.team11.foodbook.Edit"
+            android:label="@string/title_activity_edit" >
+        </activity>
+        <activity
+            android:name="com.team11.foodbook.EditPhotos"
+            android:label="@string/title_activity_edit_photos" >
+        </activity>
+        <activity
+            android:name=".TakePhotosActivity"
+            android:label="@string/title_activity_take_photos" >
         </activity>
     </application>
 
