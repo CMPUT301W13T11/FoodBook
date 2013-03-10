@@ -2,7 +2,9 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class TakePhotosActivity extends Activity
 {
@@ -24,4 +26,16 @@ public class TakePhotosActivity extends Activity
 		return true;
 	}
 
+	/** Called when the user clicks the Back button */
+	public void GoToMainMenu(View view) {
+		Intent intent = new Intent(this, MainScreen.class);
+		startActivity(intent);
+	}
+	
+	/** Called when the user clicks the capture button */
+	public void CapturePhoto(View view) {}
+	/** Called when the user clicks the Save button */
+	public void SavePhoto(View view) {
+		GoToMainMenu(view);
+	}
 }

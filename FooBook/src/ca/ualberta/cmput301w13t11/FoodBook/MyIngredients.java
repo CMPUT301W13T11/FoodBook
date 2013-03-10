@@ -2,7 +2,9 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class MyIngredients extends Activity
 {
@@ -23,5 +25,22 @@ public class MyIngredients extends Activity
 		getMenuInflater().inflate(R.menu.activity_my_ingredients, menu);
 		return true;
 	}
+	
+
+	/** Called when the user clicks the Add Ingredient button */
+	public void AddIngredient(View view) {
+		}
+		
+	public void RemoveIngredient(View view) {
+	}
+		
+	/** Called when the user clicks the Back button */
+	public void GoToMainMenu(View view) {
+			Intent intent = new Intent(this, MainScreen.class);
+			startActivity(intent);
+	}
+	/** Called when the user clicks the Modify button */
+	public void Modify(View view) {
+		}
 
 }

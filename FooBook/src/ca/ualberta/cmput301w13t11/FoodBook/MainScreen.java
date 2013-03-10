@@ -29,6 +29,7 @@ public class MainScreen extends Activity {
 	
 	/** Called when the user clicks the My Ingredients button */
 	public void GoToMyIngredients(View view) {
+		finish();
 		Intent intent = new Intent(this, MyIngredients.class);
 		startActivity(intent);
 	}

@@ -48,7 +48,7 @@
         android:layout_alignBottom="@+id/menu_button"
         android:layout_marginLeft="15dp"
         android:layout_toRightOf="@+id/menu_button"
-        android:onClick="GoToAddRecipe"
+        android:onClick="Search"
         android:text="@string/search_again"
         android:textSize="20sp" />
 

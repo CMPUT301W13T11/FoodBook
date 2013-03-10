@@ -24,7 +24,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/Button02"
         android:layout_marginRight="18dp"
-        android:onClick="GoToAddRecipe"
+        android:onClick="SavePhoto"
         android:text="@string/save_photo"
         android:textSize="20sp" />
 
@@ -57,7 +57,7 @@
         android:layout_above="@+id/menu_button"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
-        android:onClick="GoToAddRecipe"
+        android:onClick="CapturePhoto"
         android:text="@string/capture"
         android:textSize="40sp" />
 

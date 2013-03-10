@@ -45,6 +45,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:onClick="GoToMyRecipes"
         android:text="@string/go_back_to_my_recipes"
         android:textSize="18sp" />
 
@@ -57,6 +58,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
+        android:onClick="Publish"
         android:text="@string/publish_recipe"
         android:textSize="18sp" />
 
@@ -69,6 +71,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/textView3"
         android:layout_marginBottom="10dp"
+        android:onClick="EditPhotos"
         android:text="@string/edit_photos"
         android:textSize="18sp" />
 
@@ -81,6 +84,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
+        android:onClick="EditRecipe"
         android:text="@string/edit_recipe"
         android:textSize="18sp" />
 
@@ -103,6 +107,7 @@
         android:layout_alignBaseline="@+id/button2"
         android:layout_alignBottom="@+id/button2"
         android:layout_alignParentRight="true"
+        android:onClick="EmailRecipe"
         android:text="@string/email_recipe"
         android:textSize="18sp" />
 

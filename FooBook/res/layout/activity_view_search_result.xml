@@ -45,6 +45,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:onClick="GoToSearchResults"
         android:text="@string/go_back_to_search_results"
         android:textSize="18sp" />
 
@@ -57,9 +58,11 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
+        android:onClick="DownloadRecipe"
         android:text="@string/download_recipe"
-        android:textSize="18sp" />
-
+  		android:textSize="18sp" />
+
+
     <Button
         android:id="@+id/button2"
         style="@style/BlueButton"
@@ -69,6 +72,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:text="@string/view_photos"
+         android:onClick="ViewPhotos"
         android:textSize="18sp" />
 
     <ListView
@@ -88,6 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/button2"
         android:layout_alignBottom="@+id/button2"
+        android:onClick="AddPhotos"
         android:text="@string/add_photos"
         android:textSize="18sp" />
 

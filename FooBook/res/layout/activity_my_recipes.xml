@@ -40,14 +40,17 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
         android:text="@string/my_recipes"
+        android:onClick="GoToAddRecipe"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ListView
         android:id="@+id/mylist"
         android:layout_width="match_parent"
         android:layout_height="355dp"
+        android:layout_above="@+id/add_recipe_button"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1" >
+
     </ListView>
 
 </RelativeLayout>

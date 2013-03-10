@@ -23,7 +23,7 @@
         android:layout_above="@+id/menu_button"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="31dp"
-        android:onClick="GoToAddRecipe"
+        android:onClick="Search"
         android:text="@string/search"
         android:textSize="45sp" />
 

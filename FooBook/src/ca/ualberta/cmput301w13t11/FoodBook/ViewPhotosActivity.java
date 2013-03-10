@@ -2,7 +2,9 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class ViewPhotosActivity extends Activity
 {
@@ -24,4 +26,10 @@ public class ViewPhotosActivity extends Activity
 		return true;
 	}
 
+	/** Called when the user clicks the Back button */
+	public void GoToMainMenu(View view) {
+		Intent intent = new Intent(this, MainScreen.class);
+		startActivity(intent);
+	}
+	
 }
