@@ -3,6 +3,11 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import java.util.ArrayList;
+
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FModel;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 
 public class MyRecipes extends Activity
 {
@@ -13,6 +18,8 @@ public class MyRecipes extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_recipes);
+		// Mark: somewhere here you need to call updateContent to get data
+		updateContent();
 	}
 
 	@Override
@@ -24,11 +31,17 @@ public class MyRecipes extends Activity
 		return true;
 	}
 	
-	/* Mark: every view must implement the 'update' method
-	 * right now this isn't very MVC, but it might have to do for now
-	 */
+	// Mark: every view must implement the 'update' method
 	public void update(FModel model) {
-		ArrayList<Recipe> recipes = model.getUserRecipes();
+		updateContent();
+	}
+	
+	public void updateContent() {
+		DbController controller = RecipeApplication.getDbController();
+		ArrayList<Recipe> recipes = controller.getUserRecipes();
+		/* now you guys have to figure out how to put this array of
+		 * recipes into the UI
+		 */
 	}
 
 }

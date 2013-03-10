@@ -1,8 +1,10 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DbManager<V extends FView> extends FModel<V> {
@@ -16,8 +18,8 @@ public class DbManager<V extends FView> extends FModel<V> {
     private String createRecipeIngredientTable = "CREATE TABLE RecipeIngredients (recipeURI text, name text, unit text, quantity text)";
 
     // SQL queries
-    private String getUserRecipes = "FROM UserRecipes SELECT *";
-    private String getUserIngredients = "FROM UserIngredients SELECT *";
+    private String getUserRecipesSQL = "FROM UserRecipes SELECT *";
+    private String getUserIngredientsSQL = "FROM UserIngredients SELECT *";
     
     // for the controllers
     public void save() {
@@ -26,8 +28,18 @@ public class DbManager<V extends FView> extends FModel<V> {
     public void load() {
       
     }
+    
+    public ArrayList<Recipe> getUserRecipes() {
+    	Cursor cursor = db.rawQuery(getUserRecipesSQL, null);
+    	return CursorToRecipes(cursor);
+    }
 
-    public void insert(Recipe recipe) {
+    private ArrayList<Recipe> CursorToRecipes(Cursor cursor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void insert(Recipe recipe) {
       ContentValues values = RecipeToMap(recipe);
       db.insert("UserRecipes", null, values);
       for (Ingredient ingred : recipe.getIngredients()) {
