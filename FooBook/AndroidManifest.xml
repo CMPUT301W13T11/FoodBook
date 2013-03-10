@@ -67,8 +67,12 @@
             android:label="@string/title_activity_edit_photos" >
         </activity>
         <activity
-            android:name=".TakePhotosActivity"
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.TakePhotosActivity"
             android:label="@string/title_activity_take_photos" >
+        </activity>
+        <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.EditIngredientActivity"
+            android:label="@string/title_activity_edit_ingredient" >
         </activity>
     </application>
 
