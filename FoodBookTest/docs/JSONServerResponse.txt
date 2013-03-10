@@ -1,0 +1,1 @@
+{"took":5,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1,"max_score":1.5397208,"hits":[{"_index":"testing","_type":"cmput301w13t11","_id":"test","_score":1.5397208, "_source" : {"author":{"name":"tester"},"title":"test","instructions":"","ingredients":[],"photos":[],"uri":0}}]}}

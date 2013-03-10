@@ -33,7 +33,7 @@ public class ServerClient {
 	static private String test_server_string = "http://cmput301.softwareprocess.es:8080/testing/cmput301w13t11/";
 	private HttpClient httpclient = this.getThreadSafeClient();
 	private ClientHelper helper = new ClientHelper();
-	private static enum ReturnCode
+	public static enum ReturnCode
 	{
 		SUCCESS, NO_RESULTS, ERROR;
 	}
@@ -142,7 +142,7 @@ public class ServerClient {
 		ArrayList<Recipe> search_results = null;
 		HttpResponse response = null;
 		try {
-			HttpGet search_request = new HttpGet(test_server_string+"_search&q=" + 
+			HttpGet search_request = new HttpGet(test_server_string+"_search?q=" + 
 												java.net.URLEncoder.encode(str, "UTF-8"));
 			search_request.setHeader("Accept", "application/json");
 
