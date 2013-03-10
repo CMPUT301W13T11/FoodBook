@@ -5,7 +5,7 @@
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     
-     <color name="custom_theme_color">#ff1111</color>
+     <color name="custom_theme_color">#ffffff</color>
      <color name="grey">#fafafa</color>
      <color name="search_b">#808080</color>
      

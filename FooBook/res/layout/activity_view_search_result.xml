@@ -59,16 +59,16 @@
         android:layout_marginBottom="5dp"
         android:text="@string/download_recipe"
         android:textSize="18sp" />
-
+
     <Button
         android:id="@+id/button2"
         style="@style/BlueButton"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button3"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:text="@string/view_photos"
+        android:layout_marginBottom="5dp"
+        android:text="@string/add_photos"
         android:textSize="18sp" />
 
     <ListView
@@ -80,15 +80,15 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textView3" >
     </ListView>
-
+
     <Button
         android:id="@+id/button5"
         style="@style/BlueButton"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/button2"
         android:layout_alignBottom="@+id/button2"
-        android:text="@string/add_photos"
+        android:text="@string/view_photos"
         android:textSize="18sp" />
 
     <TextView
@@ -108,6 +108,6 @@
         android:layout_alignParentRight="true"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:lines="5" />
+        android:lines="5" ></EditText>i
 
 </RelativeLayout>

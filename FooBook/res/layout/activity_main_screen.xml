@@ -40,7 +40,7 @@
         android:onClick="GoToMyIngredients"
         android:text="@string/my_ingredients"
         android:textSize="20sp" />
-
+
     <Button
         android:id="@+id/my_recipes_button"
         style="@style/BlueButton"
@@ -50,6 +50,7 @@
         android:layout_alignBottom="@+id/button1"
         android:layout_alignParentRight="true"
         android:layout_marginRight="17dp"
+        android:layout_toRightOf="@+id/button1"
         android:onClick="GoToMyRecipes"
         android:text="@string/my_recipes"
         android:textSize="20sp" />

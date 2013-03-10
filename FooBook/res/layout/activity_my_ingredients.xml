@@ -15,7 +15,7 @@
         android:layout_marginTop="22dp"
         android:text="@string/my_ingredients"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <ListView
         android:id="@+id/mylist"
         android:layout_width="match_parent"
@@ -25,29 +25,6 @@
         android:layout_below="@+id/textView1" >
 
     </ListView>
-
-    <Button
-        android:id="@+id/Button02"
-        style="@style/BlueButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Button01"
-        android:layout_toRightOf="@+id/Button01"
-        android:onClick="GoToAddRecipe"
-        android:text="@string/modify"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/Button01"
-        style="@style/GreenButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/removeButton"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_marginBottom="16dp"
-        android:onClick="GoToAddRecipe"
-        android:text="@string/add_ingredient"
-        android:textSize="20sp" />
 
     <Button
         android:id="@+id/menu_button"
@@ -60,7 +37,7 @@
         android:onClick="GoToMainMenu"
         android:text="@string/main_menu"
         android:textSize="20sp" />
-
+
     <Button
         android:id="@+id/removeButton"
         style="@style/BlueButton"
@@ -68,9 +45,36 @@
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/menu_button"
         android:layout_alignBottom="@+id/menu_button"
+        android:layout_marginLeft="5dp"
         android:layout_toLeftOf="@+id/Button01"
         android:onClick="GoToAddRecipe"
         android:text="@string/remove"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/Button01"
+        style="@style/GreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/menu_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:onClick="GoToAddRecipe"
+        android:text="@string/add_ingredient"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/Button02"
+        style="@style/BlueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/menu_button"
+        android:layout_alignBottom="@+id/menu_button"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@+id/Button01"
+        android:onClick="GoToAddRecipe"
+        android:text="@string/modify"
         android:textSize="20sp" />
 
 </RelativeLayout>

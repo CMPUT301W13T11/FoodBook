@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     tools:context=".MyRecipes" >
-
+
     <Button
         android:id="@+id/add_recipe_button"
         style="@style/GreenButton"
@@ -18,7 +18,7 @@
         android:onClick="GoToAddRecipe"
         android:text="@string/add_new_recipe"
         android:textSize="20sp" />
-
+
     <Button
         android:id="@+id/menu_button"
         style="@style/OrangeButton"
@@ -28,6 +28,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="18dp"
+        android:layout_toLeftOf="@+id/add_recipe_button"
         android:onClick="GoToMainMenu"
         android:text="@string/main_menu"
         android:textSize="20sp" />
