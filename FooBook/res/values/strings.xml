@@ -1,8 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">FoodBook</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">MainActivity</string>
-
-</resources>
+    <string name="food_book">FoodBook</string>
+    <string name="title_activity_my_recipes">MyRecipes</string>
+    <string name="search">Search</string>
+    <string name="my_ingredients">My Ingredients</string>
+    <string name="my_recipes">My Recipes</string>
+    <string name="title_activity_my_ingredients">MyIngredients</string>
+    <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_add_recipes">AddRecipesActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_edit_recipe">EditRecipeActivity</string>
+    <string name="title_activity_view_search_result">ViewSearchResultActivity</string>
+    <string name="title_activity_view_recipe">ViewRecipeActivity</string>
+    <string name="title_activity_search_results">SearchResultsActivity</string>
+    <string name="title_activity_view_photos">ViewPhotosActivity</string>
+    <string name="title_activity_edit">Edit</string>
+    <string name="title_activity_edit_photos">EditPhotos</string>
+    <string name="title_activity_take_photos">TakePhotosActivity</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="add_new_recipe">Add new recipe</string>
+    <string name="title_activity_edit_ingredients">EditIngredients</string>
+    <string name="modify">Modify</string>
+    <string name="remove">Remove</string>
+    <string name="add_ingredient">Add ingredient</string>
+    <string name="edit_ingredients">Edit Ingredients</string>
+    <string name="search_again">Search Again</string>
+    <string name="search_results">Search Results</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="save_photo">Save photo</string>
+    <string name="go_back">Go back</string>
+    <string name="capture">CAPTURE</string>
+    <string name="gallery">Gallery</string>
+    <string name="delete_photo">Delete Photo</string>
+    <string name="save_changes">Save Changes</string>
+	<string name="add_recipe">Add Recipe</string>
+	<string name="recipe_name">Recipe Name</string>
+	<string name="ingredients">Ingredients</string>
+	<string name="go_back_to_my_recipes">Go back to my recipes</string>
+    <string name="instructions">Instructions</string>
+	<string name="edit_photos">Edit Photos</string>
+	<string name="publish_recipe">Publish Recipe</string>
+	<string name="edit_recipe">Edit Recipe</string>
+	<string name="email_recipe">Email Recipe</string>
+	<string name="recipe">Recipe</string>
+	<string name="delete_recipe">Delete Recipe</string>
+	<string name="photos">Photos</string>
+	<string name="download_recipe">Download Recipe</string>
+	<string name="go_back_to_search_results">Go Back to Search Results</string>
+	<string name="view_photos">View Photos</string>
+	<string name="add_photos">Add Photos</string>
+    
+ </resources>

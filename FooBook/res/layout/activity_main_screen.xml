@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppBaseTheme"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainScreen" 
+    android:background="@color/grey">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button3"
+        android:layout_alignRight="@+id/button3"
+        android:layout_centerVertical="true"
+        android:src="@drawable/foodbook_title1" />
+
+    <Button
+        android:id="@+id/button3"
+        style="@style/GreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/button1"
+        android:layout_alignRight="@+id/my_recipes_button"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginTop="43dp"
+        android:fitsSystemWindows="false"
+        android:text="@string/search"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/button1"
+        style="@style/BlueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/button3"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="29dp"
+        android:onClick="GoToMyIngredients"
+        android:text="@string/my_ingredients"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/my_recipes_button"
+        style="@style/BlueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="17dp"
+        android:onClick="GoToMyRecipes"
+        android:text="@string/my_recipes"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/imageView1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/possible_logo" />
+
+</RelativeLayout>
