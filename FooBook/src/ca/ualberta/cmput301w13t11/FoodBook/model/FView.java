@@ -5,5 +5,5 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
 public interface FView<M extends FModel> {
 
   public void update(M model);  
-
+  //useless comment
 }
