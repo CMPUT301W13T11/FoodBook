@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-/*
-import java.util.ArrayList;
+
+/*import java.util.ArrayList;
 
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FModel;
@@ -14,15 +14,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 */
 public class MyRecipes extends Activity
 {
-	
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_recipes);
-    }
-
-
-	/*@Override
+	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 

@@ -15,6 +15,7 @@ public class DbManager extends FModel<FView> {
 
 	// the 
     private SQLiteDatabase db;
+    private DbOpenHelper dbHelper;
     
     // singleton pattern implementation
     private static DbManager instance = null;
@@ -48,10 +49,14 @@ public class DbManager extends FModel<FView> {
      * Get instance of the singleton DbManager.
      * @return The instance of the class.
      */
-    public static DbManager getInstance()
-    {
-    	if (instance == null)
-    			instance = new DbManager();
+    public static DbManager getInstance() {
+    	if (instance == null) {
+    		// db instance doesn't exist, create new one
+    		instance = new DbManager();
+    		// check to see if sqlite database exists on local, create it if not
+    		db = openOrCreateDatabase(DbPath);
+    	}
+    			
     	return instance;
     }
     
