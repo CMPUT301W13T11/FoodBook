@@ -67,8 +67,8 @@ public class ServerClient {
 	public boolean hasConnection(String url)
 	{
 		try {
-			HttpPost httppost = new HttpPost(url);
-			HttpResponse response = httpclient.execute(httppost);
+			HttpGet httpGet = new HttpGet(url);
+			HttpResponse response = httpclient.execute(httpGet);
 			int ret = response.getStatusLine().getStatusCode();
 			logger.log(Level.INFO, "Connection test return status: ");
 			if (ret == HttpStatus.SC_OK) {

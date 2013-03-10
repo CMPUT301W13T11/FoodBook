@@ -17,11 +17,13 @@ public class Recipe {
 	private ArrayList<Photo> photos;
 	
 	
-	/* Constructor
+	/**
+	 * Constructor
 	 * this is the one used when a row gets pulled from
 	 * a recipe table and turned into a recipe object
 	 */
 	public Recipe(long uri, User author, String title, String instructions, ArrayList<Ingredient> ingreds) {
+		this.uri = uri;
 		this.setAuthor(author);
 		this.title = title;
 		this.setInstructions(instructions);
@@ -32,6 +34,7 @@ public class Recipe {
 	/**
 	 * Constructor.
 	 * @param title The title of the recipe.
+	 * @param author The author of the recipe.
 	 */
 	public Recipe(User author, String title)
 	{
@@ -134,18 +137,26 @@ public class Recipe {
 		photos.add(photo);
 	}
 	
+	/**
+	 * Delete the given photo from this recipe's photos attribute (if it exists).
+	 * @param Photo the Photo to be removed from the photos list.
+	 */
 	public void deletePhoto(Photo photo)
 	{
 		for(Photo p : photos) {
-			if (p.getName() == photo.getName())
+			if (p.getName().equals(photo.getName()))
 			{
 				photos.remove(p);
 			}
 		}
 	}
 
+	/**
+	 * Get the recipe's URI.
+	 * @return URI
+	 */
 	public long getUri() {
-		return 0;
+		return uri;
 	}
 
 }

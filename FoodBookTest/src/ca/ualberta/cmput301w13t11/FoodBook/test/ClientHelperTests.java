@@ -85,8 +85,8 @@ public class ClientHelperTests extends TestCase {
 	
 	@Test
 	/*
-	 * Pass valid server response to toRecipeList() and make sure it returns the known\
-	 * contents of the response.
+	 * Pass valid server response to toRecipeList() and make sure it returns the known
+	 * contents of the response in a Recipe.
 	 */
 	public void testToRecipePass()
 	{
@@ -112,10 +112,9 @@ public class ClientHelperTests extends TestCase {
 		
 
 		for (Recipe r: result) {
-			System.err.println(r.getTitle());
 			assertTrue("Title failed.", r.getTitle().equals("test"));
+			assertTrue("User name failed.", r.getAuthor().getName().equals("tester"));
 			assertTrue("Uri failed.", r.getUri() == 0);
-			System.err.println(r.getAuthor().getName());
 		}
 		assertTrue(!(result.isEmpty()));
 	}
