@@ -51,48 +51,53 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/goback_myrecipes"
         style="@style/OrangeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:onClick="OnGobacktoMyRecipes"
         android:text="@string/go_back_to_my_recipes"
         android:textSize="18sp" />
+    	
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/save_changes"
         style="@style/GreenButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button4"
+        android:layout_above="@+id/goback_myrecipes"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
+        android:onClick="SaveChanges"
         android:text="@string/save_changes"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/edit_photos"
         style="@style/BlueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button3"
+        android:layout_above="@+id/save_changes"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
-        android:layout_toRightOf="@+id/button1"
+        android:layout_toRightOf="@+id/edit_ingredients"
+        android:onClick="EditPhotos"
         android:text="@string/edit_photos"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/edit_ingredients"
         style="@style/BlueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button3"
+        android:layout_above="@+id/save_changes"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="5dp"
+        android:onClick="EditIngredients"
         android:text="@string/edit_ingredients"
         android:textSize="18sp" />
 
@@ -109,7 +114,7 @@
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
+        android:layout_above="@+id/edit_ingredients"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:ems="10"
@@ -124,7 +129,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textView3" >
-
     </ListView>
 
 </RelativeLayout>

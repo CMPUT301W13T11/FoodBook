@@ -41,7 +41,7 @@
 	<string name="add_recipe">Add Recipe</string>
 	<string name="recipe_name">Recipe Name</string>
 	<string name="ingredients">Ingredients</string>
-	<string name="go_back_to_my_recipes">Go back to my recipes</string>
+	<string name="go_back_to_my_recipes">Go back to My Recipes</string>
     <string name="instructions">Instructions</string>
 	<string name="edit_photos">Edit Photos</string>
 	<string name="publish_recipe">Publish Recipe</string>

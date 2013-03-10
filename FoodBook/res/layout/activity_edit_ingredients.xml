@@ -16,11 +16,12 @@
         android:text="@string/edit_ingredients"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+
     <ListView
         android:id="@+id/mylist"
         android:layout_width="match_parent"
         android:layout_height="355dp"
-        android:layout_above="@+id/Button01"
+        android:layout_above="@+id/add_ingredient"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1" >
 
@@ -34,42 +35,56 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="28dp"
-        android:onClick="GoToMainMenu"
+        android:onClick="OnGotoMainMenu"
         android:text="@string/main_menu"
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/Button01"
-        style="@style/GreenButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/menu_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:onClick="GoToAddRecipe"
-        android:text="@string/add_ingredient"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/removeButton"
-        style="@style/BlueButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Button01"
-        android:layout_toLeftOf="@+id/Button01"
-        android:onClick="GoToAddRecipe"
-        android:text="@string/remove"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/Button02"
+        android:id="@+id/remove_ingredient"
         style="@style/BlueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/menu_button"
         android:layout_alignBottom="@+id/menu_button"
-        android:layout_toRightOf="@+id/Button01"
-        android:onClick="GoToAddRecipe"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/menu_button"
+        android:onClick="OnGotoRemoveIngredient"
+        android:text="@string/remove"
+        android:textSize="20sp" />
+
+
+    <Button
+        android:id="@+id/add_ingredient"
+        style="@style/GreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/menu_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:onClick="OnAddIngredient"
+        android:text="@string/add_ingredient"
+        android:textSize="20sp" />
+
+
+
+
+
+
+
+    <Button
+        android:id="@+id/modify_ingredient"
+        style="@style/BlueButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/menu_button"
+        android:layout_alignBottom="@+id/menu_button"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_toRightOf="@+id/menu_button"
+        android:onClick="OnModifyIngredient"
         android:text="@string/modify"
         android:textSize="20sp" />
 

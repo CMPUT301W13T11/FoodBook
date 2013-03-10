@@ -38,48 +38,51 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/go_back"
         style="@style/OrangeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:text="@string/go_back_to_my_recipes"
+        android:layout_alignRight="@+id/edit_photos"
+        android:onClick="OnGotoMyRecipes"
+        android:text="@string/go_back"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/publish_recipe"
         style="@style/GreenButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button4"
-        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/email_recipe"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="5dp"
+        android:onClick="OnPublishRecipe"
         android:text="@string/publish_recipe"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/edit_photos"
         style="@style/BlueButton"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button3"
+        android:layout_above="@+id/publish_recipe"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
+        android:onClick="OnEditPhotos"
         android:text="@string/edit_photos"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/edit_recipe"
         style="@style/BlueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
+        android:layout_above="@+id/edit_photos"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
+        android:onClick="OnEditRecipe"
         android:text="@string/edit_recipe"
         android:textSize="18sp" />
 
@@ -95,13 +98,14 @@
     </ListView>
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/email_recipe"
         style="@style/BlueButton"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
+        android:layout_alignBaseline="@+id/edit_photos"
+        android:layout_alignBottom="@+id/edit_photos"
         android:layout_alignParentRight="true"
+        android:onClick="OnEmailRecipe"
         android:text="@string/email_recipe"
         android:textSize="18sp" />
 
@@ -117,9 +121,9 @@
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignRight="@+id/button1"
+        android:layout_above="@+id/edit_recipe"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:ems="10"
         android:inputType="textMultiLine"
         android:lines="5" />

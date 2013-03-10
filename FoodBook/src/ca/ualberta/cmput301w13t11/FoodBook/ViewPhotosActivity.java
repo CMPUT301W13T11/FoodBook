@@ -1,8 +1,9 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 
 public class ViewPhotosActivity extends Activity
 {
@@ -23,5 +24,12 @@ public class ViewPhotosActivity extends Activity
 		getMenuInflater().inflate(R.menu.view_photos, menu);
 		return true;
 	}
+	
+	public void OnGobacktoPrevScreen(View View)
+    {
+		// responds to button Go Back
+		// not sure if this is enough -Pablo 
+		 ViewPhotosActivity.this.finish();
+    }
 
 }

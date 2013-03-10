@@ -22,18 +22,18 @@ public class MainScreen extends Activity {
     }
     
     /** Called when the user clicks the My Recipes button */
-	public void GoToMyRecipes(View view) {
+	public void OnMyRecipes(View view) {
 		Intent intent = new Intent(this, MyRecipes.class);
 		startActivity(intent);
 	}
 	
 	/** Called when the user clicks the My Ingredients button */
-	public void GoToMyIngredients(View view) {
+	public void OnMyIngredients(View view) {
 		Intent intent = new Intent(this, MyIngredients.class);
 		startActivity(intent);
 	}
 	/** Called when the user clicks the Search button */
-	public void GoToSearch(View view) {
+	public void OnSearch(View view) {
 		Intent intent = new Intent(this, SearchActivity.class);
 		startActivity(intent);
 	}

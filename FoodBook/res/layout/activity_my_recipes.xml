@@ -5,31 +5,32 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     tools:context=".MyRecipes" >
-
+
     <Button
         android:id="@+id/add_recipe_button"
         style="@style/GreenButton"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/menu_button"
         android:layout_alignBottom="@+id/menu_button"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="17dp"
-        android:onClick="GoToAddRecipe"
-        android:text="@string/add_new_recipe"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="18dp"
+        android:onClick="OnAddRecipe"
+        android:text="@string/add_recipe"
         android:textSize="20sp" />
-
+
     <Button
         android:id="@+id/menu_button"
         style="@style/OrangeButton"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="18dp"
-        android:layout_toLeftOf="@+id/add_recipe_button"
-        android:onClick="GoToMainMenu"
+        android:onClick="OnGotoMainMenu"
         android:text="@string/main_menu"
         android:textSize="20sp" />
 

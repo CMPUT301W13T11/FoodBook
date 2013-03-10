@@ -2,7 +2,9 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 public class ViewSearchResultActivity extends Activity
 {
@@ -23,5 +25,31 @@ public class ViewSearchResultActivity extends Activity
 		getMenuInflater().inflate(R.menu.view_search_result, menu);
 		return true;
 	}
+	
+	public void OnGobacktoSearchResults(View View)
+    {
+		// responds to button Go Back to Search Results
+		 Intent intent = new Intent(View.getContext(), SearchResultsActivity.class);
+		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		 ViewSearchResultActivity.this.finish();
+    }
+	
+	public void OnViewPhotos (View View)
+    {
+		// responds to button View Photos
+    	Intent intent = new Intent(this, EditIngredients.class);
+		startActivity(intent);
+    }
+	public void OnAddPhotos (View View)
+    {
+		// responds to button Add Photos
+    	Intent intent = new Intent(this, EditPhotos.class);
+		startActivity(intent);
+    }
+	public void OnDownloadRecipe (View View)
+    {
+		// responds to button Download Recipe
+    	
+    }
 
 }
