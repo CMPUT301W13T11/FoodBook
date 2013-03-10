@@ -37,6 +37,7 @@ public class RecipeApplication extends Application {
 	    return dbController;
 	  }
 
+	  /*
 	  // Singleton Client Controller
 	  transient private static ClientController clientController = null;
 
@@ -46,7 +47,7 @@ public class RecipeApplication extends Application {
 	    }
 	    return clientController;
 	  }
-
+	   */
 	  @Override
 	  public void onCreate() {
 	    super.onCreate();
