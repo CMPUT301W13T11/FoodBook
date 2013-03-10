@@ -11,6 +11,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.entity.StringEntity;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 /**
@@ -72,7 +73,12 @@ public class ClientHelper {
 		}
 		
 		Type serverSearchResponseType = new TypeToken<ServerSearchResponse<ServerRecipe>>(){}.getType();
-		search_response = gson.fromJson(json, serverSearchResponseType);
+		try {
+			search_response = gson.fromJson(json, serverSearchResponseType);
+		} catch (JsonSyntaxException jse) {
+			return search_results;
+		}
+		
 		
 		for (ServerResponse<ServerRecipe> sr : search_response.getHits())
 		{
@@ -80,6 +86,7 @@ public class ClientHelper {
 			search_results.add(ServerRecipe.toRecipe(server_recipe));
 		}
 		return search_results;
+		
 	}
 
 }
