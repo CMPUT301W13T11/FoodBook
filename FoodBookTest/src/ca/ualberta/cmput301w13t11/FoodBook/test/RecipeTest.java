@@ -18,7 +18,10 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.User;
  */
 public class RecipeTest extends TestCase {
 
-	
+	/**
+	 * Generates a simple recipe to be used in the tests.
+	 * @return A recipe to be used in the tests.
+	 */
 	private Recipe generateRecipe()
 	{
 		User user = new User("tester");
@@ -41,7 +44,7 @@ public class RecipeTest extends TestCase {
 		byte[] byte_data2 = new byte[10];
 
 		Photo photo1 = new Photo(name1, byte_data1);
-		Photo photo2 = new Photo(name1, byte_data2);
+		Photo photo2 = new Photo(name2, byte_data2);
 		ArrayList<Photo> photos = new ArrayList<Photo>();
 		photos.add(photo1);
 		photos.add(photo2);

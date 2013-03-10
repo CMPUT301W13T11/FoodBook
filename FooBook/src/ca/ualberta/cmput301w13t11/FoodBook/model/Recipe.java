@@ -167,6 +167,43 @@ public class Recipe {
 	}
 
 	/**
+	 * Generates a simple recipe to be used in the tests.
+	 * @return A recipe to be used in the tests.
+	 */
+	static public Recipe generateTestRecipe()
+	{
+		User user = new User("tester");
+		String title = "test";
+		String instructions = "test instructions";
+		long uri = 110101012;
+		
+		/* Generate ingredient list. */
+		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		ingredients.add(new Ingredient("egg", "whole", (float) 1/2));
+		ingredients.add(new Ingredient("butter", "tbsp", (float) 4));
+		ingredients.add(new Ingredient("sdf", "sdf", (float) 1/4));
+		ingredients.add(new Ingredient("milk", "mL", (float) 5000));
+		ingredients.add(new Ingredient("veal", "the whole baby cow", (float) 1));
+		
+		/* Generate photos */
+		String name1 = "test1";
+		String name2 = "test2";
+		byte[] byte_data1 = new byte[10];
+		byte[] byte_data2 = new byte[10];
+
+		Photo photo1 = new Photo(name1, byte_data1);
+		Photo photo2 = new Photo(name2, byte_data2);
+		ArrayList<Photo> photos = new ArrayList<Photo>();
+		photos.add(photo1);
+		photos.add(photo2);
+
+		/* Generate recipe. */
+		Recipe ret = new Recipe(uri, user, title, instructions, ingredients, photos);
+		return ret;
+
+	}
+	
+	/**
 	 * Get the recipe's URI.
 	 * @return URI
 	 */
