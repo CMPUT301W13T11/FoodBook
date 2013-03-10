@@ -24,6 +24,7 @@
         android:layout_alignRight="@+id/my_recipes_button"
         android:layout_below="@+id/imageView1"
         android:layout_marginTop="43dp"
+        android:onClick="GoToSearch"
         android:fitsSystemWindows="false"
         android:text="@string/search"
         android:textSize="30sp" />

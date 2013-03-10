@@ -25,7 +25,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="23dp"
         android:layout_marginLeft="37dp"
-        android:onClick="GoToMainMenu"
+        android:onClick="GoToEditRecipes"
         android:text="@string/go_back"
         android:textSize="20sp" />
 
@@ -38,7 +38,7 @@
         android:layout_alignBottom="@+id/menu_button"
         android:layout_alignParentRight="true"
         android:layout_marginRight="42dp"
-        android:onClick="GoToAddRecipe"
+        android:onClick="DeletePhoto"
         android:text="@string/delete_photo"
         android:textSize="20sp" />
 
@@ -50,7 +50,7 @@
         android:layout_above="@+id/menu_button"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="19dp"
-        android:onClick="GoToAddRecipe"
+        android:onClick="TakePhoto"
         android:text="@string/take_photo"
         android:textSize="20sp" />
 

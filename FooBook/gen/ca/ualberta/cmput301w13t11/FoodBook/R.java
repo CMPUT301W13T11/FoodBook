@@ -22,6 +22,10 @@ public final class R {
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
+
+         Customize dimensions originally defined in res/values/dimens.xml (such as
+         screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
+    
          */
         public static final int activity_horizontal_margin=0x7f040000;
         public static final int activity_vertical_margin=0x7f040001;
@@ -66,7 +70,7 @@ public final class R {
     }
     public static final class layout {
         public static final int activity_add_recipes=0x7f030000;
-        public static final int activity_edit_ingredients=0x7f030001;
+        public static final int activity_edit_ingredient=0x7f030001;
         public static final int activity_edit_photos=0x7f030002;
         public static final int activity_edit_recipe=0x7f030003;
         public static final int activity_main_screen=0x7f030004;
@@ -86,14 +90,15 @@ public final class R {
         public static final int activity_search=0x7f080003;
         public static final int add_recipes=0x7f080004;
         public static final int edit=0x7f080005;
-        public static final int edit_ingredients=0x7f080006;
-        public static final int edit_photos=0x7f080007;
-        public static final int edit_recipe=0x7f080008;
-        public static final int search_results=0x7f080009;
-        public static final int take_photos=0x7f08000a;
-        public static final int view_photos=0x7f08000b;
-        public static final int view_recipe=0x7f08000c;
-        public static final int view_search_result=0x7f08000d;
+        public static final int edit_ingredient=0x7f080006;
+        public static final int edit_ingredients=0x7f080007;
+        public static final int edit_photos=0x7f080008;
+        public static final int edit_recipe=0x7f080009;
+        public static final int search_results=0x7f08000a;
+        public static final int take_photos=0x7f08000b;
+        public static final int view_photos=0x7f08000c;
+        public static final int view_recipe=0x7f08000d;
+        public static final int view_search_result=0x7f08000e;
     }
     public static final class string {
         public static final int action_settings=0x7f05000c;
@@ -136,6 +141,7 @@ public final class R {
         public static final int take_photo=0x7f05001e;
         public static final int title_activity_add_recipes=0x7f05000b;
         public static final int title_activity_edit=0x7f050012;
+        public static final int title_activity_edit_ingredient=0x7f050035;
         public static final int title_activity_edit_ingredients=0x7f050017;
         public static final int title_activity_edit_photos=0x7f050013;
         public static final int title_activity_edit_recipe=0x7f05000d;

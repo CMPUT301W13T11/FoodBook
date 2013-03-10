@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class EditPhotos extends Activity
+public class EditIngredientActivity extends Activity
 {
 
 	@Override
@@ -14,7 +14,7 @@ public class EditPhotos extends Activity
 	{
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_edit_photos);
+		setContentView(R.layout.activity_edit_ingredient);
 	}
 
 	@Override
@@ -22,20 +22,24 @@ public class EditPhotos extends Activity
 	{
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.edit_photos, menu);
+		getMenuInflater().inflate(R.menu.edit_ingredient, menu);
 		return true;
 	}
 
-	/** Called when the user clicks the TakePhoto button */
-	public void TakePhoto(View view) {
 	
+	/** Called when the user clicks the Add Ingredient button */
+	public void AddIngredient(View view) {
 	}
+	
+	public void RemoveIngredient(View view) {
+	}
+	
 	/** Called when the user clicks the Back button */
-	public void GoToEditRecipes(View view) {
-		Intent intent = new Intent(this, EditRecipeActivity.class);
+	public void GoToMainMenu(View view) {
+		Intent intent = new Intent(this, MainScreen.class);
 		startActivity(intent);
 	}
-	/** Called when the user clicks the Delete Photo button */
-	public void DeletePhoto(View view) {
+	/** Called when the user clicks the Modify button */
+	public void Modify(View view) {
 	}
 }

@@ -2,7 +2,9 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.Menu;
+import android.view.View;
 
 /* Mark: for now, put all of the relevant data for
  * a recipe (author, title, instructions, ingredients)
@@ -29,5 +31,25 @@ public class AddRecipesActivity extends Activity
 		getMenuInflater().inflate(R.menu.add_recipes, menu);
 		return true;
 	}
-
+	
+	/** Called when the user clicks the Back to My Recipes button */
+		public void GoToMyRecipes(View view) {
+			Intent intent = new Intent(this, MyRecipes.class);
+			startActivity(intent);
+		}
+		
+		public void SaveRecipe(View view) {
+			GoToMyRecipes(view);
+		}
+		
+		/** Called when the user clicks the Edit Photos button */
+		public void GoToEditPhotos(View view) {
+			Intent intent = new Intent(this, EditPhotos.class);
+			startActivity(intent);
+		}
+		/** Called when the user clicks the Edit Ingredients button */
+		public void GoToEditIngredients(View view) {
+			Intent intent = new Intent(this, EditIngredientActivity.class);
+			startActivity(intent);
+		}
 }

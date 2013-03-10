@@ -58,6 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:onClick="GoToMyRecipes"
         android:text="@string/go_back_to_my_recipes"
         android:textSize="18sp" />
 
@@ -71,6 +72,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:text="@string/save_changes"
+        android:onClick="SaveRecipe"
         android:textSize="18sp" />
 
     <Button
@@ -83,6 +85,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:text="@string/delete_recipe"
+        android:onClick="DeleteRecipe"
         android:textSize="18sp" />
 
     <Button
@@ -93,6 +96,7 @@
         android:layout_above="@+id/button2"
         android:layout_alignParentLeft="true"
         android:layout_alignRight="@+id/textView2"
+        android:onClick="GoToEditPhotos"
         android:layout_marginBottom="10dp"
         android:text="@string/photos"
         android:textSize="18sp" />
@@ -136,6 +140,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/button1"
         android:text="@string/ingredients"
+        android:onClick="GoToEditIngredients"
         android:textSize="18sp" />
 
 </RelativeLayout>
