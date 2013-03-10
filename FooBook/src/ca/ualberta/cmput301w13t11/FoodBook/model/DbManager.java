@@ -6,11 +6,18 @@ import java.util.Collection;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+/**
+ * Singleton class that manages the application's database.
+ * @author Mark Tupala
+ *
+ */
+public class DbManager extends FModel<FView> {
 
-public class DbManager<V extends FView> extends FModel<V> {
-
-    private Collection<V> views;
+	// the 
     private SQLiteDatabase db;
+    
+    // singleton pattern implementation
+    private static DbManager instance = null;
     
     // create table SQL statements
     private String createRecipeTable = "CREATE TABLE UserRecipes (URI text, title text, author text, instructions text)";
@@ -27,6 +34,17 @@ public class DbManager<V extends FView> extends FModel<V> {
     
     public void load() {
       
+    }
+    
+    /**
+     * Get instance of the singleton DbManager.
+     * @return The instance of the class.
+     */
+    public static DbManager getInstance()
+    {
+    	if (instance == null)
+    			instance = new DbManager();
+    	return instance;
     }
     
     public ArrayList<Recipe> getUserRecipes() {
@@ -63,9 +81,12 @@ public class DbManager<V extends FView> extends FModel<V> {
         values.put("quantity", ingred.getQuantity());
         db.insert("RecipeIngredients", null, values);
     }
-   
-    // CONVERTING CURSORS TO OBJECTS
-    
+       
+    /**
+     * Given a cursor, convert it to an ArrayList of Recipes.
+     * @param cursor The cursor over which we will iterate to get recipes from.
+     * @return An ArrayList of Recipes.
+     */
     private ArrayList<Recipe> CursorToRecipes(Cursor cursor) {
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		while (!cursor.isAfterLast()) {
@@ -81,6 +102,11 @@ public class DbManager<V extends FView> extends FModel<V> {
 		return recipes;
     }
     
+    /**
+     * Gets all the Ingredients associated with the recipe identified by its URI.
+     * @param uri The URI of the recipe whose ingredients we are fetching.
+     * @return An ArrayList of the Ingredients associated with the recipe.
+     */
     private ArrayList<Ingredient> getRecipeIngredients(long uri) {
     	Cursor cursor = db.rawQuery("From RecipeIngredients Select * Where uri = " + uri, null);
     	ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
@@ -95,8 +121,11 @@ public class DbManager<V extends FView> extends FModel<V> {
     	return ingreds;
     }
     
-    // CONVERTING OBJECTS TO CONTENT VALUES
-    
+    /**
+     * Converts a Recipe to a ContentValues object to be stored in the database.
+     * @param recipe The recipe to be converted.
+     * @return An appropriately transformed copy of the Recipe for database storage.
+     */
     private ContentValues RecipeToMap(Recipe recipe) {
         ContentValues values = new ContentValues();
         values.put("uri", recipe.getUri());
@@ -106,6 +135,11 @@ public class DbManager<V extends FView> extends FModel<V> {
         return values;
     }
 
+    /**
+     * Converts an Ingredient object to a ContentValues object to be stored in the database.
+     * @param ingred The ingredient to be transformed.
+     * @return An appropriately transformed cop of the Ingredient for database storage.
+     */
     private ContentValues IngredientToMap(Ingredient ingred) {
         ContentValues values = new ContentValues();
         values.put("name", ingred.getName());
