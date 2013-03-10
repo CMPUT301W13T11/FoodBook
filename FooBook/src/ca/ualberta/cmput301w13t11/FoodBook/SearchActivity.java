@@ -29,6 +29,7 @@ public class SearchActivity extends Activity
 	public void GoToMainMenu(View view) {
 			Intent intent = new Intent(this, MainScreen.class);
 			startActivity(intent);
+			finish();
 	}
 	/** Called when the user clicks the Search Again button */
 	public void Search(View view) {
