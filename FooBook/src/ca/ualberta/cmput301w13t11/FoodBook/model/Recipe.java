@@ -1,7 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.ListIterator;
 
 /**
  * Class which models a recipe. (TODO: better description)
@@ -19,8 +19,8 @@ public class Recipe {
 	
 	/**
 	 * Constructor
-	 * this is the one used when a row gets pulled from
-	 * a recipe table and turned into a recipe object
+	 * Used when a the Recipes Db is queried and a row is returned to transform
+	 * the entry into a Recipe.
 	 */
 	public Recipe(long uri, User author, String title, String instructions, ArrayList<Ingredient> ingreds) {
 		this.uri = uri;
@@ -29,6 +29,20 @@ public class Recipe {
 		this.setInstructions(instructions);
 		this.ingredients = ingredients;
 		this.photos = new ArrayList<Photo>();	
+	}
+	
+	/**
+	 * Constructor
+	 * Used when the Recipes Db is queried and a row is returned to transfrom the entry into a recipe..
+	 */
+	public Recipe(long uri, User author, String title, String instructions, 
+			ArrayList<Ingredient> ingreds, ArrayList<Photo> photos) {
+		this.uri = uri;
+		this.setAuthor(author);
+		this.title = title;
+		this.setInstructions(instructions);
+		this.ingredients = ingredients;
+		this.photos = photos;	
 	}
 	
 	/**
@@ -143,7 +157,8 @@ public class Recipe {
 	 */
 	public void deletePhoto(Photo photo)
 	{
-		for(Photo p : photos) {
+		for(int i = 0; i < photos.size(); i++) {
+			Photo p = photos.get(i);
 			if (p.getName().equals(photo.getName()))
 			{
 				photos.remove(p);
