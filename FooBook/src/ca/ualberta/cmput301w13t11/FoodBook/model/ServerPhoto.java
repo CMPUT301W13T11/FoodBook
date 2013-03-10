@@ -2,6 +2,7 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import android.util.Base64;
 
+
 /**
  * Photo type to be used by Server Recipe -- its constructor makes an explicit conversion.
  * @author Marko
