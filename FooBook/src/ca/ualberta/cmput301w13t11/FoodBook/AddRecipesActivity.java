@@ -4,6 +4,12 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 
+/* Mark: for now, put all of the relevant data for
+ * a recipe (author, title, instructions, ingredients)
+ * into a ContentValues. I'll give you a Controller with
+ * the proper method to use soon
+ */
+
 public class AddRecipesActivity extends Activity
 {
 

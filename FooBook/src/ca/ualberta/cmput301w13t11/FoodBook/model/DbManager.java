@@ -35,8 +35,17 @@ public class DbManager<V extends FView> extends FModel<V> {
     }
 
     private ArrayList<Recipe> CursorToRecipes(Cursor cursor) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+		while (!cursor.isAfterLast()) {
+			long uri = cursor.getLong(0);
+			User author = new User(cursor.getString(1));
+			String title = cursor.getString(2);
+			String instructions = cursor.getString(3);
+			ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
+			Recipe recipe = new Recipe(uri, author, title, instructions, ingredients);
+			recipes.add(recipe);
+		}
+		return recipes;
 	}
 
 	public void insert(Recipe recipe) {
@@ -60,7 +69,7 @@ public class DbManager<V extends FView> extends FModel<V> {
       db.delete("UserIngredients", "name = " + ingred.getName(), null);
     }
 
-    private void insert(Ingredient ingred, String recipeURI) {
+    private void insert(Ingredient ingred, long recipeURI) {
         ContentValues values = new ContentValues();
         values.put("recipeURI", recipeURI);
         values.put("name", ingred.getName());

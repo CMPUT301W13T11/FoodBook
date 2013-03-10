@@ -9,14 +9,21 @@ import java.util.Collection;
  *
  */
 public class Recipe {
+	private long uri;
 	private User author;
 	private String title;
 	private String instructions;
 	private ArrayList<Ingredient> ingredients;
 	private ArrayList<Photo> photos;
-	private String uri;
 	
 	
+	/* Constructor
+	 * this is the one used when a row gets pulled from
+	 * a recipe table and turned into a recipe object
+	 */
+	public Recipe(long uri, User author, String title, String instructions, ArrayList<Ingredient> ingreds) {
+		
+	}
 	
 	/**
 	 * Constructor.
@@ -31,7 +38,7 @@ public class Recipe {
 		this.photos = new ArrayList<Photo>();
 		/* TODO: find a good hashing function in order to assign to each recipe a unique URI
 		* such that duplicates cannot be misinterpreted for one another on the server. */
-		this.uri = "";
+		this.uri = 0;
 	}
 	
 	/**
@@ -48,7 +55,7 @@ public class Recipe {
 		this.photos = new ArrayList<Photo>();
 		/* TODO: find a good hashing function in order to assign to each recipe a unique URI
 		* such that duplicates cannot be misinterpreted for one another on the server. */
-		this.uri = "";
+		this.uri = 0;
 		
 	}
 	
@@ -68,7 +75,7 @@ public class Recipe {
 
 		/* TODO: find a good hashing function in order to assign to each recipe a unique URI
 		* such that duplicates cannot be misinterpreted for one another on the server. */
-		this.uri = "";
+		this.uri = 0;
 	}
 	
 	public Recipe(User author, String title, String instructions, ArrayList<Ingredient> ingredients,
@@ -82,7 +89,7 @@ public class Recipe {
 
 		/* TODO: find a good hashing function in order to assign to each recipe a unique URI
 		* such that duplicates cannot be misinterpreted for one another on the server. */
-		this.uri = "";
+		this.uri = 0;
 	}
 
 	public String getTitle()
@@ -133,8 +140,8 @@ public class Recipe {
 		}
 	}
 
-	public String getUri() {
-		return uri;
+	public long getUri() {
+		return 0;
 	}
 
 }
