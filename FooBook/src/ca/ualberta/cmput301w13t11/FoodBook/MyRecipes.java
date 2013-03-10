@@ -23,5 +23,12 @@ public class MyRecipes extends Activity
 		getMenuInflater().inflate(R.menu.activity_my_recipes, menu);
 		return true;
 	}
+	
+	/* Mark: every view must implement the 'update' method
+	 * right now this isn't very MVC, but it might have to do for now
+	 */
+	public void update(FModel model) {
+		ArrayList<Recipe> recipes = model.getUserRecipes();
+	}
 
 }
