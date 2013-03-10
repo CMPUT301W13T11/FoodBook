@@ -17,7 +17,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 
 public class ClientHelperTests extends TestCase {
-ClientHelper helper = new ClientHelper();
+	ClientHelper helper = new ClientHelper();
 	
 	private class MockRecipe extends Recipe
 	{
@@ -41,7 +41,7 @@ ClientHelper helper = new ClientHelper();
 		ingredients.add(new Ingredient("egg", "whole", 1));
 		ingredients.add(new Ingredient("turd sandwich", "cup", (float).5));
 		/* Use BogoPicGen to generate a bitmap and add it to an array. */
-		Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
+		//Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
 		Photo photo = new Photo(bitmap);
 		ArrayList<Photo> photos = new ArrayList<Photo>();
 		photos.add(photo);
