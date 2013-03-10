@@ -22,7 +22,11 @@ public class Recipe {
 	 * a recipe table and turned into a recipe object
 	 */
 	public Recipe(long uri, User author, String title, String instructions, ArrayList<Ingredient> ingreds) {
-		
+		this.setAuthor(author);
+		this.title = title;
+		this.setInstructions(instructions);
+		this.ingredients = ingredients;
+		this.photos = new ArrayList<Photo>();	
 	}
 	
 	/**
