@@ -14,7 +14,7 @@ public class MyIngredients extends Activity
 	{
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_my_ingredients);
+		setContentView(R.layout.activity_my_recipes);
 	}
 
 	@Override
