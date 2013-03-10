@@ -10,13 +10,18 @@ import java.util.logging.Logger;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.fluent.Content;
+
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 /**
  * Communicates with the server to perform searches, upload recipes and upload photos to recipes.
  * Implements the singleton design pattern.
@@ -70,14 +75,12 @@ public class ServerClient {
 			int ret = response.getStatusLine().getStatusCode();
 			logger.log(Level.INFO, "Connection test return status: ");
 			if (ret == HttpStatus.SC_OK) {
-				httppost.releaseConnection();
 				return true;
 			}
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Exception occured when testing connection:" + e.getMessage());
 		}
 		/* Something above failed, so we return false. */
-		httppost.releaseConnection();
 
 		return false;
 	}
@@ -92,7 +95,6 @@ public class ServerClient {
 	 */
 	public void uploadRecipe(Recipe recipe) throws IllegalStateException, IOException
 	{
-		HttpEntity entity;
 		HttpResponse response = null;
 		HttpPost httpPost = new HttpPost(test_server_string+recipe.getTitle());
 		StringEntity se = null;
@@ -115,7 +117,7 @@ public class ServerClient {
 		
 		status = response.getEntity().toString();
 		logger.log(Level.INFO, "upload request server response: " + response);
-		httpPost.releaseConnection();
+		//httpPost.releaseConnection();
 
 	}
 	
@@ -147,7 +149,8 @@ public class ServerClient {
 			return ReturnCode.ERROR;
 		}
 		
-
+		HttpEntity entity = response.getEntity();
+		EntityUtils.consume(entity);
 		BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
 		String out, json = "";
 		
