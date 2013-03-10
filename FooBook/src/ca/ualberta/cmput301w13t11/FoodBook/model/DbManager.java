@@ -37,6 +37,14 @@ public class DbManager extends FModel<FView> {
     }
     
     /**
+     * Empty constructor.
+     */
+    public DbManager()
+    {
+    	
+    }
+    
+    /**
      * Get instance of the singleton DbManager.
      * @return The instance of the class.
      */

@@ -8,7 +8,7 @@
 
     <instrumentation
         android:name="android.test.InstrumentationTestRunner"
-        android:targetPackage="ca.ualberta.cmput301w13t11.FoodBook.model" />
+        android:targetPackage="ca.ualberta.cmput301w13t11.FoodBook" />
 
     <application
         android:icon="@drawable/ic_launcher"
