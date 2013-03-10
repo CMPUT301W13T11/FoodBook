@@ -34,21 +34,7 @@ public class DbManager<V extends FView> extends FModel<V> {
     	return CursorToRecipes(cursor);
     }
 
-    private ArrayList<Recipe> CursorToRecipes(Cursor cursor) {
-		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-		while (!cursor.isAfterLast()) {
-			long uri = cursor.getLong(0);
-			User author = new User(cursor.getString(1));
-			String title = cursor.getString(2);
-			String instructions = cursor.getString(3);
-			ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
-			Recipe recipe = new Recipe(uri, author, title, instructions, ingredients);
-			recipes.add(recipe);
-		}
-		return recipes;
-	}
-
-	public void insert(Recipe recipe) {
+    public void insert(Recipe recipe) {
       ContentValues values = RecipeToMap(recipe);
       db.insert("UserRecipes", null, values);
       for (Ingredient ingred : recipe.getIngredients()) {
@@ -78,6 +64,36 @@ public class DbManager<V extends FView> extends FModel<V> {
         db.insert("RecipeIngredients", null, values);
     }
    
+    // CONVERTING CURSORS TO OBJECTS
+    
+    private ArrayList<Recipe> CursorToRecipes(Cursor cursor) {
+		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+		while (!cursor.isAfterLast()) {
+			long uri = cursor.getLong(0);
+			User author = new User(cursor.getString(1));
+			String title = cursor.getString(2);
+			String instructions = cursor.getString(3);
+			ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
+			Recipe recipe = new Recipe(uri, author, title, instructions, ingredients);
+			recipes.add(recipe);
+			cursor.moveToNext();
+		}
+		return recipes;
+    }
+    
+    private ArrayList<Ingredient> getRecipeIngredients(long uri) {
+    	Cursor cursor = db.rawQuery("From RecipeIngredients Select * Where uri = " + uri, null);
+    	ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
+    	while (!cursor.isAfterLast()) {
+    		String name = cursor.getString(0);
+    		String units = cursor.getString(1);
+    		float quantity = cursor.getFloat(2);
+    		Ingredient ingred = new Ingredient(name, units, quantity);
+    		ingreds.add(ingred);
+    		cursor.moveToNext();
+    	}
+    	return ingreds;
+    }
     
     // CONVERTING OBJECTS TO CONTENT VALUES
     
