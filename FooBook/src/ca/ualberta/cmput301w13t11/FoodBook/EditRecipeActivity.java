@@ -1,15 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 
-import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
-import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
-import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
-import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
-import android.os.Bundle;
-=======
->>>>>>> branch 'master' of https://github.com/CMPUT301W13T11/FoodBook.git
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,16 +10,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-<<<<<<< HEAD
 import android.widget.EditText;
 import android.widget.TextView;
-=======
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
->>>>>>> branch 'master' of https://github.com/CMPUT301W13T11/FoodBook.git
+import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
+
 
 public class EditRecipeActivity extends Activity implements FView<DbManager>
 {
@@ -41,7 +33,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_recipe);
 		
-<<<<<<< HEAD
+//<<<<<<< HEAD
 		EditText recipeName = (EditText) findViewById(R.id.editText1);
 		EditText instructions = (EditText) findViewById(R.id.editText3);
 	
@@ -66,9 +58,9 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		
 		recipeName.setText(viewedRecipe.getTitle());
 		instructions.setText(viewedRecipe.getInstructions());
-=======
+//=======
 		
->>>>>>> branch 'master' of https://github.com/CMPUT301W13T11/FoodBook.git
+//>>>>>>> branch 'master' of https://github.com/CMPUT301W13T11/FoodBook.git
 	}
 		
 
@@ -107,7 +99,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
     }
 	public void OnDeleteRecipe (View View)
     {
-<<<<<<< HEAD
+//<<<<<<< HEAD
 		// responds to button Delete Recipe
 		
 		DbController DbC = DbController.getInstance(this, this);		
@@ -129,7 +121,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		Intent intentGo = new Intent(this, MyRecipes.class);
 		startActivity(intentGo);
     }
-=======
+/*=======
 		LinearLayout layout = new LinearLayout(this);
 		LayoutInflater inflater = LayoutInflater.from(this);
 		popUp = new PopupWindow(inflater.inflate(R.layout.popup, null, false),300,150, true);
@@ -145,7 +137,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		
 >>>>>>> branch 'master' of https://github.com/CMPUT301W13T11/FoodBook.git
 
-    }
+    }*/
 	@Override
 	public void update(DbManager db)
 	{
