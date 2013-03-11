@@ -48,7 +48,7 @@ public class ServerClient {
 	private ClientHelper helper = new ClientHelper();
 	public static enum ReturnCode
 	{
-		SUCCESS, NO_RESULTS, ERROR;
+		SUCCESS, ALREADY_EXISTS,NO_RESULTS, ERROR;
 	}
 	
 	/**
@@ -97,12 +97,11 @@ public class ServerClient {
 	
 	/**
 	 * Uploads the given recipe to the server.
-	 * TODO: should return error codes????
 	 * @param recipe The recipe to be uploaded.
 	 * @throws IllegalStateException
 	 * @throws IOException
 	 */
-	public void uploadRecipe(Recipe recipe) throws IllegalStateException, IOException
+	public ReturnCode uploadRecipe(Recipe recipe) throws IllegalStateException, IOException
 	{
 		HttpResponse response = null;
 		HttpPost httpPost = new HttpPost(test_server_string+recipe.getTitle());
@@ -119,15 +118,21 @@ public class ServerClient {
 		} catch (ClientProtocolException cpe) {
 			logger.log(Level.SEVERE, cpe.getMessage());
 			cpe.printStackTrace();
+			return ReturnCode.ERROR;
 		} catch (IOException ioe) {
 			logger.log(Level.SEVERE, ioe.getMessage());
 			ioe.printStackTrace();
+			return ReturnCode.ERROR;
 		}
 		
 		status = response.getEntity().toString();
+		int retcode = response.getStatusLine().getStatusCode();
 		logger.log(Level.INFO, "upload request server response: " + response);
-		//httpPost.releaseConnection();
 
+		if (retcode == HttpStatus.SC_CREATED)
+			return ReturnCode.SUCCESS;
+		else
+			return ReturnCode.ALREADY_EXISTS;
 	}
 	
 	/**
