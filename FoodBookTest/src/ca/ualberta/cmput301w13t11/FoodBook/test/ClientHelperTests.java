@@ -50,7 +50,7 @@ public class ClientHelperTests extends TestCase {
 	
 	@Test
 	/*
-	 * Give toRecipe a response with no JSON in i -- it should not be able to extract any information from it.
+	 * Give toRecipe a response with no JSON in it; the method should fail to extact any information.
 	 */
 	public void testToRecipeEmptyReturn()
 	{
@@ -78,7 +78,7 @@ public class ClientHelperTests extends TestCase {
 	 * Pass valid server response to toRecipeList() and make sure it returns the known
 	 * contents of the response in a Recipe.
 	 */
-	public void testToRecipePass()
+	public void testToRecipeListPass()
 	{
 		String out, json = "";
 
