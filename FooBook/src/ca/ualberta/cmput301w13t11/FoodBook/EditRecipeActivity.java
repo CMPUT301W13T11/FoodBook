@@ -20,7 +20,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		DbController DbC = DbController.getInstance(this);
+		DbController DbC = DbController.getInstance(this, this);
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_recipe);
@@ -89,7 +89,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
     {
 		// responds to button Delete Recipe
 		
-		DbController DbC = DbController.getInstance(this);		
+		DbController DbC = DbController.getInstance(this, this);		
 		Intent intent = getIntent();
 		String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
 		long uri=Long.parseLong(URI);
