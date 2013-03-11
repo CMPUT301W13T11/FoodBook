@@ -2,6 +2,7 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import java.util.ArrayList;
 
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,27 +19,16 @@ public class MyRecipes extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 
+		/*THIS IS THE SECTION TO LOOK AT*/
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_recipes);
-		ListView listView = (ListView) findViewById(R.id.mylist);
-		ArrayList<String> RecipeNames = new ArrayList<String>();
+
+		DbController DataTest = DbController.getInstance(this);
+		DataTest.getUserRecipes();
 		
-		//Replace this with code to access my recipes
-		RecipeNames.add("RecipeName");
-		RecipeNames.add("RecipeName");
-		RecipeNames.add("RecipeName");
-		RecipeNames.add("RecipeName");
-		RecipeNames.add("RecipeName");
-		RecipeNames.add("RecipeName");
-		RecipeNames.add("RecipeName");
-		RecipeNames.add("RecipeName");
-		RecipeNames.add("RecipeName");
-		RecipeNames.add("RecipeName");
-		RecipeNames.add("RecipeName");
-		Recipe testRecipe=Recipe.generateTestRecipe();
-		RecipeNames.add(testRecipe.getTitle());
-		//
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, RecipeNames);
+		ListView listView = (ListView) findViewById(R.id.mylist);
+		
+		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DataTest.getUserRecipes());
 		 //Assigns the adapter
 			listView.setAdapter(adapter);
 		
