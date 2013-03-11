@@ -33,8 +33,6 @@ public class IngredientsDbManagerTests extends AndroidTestCase {
 		assertTrue("getInstance() (method w/o args) should not return null now.", IngredientsDbManager.getInstance() != null);
 	}
 	
-
-	
 	/**
 	 * Test RecipeToMap() for error in ContentValues creation.
 	 */

@@ -1,31 +1,39 @@
 package ca.ualberta.cmput301w13t11.FoodBook.test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.junit.Test;
-
 import android.test.AndroidTestCase;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
-import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
-import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
-import ca.ualberta.cmput301w13t11.FoodBook.model.ClientHelper;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 import ca.ualberta.cmput301w13t11.FoodBook.model.User;
-/**
- * Unit tests for the ServerClient class.
- * Run configurations note: if test fails to run, please go to Run Configurations -> ClassPath; if Android 4.1 is present in the
- * bootstrap entries, then delete it and replace it with the JRE System Library (Advanced -> Add Library -> JRE System Library).
- * @author mbabic
- *
- */
-public class ServerClientTest extends AndroidTestCase {
-	
-	ServerClient sc = null;
 
+public class ServerConrollerTest extends AndroidTestCase {
+	
+	ServerController sc = null;
+	/**
+	 * Mock View implementing the FView<DbManager> interface for testing purposes.
+	 * @author mbabic
+	 *
+	 */
+	private class MockView implements FView<DbManager>
+	{
+		public int x;
+		public MockView(int x)
+		{
+			this.x = x;
+		}
+		
+		@Override
+		public void update(DbManager m)
+		{
+			this.x++;
+		}
+	}
+	
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -37,17 +45,9 @@ public class ServerClientTest extends AndroidTestCase {
 	 */
 	public void testGetInstance()
 	{
-		sc = ServerClient.getInstance();
+		MockView view = new MockView(1);
+		sc = ServerController.getInstance(view);
 		assertTrue("getInstance() failure", sc != null);
-	}
-	
-	/**
-	 * Test that getThreadSafeClient does not return null.
-	 */
-	public void testGetThreadSafeClient()
-	{
-		HttpClient test_client = ServerClient.getThreadSafeClient();
-		assertTrue("test_client null, getThreadSafeClient failed", test_client != null);
 	}
 	
 	/**
@@ -57,13 +57,14 @@ public class ServerClientTest extends AndroidTestCase {
 	public void testUploadRecipePass()
 	{
 		ReturnCode ret = null;
-		sc = ServerClient.getInstance();
+		MockView view = new MockView(1);
+		sc = ServerController.getInstance(view);
 		String title = Long.toString(System.currentTimeMillis());
 
 		Recipe recipe = new Recipe(new User("tester"), title);
 		try { 
 			ret = sc.uploadRecipe(recipe);
-		} catch (IOException ioe) {
+		} catch (Exception ioe) {
 			fail("ioe");
 		}
 
@@ -77,12 +78,13 @@ public class ServerClientTest extends AndroidTestCase {
 	public void testUploadRecipeFail()
 	{
 		ReturnCode ret = null;
-		sc = ServerClient.getInstance();
+		MockView view = new MockView(1);
+		sc = ServerController.getInstance(view);
 
 		Recipe recipe = new Recipe(new User("tester"), "test");
 		try { 
 			ret = sc.uploadRecipe(recipe);
-		} catch (IOException ioe) {
+		} catch (Exception ioe) {
 			fail("ioe");
 		}
 
@@ -96,51 +98,29 @@ public class ServerClientTest extends AndroidTestCase {
 	 */
 	public void testSearchByIngredients()
 	{
-		sc = ServerClient.getInstance();
+		MockView view = new MockView(1);
+		sc = ServerController.getInstance(view);
 
 		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 		ingredients.add(new Ingredient("test1", "xxx", 10));
 		ingredients.add(new Ingredient("test2", "xxxx", 100));
 		ingredients.add(new Ingredient("test3", "xxxxx", 1000));
-
-		ArrayList<Recipe> results = sc.searchByIngredients(ingredients);
-		assertTrue("Resuls empty.", results.size() != 0);
+		fail();
+		//ArrayList<Recipe> results = sc.searchByIngredients(ingredients);
+		//assertTrue("Resuls empty.", results.size() != 0);
 		
 	}
 	
-	/**
-	 * Test uploadPhotoToRecipe() by trying to add a Photo to a recipe known to exist on the server 
-	 * and check against return code.
-	 * WILL FAIL, NOT YET IMPLEMENTED
-	 */
-	public void testUploadPhotoToRecipe()
-	{
-		sc = ServerClient.getInstance();
-
-		Photo photo = new Photo("testname", new byte[10]);
-		Recipe recipe = Recipe.generateTestRecipe();
-		
-		assertTrue("return code != SUCCESS", sc.uploadPhotoToRecipe(photo, recipe) == ReturnCode.SUCCESS);
-	}
-
-	/**
-	 * Test if client can connect to phony URL -- should return false.
-	 */
-	public void testHasConnectionFail()
-	{
-		sc = ServerClient.getInstance();
-
-		assertTrue(!sc.hasConnection("http://fakefakefake"));
-	}
 	
 	/**
-	 * Test hasConnection() with a known, good URL.
+	 * Test hasConnection()
+	 * Will always pass given current implementation of has Connection.
 	 */
 	public void testHasConnectionPass()
 	{
-		sc = ServerClient.getInstance();
-
-		assertTrue(sc.hasConnection("http://www.google.com"));
+		MockView view = new MockView(1);
+		sc = ServerController.getInstance(view);
+		assertTrue(sc.hasConnection());
 	}
 
 	
@@ -152,18 +132,16 @@ public class ServerClientTest extends AndroidTestCase {
 	 * THIS IS AN ERROR IN ECLIPSE/ANDROID CONFIGURATION, NOT WITH THE METHOD ITSELF
 	 */
 	public void testSearchByKeywordsFail()
-	{/*
-		sc = ServerClient.getInstance();
-
+	{
+		MockView view = new MockView(1);
+		sc = ServerController.getInstance(view);
 		try {
 			ReturnCode result = sc.searchByKeywords("&&^367 78tqyfgylgaahslfauy7 iw");
 			assertTrue(result == ReturnCode.SUCCESS);
-		} catch (ClientProtocolException cpe) {
-			fail("cpe");
-		} catch (IOException ioe) {
-			fail("ioe");
-		}
-		*/
+		} catch (Exception cpe) {
+			fail("exception");
+		} 
+		
 		fail();
 		
 	}
