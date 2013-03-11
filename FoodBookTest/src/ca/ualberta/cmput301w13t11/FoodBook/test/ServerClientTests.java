@@ -15,13 +15,19 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 import ca.ualberta.cmput301w13t11.FoodBook.model.User;
-
+/**
+ * Unit tests for the ServerClient class.
+ * Run configurations note: if test fails to run, please go to Run Configurations -> ClassPath; if Android 4.1 is present in the
+ * bootstrap entries, then delete it and replace it with the JRE System Library (Advanced -> Add Library -> JRE System Library).
+ * @author mbabic
+ *
+ */
 public class ServerClientTests extends TestCase {
 	
 	ServerClient sc = null;
 
 	@Test
-	/*
+	/**
 	 * Test the getInstance method of ServerClient
 	 */
 	public void testGetInstance()
@@ -31,7 +37,7 @@ public class ServerClientTests extends TestCase {
 	}
 	
 	@Test
-	/*
+	/**
 	 * Test that getThreadSafeClient does not return null.
 	 */
 	public void testGetThreadSafeClient()
@@ -41,7 +47,7 @@ public class ServerClientTests extends TestCase {
 	}
 	
 	@Test
-	/*
+	/**
 	 * Test uploading a recipe to the server.
 	 */
 	public void testUploadRecipe()
@@ -59,7 +65,7 @@ public class ServerClientTests extends TestCase {
 	}
 	
 	@Test
-	/*
+	/**
 	 * Test to see if a recipe known to exist on server will be found by
 	 * searchByKeywords().
 	 */
@@ -79,7 +85,7 @@ public class ServerClientTests extends TestCase {
 	}
 	
 	@Test
-	/*
+	/**
 	 * Test to see if searchByIngredients will return a recipe known to have the ingredients
 	 * beng passed to S
 	 * WILL FAIL, NOT YET IMPLEMENTED.
@@ -99,7 +105,7 @@ public class ServerClientTests extends TestCase {
 	}
 	
 	@Test
-	/*
+	/**
 	 * Test uploadPhotoToRecipe() by trying to add a Photo to a recipe known to exist on the server 
 	 * and check against return code.
 	 */
@@ -114,7 +120,7 @@ public class ServerClientTests extends TestCase {
 	}
 
 	@Test
-	/*
+	/**
 	 * Test if client can connect to phony URL -- should return false.
 	 */
 	public void testHasConnectionFail()
@@ -125,7 +131,7 @@ public class ServerClientTests extends TestCase {
 	}
 	
 	@Test
-	/*
+	/**
 	 * Test hasConnection() with a known, good URL.
 	 */
 	public void testHasConnectionPass()

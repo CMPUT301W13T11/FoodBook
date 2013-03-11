@@ -22,16 +22,17 @@ public class DbManagerTests extends AndroidTestCase {
 	{
 		super.setUp();
 	}	
-
+	/**
+	 * Test to ensure that a non-null instance of DbManager is returned by getInstance().
+	 */
 	public void testGetInstance()
 	{
 		db = DbManager.getInstance(this.getContext());
-		if (db == null)
-			fail("getInstance failed");
-		assertTrue(true);
+		assertTrue("getInstance should not return null.", db != null);
 	}
 	
-	/*
+	/**
+	 * Test insert(Recipe ) functionality, success is simply the operation completing without error.
 	 */
 	public void testInsertRecipe() 
 	{
@@ -46,8 +47,8 @@ public class DbManagerTests extends AndroidTestCase {
 		assertTrue(true);
 	}
 	
-	/*
-	 * Test the insert(Ingredient, uri) method to see if a simple invocation will cause an error.
+	/**
+	 * Test the insert(Ingredient, uri) method, success is simply the operation completing without error.
 	 */
 	public void testInsertIngredient() 
 	{
@@ -78,8 +79,8 @@ public class DbManagerTests extends AndroidTestCase {
 
 	}
 	
-	/*
-	 * Test RecipeToMap() 
+	/**
+	 * Test RecipeToMap() to ensure it returns correct ContentValue types.
 	 */
 	public void testRecipeToMap()
 	{
@@ -92,7 +93,12 @@ public class DbManagerTests extends AndroidTestCase {
 			Method method = db.getClass().getDeclaredMethod("RecipeToMap", args);
 			method.setAccessible(true);
 			ContentValues cv = (ContentValues) method.invoke(db, recipe);
-			assertTrue(cv != null);
+			assertTrue("ContentValue object should not be null", cv != null);
+			
+			assertTrue("URI of created CV should be equal URI of recipe.", recipe.getUri() == cv.getAsLong("uri"));
+			assertTrue("Author names should be equal.", recipe.getAuthor().getName().equals(cv.getAsString("author")));
+			assertTrue("Titles should be the same.", recipe.getTitle().equals(cv.getAsString("title")));
+			assertTrue("Instructions should be the same.", recipe.getInstructions().equals(cv.getAsString("instructions")));
 			
 		} catch (NoSuchMethodException nsme) {
 			fail("NoSuchMethodException");
@@ -106,7 +112,7 @@ public class DbManagerTests extends AndroidTestCase {
 		
 	}
 	
-	/*
+	/**
 	 * Test RecipeToMap() for error in ContentValues creation.
 	 */
 	public void testIngredientToMap()
@@ -121,7 +127,10 @@ public class DbManagerTests extends AndroidTestCase {
 			Method method = db.getClass().getDeclaredMethod("IngredientToMap", args);
 			method.setAccessible(true);
 			ContentValues cv = (ContentValues) method.invoke(db, ingredient);
-			assertTrue(cv != null);
+			assertTrue("Returned ContentValues object should not be null.", cv != null);
+			assertTrue("Names should be the same.", ingredient.getName().equals(cv.getAsString("name")));
+			assertTrue("Units should be the same.", ingredient.getUnit().equals(cv.getAsString("unit")));
+			assertTrue("Titles should be the same.", ingredient.getQuantity() == (cv.getAsFloat("quantity")));
 			
 		} catch (NoSuchMethodException nsme) {
 			fail("NoSuchMethodException");
