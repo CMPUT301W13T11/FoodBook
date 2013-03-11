@@ -1,7 +1,10 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +20,8 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_search_result);
+		
+		
 	}
 
 	@Override
@@ -51,15 +56,20 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 	public void OnDownloadRecipe (View View)
     {
 		// responds to button Download Recipe
+		
+		/*Intent intent=
+		DbController DbC = DbController.getInstance(this, this);
+		ServerController SC=ServerController.getInstance();
+		//Recipe recipe =SC.getSearchResult()
+		Recipe recipe = null;
+		DbC.addRecipe(recipe);
+		finish();
+*/
     	
     }
 
 	@Override
 	public void update(DbManager db)
-	{
-
-		// TODO Auto-generated method stub
-		
-	}
+	{}
 
 }

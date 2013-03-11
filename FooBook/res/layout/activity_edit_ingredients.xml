@@ -36,7 +36,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="28dp"
         android:onClick="OnGotoMainMenu"
-        android:text="@string/main_menu"
+        android:text="@string/go_back"
         android:textSize="20sp" />
 
     <Button

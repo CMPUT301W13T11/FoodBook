@@ -68,8 +68,8 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{	long recipe_uri = ((Recipe) parent.getItemAtPosition(position)).getUri();
 				Intent intent = new Intent(SearchResultsActivity.this, ViewSearchResultActivity.class);
-				String testString=Long.toString(recipe_uri);
-				intent.putExtra(EXTRA_URI, testString);
+				String URI=Long.toString(recipe_uri);
+				intent.putExtra(EXTRA_URI, URI);
 				startActivity(intent);
 			}});                                                                                 
 	}
