@@ -48,7 +48,7 @@ public class ServerRecipe{
 	 */
 	public static Recipe toRecipe(ServerRecipe sr)
 	{
-		Recipe ret = new Recipe(sr.getAuthor(), sr.getTitle(), sr.getInstructions(),
+		Recipe ret = new Recipe(sr.getUri(), sr.getAuthor(), sr.getTitle(), sr.getInstructions(),
 								sr.getIngredients());
 		for (ServerPhoto sp : sr.photos) {
 			ret.addPhoto(ServerPhoto.toPhoto(sp));

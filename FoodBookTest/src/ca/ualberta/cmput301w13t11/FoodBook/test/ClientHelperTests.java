@@ -110,6 +110,7 @@ public class ClientHelperTests extends TestCase {
 		for (Recipe r: result) {
 			assertTrue("Title failed.", r.getTitle().equals("test"));
 			assertTrue("User name failed.", r.getAuthor().getName().equals("tester"));
+			System.out.println(r.getUri());
 			assertTrue("Uri failed.", r.getUri() == 0);
 		}
 		assertTrue(!(result.isEmpty()));
