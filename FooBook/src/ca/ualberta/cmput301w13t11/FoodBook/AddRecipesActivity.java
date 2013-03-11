@@ -52,13 +52,10 @@ public class AddRecipesActivity extends Activity implements FView
 		// responds to button Edit Ingredients
     	
     }
-
 	@Override
 	public void update(FModel model)
 	{
 
-		// TODO Auto-generated method stub
-		
 	}
 
 }

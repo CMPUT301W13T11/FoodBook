@@ -1,5 +1,6 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FModel;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import android.app.Activity;
@@ -19,14 +20,6 @@ public class MyIngredients extends Activity implements FView
 		setContentView(R.layout.activity_my_ingredients);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_my_ingredients, menu);
-		return true;
-	}
 	
 	public void OnGotoMainMenu(View View)
     {

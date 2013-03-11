@@ -1,7 +1,5 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import java.util.ArrayList;
-
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FModel;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
@@ -23,18 +21,23 @@ public class MyRecipes extends Activity implements FView
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_recipes);
-
-		//Gets the user's recipes
-		DbController DataTest = DbController.getInstance(this);
-		ListView listView = (ListView) findViewById(R.id.mylist);
-		
-		//Displays the user's recipes
-		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DataTest.getUserRecipes());
-		 //Assigns the adapter
-			listView.setAdapter(adapter);
 		
 	}
 
+	
+	public void updateList()
+    {
+		//Gets the user's recipes
+		DbController DbC = DbController.getInstance(this);
+		ListView listView = (ListView) findViewById(R.id.mylist);
+				
+		//Displays the user's recipes
+		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getUserRecipes());
+		//Assigns the adapter
+		listView.setAdapter(adapter);
+    }
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -61,9 +64,7 @@ public class MyRecipes extends Activity implements FView
 	@Override
 	public void update(FModel model)
 	{
-
-		// TODO Auto-generated method stub
-		
+		updateList();
 	}
 
 }
