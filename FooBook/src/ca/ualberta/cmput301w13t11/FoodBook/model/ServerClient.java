@@ -43,10 +43,11 @@ import org.apache.http.params.HttpParams;
 public class ServerClient {	
 	
 	private static ServerClient instance = null;
+	private static DbManager dbManager = null;
 	static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
 	static private String test_server_string = "http://cmput301.softwareprocess.es:8080/testing/cmput301w13t11/";
-	private HttpClient httpclient = ServerClient.getThreadSafeClient();
-	private ClientHelper helper = new ClientHelper();
+	private static HttpClient httpclient = null;
+	private static ClientHelper helper = null;
 	public static enum ReturnCode
 	{
 		SUCCESS, ALREADY_EXISTS,NO_RESULTS, ERROR;
@@ -68,6 +69,9 @@ public class ServerClient {
 	{
 		if (instance == null) {
 			instance = new ServerClient();
+			dbManager = DbManager.getInstance();
+			httpclient = ServerClient.getThreadSafeClient();
+			helper = new ClientHelper();
 		}
 		return instance;
 	}
@@ -201,8 +205,7 @@ public class ServerClient {
 			return ReturnCode.NO_RESULTS;
 		
 		/* TODO: stores these results in the "SearchResults" db and notify that db's views. */
-		DbManager db = DbManager.getInstance();
-		db.storeResults(search_results);
+		dbManager.storeResults(search_results);
 		return ReturnCode.SUCCESS;
 		
 		

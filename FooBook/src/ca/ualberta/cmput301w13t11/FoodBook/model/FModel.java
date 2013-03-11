@@ -2,11 +2,15 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import java.util.ArrayList;
 
-// generic model interface
+// generic model supeclass
 public class FModel<V extends FView> {
 
 	private ArrayList<V> views;
 	
+	public FModel()
+	{
+		views = new ArrayList<V>();
+	}
 	public void addView(V view) {
         if (!views.contains(view)) {
           views.add(view);
@@ -22,5 +26,13 @@ public class FModel<V extends FView> {
           view.update(this);
         }
       }
+
+	public ArrayList<V> getViews() {
+		return views;
+	}
+
+	public void setViews(ArrayList<V> views) {
+		this.views = views;
+	}
   
 }

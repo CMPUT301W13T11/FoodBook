@@ -3,7 +3,8 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
 import android.content.Context;
 /**
  * Implements the functionality required to manage the Results database, which
- * stores the results of the latest search query.
+ * stores the results of the latest search query.  Mostly, it will keep track of views
+ * which are observing the Results database.
  * <<Singleton>>
  * @author Mark Tupala, Marko Babic
  */

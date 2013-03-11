@@ -25,8 +25,8 @@ import com.google.gson.reflect.TypeToken;
  * 
  * CC0 http://creativecommons.org/choose/zero/
  * 
- * To the extent possible under law, Abram Hindle and Chenlei Zhang has waived all copyright and related or neighboring rights to this work. This work is published from: Canada.
- * 
+ * To the extent possible under law, Abram Hindle and Chenlei Zhang has waived all copyright 
+ * and related or neighboring rights to this work. This work is published from: Canada.
  *
  * @author Abram Hindle, Chenlei Zhang, Marko Babic
  *
@@ -44,8 +44,7 @@ public class ClientHelper {
 	
 
 	/**
-	 * Converts the given recipe to a JSON object (this includes 
-	 * re-encoding photos).
+	 * Converts the given recipe to a JSON object (this includes re-encoding photos).
 	 * @param recipe The recipe to be converted.
 	 * @return A JSON version of the given recipe.
 	 */

@@ -30,6 +30,7 @@ public class DbManagerTests extends AndroidTestCase {
 		db = DbManager.getInstance(this.getContext());
 		assertTrue("getInstance should not return null.", db != null);
 	}
+
 	
 	/**
 	 * Test insert(Recipe ) functionality, success is simply the operation completing without error.
@@ -45,6 +46,17 @@ public class DbManagerTests extends AndroidTestCase {
 		
 		/* Got here with no errors. */
 		assertTrue(true);
+	}
+	
+	/**
+	 * Test getUserRecipes() functionality
+	 */
+	public void testGetUserRecipes()
+	{
+		db = DbManager.getInstance(this.getContext());
+		db.getUserRecipes();
+		assertTrue(true);
+		
 	}
 	
 	/**
@@ -94,8 +106,7 @@ public class DbManagerTests extends AndroidTestCase {
 			method.setAccessible(true);
 			ContentValues cv = (ContentValues) method.invoke(db, recipe);
 			assertTrue("ContentValue object should not be null", cv != null);
-			
-			assertTrue("URI of created CV should be equal URI of recipe.", recipe.getUri() == cv.getAsLong("uri"));
+			assertTrue("URI of created CV should be equal URI of recipe.", recipe.getUri() == cv.getAsLong("URI"));
 			assertTrue("Author names should be equal.", recipe.getAuthor().getName().equals(cv.getAsString("author")));
 			assertTrue("Titles should be the same.", recipe.getTitle().equals(cv.getAsString("title")));
 			assertTrue("Instructions should be the same.", recipe.getInstructions().equals(cv.getAsString("instructions")));

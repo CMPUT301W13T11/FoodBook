@@ -24,7 +24,7 @@ public class IngredientsDbManagerTests extends AndroidTestCase {
 	}
 	
 	/**
-	 * Test the getInstance() methods.
+	 * Test the getInstance() method to ensure a non-null instance of IngredientsDbManager
 	 */
 	public void testGetInstance()
 	{
@@ -33,37 +33,7 @@ public class IngredientsDbManagerTests extends AndroidTestCase {
 		assertTrue("getInstance() (method w/o args) should not return null now.", IngredientsDbManager.getInstance() != null);
 	}
 	
-	/**
-	 * Test the insert(Ingredient, uri) method, success is simply the operation completing without error.
-	 */
-	public void testInsertIngredient() 
-	{
-		Recipe recipe = Recipe.generateTestRecipe();
-		idb = IngredientsDbManager.getInstance(this.getContext());
-		if (idb == null)
-			fail();
-		try {
-			/* Testing private member function, need to use reflection. */
-			Class[] args = new Class[2];
-			args[0] = Ingredient.class;
-			args[1] = long.class;
-			Method method = idb.getClass().getDeclaredMethod("insert", args);
-			method.setAccessible(true);
-			method.invoke(idb, recipe.getIngredients().get(0), recipe.getUri());
-			/* Got here without error. */
-			assertTrue(true);
-			
-		} catch (NoSuchMethodException nsme) {
-			fail("NoSuchMethodException");
-		} catch (IllegalArgumentException e) {
-			fail("IllegalArgumentException");
-		} catch (IllegalAccessException e) {
-			fail("IllegalAccessException");
-		} catch (InvocationTargetException e) {
-			fail("InvocationTargetException");
-		}
 
-	}
 	
 	/**
 	 * Test RecipeToMap() for error in ContentValues creation.

@@ -15,8 +15,8 @@ import android.database.sqlite.SQLiteDatabase;
 public class DbManager extends FModel<FView> {
 
 	// the actual database 
-    protected SQLiteDatabase db;
-    protected DbOpenHelper dbHelper;
+    protected static SQLiteDatabase db;
+    protected static DbOpenHelper dbHelper;
     
     // singleton pattern implementation
     private static DbManager instance = null;

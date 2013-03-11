@@ -12,6 +12,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ClientHelper;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 /**
@@ -110,6 +111,7 @@ public class ServerClientTest extends AndroidTestCase {
 	/**
 	 * Test uploadPhotoToRecipe() by trying to add a Photo to a recipe known to exist on the server 
 	 * and check against return code.
+	 * WILL FAIL, NOT YET IMPLEMENTED
 	 */
 	public void testUploadPhotoToRecipe()
 	{
@@ -168,7 +170,6 @@ public class ServerClientTest extends AndroidTestCase {
 	public void testSearchByKeywordsPass()
 	{
 		sc = ServerClient.getInstance();
-
 		try {
 			ReturnCode result = sc.searchByKeywords("turdosandowich");
 			assertTrue(result == ReturnCode.SUCCESS);
