@@ -12,7 +12,6 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     private String createUserIngredientsTable = "CREATE TABLE UserIngredients (name text, unit text, quantity text)";
     private String createRecipeIngredientsTable = "CREATE TABLE RecipeIngredients (recipeURI text, name text, unit text, quantity text)";
 
-	
 	public DbOpenHelper(Context context, String name) {
 		super(context, name, null, 1);
 	}
@@ -24,7 +23,6 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 		db.execSQL(createResultsTable);
 		db.execSQL(createUserIngredientsTable);
 		db.execSQL(createRecipeIngredientsTable);
-		
 	}
 
 	@Override

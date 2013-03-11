@@ -27,16 +27,6 @@ public class ClientHelperTests extends TestCase {
 	private ClientHelper helper = new ClientHelper();
 	private HttpClient httpclient = new DefaultHttpClient();
 	
-	private class MockRecipe extends Recipe
-	{
-		public MockRecipe(Recipe recipe)
-		{
-			super(recipe.getAuthor(), recipe.getTitle(), recipe.getInstructions(),
-					recipe.getIngredients(), recipe.getPhotos());
-			
-		}
-	}
-	
 	
 	@Test
 	/*

@@ -52,6 +52,8 @@ public class DbManager extends FModel<FView> {
     public static DbManager getInstance(Context context) {
     	if (instance == null) {
     		// db instance doesn't exist, create new one
+    		// check to see if sqlite database exists on local, create it if not
+    		//db = openOrCreateDatabase(DbPath);
     		instance = new DbManager(context);
     	}
     			
