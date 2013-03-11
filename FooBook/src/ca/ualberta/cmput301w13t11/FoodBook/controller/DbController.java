@@ -53,6 +53,7 @@ public class DbController {
 	 */
 	public void addRecipe(Recipe recipe) {
 		db.insert(recipe, "UserRecipes");
+		db.notifyViews();
 	}
 	
 	/**
@@ -62,6 +63,7 @@ public class DbController {
 	public void deleteRecipe(Recipe recipe)
 	{
 		db.delete(recipe);
+		db.notifyViews();
 	}
 	
 	/**
@@ -72,5 +74,6 @@ public class DbController {
 	public void addIngredientToRecipe(Ingredient ingredient, Recipe recipe)
 	{
 		db.insert(ingredient, recipe.getUri());
+		db.notifyViews();
 	}
 }
