@@ -96,6 +96,7 @@ public class DbManager extends FModel<FView> {
      */
     public ArrayList<Recipe> getUserRecipes() {
     	Cursor cursor = db.rawQuery(getUserRecipesSQL, null);
+    	cursor.moveToFirst();
     	return CursorToRecipes(cursor);
     }
 
@@ -162,6 +163,7 @@ public class DbManager extends FModel<FView> {
      */
     protected ArrayList<Ingredient> getRecipeIngredients(long uri) {
     	Cursor cursor = db.rawQuery("From RecipeIngredients Select * Where recipeURI = " + uri, null);
+    	cursor.moveToFirst();
     	ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
     	while (!cursor.isAfterLast()) {
     		String name = cursor.getString(0);
