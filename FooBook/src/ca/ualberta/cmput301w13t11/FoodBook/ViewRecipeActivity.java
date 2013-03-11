@@ -1,14 +1,16 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import java.util.ArrayList;
+
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class ViewRecipeActivity extends Activity implements FView<DbManager>
@@ -21,12 +23,27 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		setContentView(R.layout.activity_view_recipe);
 		
 		DbController DbC = DbController.getInstance(this);
-		TextView textView = (TextView) findViewById(R.id.textView2);
+		TextView recipeName = (TextView) findViewById(R.id.textView2);
+		TextView instructions = (TextView) findViewById(R.id.textView5);
 		
 		Intent intent = getIntent();
 		String URI = intent.getStringExtra(MyRecipes.EXTRA_URI);
+		long uri=Long.parseLong(URI);
+		//ArrayList<Recipe> RecipeList= DbC.getUserRecipes();
+		Recipe viewedRecipe = Recipe.generateTestRecipe();
 		
-		//textView.setText(message);
+		/*for(int index=0; index<RecipeList.size(); index++)
+		{
+			if(RecipeList.get(index).getUri()==uri)
+					{
+					index=RecipeList.size();
+					viewedRecipe=RecipeList.get(index);
+					}
+		}*/
+		
+		
+		recipeName.setText(viewedRecipe.getTitle());
+		instructions.setText(viewedRecipe.getInstructions());
 	}
 
 	@Override
