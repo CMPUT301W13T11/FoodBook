@@ -2,6 +2,7 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import java.util.ArrayList;
 
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
@@ -83,6 +84,11 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 	public void update(DbManager db)
 	{
 		updateList();
+	}
+	public void onDestroy()
+	{	super.onDestroy();
+		DbController DbC = DbController.getInstance(this, this);
+		DbC.deleteView(this);
 	}
 
 }

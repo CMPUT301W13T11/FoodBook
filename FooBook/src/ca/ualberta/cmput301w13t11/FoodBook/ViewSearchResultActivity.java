@@ -72,4 +72,9 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 	public void update(DbManager db)
 	{}
 
+	public void onDestroy()
+	{	super.onDestroy();
+		DbController DbC = DbController.getInstance(this, this);
+		DbC.deleteView(this);
+	}
 }

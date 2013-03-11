@@ -151,5 +151,10 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	public void OnCancel(View v){
 		popUp.dismiss();
 	}
+	public void onDestroy()
+	{	super.onDestroy();
+		DbController DbC = DbController.getInstance(this, this);
+		DbC.deleteView(this);
+	}
 
 }

@@ -42,7 +42,7 @@ public final class R {
         public static final int possible_logo=0x7f020008;
     }
     public static final class id {
-        public static final int action_settings=0x7f09002d;
+        public static final int action_settings=0x7f090030;
         public static final int add_ingredient=0x7f09000e;
         public static final int add_photos=0x7f090029;
         public static final int add_recipe_button=0x7f090020;
@@ -51,6 +51,7 @@ public final class R {
         public static final int button3=0x7f090018;
         public static final int button4=0x7f09001a;
         public static final int button5=0x7f090017;
+        public static final int cancel_button=0x7f09002d;
         public static final int capture=0x7f090023;
         public static final int delete_photo=0x7f090013;
         public static final int download_recipe=0x7f09002a;
@@ -69,11 +70,13 @@ public final class R {
         public static final int imageView2=0x7f09001f;
         public static final int listView1=0x7f090015;
         public static final int menu_button=0x7f09000f;
-        public static final int menu_settings=0x7f09002c;
+        public static final int menu_settings=0x7f09002f;
         public static final int modify_ingredient=0x7f090011;
         public static final int my_ingredients=0x7f09001d;
         public static final int my_recipes_button=0x7f09001e;
         public static final int mylist=0x7f09000d;
+        public static final int ok_button=0x7f09002e;
+        public static final int popup_msg=0x7f09002c;
         public static final int publish_recipe=0x7f090027;
         public static final int remove_ingredient=0x7f090010;
         public static final int save_changes=0x7f09000b;
@@ -103,6 +106,7 @@ public final class R {
         public static final int activity_view_photos=0x7f03000a;
         public static final int activity_view_recipe=0x7f03000b;
         public static final int activity_view_search_result=0x7f03000c;
+        public static final int popup=0x7f03000d;
     }
     public static final class menu {
         public static final int activity_main_screen=0x7f080000;
@@ -128,6 +132,7 @@ public final class R {
         public static final int add_photos=0x7f050034;
         public static final int add_recipe=0x7f050025;
         public static final int app_name=0x7f050000;
+        public static final int cancel=0x7f050036;
         public static final int capture=0x7f050021;
         public static final int delete_photo=0x7f050023;
         public static final int delete_recipe=0x7f05002f;
@@ -149,6 +154,7 @@ public final class R {
         public static final int modify=0x7f050018;
         public static final int my_ingredients=0x7f050006;
         public static final int my_recipes=0x7f050007;
+        public static final int ok=0x7f050037;
         public static final int photos=0x7f050030;
         public static final int publish_recipe=0x7f05002b;
         public static final int recipe=0x7f05002e;
