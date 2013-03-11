@@ -41,6 +41,14 @@ public class DbController {
     }
 
     /**
+     * delete view from model's array of views
+     * @return void
+     */
+    public void deleteView(FView<DbManager> view) {
+    	db.deleteView(view);
+    }
+    
+    /**
      * @return Returns an ArrayList containing all the Recipes the user has stored on their device.
      */
 	public ArrayList<Recipe> getUserRecipes() {
