@@ -55,6 +55,8 @@
 	<string name="view_photos">View Photos</string>
 	<string name="add_photos">Add Photos</string>
 	<string name="user_name">Author</string>
+	<string name="cancel">Cancel</string>
+	<string name="ok">OK</string>
 	
     
  </resources>

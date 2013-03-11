@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppBaseTheme"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/grey"
+    android:orientation="vertical" 
+    tools:context=".EditIngredients">
+
+    <TextView
+        android:id="@+id/popup_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Popup Message"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" >
+
+        <Button
+            android:id="@+id/cancel_button"
+            style="@style/OrangeButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="OnCancel"
+            android:text="@string/cancel"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/ok_button"
+            style="@style/BlueButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="OnOK"
+            android:text="@string/ok"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout> 

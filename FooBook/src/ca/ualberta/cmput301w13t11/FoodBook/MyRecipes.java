@@ -76,4 +76,10 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 		updateList();
 	}
 	
+	public void onDestroy()
+	{	super.onDestroy();
+		DbController DbC = DbController.getInstance(this, this);
+		DbC.deleteView();
+	}
+	
 }

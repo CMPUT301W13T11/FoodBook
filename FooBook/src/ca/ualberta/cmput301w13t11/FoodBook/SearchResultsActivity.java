@@ -2,6 +2,7 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import java.util.ArrayList;
 
+import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
@@ -54,7 +55,11 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 	public void updateList()
 	{
 		ListView listView = (ListView) findViewById(R.id.mylist);
-		
+		/*ServerController SC=ServerController.getInstance(this);
+		//SC.notify()
+		DbManager DbM=DbManager.getInstance();
+		DbM.
+		*/
 		Recipe testRecipe=Recipe.generateTestRecipe();
 		ArrayList <Recipe> test = new ArrayList<Recipe>();
 		
