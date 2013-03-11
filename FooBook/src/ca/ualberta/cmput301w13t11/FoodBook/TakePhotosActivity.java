@@ -26,7 +26,7 @@ public class TakePhotosActivity extends Activity
 		return true;
 	}
 	
-	public void OnGobacktoPrevScreen(View View)
+	public void OnGoBack(View View)
     {
 		// responds to button Go Back
 		// not sure if this is enough -Pablo 
