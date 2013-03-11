@@ -112,6 +112,16 @@ public class Recipe {
 		this.uri = 0;
 	}
 
+	
+	/**
+	 * Returns title of recipe - method of this name needed to populate ListViews.
+	 * @return  Title of recipe.
+	 */
+	public String getString()
+	{
+		return this.title;
+	}
+	
 	public String getTitle()
 	{
 		return this.title;
