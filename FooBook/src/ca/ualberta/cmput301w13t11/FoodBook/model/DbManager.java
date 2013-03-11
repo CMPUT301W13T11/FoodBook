@@ -20,6 +20,7 @@ public class DbManager extends FModel<FView> {
     
     // singleton pattern implementation
     private static DbManager instance = null;
+    private static boolean has_executed = false;
     
     // name of database file
     private String dbFileName = "RecipeApplicationDb.sqlite";
@@ -35,8 +36,14 @@ public class DbManager extends FModel<FView> {
      */
     protected DbManager(Context context) {
     	// open or create the sqlite db accordingly
-    	dbHelper = new DbOpenHelper(context, dbFileName);
-    	db = dbHelper.getWritableDatabase();
+    	if (DbManager.has_executed == false) {
+    		// Use the has_executed flag to ensure we do not open
+    		// multiple connections to the database and we do not
+    		// create multiple dbHelper objects.
+    		dbHelper = new DbOpenHelper(context, dbFileName);
+    		db = dbHelper.getWritableDatabase();
+    		DbManager.has_executed = true;
+    	}
     }
     
     /**
