@@ -2,6 +2,7 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Collection;
 
 /**
  * Class which models a recipe. (TODO: better description)
@@ -58,7 +59,10 @@ public class Recipe {
 		this.photos = new ArrayList<Photo>();
 		/* TODO: find a good hashing function in order to assign to each recipe a unique URI
 		* such that duplicates cannot be misinterpreted for one another on the server. */
-		this.uri = 0;
+		
+		// at the moment, we will just get the current time in milliseconds and use that as the uri
+		this.uri = System.currentTimeMillis();
+
 	}
 	
 	/**
@@ -75,7 +79,8 @@ public class Recipe {
 		this.photos = new ArrayList<Photo>();
 		/* TODO: find a good hashing function in order to assign to each recipe a unique URI
 		* such that duplicates cannot be misinterpreted for one another on the server. */
-		this.uri = 0;
+		// at the moment, we will just get the current time in milliseconds and use that as the uri
+		this.uri = System.currentTimeMillis();
 		
 	}
 	
@@ -95,7 +100,8 @@ public class Recipe {
 
 		/* TODO: find a good hashing function in order to assign to each recipe a unique URI
 		* such that duplicates cannot be misinterpreted for one another on the server. */
-		this.uri = 0;
+		// at the moment, we will just get the current time in milliseconds and use that as the uri
+		this.uri = System.currentTimeMillis();
 	}
 	
 	public Recipe(User author, String title, String instructions, ArrayList<Ingredient> ingredients,
@@ -109,7 +115,8 @@ public class Recipe {
 
 		/* TODO: find a good hashing function in order to assign to each recipe a unique URI
 		* such that duplicates cannot be misinterpreted for one another on the server. */
-		this.uri = 0;
+		// at the moment, we will just get the current time in milliseconds and use that as the uri
+		this.uri = System.currentTimeMillis();
 	}
 
 	
@@ -218,6 +225,80 @@ public class Recipe {
 	 */
 	public long getUri() {
 		return uri;
+	}
+
+	/**
+	 * @uml.property  name="serverRecipe"
+	 * @uml.associationEnd  inverse="recipe:ca.ualberta.cmput301w13t11.FoodBook.model.ServerRecipe"
+	 * @uml.association  name="re-models"
+	 */
+	private ServerRecipe serverRecipe;
+
+	/**
+	 * Getter of the property <tt>serverRecipe</tt>
+	 * @return  Returns the serverRecipe.
+	 * @uml.property  name="serverRecipe"
+	 */
+	public ServerRecipe getServerRecipe() {
+		return serverRecipe;
+	}
+
+	/**
+	 * Setter of the property <tt>serverRecipe</tt>
+	 * @param serverRecipe  The serverRecipe to set.
+	 * @uml.property  name="serverRecipe"
+	 */
+	public void setServerRecipe(ServerRecipe serverRecipe) {
+		this.serverRecipe = serverRecipe;
+	}
+
+	/**
+	 * @uml.property  name="clientHelper"
+	 * @uml.associationEnd  inverse="recipe:ca.ualberta.cmput301w13t11.FoodBook.model.ClientHelper"
+	 * @uml.association  name="transforms"
+	 */
+	private ClientHelper clientHelper;
+
+	/**
+	 * Getter of the property <tt>clientHelper</tt>
+	 * @return  Returns the clientHelper.
+	 * @uml.property  name="clientHelper"
+	 */
+	public ClientHelper getClientHelper() {
+		return clientHelper;
+	}
+
+	/**
+	 * Setter of the property <tt>clientHelper</tt>
+	 * @param clientHelper  The clientHelper to set.
+	 * @uml.property  name="clientHelper"
+	 */
+	public void setClientHelper(ClientHelper clientHelper) {
+		this.clientHelper = clientHelper;
+	}
+
+	/**
+	 * @uml.property  name="user"
+	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="recipe:ca.ualberta.cmput301w13t11.FoodBook.model.User"
+	 */
+	private Collection user;
+
+	/**
+	 * Getter of the property <tt>user</tt>
+	 * @return  Returns the user.
+	 * @uml.property  name="user"
+	 */
+	public Collection getUser() {
+		return user;
+	}
+
+	/**
+	 * Setter of the property <tt>user</tt>
+	 * @param user  The user to set.
+	 * @uml.property  name="user"
+	 */
+	public void setUser(Collection user) {
+		this.user = user;
 	}
 
 }
