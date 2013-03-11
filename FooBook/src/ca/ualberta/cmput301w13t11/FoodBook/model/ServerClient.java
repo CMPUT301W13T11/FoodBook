@@ -23,10 +23,20 @@ import org.apache.http.params.HttpParams;
  * Communicates with the server to perform searches, upload recipes and upload photos to recipes.
  * Implements the singleton design pattern.
  * 
+ * Code largely based on:
+ * ESDemo with HTTP Client and GSON
+ * 
+ * LICENSE:
+ * 
+ * CC0 http://creativecommons.org/choose/zero/
+ * 
+ * To the extent possible under law, Abram Hindle and Chenlei Zhang has waived all copyright and related or neighboring rights to this work. This work is published from: Canada.
+ * 
+ * 
  * getThreadSafeClient() method cribbed from http://tech.chitgoks.com/2011/05/05/fixing-the-invalid-use-of-singleclientconnmanager-connection-still-allocated-problem/
  * (last accessed March 10, 2013)
- * TODO: write tests for these methods
- * @author Marko Tomislav Babic
+ *
+ * @author Abram Hindle, Chenlei Zhang, Marko Babic
  *
  */
 public class ServerClient {	
