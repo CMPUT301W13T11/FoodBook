@@ -7,6 +7,11 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 
+/**
+ * Controller for the DbManager.
+ * @author Mark Tupala, Marko Babic
+ *
+ */
 public class DbController {
 	
 	private DbManager db;
@@ -34,20 +39,36 @@ public class DbController {
     	return instance;
     }
 
+    /**
+     * @return Returns an ArrayList containing all the Recipes the user has stored on their device.
+     */
 	public ArrayList<Recipe> getUserRecipes() {
 		//DbManager db = RecipeApplication.getDbManager();
 		return db.getUserRecipes();
 	}
 	
+	/**
+	 * Adds the given Recipe to the database.
+	 * @param recipe The recipe to add.
+	 */
 	public void addRecipe(Recipe recipe) {
 		db.insert(recipe);
 	}
 	
+	/**
+	 * Deletes the given Recipe from the database.
+	 * @param recipe The recipe to save.
+	 */
 	public void deleteRecipe(Recipe recipe)
 	{
 		db.delete(recipe);
 	}
 	
+	/**
+	 * Associates the Ingredient argument correctly with the given Recipe in the database.
+	 * @param ingredient The ingredient to add to the given Recipe.
+	 * @param recipe The Recipe to which the ingredient is to be added.
+	 */
 	public void addIngredientToRecipe(Ingredient ingredient, Recipe recipe)
 	{
 		db.insert(ingredient, recipe.getUri());
