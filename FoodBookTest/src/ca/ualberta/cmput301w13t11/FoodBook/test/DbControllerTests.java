@@ -10,6 +10,11 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 
+/**
+ * Unit tests for he DbController class.
+ * @author mbabic
+ *
+ */
 public class DbControllerTests extends AndroidTestCase {
 
 	private DbController dbc = null;
