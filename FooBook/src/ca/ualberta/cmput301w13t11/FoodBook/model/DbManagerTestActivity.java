@@ -1,6 +1,6 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
-import ca.ualberta.cmput301w13t11.FoodBook.EditIngredientActivity;
+import ca.ualberta.cmput301w13t11.FoodBook.EditIngredients;
 import ca.ualberta.cmput301w13t11.FoodBook.EditPhotos;
 import ca.ualberta.cmput301w13t11.FoodBook.MyRecipes;
 import ca.ualberta.cmput301w13t11.FoodBook.R;
@@ -50,7 +50,7 @@ public class DbManagerTestActivity  extends Activity {
 		}
 		/** Called when the user clicks the Edit Ingredients button */
 		public void GoToEditIngredients(View view) {
-			Intent intent = new Intent(this, EditIngredientActivity.class);
+			Intent intent = new Intent(this, EditIngredients.class);
 			startActivity(intent);
 		}
 }

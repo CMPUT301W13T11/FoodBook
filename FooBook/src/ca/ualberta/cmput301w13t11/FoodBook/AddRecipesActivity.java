@@ -36,7 +36,7 @@ public class AddRecipesActivity extends Activity
 	public void OnEditIngredients (View View)
     {
 		// responds to button Edit Ingredients
-    	Intent intent = new Intent(this, EditIngredientActivity.class);
+    	Intent intent = new Intent(this, EditIngredients.class);
 		startActivity(intent);
     }
 	public void OnEditPhotos (View View)

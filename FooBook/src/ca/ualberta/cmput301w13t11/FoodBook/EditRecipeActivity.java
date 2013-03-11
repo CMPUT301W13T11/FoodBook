@@ -42,7 +42,7 @@ public class EditRecipeActivity extends Activity
 	public void OnIngredients (View View)
     {
 		// responds to button Ingredients
-    	Intent intent = new Intent(this, EditIngredientActivity.class);
+    	Intent intent = new Intent(this, EditIngredients.class);
 		startActivity(intent);
     }
 	public void OnSaveChanges (View View)

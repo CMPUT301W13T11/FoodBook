@@ -22,7 +22,6 @@
     <string name="title_activity_edit">Edit</string>
     <string name="title_activity_edit_photos">EditPhotos</string>
     <string name="title_activity_take_photos">TakePhotosActivity</string>
-    <string name="title_activity_edit_ingredient">EditIngredientActivity</string>
     <string name="main_menu">Main Menu</string>
     <string name="add_new_recipe">Add new recipe</string>
     <string name="title_activity_edit_ingredients">EditIngredients</string>
@@ -55,6 +54,6 @@
 	<string name="go_back_to_search_results">Go Back to Search Results</string>
 	<string name="view_photos">View Photos</string>
 	<string name="add_photos">Add Photos</string>
-	<string />
+	
     
  </resources>

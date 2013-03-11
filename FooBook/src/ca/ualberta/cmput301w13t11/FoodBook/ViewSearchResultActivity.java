@@ -37,7 +37,7 @@ public class ViewSearchResultActivity extends Activity
 	public void OnViewPhotos (View View)
     {
 		// responds to button View Photos
-    	Intent intent = new Intent(this, EditIngredientActivity.class);
+    	Intent intent = new Intent(this, EditIngredients.class);
 		startActivity(intent);
     }
 	public void OnAddPhotos (View View)
