@@ -1,12 +1,12 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
-import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 
 public class EditRecipeActivity extends Activity implements FView<DbManager>
 {
@@ -54,8 +54,8 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
     }
 	public void OnDeleteRecipe (View View)
     {
-		// responds to button Delete Recipe
-    	
+		Intent intent = new Intent(this, EditIngredients.class);
+		startActivity(ShowPopUp);
     }
 
 	@Override
