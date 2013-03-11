@@ -57,10 +57,10 @@ public class SearchActivity extends Activity implements FView<DbManager>
 	{
 		
 	}
-	public void onDestroy()
+	/*public void onDestroy()
 	{	super.onDestroy();
 		DbController DbC = DbController.getInstance(this, this);
 		DbC.deleteView(this);
-	}
+	}*/
 
 }

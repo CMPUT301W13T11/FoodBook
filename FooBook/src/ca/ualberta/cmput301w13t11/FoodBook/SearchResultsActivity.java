@@ -57,10 +57,10 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 	{
 		ListView listView = (ListView) findViewById(R.id.mylist);
 		/*ServerController SC=ServerController.getInstance(this);
-		//SC.notify()
-		DbManager DbM=DbManager.getInstance();
-		DbM.
-		*/
+		//SC.notify()*/
+		//DbManager DbM=DbManager.getInstance();
+		//DbM.getStoredRecipes();
+
 		Recipe testRecipe=Recipe.generateTestRecipe();
 		ArrayList <Recipe> test = new ArrayList<Recipe>();
 		
