@@ -112,7 +112,7 @@ public class DbManager extends FModel<FView> {
      * @param ingred The ingredient to be inserted.
      * @param recipeURI The URI of the Recipe with which to associate the Ingredient.
      */
-    private void insert(Ingredient ingred, long recipeURI) {
+    public void insert(Ingredient ingred, long recipeURI) {
         ContentValues values = new ContentValues();
         values.put("recipeURI", recipeURI);
         values.put("name", ingred.getName());

@@ -2,11 +2,9 @@ package ca.ualberta.cmput301w13t11.FoodBook.controller;
 
 import java.util.ArrayList;
 
-import android.content.ContentValues;
 import android.content.Context;
-
-import ca.ualberta.cmput301w13t11.FoodBook.RecipeApplication;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 
 public class DbController {
@@ -48,5 +46,10 @@ public class DbController {
 	public void deleteRecipe(Recipe recipe)
 	{
 		db.delete(recipe);
+	}
+	
+	public void addIngredientToRecipe(Ingredient ingredient, Recipe recipe)
+	{
+		db.insert(ingredient, recipe.getUri());
 	}
 }
