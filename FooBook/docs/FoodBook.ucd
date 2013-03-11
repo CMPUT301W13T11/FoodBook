@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="FoodBook" size="2812,1396" id="" metadata="uml2-1.0" initialized="true" zoom="0.75" scrolledY="77" tag="1000" key="32303037303533312D3130303020466F6F64426F6F6B2F6D6261626963">
+  <children xsi:type="editmodel:PackageEditModel" name="ca.ualberta.cmput301w13t11.FoodBook.controller" location="1264,22" size="216,456" id="ca.ualberta.cmput301w13t11.FoodBook.controller">
+    <children xsi:type="editmodel:ClassEditModel" name="DbController" location="44,47" size="163,139" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController" runTimeClassModel="getInstance(Landroid.content.Context;),getUserRecipes(),addIngredientToRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),deleteRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),addRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="140,90">
+        <children xsi:type="editmodel:MethodEditModel" name="addIngredientToRecipe" location="116,318" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#addIngredientToRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="addRecipe" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#addRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="deleteRecipe" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#deleteRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#getInstance(Landroid.content.Context;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getUserRecipes" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#getUserRecipes()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="ServerController" location="44,223" size="168,157" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController" runTimeClassModel="ServerController(),getInstance(),uploadRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),searchByKeywords(Ljava.lang.String;),instance,hasConnection()">
+      <children xsi:type="editmodel:CompartmentEditModel" size="145,18">
+        <children xsi:type="editmodel:AttributeEditModel" name="instance" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController#instance"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="118,90">
+        <children xsi:type="editmodel:MethodEditModel" name="ServerController" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController#ServerController()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController#getInstance()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="hasConnection" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController#hasConnection()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="searchByKeywords" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController#searchByKeywords(Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="uploadRecipe" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController#uploadRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="sends search and upload requests to" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@serverClient+ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController@serverController" source="//@children.0/@children.1" target="//@children.1/@children.8" targetEnd="//@children.0/@children.1/@sourceConnections.0/@children.1" label="//@children.0/@children.1/@sourceConnections.0/@children.2" sourceEnd="//@children.0/@children.1/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="serverController" location="10,157" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@serverClient+ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController@serverController|ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController#serverController" attachSource="true" multiplicityLabel="//@children.0/@children.1/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.0/@children.1/@sourceConnections.0/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name="- serverController" location="1324,408" size="84,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="1305,408" size="5,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="serverClient" location="220,10" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@serverClient+ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController@serverController|ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#serverClient" multiplicityLabel="//@children.0/@children.1/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.0/@children.1/@sourceConnections.0/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - serverClient" location="809,457" size="67,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="809,431" size="18,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" name="sends search and upload requests to" size="178,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+  </children>
+  <children xsi:type="editmodel:PackageEditModel" name="ca.ualberta.cmput301w13t11.FoodBook.model" location="32,4" size="1134,1063" id="ca.ualberta.cmput301w13t11.FoodBook.model">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.1/@sourceConnections.0" name="FModel" location="94,48" size="124,103" id="ca.ualberta.cmput301w13t11.FoodBook.model/FModel" runTimeClassModel="notifyViews(),deleteView(LV;),addView(LV;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="84,54">
+        <children xsi:type="editmodel:MethodEditModel" name="addView" id="ca.ualberta.cmput301w13t11.FoodBook.model/FModel#addView(LV;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="deleteView" id="ca.ualberta.cmput301w13t11.FoodBook.model/FModel#deleteView(LV;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="notifyViews" location="214,118" id="ca.ualberta.cmput301w13t11.FoodBook.model/FModel#notifyViews()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showPrivateMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.2/@sourceConnections.0 //@children.1/@children.3/@sourceConnections.0 //@children.1/@children.4/@sourceConnections.0 //@children.1/@children.5/@sourceConnections.0 //@children.1/@children.6/@sourceConnections.0 //@children.1/@children.8/@sourceConnections.0" name="DbManager" location="16,212" size="224,139" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager" runTimeClassModel="delete(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),getInstance(),getInstance(Landroid.content.Context;),getUserRecipes(),storeResults(Ljava.util.ArrayList;),insert(Lca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;J),insert(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="139,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="db" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager#db"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="dbHelper" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager#dbHelper"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="201,54">
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance" location="360,280" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager#getInstance(Landroid.content.Context;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager#getInstance()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getUserRecipes" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager#getUserRecipes()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/FModel&lt;-ca.ualberta.cmput301w13t11.FoodBook.model/DbManager" source="//@children.1/@children.1" target="//@children.1/@children.0" targetEnd="//@children.1/@children.1/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@children.1/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" location="139,0" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="61,103"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="RecipesDbManager" location="366,50" size="181,103" id="ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager" runTimeClassModel="delete(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),getInstance(),getInstance(Landroid.content.Context;),getUserRecipes(),RecipesDbManager(Landroid.content.Context;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="158,18">
+        <children xsi:type="editmodel:AttributeEditModel" name="instance" id="ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager#instance"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="124,36">
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance" id="ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager#getInstance(Landroid.content.Context;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance" id="ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager#getInstance()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager&lt;-ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager" source="//@children.1/@children.2" target="//@children.1/@children.1" targetEnd="//@children.1/@children.2/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@children.2/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" location="10,103" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="224,10"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="IngredientsDbManager" location="368,169" size="200,85" id="ca.ualberta.cmput301w13t11.FoodBook.model/IngredientsDbManager" runTimeClassModel="IngredientsDbManager(Landroid.content.Context;),getInstance(),getInstance(Landroid.content.Context;),insert(Lca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;J),delete(Lca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;),insert(Lca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="166,36">
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance" location="8,35" id="ca.ualberta.cmput301w13t11.FoodBook.model/IngredientsDbManager#getInstance(Landroid.content.Context;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance" id="ca.ualberta.cmput301w13t11.FoodBook.model/IngredientsDbManager#getInstance()"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager&lt;-ca.ualberta.cmput301w13t11.FoodBook.model/IngredientsDbManager" source="//@children.1/@children.3" target="//@children.1/@children.1" targetEnd="//@children.1/@children.3/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@children.3/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,64" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="224,21"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="ResultsDbManager" location="372,275" size="171,103" id="ca.ualberta.cmput301w13t11.FoodBook.model/ResultsDbManager" runTimeClassModel="getInstance(),getInstance(Landroid.content.Context;),ResultsDbManager(Landroid.content.Context;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="120,54">
+        <children xsi:type="editmodel:MethodEditModel" name="ResultsDbManager" id="ca.ualberta.cmput301w13t11.FoodBook.model/ResultsDbManager#ResultsDbManager(Landroid.content.Context;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance" id="ca.ualberta.cmput301w13t11.FoodBook.model/ResultsDbManager#getInstance()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance" id="ca.ualberta.cmput301w13t11.FoodBook.model/ResultsDbManager#getInstance(Landroid.content.Context;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager&lt;-ca.ualberta.cmput301w13t11.FoodBook.model/ResultsDbManager" source="//@children.1/@children.4" target="//@children.1/@children.1" targetEnd="//@children.1/@children.4/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@children.4/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,37" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="224,100"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.7/@sourceConnections.0" name="Recipe" location="-7,475" size="211,147" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe" runTimeClassModel="Recipe(Lca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;),instructions,Recipe(Lca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;Ljava.util.ArrayList;Ljava.util.ArrayList;),Recipe(Lca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;Ljava.util.ArrayList;),setInstructions(Ljava.lang.String;),getString(),ingredients,getInstructions(),author,title,getTitle(),Recipe(Lca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;),getUri(),Recipe(JLca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;Ljava.util.ArrayList;),deletePhoto(Lca.ualberta.cmput301w13t11.FoodBook.model.Photo;),setIngredients(Ljava.util.ArrayList;),generateTestRecipe(),setAuthor(Lca.ualberta.cmput301w13t11.FoodBook.model.User;),getPhotos(),getAuthor(),uri,photos,Recipe(JLca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;Ljava.util.ArrayList;Ljava.util.ArrayList;),getIngredients(),addPhoto(Lca.ualberta.cmput301w13t11.FoodBook.model.Photo;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="188,108">
+        <children xsi:type="editmodel:AttributeEditModel" name="uri" location="-54,33" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#uri"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="author" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#author"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="title" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#title"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="instructions" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#instructions"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="ingredients" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#ingredients"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="photos" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#photos"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager@dbManager+ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe" source="//@children.1/@children.5" target="//@children.1/@children.1" targetEnd="//@children.1/@children.5/@sourceConnections.0/@children.1" label="//@children.1/@children.5/@sourceConnections.0/@children.2" sourceEnd="//@children.1/@children.5/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="recipe" location="116,0" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager@dbManager+ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe|ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#recipe" attachSource="true" multiplicityLabel="//@children.1/@children.5/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.0/@children.0/@children.0" aggregationKind="Aggregration" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - recipe" location="155,459" size="39,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="136,459" size="5,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="dbManager" location="93,139" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager@dbManager+ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe|ca.ualberta.cmput301w13t11.FoodBook.model/DbManager#dbManager" multiplicityLabel="//@children.1/@children.5/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.0/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - dbManager" location="70,361" size="63,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="147,361" size="18,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" size="0,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/Ingredient@ingredient+ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe" source="//@children.1/@children.5" target="//@children.1/@children.6" targetEnd="//@children.1/@children.5/@sourceConnections.1/@children.1" label="//@children.1/@children.5/@sourceConnections.1/@children.2" sourceEnd="//@children.1/@children.5/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="recipe" location="211,136" id="ca.ualberta.cmput301w13t11.FoodBook.model/Ingredient@ingredient+ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe|ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#recipe" attachSource="true" multiplicityLabel="//@children.1/@children.5/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.1/@children.0/@children.0" aggregationKind="Aggregration" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - recipe" location="249,595" size="39,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="249,621" size="5,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="ingredient" location="0,9" id="ca.ualberta.cmput301w13t11.FoodBook.model/Ingredient@ingredient+ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe|ca.ualberta.cmput301w13t11.FoodBook.model/Ingredient#ingredient" multiplicityLabel="//@children.1/@children.5/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.1/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - ingredient" location="280,633" size="59,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="334,607" size="5,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" size="0,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.5/@sourceConnections.1" name="Ingredient" location="315,602" size="114,93" id="ca.ualberta.cmput301w13t11.FoodBook.model/Ingredient" runTimeClassModel="getName(),setUnit(Ljava.lang.String;),unit,setName(Ljava.lang.String;),name,getQuantity(),Ingredient(Ljava.lang.String;Ljava.lang.String;F),quantity,getUnit(),setQuantity(F)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="86,54">
+        <children xsi:type="editmodel:AttributeEditModel" name="name" id="ca.ualberta.cmput301w13t11.FoodBook.model/Ingredient#name"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="unit" id="ca.ualberta.cmput301w13t11.FoodBook.model/Ingredient#unit"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="quantity" id="ca.ualberta.cmput301w13t11.FoodBook.model/Ingredient#quantity"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager@dbManager+ca.ualberta.cmput301w13t11.FoodBook.model/Ingredient@ingredient" source="//@children.1/@children.6" target="//@children.1/@children.1" targetEnd="//@children.1/@children.6/@sourceConnections.0/@children.1" label="//@children.1/@children.6/@sourceConnections.0/@children.2" sourceEnd="//@children.1/@children.6/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="ingredient" location="0,10" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager@dbManager+ca.ualberta.cmput301w13t11.FoodBook.model/Ingredient@ingredient|ca.ualberta.cmput301w13t11.FoodBook.model/Ingredient#ingredient" attachSource="true" multiplicityLabel="//@children.1/@children.6/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.1/@children.6/@sourceConnections.0/@children.0/@children.0" aggregationKind="Aggregration" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - ingredient" location="280,635" size="59,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="321,609" size="18,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="dbManager" location="214,139" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager@dbManager+ca.ualberta.cmput301w13t11.FoodBook.model/Ingredient@ingredient|ca.ualberta.cmput301w13t11.FoodBook.model/DbManager#dbManager" multiplicityLabel="//@children.1/@children.6/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.1/@children.6/@sourceConnections.0/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - dbManager" location="191,361" size="63,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="268,361" size="5,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" size="0,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="Photo" location="82,680" size="145,75" id="ca.ualberta.cmput301w13t11.FoodBook.model/Photo" runTimeClassModel="getName(),getPhotoBitmap(),name,Photo(Ljava.lang.String;[B),Photo(Landroid.graphics.Bitmap;),getBitData()">
+      <children xsi:type="editmodel:CompartmentEditModel" size="122,36">
+        <children xsi:type="editmodel:AttributeEditModel" name="name" id="ca.ualberta.cmput301w13t11.FoodBook.model/Photo#name"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="bit_data" id="ca.ualberta.cmput301w13t11.FoodBook.model/Photo#bit_data"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe+ca.ualberta.cmput301w13t11.FoodBook.model/Photo@photo" source="//@children.1/@children.7" target="//@children.1/@children.5" targetEnd="//@children.1/@children.7/@sourceConnections.0/@children.1" label="//@children.1/@children.7/@sourceConnections.0/@children.2" sourceEnd="//@children.1/@children.7/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="photo" location="60,0" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe+ca.ualberta.cmput301w13t11.FoodBook.model/Photo@photo|ca.ualberta.cmput301w13t11.FoodBook.model/Photo#photo" attachSource="true" multiplicityLabel="//@children.1/@children.7/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.1/@children.7/@sourceConnections.0/@children.0/@children.0" aggregationKind="Aggregration" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - photo" location="129,642" size="37,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="180,642" size="5,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="recipe" location="149,147" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe+ca.ualberta.cmput301w13t11.FoodBook.model/Photo@photo|ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#recipe" multiplicityLabel="//@children.1/@children.7/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.1/@children.7/@sourceConnections.0/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - recipe" location="187,632" size="39,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="168,632" size="5,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" size="0,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.9/@sourceConnections.0 //@children.0/@children.1/@sourceConnections.0" name="ServerClient" location="551,437" size="220,310" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient" runTimeClassModel="ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode,uploadPhotoToRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Photo;Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),getServerUrl(),getThreadSafeClient(),getInstance(),searchByIngredients(Ljava.util.ArrayList;),hasConnection(Ljava.lang.String;),uploadRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),searchByKeywords(Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="125,54">
+        <children xsi:type="editmodel:AttributeEditModel" name="instance" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#instance"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="httpclient" location="24,21" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#httpclient"/>
+        <children xsi:type="editmodel:AttributeEditModel" name="helper" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#helper"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="197,72">
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#getInstance()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="uploadRecipe" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#uploadRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="searchByKeywords" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#searchByKeywords(Ljava.lang.String;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="uploadPhotoToRecipe" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#uploadPhotoToRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Photo;Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="123,125">
+        <children xsi:type="editmodel:EnumerationEditModel" name="ReturnCode" size="123,123" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient$ReturnCode" runTimeClassModel="SUCCESS%,NO_RESULTS%,ERROR%,ALREADY_EXISTS%">
+          <children xsi:type="editmodel:CompartmentEditModel" size="99,72">
+            <children xsi:type="editmodel:EnumerationLiteralEditModel" name="ALREADY_EXISTS" location="36,31" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient$ReturnCode#ALREADY_EXISTS%"/>
+            <children xsi:type="editmodel:EnumerationLiteralEditModel" name="ERROR" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient$ReturnCode#ERROR%"/>
+            <children xsi:type="editmodel:EnumerationLiteralEditModel" name="SUCCESS" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient$ReturnCode#SUCCESS%"/>
+            <children xsi:type="editmodel:EnumerationLiteralEditModel" name="NO_RESULTS" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient$ReturnCode#NO_RESULTS%"/>
+          </children>
+          <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+        </children>
+      </children>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="exchanges information with" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager@dbManager+ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@serverClient" source="//@children.1/@children.8" target="//@children.1/@children.1" targetEnd="//@children.1/@children.8/@sourceConnections.0/@children.1" label="//@children.1/@children.8/@sourceConnections.0/@children.2" sourceEnd="//@children.1/@children.8/@sourceConnections.0/@children.0" connectionRouterKind="Manual">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="serverClient" location="0,91" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager@dbManager+ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@serverClient|ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#serverClient" attachSource="true" multiplicityLabel="//@children.1/@children.8/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.1/@children.8/@sourceConnections.0/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - serverClient" location="509,539" size="67,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="558,499" size="18,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="dbManager" location="224,134" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager@dbManager+ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@serverClient|ca.ualberta.cmput301w13t11.FoodBook.model/DbManager#dbManager" multiplicityLabel="//@children.1/@children.8/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.1/@children.8/@sourceConnections.0/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - dbManager" location="279,331" size="63,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="279,371" size="18,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" name="exchanges information with" size="133,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+    <children xsi:type="editmodel:ClassEditModel" name="ClientHelper" location="302,852" size="141,85" id="ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper" runTimeClassModel="toJSON(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),ClientHelper(),toRecipeList(Ljava.lang.String;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="118,36">
+        <children xsi:type="editmodel:MethodEditModel" name="toJSON" id="ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper#toJSON(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="toRecipeList" id="ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper#toRecipeList(Ljava.lang.String;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="transforms data for" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@serverClient+ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper@clientHelper" source="//@children.1/@children.9" target="//@children.1/@children.8" targetEnd="//@children.1/@children.9/@sourceConnections.0/@children.1" label="//@children.1/@children.9/@sourceConnections.0/@children.2" sourceEnd="//@children.1/@children.9/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="clientHelper" location="131,0" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@serverClient+ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper@clientHelper|ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper#clientHelper" attachSource="true" multiplicityLabel="//@children.1/@children.9/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.1/@children.9/@sourceConnections.0/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - clientHelper" location="389,837" size="68,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="471,837" size="18,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="serverClient" location="0,300" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@serverClient+ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper@clientHelper|ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#serverClient" multiplicityLabel="//@children.1/@children.9/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.1/@children.9/@sourceConnections.0/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - serverClient" location="508,721" size="67,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="557,747" size="18,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" name="transforms data for" size="93,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
+  </children>
+  <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=1;Product=eUML2" autoName="false"/>
+  <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
+    <leftRuler/>
+    <topRuler/>
+  </boardSetting>
+  <classDiagramPreferences xsi:type="editmodel:UMLClassDiagramPreference" showPopupBars="true" showConnectionHandles="true" attributeSorter="Natural" methodSorter="Natural" showClassStereotype="true" showPackageStereotype="true" showDependencyStereotype="true" showInterfaceStereotype="true" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+</editmodel:ClassDiagramEditModel>
