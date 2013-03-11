@@ -4,8 +4,10 @@ import android.util.Base64;
 
 
 /**
- * Photo type to be used by Server Recipe -- its constructor makes an explicit conversion.
- * @author Marko
+ * Photo type to be used by Server Recipe -- its constructor makes an explicit conversion from
+ * Photo to ServerPhoto.  Mainly, the Bitmap used to store the data image in a regular photo
+ * is encoded into a Base64 String such that the data can be uploaded to a server.
+ * @author Marko Babic
  *
  */
 public class ServerPhoto {

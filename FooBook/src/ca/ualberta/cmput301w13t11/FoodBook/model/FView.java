@@ -1,9 +1,18 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
-// generic view interface
 
+/**
+ * Generic View interface -- has only the update() method which depends on the Model M this
+ * View is observing.
+ * @author mbabic
+ *
+ * @param <M> A Model extending the FModel superclass.
+ */
 public interface FView<M extends FModel> {
 
-  public void update(M model);  
-  //useless comment
-}
+	/**
+	 * Update the View according the changes made to model M.
+	 * @param model
+	 */
+	public void update(M model);  
+ }
