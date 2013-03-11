@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ca.ualberta.cmput301w13t11.FoodBook"
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.MyRecipes"
             android:label="@string/title_activity_my_recipes" >
         </activity>
         <activity
