@@ -29,9 +29,9 @@ public class DbManager extends FModel<FView> {
     private String dbFileName = "RecipeApplicationDb.sqlite";
     
     // SQL queries
-    private String getUserRecipesSQL = "FROM UserRecipes SELECT *";
-    private String getResultRecipesSQL = "FROM ResultRecipes SELECT *";
-    private String getUserIngredientsSQL = "FROM UserIngredients SELECT *";
+    private String getUserRecipesSQL = "SELECT * FROM UserRecipes";
+    private String getResultRecipesSQL = "SELECT * FROM ResultRecipes";
+    private String getUserIngredientsSQL = "SELECT * FROM UserIngredients";
     
     // for the controllers
     /**
