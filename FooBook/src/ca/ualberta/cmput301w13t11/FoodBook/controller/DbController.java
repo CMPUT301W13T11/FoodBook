@@ -54,6 +54,13 @@ public class DbController {
 	public ArrayList<Recipe> getUserRecipes() {
 		return db.getUserRecipes();
 	}
+
+    /**
+     * @return Returns an ArrayList containing all the Recipes stored from search
+     */
+	public ArrayList<Recipe> getStoredRecipes() {
+		return db.getStoredRecipes();
+	}
 	
 	/**
 	 * Adds the given Recipe to the database.

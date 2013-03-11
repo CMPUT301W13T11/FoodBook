@@ -103,6 +103,16 @@ public class DbManager extends FModel<FView> {
     }
 
     /**
+     * Returns an ArrayList of all the Recipes stored in the database.
+     * @return An ArrayList of all the Recipes stored in the database.
+     */
+    public ArrayList<Recipe> getStoredRecipes() {
+    	Cursor cursor = db.rawQuery(getResultRecipesSQL, null);
+    	cursor.moveToFirst();
+    	return CursorToRecipes(cursor);
+    }
+
+    /**
      * Inserts a recipe into the database.
      * @param recipe The Recipe to be stored in the database.
      * @param The name of the table into which the recipe is to be stored.
