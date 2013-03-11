@@ -33,11 +33,19 @@ public class ServerPhoto {
 		return new Photo(sp.getName(), data);
 	}
 	
+	/**
+	 * 
+	 * @return Name of photo.
+	 */
 	public String getName() {
 		return name;
 	}
 
 
+	/**
+	 * 
+	 * @return the Base64 String encoding the bitmap of the original image.
+	 */
 	public String getEncodedBitmap() {
 		return encoded_bitmap;
 	}

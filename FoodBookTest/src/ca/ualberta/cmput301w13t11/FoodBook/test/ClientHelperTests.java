@@ -22,14 +22,20 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.ClientHelper;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.User;
-
+/**
+ * Unit tests for the ClientHelper class.
+ * Run configurations note: if test fails to run, please go to Run Configurations -> ClassPath; if Android 4.1 is present in the
+ * bootstrap entries, then delete it and replace it with the JRE System Library (Advanced -> Add Library -> JRE System Library).
+ * @author mbabic
+ *
+ */
 public class ClientHelperTests extends TestCase {
 	private ClientHelper helper = new ClientHelper();
 	private HttpClient httpclient = new DefaultHttpClient();
 	
 	
 	@Test
-	/*
+	/**
 	 * Test that a recipe is converted to a JSON object successfully.
 	 */
 	public void testToJSONPass()
@@ -49,7 +55,7 @@ public class ClientHelperTests extends TestCase {
 	}
 	
 	@Test
-	/*
+	/**
 	 * Give toRecipe a response with no JSON in it; the method should fail to extact any information.
 	 */
 	public void testToRecipeEmptyReturn()
@@ -74,7 +80,7 @@ public class ClientHelperTests extends TestCase {
 	}
 	
 	@Test
-	/*
+	/**
 	 * Pass valid server response to toRecipeList() and make sure it returns the known
 	 * contents of the response in a Recipe.
 	 */
@@ -84,13 +90,13 @@ public class ClientHelperTests extends TestCase {
 
 		ArrayList<Recipe> result = null;
 
+		/* Extract the JSON string from the test file. */
 		try {
 			FileReader file = new FileReader("docs/JSONServerResponse.txt");
 			BufferedReader br = new BufferedReader(file);
 			
 			while ((out = br.readLine()) != null) {
 				json += out;
-				System.out.println(out);
 			}
 			result = helper.toRecipeList(json);
 
@@ -107,6 +113,22 @@ public class ClientHelperTests extends TestCase {
 			assertTrue("Uri failed.", r.getUri() == 0);
 		}
 		assertTrue(!(result.isEmpty()));
+	}
+	
+	@Test
+	/**
+	 * Pass garbage string to toRecipeList() and insure no recipe object is created.
+	 */
+	public void tesToRecipeListFail()
+	{
+		String fake_json = "thisisnotjsonatall191919191921307823 ryqsjke";
+		try {
+			ArrayList<Recipe> results = helper.toRecipeList(fake_json);
+			assertTrue("Results should be empty.", results.isEmpty());
+		} catch (IOException ioe) {
+			fail("IOEception");
+		}
+		fail("Should'nt get here.");
 	}
 
 }
