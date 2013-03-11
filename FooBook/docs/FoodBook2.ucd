@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="FoodBook2" size="1875,1248" id="" metadata="uml2-1.0" initialized="true" zoom="0.75" scrolledX="-3" scrolledY="309" tag="1000" key="32303037303533312D3130303020466F6F64426F6F6B2F6D6261626963">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="FoodBook2" size="1875,1248" id="" metadata="uml2-1.0" initialized="true" zoom="0.75" scrolledX="-3" scrolledY="229" tag="1000" key="32303037303533312D3130303020466F6F64426F6F6B2F6D6261626963">
   <children xsi:type="editmodel:PackageEditModel" name="ca.ualberta.cmput301w13t11.FoodBook.controller" location="1017,61" size="583,382" id="ca.ualberta.cmput301w13t11.FoodBook.controller">
     <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.1/@sourceConnections.2" name="ServerController" location="21,264" size="168,157" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController" runTimeClassModel="ServerController(),getInstance(),uploadRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),searchByKeywords(Ljava.lang.String;),instance,hasConnection()">
       <children xsi:type="editmodel:CompartmentEditModel" size="145,18">
@@ -532,10 +532,6 @@
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="uses" size="22,12" anchorKind="MiddlePart"/>
       </sourceConnections>
-      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/FView&lt;-ca.ualberta.cmput301w13t11.FoodBook/MyIngredients" source="//@children.2/@children.6" target="//@children.4" targetEnd="//@children.2/@children.6/@sourceConnections.1/@children.1" sourceEnd="//@children.2/@children.6/@sourceConnections.1/@children.0" connectionRouterKind="Manual">
-        <children xsi:type="editmodel:AssociationEndEditModel" location="0,3" attachSource="true"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" location="197,91"/>
-      </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
     <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.1/@sourceConnections.2" name="MyRecipes" location="315,205" size="116,67" id="ca.ualberta.cmput301w13t11.FoodBook/MyRecipes" runTimeClassModel="update(Lca.ualberta.cmput301w13t11.FoodBook.model.DbManager;),updateList(),OnAddRecipe(Landroid.view.View;),OnGotoMainMenu(Landroid.view.View;)">
@@ -576,10 +572,6 @@
           <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1111,1066" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessed from" size="69,12" anchorKind="MiddlePart"/>
-      </sourceConnections>
-      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/FView&lt;-ca.ualberta.cmput301w13t11.FoodBook/MyRecipes" source="//@children.2/@children.7" target="//@children.4" targetEnd="//@children.2/@children.7/@sourceConnections.3/@children.1" sourceEnd="//@children.2/@children.7/@sourceConnections.3/@children.0" connectionRouterKind="Manual">
-        <children xsi:type="editmodel:AssociationEndEditModel" location="58,0" attachSource="true"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" location="57,91"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
@@ -717,7 +709,7 @@
     </children>
   </children>
   <children xsi:type="editmodel:NotepadEditModel" location="1065,525" size="351,48" fontInfo="Sans-8-0" note="Every View extends the superclass android.app.Activity and &#xA;implements the FView&lt;M> interface.  This is no explicitly reflected &#xA;in this diagram in the interest of preservingreadability."/>
-  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.2 //@children.2/@children.7/@sourceConnections.3 //@children.2/@children.6/@sourceConnections.1" name="FView" location="1080,580" size="246,91" id="ca.ualberta.cmput301w13t11.FoodBook.model/FView" runTimeClassModel="update(LM;)">
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.2" name="FView" location="1049,579" size="246,91" id="ca.ualberta.cmput301w13t11.FoodBook.model/FView" runTimeClassModel="update(LM;)">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="64,18">
       <children xsi:type="editmodel:MethodEditModel" name="update" location="1104,584" id="ca.ualberta.cmput301w13t11.FoodBook.model/FView#update(LM;)"/>
@@ -727,13 +719,13 @@
   </children>
   <children xsi:type="editmodel:NotepadEditModel" location="899,584" size="126,82" fontInfo="Sans-8-0" note="RecipeApplication is &#xA;called on startup to &#xA;initialize the needed&#xA; singletons as noted &#xA;in the diagram.&#xA;"/>
   <children xsi:type="editmodel:NotepadEditModel" location="1,959" size="435,46" fontInfo="Sans-8-0" note="Desing patterns used:&#xA;&#xA;Singleton pattern -- all controllers, DbManagers, and the ServerClient are singletons."/>
-  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.1" name="Activity" location="1349,596" size="94,41" id="android.app/Activity" runTimeClassModel="">
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.1" name="Activity" location="1305,584" size="94,41" id="android.app/Activity" runTimeClassModel="">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
   </children>
-  <children xsi:type="editmodel:NotepadEditModel" location="505,973" size="437,34" fontInfo="Sans-8-0" note="Not reflected in the diagam, in the interest of preserving readability,&#xA;is the fact that RecipeViews accessed from &quot;MyRecipes&quot; make use of the DbController."/>
+  <children xsi:type="editmodel:NotepadEditModel" location="1350,632" size="437,34" fontInfo="Sans-8-0" note="Not reflected in the diagam, in the interest of preserving readability,&#xA;is the fact that RecipeViews accessed from &quot;MyRecipes&quot; make use of the DbController."/>
   <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=1;Product=eUML2" autoName="false"/>
   <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
     <leftRuler/>
