@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 /**
  * Database helper class.  Responsible for executing the Database creation statements and handling upgrades.
+ * 
+ * Uses the SQLiteOpenHelper class.
  * @author Mark Tupala
  *
  */

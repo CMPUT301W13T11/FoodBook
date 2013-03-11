@@ -33,8 +33,8 @@ public class ServerController {
 	}
 	
 	/**
-	 * 
-	 * @param recipe
+	 * Uploads the given recipe to the server.
+	 * @param recipe The recipe to be uploaded.
 	 * @return ReturnCode.ERROR if anything goes wrong, ReturnCode.ALREADY_EXISTS if a recipe
 	 * by that name already exists on the server (this will eventually be modified to check
 	 * against URI instead of Recipe title), ReturnCode.SUCCESS if the recipe was successfully

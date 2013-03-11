@@ -8,8 +8,12 @@ import android.database.Cursor;
 
 /**
  * Implements the functionality required to manage the table of Recipes for the application.
- * @author Marko
+ * @author Marko Babic, Marko Tupala
  *
+ *------------------------------------------------------------------------------------------------------------
+ * NOTE: REFACTORTING IS NOT COMPLETE AS OF THIS ITERATION.  IN THE FUTURE, MORE FUNCTIONALITY FROM DbManager
+ * WILL APPEAR IN THIS CLASS.
+ *------------------------------------------------------------------------------------------------------------
  */
 public class RecipesDbManager extends DbManager {
 	
@@ -43,24 +47,5 @@ public class RecipesDbManager extends DbManager {
 	{
 		return instance;
 	}
-	
-    /**
-     * Returns an ArrayList of all the Recipes stored in the database.
-     * @return An ArrayList of all the Recipes stored in the database.
-     */
-    public ArrayList<Recipe> getUserRecipes() {
-    	Cursor cursor = db.rawQuery(getUserRecipesSQL, null);
-    	return CursorToRecipes(cursor);
-    }
-    
-
-    /**
-     * Deletes the given Recipe from the database.
-     * @param recipe The Recipe to be deleted.
-     */
-    public void delete(Recipe recipe) {
-      db.delete("UserRecipes", "URI = " + recipe.getUri(), null);
-    }
-    
 
 }

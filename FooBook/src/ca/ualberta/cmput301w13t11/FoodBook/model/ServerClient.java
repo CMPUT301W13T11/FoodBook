@@ -40,9 +40,12 @@ import android.os.StrictMode;
  * (last accessed March 10, 2013)
  *
  * @author Abram Hindle, Chenlei Zhang, Marko Babic
+ *-----------------------------------------------------------------------------------------------------
  *
- *
- *NOTE: these operation should be done in Async task --- his will be implemented at a later date.
+ * NOTE: IN THIS IMPLEMENTATION WE ALLOW NETWORKING TASKS TO BE PERFORMED IN THE MAIN THREAD.
+ * 		THIS WILL NOT BE PRESENT IN THE FINAL IMPLEMENTATION TO ENSURE THAT UI RESPONSIVENESS
+ * 		IS NOT AFFECTED BY NETWORKING TASKS.
+ * ----------------------------------------------------------------------------------------------------
  */
 public class ServerClient {	
 	
