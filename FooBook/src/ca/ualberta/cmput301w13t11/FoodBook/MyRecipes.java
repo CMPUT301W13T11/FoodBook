@@ -1,5 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import java.util.ArrayList;
+
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
@@ -28,10 +30,15 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 	public void updateList()
     {
 		//Gets the user's recipes
-		DbController DbC = DbController.getInstance(this);
-		ListView listView = (ListView) findViewById(R.id.mylist);
+	DbController DbC = DbController.getInstance(this);
+	ListView listView = (ListView) findViewById(R.id.mylist);
+		
+		Recipe testRecipe=Recipe.generateTestRecipe();
+		ArrayList <Recipe> test = new ArrayList<Recipe>();
+		test.add(testRecipe);
+		 //DbC.getUserRecipes();
 		//Displays the user's recipes
-		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getUserRecipes());
+		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, test);
 		//Assigns the adapter
 		listView.setAdapter(adapter);
 		
