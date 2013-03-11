@@ -42,8 +42,5 @@ public class MainScreen extends Activity implements FView<DbManager>{
 	@Override
 	public void update(DbManager db)
 	{
-
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -32,7 +34,17 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getUserRecipes());
 		//Assigns the adapter
 		listView.setAdapter(adapter);
+		
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+			{	long recipe_uri = ((Recipe) parent.getItemAtPosition(position)).getUri();
+				Intent intent = new Intent(MyRecipes.this, ViewRecipeActivity.class);
+				intent.putExtra("recipe_uri", recipe_uri);
+				startActivity(intent);
+			}});
     }
+	
 	
 	public void OnGotoMainMenu(View View)
     {
@@ -54,5 +66,5 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 	{
 		updateList();
 	}
-
+	
 }
