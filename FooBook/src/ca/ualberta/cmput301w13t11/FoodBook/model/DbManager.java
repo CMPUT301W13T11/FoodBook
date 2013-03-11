@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class DbManager extends FModel<FView> {
 
-	// the 
+	// the actual database 
     protected SQLiteDatabase db;
     protected DbOpenHelper dbHelper;
     
@@ -30,13 +30,6 @@ public class DbManager extends FModel<FView> {
     private String getUserIngredientsSQL = "FROM UserIngredients SELECT *";
     
     // for the controllers
-    public void save() {
-    }
-    
-    public void load() {
-      
-    }
-    
     /**
      * Protected constructor because we're using the singleton pattern.
      */
@@ -53,8 +46,6 @@ public class DbManager extends FModel<FView> {
     public static DbManager getInstance(Context context) {
     	if (instance == null) {
     		// db instance doesn't exist, create new one
-    		// check to see if sqlite database exists on local, create it if not
-    		//db = openOrCreateDatabase(DbPath);
     		instance = new DbManager(context);
     	}
     			
@@ -80,6 +71,7 @@ public class DbManager extends FModel<FView> {
     		insert(recipe, "ResultRecipes");
     	}
     }
+    
     /**
      * Returns an ArrayList of all the Recipes stored in the database.
      * @return An ArrayList of all the Recipes stored in the database.
@@ -151,7 +143,7 @@ public class DbManager extends FModel<FView> {
      * @return An ArrayList of the Ingredients associated with the recipe.
      */
     private ArrayList<Ingredient> getRecipeIngredients(long uri) {
-    	Cursor cursor = db.rawQuery("From RecipeIngredients Select * Where uri = " + uri, null);
+    	Cursor cursor = db.rawQuery("From RecipeIngredients Select * Where recipeURI = " + uri, null);
     	ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
     	while (!cursor.isAfterLast()) {
     		String name = cursor.getString(0);
@@ -171,7 +163,7 @@ public class DbManager extends FModel<FView> {
      */
     private ContentValues RecipeToMap(Recipe recipe) {
         ContentValues values = new ContentValues();
-        values.put("uri", recipe.getUri());
+        values.put("URI", recipe.getUri());
         values.put("author", recipe.getAuthor().getName());
         values.put("title", recipe.getTitle());
         values.put("instructions", recipe.getInstructions());
