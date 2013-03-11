@@ -1,44 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="FoodBook2" size="1875,1248" id="" metadata="uml2-1.0" initialized="true" zoom="0.75" scrolledY="339" tag="1000" key="32303037303533312D3130303020466F6F64426F6F6B2F6D6261626963">
-  <children xsi:type="editmodel:PackageEditModel" name="ca.ualberta.cmput301w13t11.FoodBook.controller" location="1019,3" size="332,436" id="ca.ualberta.cmput301w13t11.FoodBook.controller">
-    <children xsi:type="editmodel:ClassEditModel" name="DbController" location="21,49" size="251,175" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController" runTimeClassModel="getInstance(Landroid.content.Context;),getUserRecipes(),deleteRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),addIngredientToRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),addRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)">
-      <children xsi:type="editmodel:CompartmentEditModel" size="127,18">
-        <children xsi:type="editmodel:AttributeEditModel" name="instance" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#instance"/>
-      </children>
-      <children xsi:type="editmodel:CompartmentEditModel" size="228,108">
-        <children xsi:type="editmodel:MethodEditModel" name="getInstance" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#getInstance(Landroid.content.Context;)"/>
-        <children xsi:type="editmodel:MethodEditModel" name="getInstance"/>
-        <children xsi:type="editmodel:MethodEditModel" name="getUserRecipes" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#getUserRecipes()"/>
-        <children xsi:type="editmodel:MethodEditModel" name="addRecipe" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#addRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
-        <children xsi:type="editmodel:MethodEditModel" name="deleteRecipe" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#deleteRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
-        <children xsi:type="editmodel:MethodEditModel" name="addIngredientToRecipe" location="116,318" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#addIngredientToRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
-      </children>
-      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="manipulaes" source="//@children.0/@children.0" target="//@children.1/@children.4" targetEnd="//@children.0/@children.0/@sourceConnections.0/@children.1" label="//@children.0/@children.0/@sourceConnections.0/@children.2" sourceEnd="//@children.0/@children.0/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" name="dbController" location="0,165" attachSource="true" multiplicityLabel="//@children.0/@children.0/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.0/@children.0/@sourceConnections.0/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - dbController" location="964,197" size="69,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1015,223" size="18,12" anchorKind="FirstPart"/>
-        </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="resultsDbManager" location="170,17" multiplicityLabel="//@children.0/@children.0/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.0/@children.0/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - resultsDbManager" location="515,284" size="97,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="515,258" size="18,12" anchorKind="LastPart"/>
-        </children>
-        <children xsi:type="editmodel:WireLabelEditModel" name="manipulaes" size="56,12" anchorKind="MiddlePart"/>
-      </sourceConnections>
-      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="manipulates" source="//@children.0/@children.0" target="//@children.1/@children.2" targetEnd="//@children.0/@children.0/@sourceConnections.1/@children.1" label="//@children.0/@children.0/@sourceConnections.1/@children.2" sourceEnd="//@children.0/@children.0/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" name="dbController" location="-1,9" attachSource="true" multiplicityLabel="//@children.0/@children.0/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.0/@children.0/@sourceConnections.1/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - dbController" location="964,67" size="69,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1015,41" size="18,12" anchorKind="FirstPart"/>
-        </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="recipesDbManager" location="180,25" multiplicityLabel="//@children.0/@children.0/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.0/@children.0/@sourceConnections.1/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - recipesDbManager" location="524,38" size="99,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="*" location="524,64" size="5,12" anchorKind="LastPart"/>
-        </children>
-        <children xsi:type="editmodel:WireLabelEditModel" name="manipulates" size="60,12" anchorKind="MiddlePart"/>
-      </sourceConnections>
-      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
-    </children>
-    <children xsi:type="editmodel:ClassEditModel" name="ServerController" location="98,276" size="168,157" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController" runTimeClassModel="ServerController(),getInstance(),uploadRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),searchByKeywords(Ljava.lang.String;),instance,hasConnection()">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="FoodBook2" size="1875,1248" id="" metadata="uml2-1.0" initialized="true" zoom="0.75" scrolledX="-3" scrolledY="309" tag="1000" key="32303037303533312D3130303020466F6F64426F6F6B2F6D6261626963">
+  <children xsi:type="editmodel:PackageEditModel" name="ca.ualberta.cmput301w13t11.FoodBook.controller" location="1017,61" size="583,382" id="ca.ualberta.cmput301w13t11.FoodBook.controller">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.1/@sourceConnections.2" name="ServerController" location="21,264" size="168,157" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController" runTimeClassModel="ServerController(),getInstance(),uploadRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),searchByKeywords(Ljava.lang.String;),instance,hasConnection()">
       <children xsi:type="editmodel:CompartmentEditModel" size="145,18">
         <children xsi:type="editmodel:AttributeEditModel" name="instance" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController#instance"/>
       </children>
@@ -50,12 +13,12 @@
         <children xsi:type="editmodel:MethodEditModel" name="uploadRecipe" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController#uploadRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
       </children>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
-      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="sends search and upload requests to" source="//@children.0/@children.1" target="//@children.1/@children.8" targetEnd="//@children.0/@children.1/@sourceConnections.0/@children.1" label="//@children.0/@children.1/@sourceConnections.0/@children.2" sourceEnd="//@children.0/@children.1/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" name="serverController" location="-1,18" attachSource="true" multiplicityLabel="//@children.0/@children.1/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.0/@children.1/@sourceConnections.0/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - serverController" location="1022,277" size="87,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1091,303" size="18,12" anchorKind="FirstPart"/>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="sends search and upload requests to" source="//@children.0/@children.0" target="//@children.1/@children.8" targetEnd="//@children.0/@children.0/@sourceConnections.0/@children.1" label="//@children.0/@children.0/@sourceConnections.0/@children.2" sourceEnd="//@children.0/@children.0/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="serverController" location="-1,18" attachSource="true" multiplicityLabel="//@children.0/@children.0/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.0/@children.0/@sourceConnections.0/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - serverController" location="943,285" size="87,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1012,311" size="18,12" anchorKind="FirstPart"/>
         </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="serverClient" location="220,27" multiplicityLabel="//@children.0/@children.1/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.0/@children.1/@sourceConnections.0/@children.1/@children.0" navigable="true">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="serverClient" location="220,27" multiplicityLabel="//@children.0/@children.0/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.0/@children.0/@sourceConnections.0/@children.1/@children.0" navigable="true">
           <children xsi:type="editmodel:LabelEditModel" name=" - serverClient" location="732,412" size="67,12" anchorKind="LastPart"/>
           <children xsi:type="editmodel:LabelEditModel" name="0..1" location="732,386" size="18,12" anchorKind="LastPart"/>
         </children>
@@ -63,8 +26,54 @@
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.6/@sourceConnections.0" name="DbController" location="337,60" size="251,157" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController" runTimeClassModel="getInstance(Landroid.content.Context;),getUserRecipes(),deleteRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),addIngredientToRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),addRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)">
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="228,108">
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance" location="84,71" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#getInstance(Landroid.content.Context;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getInstance"/>
+        <children xsi:type="editmodel:MethodEditModel" name="getUserRecipes" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#getUserRecipes()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="addRecipe" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#addRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="deleteRecipe" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#deleteRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="addIngredientToRecipe" location="116,318" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#addIngredientToRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;)"/>
+      </children>
+      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="manipulaes" source="//@children.0/@children.1" target="//@children.1/@children.4" targetEnd="//@children.0/@children.1/@sourceConnections.0/@children.1" label="//@children.0/@children.1/@sourceConnections.0/@children.2" sourceEnd="//@children.0/@children.1/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="dbController" location="0,147" attachSource="true" multiplicityLabel="//@children.0/@children.1/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.0/@children.1/@sourceConnections.0/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - dbController" location="1272,249" size="69,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1323,275" size="18,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="resultsDbManager" location="170,17" multiplicityLabel="//@children.0/@children.1/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.0/@children.1/@sourceConnections.0/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - resultsDbManager" location="515,284" size="97,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="515,258" size="18,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" name="manipulaes" size="56,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="manipulates" source="//@children.0/@children.1" target="//@children.1/@children.2" targetEnd="//@children.0/@children.1/@sourceConnections.1/@children.1" label="//@children.0/@children.1/@sourceConnections.1/@children.2" sourceEnd="//@children.0/@children.1/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="dbController" location="-2,7" attachSource="true" multiplicityLabel="//@children.0/@children.1/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.0/@children.1/@sourceConnections.1/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - dbController" location="1272,135" size="69,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1323,109" size="18,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="recipesDbManager" location="180,25" multiplicityLabel="//@children.0/@children.1/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.0/@children.1/@sourceConnections.1/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - recipesDbManager" location="524,38" size="99,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="524,64" size="5,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" name="manipulates" size="60,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="uses" id="ca.ualberta.cmput301w13t11.FoodBook/MyRecipes@myRecipes+ca.ualberta.cmput301w13t11.FoodBook.controller/DbController@dbController" source="//@children.0/@children.1" target="//@children.2/@children.7" targetEnd="//@children.0/@children.1/@sourceConnections.2/@children.1" label="//@children.0/@children.1/@sourceConnections.2/@children.2" sourceEnd="//@children.0/@children.1/@sourceConnections.2/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="dbController" location="224,156" id="ca.ualberta.cmput301w13t11.FoodBook/MyRecipes@myRecipes+ca.ualberta.cmput301w13t11.FoodBook.controller/DbController@dbController|ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#dbController" attachSource="true" multiplicityLabel="//@children.0/@children.1/@sourceConnections.2/@children.0/@children.1" roleLabel="//@children.0/@children.1/@sourceConnections.2/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - dbController" location="1579,284" size="69,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1547,284" size="18,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="myRecipes" location="116,11" id="ca.ualberta.cmput301w13t11.FoodBook/MyRecipes@myRecipes+ca.ualberta.cmput301w13t11.FoodBook.controller/DbController@dbController|ca.ualberta.cmput301w13t11.FoodBook/MyRecipes#myRecipes" multiplicityLabel="//@children.0/@children.1/@sourceConnections.2/@children.1/@children.1" roleLabel="//@children.0/@children.1/@sourceConnections.2/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - myRecipes" location="1201,907" size="60,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1201,881" size="18,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" name="uses" size="22,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
+    </children>
   </children>
-  <children xsi:type="editmodel:PackageEditModel" name="ca.ualberta.cmput301w13t11.FoodBook.model" location="2,1" size="731,943" id="ca.ualberta.cmput301w13t11.FoodBook.model">
+  <children xsi:type="editmodel:PackageEditModel" name="ca.ualberta.cmput301w13t11.FoodBook.model" location="2,1" size="731,907" id="ca.ualberta.cmput301w13t11.FoodBook.model">
     <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.1/@sourceConnections.0" name="FModel" location="17,32" size="124,103" id="ca.ualberta.cmput301w13t11.FoodBook.model/FModel" runTimeClassModel="notifyViews(),deleteView(LV;),addView(LV;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="84,54">
@@ -92,7 +101,7 @@
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsReturnType="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.0/@sourceConnections.1" name="RecipesDbManager" location="335,32" size="181,103" id="ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager" runTimeClassModel="delete(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),getInstance(),getInstance(Landroid.content.Context;),getUserRecipes(),RecipesDbManager(Landroid.content.Context;)">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.1/@sourceConnections.1" name="RecipesDbManager" location="335,32" size="181,103" id="ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager" runTimeClassModel="delete(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),getInstance(),getInstance(Landroid.content.Context;),getUserRecipes(),RecipesDbManager(Landroid.content.Context;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="158,18">
         <children xsi:type="editmodel:AttributeEditModel" name="instance" id="ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager#instance"/>
       </children>
@@ -102,17 +111,17 @@
       </children>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/DbManager&lt;-ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager" source="//@children.1/@children.2" target="//@children.1/@children.1" targetEnd="//@children.1/@children.2/@sourceConnections.0/@children.1" sourceEnd="//@children.1/@children.2/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" location="0,93" attachSource="true"/>
-        <children xsi:type="editmodel:AssociationEndEditModel" location="214,0"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="10,103" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="224,10"/>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="initializes" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@x+ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager@recipesDbManager" source="//@children.1/@children.2" target="//@children.2/@children.13" targetEnd="//@children.1/@children.2/@sourceConnections.1/@children.1" label="//@children.1/@children.2/@sourceConnections.1/@children.2" sourceEnd="//@children.1/@children.2/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="recipesDbManager" location="181,93" id="ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@x+ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager@recipesDbManager|ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager#recipesDbManager" attachSource="true" multiplicityLabel="//@children.1/@children.2/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.1/@children.2/@sourceConnections.1/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name="- recipesDbManager" location="524,106" size="96,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - recipesDbManager" location="524,106" size="99,12" anchorKind="FirstPart"/>
           <children xsi:type="editmodel:LabelEditModel" name="0..1" location="524,132" size="18,12" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="x" location="10,0" id="ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@x+ca.ualberta.cmput301w13t11.FoodBook.model/RecipesDbManager@recipesDbManager|ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication#x" multiplicityLabel="//@children.1/@children.2/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.1/@children.2/@sourceConnections.1/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - x" location="793,577" size="14,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="821,577" size="18,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - x" location="761,717" size="14,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="789,717" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="initializes" size="47,12" anchorKind="MiddlePart"/>
       </sourceConnections>
@@ -131,7 +140,7 @@
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" showMethodsParameterTypes="true" showMethodsParameterNames="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.13/@sourceConnections.2 //@children.0/@children.0/@sourceConnections.0" name="ResultsDbManager" location="336,260" size="171,103" id="ca.ualberta.cmput301w13t11.FoodBook.model/ResultsDbManager" runTimeClassModel="getInstance(),getInstance(Landroid.content.Context;),ResultsDbManager(Landroid.content.Context;)">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.13/@sourceConnections.2 //@children.0/@children.1/@sourceConnections.0" name="ResultsDbManager" location="336,260" size="171,103" id="ca.ualberta.cmput301w13t11.FoodBook.model/ResultsDbManager" runTimeClassModel="getInstance(),getInstance(Landroid.content.Context;),ResultsDbManager(Landroid.content.Context;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="120,54">
         <children xsi:type="editmodel:MethodEditModel" name="ResultsDbManager" id="ca.ualberta.cmput301w13t11.FoodBook.model/ResultsDbManager#ResultsDbManager(Landroid.content.Context;)"/>
@@ -145,7 +154,7 @@
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.7/@sourceConnections.0 //@children.1/@children.12/@sourceConnections.0" name="Recipe" location="17,465" size="211,147" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe" runTimeClassModel="Recipe(Lca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;),instructions,Recipe(Lca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;Ljava.util.ArrayList;Ljava.util.ArrayList;),setInstructions(Ljava.lang.String;),Recipe(Lca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;Ljava.util.ArrayList;),getString(),ingredients,getInstructions(),author,title,getTitle(),Recipe(Lca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;),getUri(),Recipe(JLca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;Ljava.util.ArrayList;),deletePhoto(Lca.ualberta.cmput301w13t11.FoodBook.model.Photo;),setIngredients(Ljava.util.ArrayList;),generateTestRecipe(),setAuthor(Lca.ualberta.cmput301w13t11.FoodBook.model.User;),getPhotos(),getAuthor(),uri,photos,Recipe(JLca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;Ljava.util.ArrayList;Ljava.util.ArrayList;),getIngredients(),addPhoto(Lca.ualberta.cmput301w13t11.FoodBook.model.Photo;)">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.7/@sourceConnections.0 //@children.1/@children.12/@sourceConnections.0" name="Recipe" location="17,465" size="211,175" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe" runTimeClassModel="Recipe(Lca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;),instructions,Recipe(Lca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;Ljava.util.ArrayList;Ljava.util.ArrayList;),setInstructions(Ljava.lang.String;),Recipe(Lca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;Ljava.util.ArrayList;),ingredients,getInstructions(),author,title,toSring(),getTitle(),Recipe(Lca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;),getUri(),Recipe(JLca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;Ljava.util.ArrayList;),deletePhoto(Lca.ualberta.cmput301w13t11.FoodBook.model.Photo;),setIngredients(Ljava.util.ArrayList;),generateTestRecipe(),setAuthor(Lca.ualberta.cmput301w13t11.FoodBook.model.User;),getPhotos(),getAuthor(),uri,photos,Recipe(JLca.ualberta.cmput301w13t11.FoodBook.model.User;Ljava.lang.String;Ljava.lang.String;Ljava.util.ArrayList;Ljava.util.ArrayList;),getIngredients(),addPhoto(Lca.ualberta.cmput301w13t11.FoodBook.model.Photo;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="188,108">
         <children xsi:type="editmodel:AttributeEditModel" name="uri" location="-54,33" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#uri"/>
         <children xsi:type="editmodel:AttributeEditModel" name="author" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#author"/>
@@ -154,7 +163,9 @@
         <children xsi:type="editmodel:AttributeEditModel" name="ingredients" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#ingredients"/>
         <children xsi:type="editmodel:AttributeEditModel" name="photos" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#photos"/>
       </children>
-      <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <children xsi:type="editmodel:CompartmentEditModel" size="65,18">
+        <children xsi:type="editmodel:MethodEditModel" name="toSring" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#toSring()"/>
+      </children>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" source="//@children.1/@children.5" target="//@children.1/@children.1" targetEnd="//@children.1/@children.5/@sourceConnections.0/@children.1" label="//@children.1/@children.5/@sourceConnections.0/@children.2" sourceEnd="//@children.1/@children.5/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="recipe" location="105,0" attachSource="true" multiplicityLabel="//@children.1/@children.5/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.0/@children.0/@children.0" aggregationKind="Aggregration" navigable="true">
@@ -168,24 +179,24 @@
         <children xsi:type="editmodel:WireLabelEditModel" size="0,12" anchorKind="MiddlePart"/>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" source="//@children.1/@children.5" target="//@children.1/@children.6" targetEnd="//@children.1/@children.5/@sourceConnections.1/@children.1" label="//@children.1/@children.5/@sourceConnections.1/@children.2" sourceEnd="//@children.1/@children.5/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" name="recipe" location="211,103" attachSource="true" multiplicityLabel="//@children.1/@children.5/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.1/@children.0/@children.0" aggregationKind="Aggregration" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - recipe" location="236,549" size="39,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="*" location="236,575" size="5,12" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="recipe" location="211,107" attachSource="true" multiplicityLabel="//@children.1/@children.5/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.1/@children.0/@children.0" aggregationKind="Aggregration" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - recipe" location="236,553" size="39,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="236,579" size="5,12" anchorKind="FirstPart"/>
         </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="ingredient" location="0,42" multiplicityLabel="//@children.1/@children.5/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.1/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - ingredient" location="287,549" size="59,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="*" location="341,575" size="5,12" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="ingredient" location="0,46" multiplicityLabel="//@children.1/@children.5/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.1/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - ingredient" location="287,553" size="59,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="341,579" size="5,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" size="0,12" anchorKind="MiddlePart"/>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="transforms" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper@clientHelper+ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe" source="//@children.1/@children.5" target="//@children.1/@children.9" targetEnd="//@children.1/@children.5/@sourceConnections.2/@children.1" label="//@children.1/@children.5/@sourceConnections.2/@children.2" sourceEnd="//@children.1/@children.5/@sourceConnections.2/@children.0" connectionRouterKind="Manual">
-        <children xsi:type="editmodel:AssociationEndEditModel" name="recipe" location="211,124" id="ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper@clientHelper+ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe|ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#recipe" attachSource="true" multiplicityLabel="//@children.1/@children.5/@sourceConnections.2/@children.0/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.2/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - recipe" location="237,571" size="39,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="*" location="237,597" size="5,12" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="recipe" location="211,135" id="ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper@clientHelper+ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe|ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#recipe" attachSource="true" multiplicityLabel="//@children.1/@children.5/@sourceConnections.2/@children.0/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.2/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - recipe" location="237,582" size="39,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="237,608" size="5,12" anchorKind="FirstPart"/>
         </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="clientHelper" location="0,8" id="ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper@clientHelper+ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe|ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper#clientHelper" multiplicityLabel="//@children.1/@children.5/@sourceConnections.2/@children.1/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.2/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - clientHelper" location="517,772" size="68,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="567,739" size="18,12" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="clientHelper" location="0,10" id="ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper@clientHelper+ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe|ca.ualberta.cmput301w13t11.FoodBook.model/ClientHelper#clientHelper" multiplicityLabel="//@children.1/@children.5/@sourceConnections.2/@children.1/@children.1" roleLabel="//@children.1/@children.5/@sourceConnections.2/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - clientHelper" location="517,774" size="68,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="567,741" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="transforms" size="52,12" anchorKind="MiddlePart"/>
       </sourceConnections>
@@ -223,15 +234,15 @@
           <children xsi:type="editmodel:LabelEditModel" name=" - photo" location="99,691" size="37,12" anchorKind="FirstPart"/>
           <children xsi:type="editmodel:LabelEditModel" name="*" location="80,691" size="5,12" anchorKind="FirstPart"/>
         </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="recipe" location="73,147" multiplicityLabel="//@children.1/@children.7/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.1/@children.7/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - recipe" location="99,619" size="39,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="*" location="80,619" size="5,12" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="recipe" location="73,175" multiplicityLabel="//@children.1/@children.7/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.1/@children.7/@sourceConnections.0/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - recipe" location="99,647" size="39,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="80,647" size="5,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" size="0,12" anchorKind="MiddlePart"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.9/@sourceConnections.0 //@children.0/@children.1/@sourceConnections.0 //@children.2/@children.13/@sourceConnections.0" name="ServerClient" location="504,378" size="220,310" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient" runTimeClassModel="ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode,uploadPhotoToRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Photo;Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),getServerUrl(),getInstance(),getThreadSafeClient(),searchByIngredients(Ljava.util.ArrayList;),hasConnection(Ljava.lang.String;),uploadRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),searchByKeywords(Ljava.lang.String;)">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.9/@sourceConnections.0 //@children.0/@children.0/@sourceConnections.0 //@children.2/@children.13/@sourceConnections.0" name="ServerClient" location="504,378" size="220,310" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient" runTimeClassModel="ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode,uploadPhotoToRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Photo;Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),getServerUrl(),getInstance(),getThreadSafeClient(),searchByIngredients(Ljava.util.ArrayList;),hasConnection(Ljava.lang.String;),uploadRecipe(Lca.ualberta.cmput301w13t11.FoodBook.model.Recipe;),searchByKeywords(Ljava.lang.String;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="125,54">
         <children xsi:type="editmodel:AttributeEditModel" name="instance" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#instance"/>
         <children xsi:type="editmodel:AttributeEditModel" name="httpclient" location="24,21" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#httpclient"/>
@@ -315,8 +326,8 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerRecipe@serverRecipe+ca.ualberta.cmput301w13t11.FoodBook.model/ServerPhoto@serverPhoto" source="//@children.1/@children.11" target="//@children.1/@children.10" targetEnd="//@children.1/@children.11/@sourceConnections.0/@children.1" label="//@children.1/@children.11/@sourceConnections.0/@children.2" sourceEnd="//@children.1/@children.11/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="serverPhoto" location="0,4" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerRecipe@serverRecipe+ca.ualberta.cmput301w13t11.FoodBook.model/ServerPhoto@serverPhoto|ca.ualberta.cmput301w13t11.FoodBook.model/ServerPhoto#serverPhoto" attachSource="true" multiplicityLabel="//@children.1/@children.11/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.1/@children.11/@sourceConnections.0/@children.0/@children.0" aggregationKind="Aggregration" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - serverPhoto" location="531,837" size="66,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="*" location="592,863" size="5,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - serverPhoto" location="531,833" size="66,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="592,859" size="5,12" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="serverRecipe" location="158,79" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerRecipe@serverRecipe+ca.ualberta.cmput301w13t11.FoodBook.model/ServerPhoto@serverPhoto|ca.ualberta.cmput301w13t11.FoodBook.model/ServerRecipe#serverRecipe" multiplicityLabel="//@children.1/@children.11/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.1/@children.11/@sourceConnections.0/@children.1/@children.0" navigable="true">
           <children xsi:type="editmodel:LabelEditModel" name=" - serverRecipe" location="443,907" size="71,12" anchorKind="LastPart"/>
@@ -337,9 +348,9 @@
           <children xsi:type="editmodel:LabelEditModel" name=" - user" location="220,694" size="30,12" anchorKind="FirstPart"/>
           <children xsi:type="editmodel:LabelEditModel" name="*" location="201,694" size="5,12" anchorKind="FirstPart"/>
         </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="recipe" location="195,147" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe+ca.ualberta.cmput301w13t11.FoodBook.model/User@user|ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#recipe" multiplicityLabel="//@children.1/@children.12/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.1/@children.12/@sourceConnections.0/@children.1/@children.0" aggregationKind="Aggregration" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - recipe" location="220,619" size="39,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="*" location="201,619" size="5,12" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="recipe" location="195,175" id="ca.ualberta.cmput301w13t11.FoodBook.model/Recipe@recipe+ca.ualberta.cmput301w13t11.FoodBook.model/User@user|ca.ualberta.cmput301w13t11.FoodBook.model/Recipe#recipe" multiplicityLabel="//@children.1/@children.12/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.1/@children.12/@sourceConnections.0/@children.1/@children.0" aggregationKind="Aggregration" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - recipe" location="220,647" size="39,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="*" location="201,647" size="5,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" size="0,12" anchorKind="MiddlePart"/>
       </sourceConnections>
@@ -357,8 +368,8 @@
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
   </children>
-  <children xsi:type="editmodel:PackageEditModel" name="ca.ualberta.cmput301w13t11.FoodBook" location="765,524" size="884,764" id="ca.ualberta.cmput301w13t11.FoodBook">
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.2/@sourceConnections.0 //@children.2/@children.12/@sourceConnections.0" name="EditIngredients" location="701,220" size="148,85" id="ca.ualberta.cmput301w13t11.FoodBook/EditIngredients" runTimeClassModel="OnAddIngredient(Landroid.view.View;),update(Lca.ualberta.cmput301w13t11.FoodBook.model.DbManager;),OnModifyIngredient(Landroid.view.View;),OnGotoMainMenu(Landroid.view.View;)">
+  <children xsi:type="editmodel:PackageEditModel" name="ca.ualberta.cmput301w13t11.FoodBook" location="764,684" size="886,734" id="ca.ualberta.cmput301w13t11.FoodBook">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.2/@sourceConnections.0 //@children.2/@children.12/@sourceConnections.0" name="EditIngredients" location="702,239" size="148,85" id="ca.ualberta.cmput301w13t11.FoodBook/EditIngredients" runTimeClassModel="OnAddIngredient(Landroid.view.View;),update(Lca.ualberta.cmput301w13t11.FoodBook.model.DbManager;),OnModifyIngredient(Landroid.view.View;),OnGotoMainMenu(Landroid.view.View;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="124,36">
         <children xsi:type="editmodel:MethodEditModel" name="OnAddIngredient" id="ca.ualberta.cmput301w13t11.FoodBook/EditIngredients#OnAddIngredient(Landroid.view.View;)"/>
@@ -378,25 +389,36 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessed from" autoLocated="true" source="//@children.2/@children.1" target="//@children.2/@children.4" targetEnd="//@children.2/@children.1/@sourceConnections.0/@children.1" label="//@children.2/@children.1/@sourceConnections.0/@children.2" sourceEnd="//@children.2/@children.1/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="searchActivity" location="74,121" attachSource="true" multiplicityLabel="//@children.2/@children.1/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.1/@sourceConnections.0/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - searchActivity" location="904,839" size="76,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="872,839" size="18,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - searchActivity" location="903,999" size="76,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="871,999" size="18,12" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="searchResultsActivity" location="116,0" multiplicityLabel="//@children.2/@children.1/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.1/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - searchResultsActivity" location="904,889" size="111,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="872,889" size="18,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - searchResultsActivity" location="903,1049" size="111,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="871,1049" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessed from" size="69,12" anchorKind="MiddlePart"/>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessed from" autoLocated="true" source="//@children.2/@children.1" target="//@children.2/@children.3" targetEnd="//@children.2/@children.1/@sourceConnections.1/@children.1" label="//@children.2/@children.1/@sourceConnections.1/@children.2" sourceEnd="//@children.2/@children.1/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" name="searchActivity" location="160,10" attachSource="true" multiplicityLabel="//@children.2/@children.1/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.2/@children.1/@sourceConnections.1/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - searchActivity" location="991,727" size="76,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="991,701" size="18,12" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="searchActivity" location="150,0" attachSource="true" multiplicityLabel="//@children.2/@children.1/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.2/@children.1/@sourceConnections.1/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - searchActivity" location="889,851" size="76,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="979,851" size="18,12" anchorKind="FirstPart"/>
         </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="mainScreen" location="10,121" multiplicityLabel="//@children.2/@children.1/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.2/@children.1/@sourceConnections.1/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - mainScreen" location="1145,684" size="66,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1113,684" size="18,12" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="mainScreen" location="0,111" multiplicityLabel="//@children.2/@children.1/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.2/@children.1/@sourceConnections.1/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - mainScreen" location="1069,805" size="66,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1117,831" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessed from" size="69,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="uses" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController@serverController+ca.ualberta.cmput301w13t11.FoodBook/SearchActivity@searchActivity" source="//@children.2/@children.1" target="//@children.0/@children.0" targetEnd="//@children.2/@children.1/@sourceConnections.2/@children.1" label="//@children.2/@children.1/@sourceConnections.2/@children.2" sourceEnd="//@children.2/@children.1/@sourceConnections.2/@children.0" connectionRouterKind="Manual">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="searchActivity" location="105,0" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController@serverController+ca.ualberta.cmput301w13t11.FoodBook/SearchActivity@searchActivity|ca.ualberta.cmput301w13t11.FoodBook/SearchActivity#searchActivity" attachSource="true" multiplicityLabel="//@children.2/@children.1/@sourceConnections.2/@children.0/@children.1" roleLabel="//@children.2/@children.1/@sourceConnections.2/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - searchActivity" location="845,852" size="76,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="942,852" size="18,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="serverController" location="51,157" id="ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController@serverController+ca.ualberta.cmput301w13t11.FoodBook/SearchActivity@searchActivity|ca.ualberta.cmput301w13t11.FoodBook.controller/ServerController#serverController" multiplicityLabel="//@children.2/@children.1/@sourceConnections.2/@children.1/@children.1" roleLabel="//@children.2/@children.1/@sourceConnections.2/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - serverController" location="1096,450" size="87,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1064,450" size="18,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" name="uses" size="22,12" anchorKind="MiddlePart"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
@@ -410,18 +432,18 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessd from" id="ca.ualberta.cmput301w13t11.FoodBook/EditIngredients@editIngredients+ca.ualberta.cmput301w13t11.FoodBook/AddRecipesActivity@addRecipesActivity" source="//@children.2/@children.2" target="//@children.2/@children.0" targetEnd="//@children.2/@children.2/@sourceConnections.0/@children.1" label="//@children.2/@children.2/@sourceConnections.0/@children.2" sourceEnd="//@children.2/@children.2/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="addRecipesActivity" location="172,28" id="ca.ualberta.cmput301w13t11.FoodBook/EditIngredients@editIngredients+ca.ualberta.cmput301w13t11.FoodBook/AddRecipesActivity@addRecipesActivity|ca.ualberta.cmput301w13t11.FoodBook/AddRecipesActivity#addRecipesActivity" attachSource="true" multiplicityLabel="//@children.2/@children.2/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.2/@sourceConnections.0/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - addRecipesActivity" location="1459,900" size="99,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1459,874" size="18,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - addRecipesActivity" location="1457,1060" size="99,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1457,1034" size="18,12" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="editIngredients" location="0,75" id="ca.ualberta.cmput301w13t11.FoodBook/EditIngredients@editIngredients+ca.ualberta.cmput301w13t11.FoodBook/AddRecipesActivity@addRecipesActivity|ca.ualberta.cmput301w13t11.FoodBook/EditIngredients#editIngredients" multiplicityLabel="//@children.2/@children.2/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.2/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - editIngredients" location="1375,799" size="83,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1440,825" size="18,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - editIngredients" location="1375,978" size="83,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1440,1004" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessd from" size="63,12" anchorKind="MiddlePart"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.7/@sourceConnections.0 //@children.2/@children.1/@sourceConnections.1" name="MainScreen" location="364,33" size="134,121" id="ca.ualberta.cmput301w13t11.FoodBook/MainScreen" runTimeClassModel="update(Lca.ualberta.cmput301w13t11.FoodBook.model.DbManager;),OnMyRecipes(Landroid.view.View;),OnMyIngredients(Landroid.view.View;),OnSearch(Landroid.view.View;)">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.7/@sourceConnections.0 //@children.2/@children.1/@sourceConnections.1" name="MainScreen" location="379,30" size="134,121" id="ca.ualberta.cmput301w13t11.FoodBook/MainScreen" runTimeClassModel="update(Lca.ualberta.cmput301w13t11.FoodBook.model.DbManager;),OnMyRecipes(Landroid.view.View;),OnMyIngredients(Landroid.view.View;),OnSearch(Landroid.view.View;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="111,72">
         <children xsi:type="editmodel:MethodEditModel" name="OnMyIngredients" id="ca.ualberta.cmput301w13t11.FoodBook/MainScreen#OnMyIngredients(Landroid.view.View;)"/>
@@ -432,18 +454,26 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessd from" autoLocated="true" source="//@children.2/@children.3" target="//@children.2/@children.6" targetEnd="//@children.2/@children.3/@sourceConnections.0/@children.1" label="//@children.2/@children.3/@sourceConnections.0/@children.2" sourceEnd="//@children.2/@children.3/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="mainScreen" location="134,75" attachSource="true" multiplicityLabel="//@children.2/@children.3/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.3/@sourceConnections.0/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - mainScreen" location="1269,613" size="66,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1269,639" size="18,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - mainScreen" location="1283,769" size="66,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1283,795" size="18,12" anchorKind="FirstPart"/>
         </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="myIngredients" location="0,44" multiplicityLabel="//@children.2/@children.3/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.3/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - myIngredients" location="1383,613" size="78,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1443,639" size="18,12" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="myIngredients" location="0,45" multiplicityLabel="//@children.2/@children.3/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.3/@sourceConnections.0/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - myIngredients" location="1315,769" size="78,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1375,795" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessd from" size="63,12" anchorKind="MiddlePart"/>
       </sourceConnections>
+      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="android.app/Activity&lt;-ca.ualberta.cmput301w13t11.FoodBook/MainScreen" source="//@children.2/@children.3" target="//@children.7" targetEnd="//@children.2/@children.3/@sourceConnections.1/@children.1" sourceEnd="//@children.2/@children.3/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" location="124,0" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="38,40"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" id="ca.ualberta.cmput301w13t11.FoodBook.model/FView&lt;-ca.ualberta.cmput301w13t11.FoodBook/MainScreen" source="//@children.2/@children.3" target="//@children.4" targetEnd="//@children.2/@children.3/@sourceConnections.2/@children.1" sourceEnd="//@children.2/@children.3/@sourceConnections.2/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" location="33,-1" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="154,90"/>
+      </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.1/@sourceConnections.0" name="SearchResultsActivity" location="17,385" size="191,67" id="ca.ualberta.cmput301w13t11.FoodBook/SearchResultsActivity" runTimeClassModel="onCreateOptionsMenu(Landroid.view.Menu;),OnSearchAgain(Landroid.view.View;),update(Lca.ualberta.cmput301w13t11.FoodBook.model.DbManager;),OnGotoMainMenu(Landroid.view.View;)">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.1/@sourceConnections.0 //@children.2/@children.5/@sourceConnections.1" name="SearchResultsActivity" location="17,385" size="191,67" id="ca.ualberta.cmput301w13t11.FoodBook/SearchResultsActivity" runTimeClassModel="onCreateOptionsMenu(Landroid.view.Menu;),OnSearchAgain(Landroid.view.View;),update(Lca.ualberta.cmput301w13t11.FoodBook.model.DbManager;),OnGotoMainMenu(Landroid.view.View;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="103,18">
         <children xsi:type="editmodel:MethodEditModel" name="OnSearchAgain" id="ca.ualberta.cmput301w13t11.FoodBook/SearchResultsActivity#OnSearchAgain(Landroid.view.View;)"/>
@@ -461,18 +491,29 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessed from" source="//@children.2/@children.5" target="//@children.2/@children.9" targetEnd="//@children.2/@children.5/@sourceConnections.0/@children.1" label="//@children.2/@children.5/@sourceConnections.0/@children.2" sourceEnd="//@children.2/@children.5/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="viewSearchResultActivity" location="107,102" attachSource="true" multiplicityLabel="//@children.2/@children.5/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.5/@sourceConnections.0/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - viewSearchResultActivity" location="889,1159" size="128,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="857,1159" size="18,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - viewSearchResultActivity" location="888,1319" size="128,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="856,1319" size="18,12" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="viewPhotosActivity" location="21,-1" multiplicityLabel="//@children.2/@children.5/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.5/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - viewPhotosActivity" location="760,1239" size="97,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="871,1239" size="18,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - viewPhotosActivity" location="758,1369" size="97,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="869,1369" size="18,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" name="accessed from" size="69,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessed from" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook/SearchResultsActivity@searchResultsActivity+ca.ualberta.cmput301w13t11.FoodBook/ViewSearchResultActivity@viewSearchResultActivity" source="//@children.2/@children.5" target="//@children.2/@children.4" targetEnd="//@children.2/@children.5/@sourceConnections.1/@children.1" label="//@children.2/@children.5/@sourceConnections.1/@children.2" sourceEnd="//@children.2/@children.5/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="viewSearchResultActivity" location="101,0" id="ca.ualberta.cmput301w13t11.FoodBook/SearchResultsActivity@searchResultsActivity+ca.ualberta.cmput301w13t11.FoodBook/ViewSearchResultActivity@viewSearchResultActivity|ca.ualberta.cmput301w13t11.FoodBook/ViewSearchResultActivity#viewSearchResultActivity" attachSource="true" multiplicityLabel="//@children.2/@children.5/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.2/@children.5/@sourceConnections.1/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - viewSearchResultActivity" location="883,1190" size="128,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="851,1190" size="18,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="searchResultsActivity" location="95,67" id="ca.ualberta.cmput301w13t11.FoodBook/SearchResultsActivity@searchResultsActivity+ca.ualberta.cmput301w13t11.FoodBook/ViewSearchResultActivity@viewSearchResultActivity|ca.ualberta.cmput301w13t11.FoodBook/SearchResultsActivity#searchResultsActivity" multiplicityLabel="//@children.2/@children.5/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.2/@children.5/@sourceConnections.1/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - searchResultsActivity" location="883,1143" size="111,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="851,1143" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessed from" size="69,12" anchorKind="MiddlePart"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.0" name="MyIngredients" location="704,64" size="154,103" id="ca.ualberta.cmput301w13t11.FoodBook/MyIngredients" runTimeClassModel="OnAddIngredient(Landroid.view.View;),update(Lca.ualberta.cmput301w13t11.FoodBook.model.DbManager;),OnModifyIngredient(Landroid.view.View;),OnGotoMainMenu(Landroid.view.View;),OnRemoveIngredient(Landroid.view.View;)">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.0" name="MyIngredients" location="637,60" size="154,103" id="ca.ualberta.cmput301w13t11.FoodBook/MyIngredients" runTimeClassModel="OnAddIngredient(Landroid.view.View;),update(Lca.ualberta.cmput301w13t11.FoodBook.model.DbManager;),OnModifyIngredient(Landroid.view.View;),OnGotoMainMenu(Landroid.view.View;),OnRemoveIngredient(Landroid.view.View;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="131,54">
         <children xsi:type="editmodel:MethodEditModel" name="OnAddIngredient" id="ca.ualberta.cmput301w13t11.FoodBook/MyIngredients#OnAddIngredient(Landroid.view.View;)"/>
@@ -480,46 +521,65 @@
         <children xsi:type="editmodel:MethodEditModel" name="OnRemoveIngredient" id="ca.ualberta.cmput301w13t11.FoodBook/MyIngredients#OnRemoveIngredient(Landroid.view.View;)"/>
       </children>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
+      <sourceConnections xsi:type="editmodel:AssociationEditModel" name="uses" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController@dbController+ca.ualberta.cmput301w13t11.FoodBook/MyIngredients@myIngredients" source="//@children.2/@children.6" target="//@children.0/@children.1" targetEnd="//@children.2/@children.6/@sourceConnections.0/@children.1" label="//@children.2/@children.6/@sourceConnections.0/@children.2" sourceEnd="//@children.2/@children.6/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
+        <children xsi:type="editmodel:AssociationEndEditModel" name="myIngredients" location="76,0" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController@dbController+ca.ualberta.cmput301w13t11.FoodBook/MyIngredients@myIngredients|ca.ualberta.cmput301w13t11.FoodBook/MyIngredients#myIngredients" attachSource="true" multiplicityLabel="//@children.2/@children.6/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.6/@sourceConnections.0/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - myIngredients" location="1483,725" size="78,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1451,725" size="18,12" anchorKind="FirstPart"/>
+        </children>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="dbController" location="123,157" id="ca.ualberta.cmput301w13t11.FoodBook.controller/DbController@dbController+ca.ualberta.cmput301w13t11.FoodBook/MyIngredients@myIngredients|ca.ualberta.cmput301w13t11.FoodBook.controller/DbController#dbController" multiplicityLabel="//@children.2/@children.6/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.6/@sourceConnections.0/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - dbController" location="1396,284" size="69,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1479,284" size="18,12" anchorKind="LastPart"/>
+        </children>
+        <children xsi:type="editmodel:WireLabelEditModel" name="uses" size="22,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/FView&lt;-ca.ualberta.cmput301w13t11.FoodBook/MyIngredients" source="//@children.2/@children.6" target="//@children.4" targetEnd="//@children.2/@children.6/@sourceConnections.1/@children.1" sourceEnd="//@children.2/@children.6/@sourceConnections.1/@children.0" connectionRouterKind="Manual">
+        <children xsi:type="editmodel:AssociationEndEditModel" location="0,3" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="197,91"/>
+      </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" name="MyRecipes" location="316,214" size="116,67" id="ca.ualberta.cmput301w13t11.FoodBook/MyRecipes" runTimeClassModel="update(Lca.ualberta.cmput301w13t11.FoodBook.model.DbManager;),updateList(),OnAddRecipe(Landroid.view.View;),OnGotoMainMenu(Landroid.view.View;)">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.0/@children.1/@sourceConnections.2" name="MyRecipes" location="315,205" size="116,67" id="ca.ualberta.cmput301w13t11.FoodBook/MyRecipes" runTimeClassModel="update(Lca.ualberta.cmput301w13t11.FoodBook.model.DbManager;),updateList(),OnAddRecipe(Landroid.view.View;),OnGotoMainMenu(Landroid.view.View;)">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="93,18">
-        <children xsi:type="editmodel:MethodEditModel" name="OnAddRecipe" location="-18,54" id="ca.ualberta.cmput301w13t11.FoodBook/MyRecipes#OnAddRecipe(Landroid.view.View;)"/>
+        <children xsi:type="editmodel:MethodEditModel" name="OnAddRecipe" location="7,22" id="ca.ualberta.cmput301w13t11.FoodBook/MyRecipes#OnAddRecipe(Landroid.view.View;)"/>
       </children>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessed from" autoLocated="true" source="//@children.2/@children.7" target="//@children.2/@children.3" targetEnd="//@children.2/@children.7/@sourceConnections.0/@children.1" label="//@children.2/@children.7/@sourceConnections.0/@children.2" sourceEnd="//@children.2/@children.7/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" name="myRecipes" location="81,0" attachSource="true" multiplicityLabel="//@children.2/@children.7/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.7/@sourceConnections.0/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - myRecipes" location="1168,718" size="60,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1136,718" size="18,12" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="myRecipes" location="89,0" attachSource="true" multiplicityLabel="//@children.2/@children.7/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.7/@sourceConnections.0/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - myRecipes" location="1175,869" size="60,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1143,869" size="18,12" anchorKind="FirstPart"/>
         </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="mainScreen" location="33,121" multiplicityLabel="//@children.2/@children.7/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.7/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - mainScreen" location="1168,684" size="66,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1136,684" size="18,12" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="mainScreen" location="25,121" multiplicityLabel="//@children.2/@children.7/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.7/@sourceConnections.0/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - mainScreen" location="1175,841" size="66,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1143,841" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessed from" size="69,12" anchorKind="MiddlePart"/>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessed from" autoLocated="true" source="//@children.2/@children.7" target="//@children.2/@children.2" targetEnd="//@children.2/@children.7/@sourceConnections.1/@children.1" label="//@children.2/@children.7/@sourceConnections.1/@children.2" sourceEnd="//@children.2/@children.7/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="myRecipes" location="106,67" attachSource="true" multiplicityLabel="//@children.2/@children.7/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.2/@children.7/@sourceConnections.1/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - myRecipes" location="1119,811" size="60,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1193,811" size="18,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - myRecipes" location="1117,963" size="60,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1191,963" size="18,12" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="addRecipesActivity" location="0,10" multiplicityLabel="//@children.2/@children.7/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.2/@children.7/@sourceConnections.1/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - addRecipesActivity" location="1172,883" size="99,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1253,857" size="18,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - addRecipesActivity" location="1171,1043" size="99,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1252,1017" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessed from" size="69,12" anchorKind="MiddlePart"/>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessed from" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity@viewRecipeActivity+ca.ualberta.cmput301w13t11.FoodBook/MyRecipes@myRecipes" source="//@children.2/@children.7" target="//@children.2/@children.8" targetEnd="//@children.2/@children.7/@sourceConnections.2/@children.1" label="//@children.2/@children.7/@sourceConnections.2/@children.2" sourceEnd="//@children.2/@children.7/@sourceConnections.2/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="myRecipes" location="57,67" id="ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity@viewRecipeActivity+ca.ualberta.cmput301w13t11.FoodBook/MyRecipes@myRecipes|ca.ualberta.cmput301w13t11.FoodBook/MyRecipes#myRecipes" attachSource="true" multiplicityLabel="//@children.2/@children.7/@sourceConnections.2/@children.0/@children.1" roleLabel="//@children.2/@children.7/@sourceConnections.2/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - myRecipes" location="1144,811" size="60,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1112,811" size="18,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - myRecipes" location="1143,963" size="60,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1111,963" size="18,12" anchorKind="FirstPart"/>
         </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="viewRecipeActivity" location="71,0" id="ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity@viewRecipeActivity+ca.ualberta.cmput301w13t11.FoodBook/MyRecipes@myRecipes|ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity#viewRecipeActivity" multiplicityLabel="//@children.2/@children.7/@sourceConnections.2/@children.1/@children.1" roleLabel="//@children.2/@children.7/@sourceConnections.2/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - viewRecipeActivity" location="1144,906" size="97,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1112,906" size="18,12" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="viewRecipeActivity" location="70,0" id="ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity@viewRecipeActivity+ca.ualberta.cmput301w13t11.FoodBook/MyRecipes@myRecipes|ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity#viewRecipeActivity" multiplicityLabel="//@children.2/@children.7/@sourceConnections.2/@children.1/@children.1" roleLabel="//@children.2/@children.7/@sourceConnections.2/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - viewRecipeActivity" location="1143,1066" size="97,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1111,1066" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessed from" size="69,12" anchorKind="MiddlePart"/>
+      </sourceConnections>
+      <sourceConnections xsi:type="editmodel:GeneralizationEditModel" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/FView&lt;-ca.ualberta.cmput301w13t11.FoodBook/MyRecipes" source="//@children.2/@children.7" target="//@children.4" targetEnd="//@children.2/@children.7/@sourceConnections.3/@children.1" sourceEnd="//@children.2/@children.7/@sourceConnections.3/@children.0" connectionRouterKind="Manual">
+        <children xsi:type="editmodel:AssociationEndEditModel" location="58,0" attachSource="true"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" location="57,91"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
@@ -535,12 +595,12 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessed from" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook/TakePhotosActivity@takePhotosActivity+ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity@viewRecipeActivity" source="//@children.2/@children.8" target="//@children.2/@children.10" targetEnd="//@children.2/@children.8/@sourceConnections.0/@children.1" label="//@children.2/@children.8/@sourceConnections.0/@children.2" sourceEnd="//@children.2/@children.8/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="viewRecipeActivity" location="135,139" id="ca.ualberta.cmput301w13t11.FoodBook/TakePhotosActivity@takePhotosActivity+ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity@viewRecipeActivity|ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity#viewRecipeActivity" attachSource="true" multiplicityLabel="//@children.2/@children.8/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.8/@sourceConnections.0/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - viewRecipeActivity" location="1208,1071" size="97,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1176,1071" size="18,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - viewRecipeActivity" location="1207,1231" size="97,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1175,1231" size="18,12" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="takePhotosActivity" location="34,0" id="ca.ualberta.cmput301w13t11.FoodBook/TakePhotosActivity@takePhotosActivity+ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity@viewRecipeActivity|ca.ualberta.cmput301w13t11.FoodBook/TakePhotosActivity#takePhotosActivity" multiplicityLabel="//@children.2/@children.8/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.8/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - takePhotosActivity" location="1208,1173" size="97,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1176,1173" size="18,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - takePhotosActivity" location="1207,1313" size="97,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1175,1313" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessed from" size="69,12" anchorKind="MiddlePart"/>
       </sourceConnections>
@@ -552,12 +612,12 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessed from" id="ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity@viewRecipeActivity+ca.ualberta.cmput301w13t11.FoodBook/ViewPhotosActivity@viewPhotosActivity" source="//@children.2/@children.9" target="//@children.2/@children.8" targetEnd="//@children.2/@children.9/@sourceConnections.0/@children.1" label="//@children.2/@children.9/@sourceConnections.0/@children.2" sourceEnd="//@children.2/@children.9/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="viewPhotosActivity" location="163,0" id="ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity@viewRecipeActivity+ca.ualberta.cmput301w13t11.FoodBook/ViewPhotosActivity@viewPhotosActivity|ca.ualberta.cmput301w13t11.FoodBook/ViewPhotosActivity#viewPhotosActivity" attachSource="true" multiplicityLabel="//@children.2/@children.9/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.9/@sourceConnections.0/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - viewPhotosActivity" location="901,1239" size="97,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1012,1239" size="18,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - viewPhotosActivity" location="900,1369" size="97,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1011,1369" size="18,12" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="viewRecipeActivity" location="17,138" id="ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity@viewRecipeActivity+ca.ualberta.cmput301w13t11.FoodBook/ViewPhotosActivity@viewPhotosActivity|ca.ualberta.cmput301w13t11.FoodBook/ViewRecipeActivity#viewRecipeActivity" multiplicityLabel="//@children.2/@children.9/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.9/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - viewRecipeActivity" location="1091,1071" size="97,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1059,1071" size="18,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - viewRecipeActivity" location="1089,1231" size="97,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1057,1231" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessed from" size="69,12" anchorKind="MiddlePart"/>
       </sourceConnections>
@@ -581,12 +641,12 @@
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessed from" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook/EditRecipeActivity@editRecipeActivity+ca.ualberta.cmput301w13t11.FoodBook/EditPhotos@editPhotos" source="//@children.2/@children.11" target="//@children.2/@children.12" targetEnd="//@children.2/@children.11/@sourceConnections.0/@children.1" label="//@children.2/@children.11/@sourceConnections.0/@children.2" sourceEnd="//@children.2/@children.11/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="editPhotos" location="62,0" id="ca.ualberta.cmput301w13t11.FoodBook/EditRecipeActivity@editRecipeActivity+ca.ualberta.cmput301w13t11.FoodBook/EditPhotos@editPhotos|ca.ualberta.cmput301w13t11.FoodBook/EditPhotos#editPhotos" attachSource="true" multiplicityLabel="//@children.2/@children.11/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.11/@sourceConnections.0/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - editPhotos" location="1561,1183" size="60,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1529,1183" size="18,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - editPhotos" location="1560,1313" size="60,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1528,1313" size="18,12" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="editRecipeActivity" location="77,121" id="ca.ualberta.cmput301w13t11.FoodBook/EditRecipeActivity@editRecipeActivity+ca.ualberta.cmput301w13t11.FoodBook/EditPhotos@editPhotos|ca.ualberta.cmput301w13t11.FoodBook/EditRecipeActivity#editRecipeActivity" multiplicityLabel="//@children.2/@children.11/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.11/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - editRecipeActivity" location="1561,1131" size="95,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1529,1131" size="18,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - editRecipeActivity" location="1560,1291" size="95,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1528,1291" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessed from" size="69,12" anchorKind="MiddlePart"/>
       </sourceConnections>
@@ -602,39 +662,39 @@
       </children>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="accessed from" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook/EditIngredients@editIngredients+ca.ualberta.cmput301w13t11.FoodBook/EditRecipeActivity@editRecipeActivity" source="//@children.2/@children.12" target="//@children.2/@children.0" targetEnd="//@children.2/@children.12/@sourceConnections.0/@children.1" label="//@children.2/@children.12/@sourceConnections.0/@children.2" sourceEnd="//@children.2/@children.12/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" name="editRecipeActivity" location="67,0" id="ca.ualberta.cmput301w13t11.FoodBook/EditIngredients@editIngredients+ca.ualberta.cmput301w13t11.FoodBook/EditRecipeActivity@editRecipeActivity|ca.ualberta.cmput301w13t11.FoodBook/EditRecipeActivity#editRecipeActivity" attachSource="true" multiplicityLabel="//@children.2/@children.12/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.12/@sourceConnections.0/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - editRecipeActivity" location="1551,985" size="95,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1519,985" size="18,12" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="editRecipeActivity" location="68,0" id="ca.ualberta.cmput301w13t11.FoodBook/EditIngredients@editIngredients+ca.ualberta.cmput301w13t11.FoodBook/EditRecipeActivity@editRecipeActivity|ca.ualberta.cmput301w13t11.FoodBook/EditRecipeActivity#editRecipeActivity" attachSource="true" multiplicityLabel="//@children.2/@children.12/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.12/@sourceConnections.0/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - editRecipeActivity" location="1551,1145" size="95,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1519,1145" size="18,12" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="editIngredients" location="79,85" id="ca.ualberta.cmput301w13t11.FoodBook/EditIngredients@editIngredients+ca.ualberta.cmput301w13t11.FoodBook/EditRecipeActivity@editRecipeActivity|ca.ualberta.cmput301w13t11.FoodBook/EditIngredients#editIngredients" multiplicityLabel="//@children.2/@children.12/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.12/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - editIngredients" location="1551,835" size="83,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1519,835" size="18,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - editIngredients" location="1551,1015" size="83,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="1519,1015" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="accessed from" size="69,12" anchorKind="MiddlePart"/>
       </sourceConnections>
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
-    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.2/@sourceConnections.1" name="RecipeApplication" location="40,73" size="164,67" id="ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication" runTimeClassModel="onCreate()">
+    <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.1/@children.2/@sourceConnections.1" name="RecipeApplication" location="9,52" size="164,67" id="ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication" runTimeClassModel="onCreate()">
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <children xsi:type="editmodel:CompartmentEditModel" size="74,18">
-        <children xsi:type="editmodel:MethodEditModel" name="onCreate" id="ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication#onCreate()"/>
+        <children xsi:type="editmodel:MethodEditModel" name="onCreate" location="-28,39" id="ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication#onCreate()"/>
       </children>
       <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="initializes" autoLocated="true" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@Z+ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@Z" source="//@children.2/@children.13" target="//@children.1/@children.8" targetEnd="//@children.2/@children.13/@sourceConnections.0/@children.1" label="//@children.2/@children.13/@sourceConnections.0/@children.2" sourceEnd="//@children.2/@children.13/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-        <children xsi:type="editmodel:AssociationEndEditModel" name="Z" location="0,33" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@Z+ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@Z|ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication#Z" attachSource="true" multiplicityLabel="//@children.2/@children.13/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.13/@sourceConnections.0/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - Z" location="782,636" size="15,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="779,610" size="18,12" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="Z" location="10,0" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@Z+ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@Z|ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication#Z" attachSource="true" multiplicityLabel="//@children.2/@children.13/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.2/@children.13/@sourceConnections.0/@children.0/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - Z" location="760,717" size="15,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="789,717" size="18,12" anchorKind="FirstPart"/>
         </children>
-        <children xsi:type="editmodel:AssociationEndEditModel" name="Z" location="220,251" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@Z+ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@Z|ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#Z" multiplicityLabel="//@children.2/@children.13/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.13/@sourceConnections.0/@children.1/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - Z" location="732,636" size="15,12" anchorKind="LastPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="732,610" size="18,12" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:AssociationEndEditModel" name="Z" location="220,300" id="ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient@Z+ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@Z|ca.ualberta.cmput301w13t11.FoodBook.model/ServerClient#Z" multiplicityLabel="//@children.2/@children.13/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.2/@children.13/@sourceConnections.0/@children.1/@children.0" navigable="true">
+          <children xsi:type="editmodel:LabelEditModel" name=" - Z" location="732,685" size="15,12" anchorKind="LastPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="732,659" size="18,12" anchorKind="LastPart"/>
         </children>
         <children xsi:type="editmodel:WireLabelEditModel" name="initializes" size="47,12" anchorKind="MiddlePart"/>
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="initializes" id="ca.ualberta.cmput301w13t11.FoodBook.model/IngredientsDbManager@ingredientsDbManager+ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@recipeApplication" source="//@children.2/@children.13" target="//@children.1/@children.3" targetEnd="//@children.2/@children.13/@sourceConnections.1/@children.1" label="//@children.2/@children.13/@sourceConnections.1/@children.2" sourceEnd="//@children.2/@children.13/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="recipeApplication" location="129,-1" id="ca.ualberta.cmput301w13t11.FoodBook.model/IngredientsDbManager@ingredientsDbManager+ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@recipeApplication|ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication#recipeApplication" attachSource="true" multiplicityLabel="//@children.2/@children.13/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.2/@children.13/@sourceConnections.1/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - recipeApplication" location="940,577" size="93,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="908,577" size="18,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - recipeApplication" location="908,717" size="93,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="876,717" size="18,12" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="ingredientsDbManager" location="200,39" id="ca.ualberta.cmput301w13t11.FoodBook.model/IngredientsDbManager@ingredientsDbManager+ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@recipeApplication|ca.ualberta.cmput301w13t11.FoodBook.model/IngredientsDbManager#ingredientsDbManager" multiplicityLabel="//@children.2/@children.13/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.2/@children.13/@sourceConnections.1/@children.1/@children.0" navigable="true">
           <children xsi:type="editmodel:LabelEditModel" name=" - ingredientsDbManager" location="541,171" size="119,12" anchorKind="LastPart"/>
@@ -644,8 +704,8 @@
       </sourceConnections>
       <sourceConnections xsi:type="editmodel:AssociationEditModel" name="initializes" id="ca.ualberta.cmput301w13t11.FoodBook.model/ResultsDbManager@resultsDbManager1+ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@x" source="//@children.2/@children.13" target="//@children.1/@children.4" targetEnd="//@children.2/@children.13/@sourceConnections.2/@children.1" label="//@children.2/@children.13/@sourceConnections.2/@children.2" sourceEnd="//@children.2/@children.13/@sourceConnections.2/@children.0" connectionRouterKind="Manhattan">
         <children xsi:type="editmodel:AssociationEndEditModel" name="x" location="65,-1" id="ca.ualberta.cmput301w13t11.FoodBook.model/ResultsDbManager@resultsDbManager1+ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@x|ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication#x" attachSource="true" multiplicityLabel="//@children.2/@children.13/@sourceConnections.2/@children.0/@children.1" roleLabel="//@children.2/@children.13/@sourceConnections.2/@children.0/@children.0" navigable="true">
-          <children xsi:type="editmodel:LabelEditModel" name=" - x" location="848,577" size="14,12" anchorKind="FirstPart"/>
-          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="876,577" size="18,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name=" - x" location="816,717" size="14,12" anchorKind="FirstPart"/>
+          <children xsi:type="editmodel:LabelEditModel" name="0..1" location="844,717" size="18,12" anchorKind="FirstPart"/>
         </children>
         <children xsi:type="editmodel:AssociationEndEditModel" name="resultsDbManager1" location="170,61" id="ca.ualberta.cmput301w13t11.FoodBook.model/ResultsDbManager@resultsDbManager1+ca.ualberta.cmput301w13t11.FoodBook/RecipeApplication@x|ca.ualberta.cmput301w13t11.FoodBook.model/ResultsDbManager#resultsDbManager1" multiplicityLabel="//@children.2/@children.13/@sourceConnections.2/@children.1/@children.1" roleLabel="//@children.2/@children.13/@sourceConnections.2/@children.1/@children.0" navigable="true">
           <children xsi:type="editmodel:LabelEditModel" name=" - resultsDbManager1" location="515,302" size="103,12" anchorKind="LastPart"/>
@@ -656,22 +716,24 @@
       <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
     </children>
   </children>
-  <children xsi:type="editmodel:NotepadEditModel" location="1363,284" size="351,48" fontInfo="Sans-8-0" note="Every View extends the superclass android.app.Activity and &#xA;implements the FView&lt;M> interface.  This is no explicitly reflected &#xA;in this diagram in the interest of preservingreadability."/>
-  <children xsi:type="editmodel:InterfaceEditModel" name="FView" location="1364,348" size="246,91" id="ca.ualberta.cmput301w13t11.FoodBook.model/FView" runTimeClassModel="update(LM;)">
+  <children xsi:type="editmodel:NotepadEditModel" location="1065,525" size="351,48" fontInfo="Sans-8-0" note="Every View extends the superclass android.app.Activity and &#xA;implements the FView&lt;M> interface.  This is no explicitly reflected &#xA;in this diagram in the interest of preservingreadability."/>
+  <children xsi:type="editmodel:InterfaceEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.2 //@children.2/@children.7/@sourceConnections.3 //@children.2/@children.6/@sourceConnections.1" name="FView" location="1080,580" size="246,91" id="ca.ualberta.cmput301w13t11.FoodBook.model/FView" runTimeClassModel="update(LM;)">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="64,18">
-      <children xsi:type="editmodel:MethodEditModel" name="update" id="ca.ualberta.cmput301w13t11.FoodBook.model/FView#update(LM;)"/>
+      <children xsi:type="editmodel:MethodEditModel" name="update" location="1104,584" id="ca.ualberta.cmput301w13t11.FoodBook.model/FView#update(LM;)"/>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicAttributes="true" showPackageAttributes="true" showStaticAttributes="true" showPublicMethods="true" showPackageMethods="true" showStaticMethods="true" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3" showAttributeProperty="true"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="Activity" location="1620,398" size="94,41" id="android.app/Activity" runTimeClassModel="">
+  <children xsi:type="editmodel:NotepadEditModel" location="899,584" size="126,82" fontInfo="Sans-8-0" note="RecipeApplication is &#xA;called on startup to &#xA;initialize the needed&#xA; singletons as noted &#xA;in the diagram.&#xA;"/>
+  <children xsi:type="editmodel:NotepadEditModel" location="1,959" size="435,46" fontInfo="Sans-8-0" note="Desing patterns used:&#xA;&#xA;Singleton pattern -- all controllers, DbManagers, and the ServerClient are singletons."/>
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.2/@children.3/@sourceConnections.1" name="Activity" location="1349,596" size="94,41" id="android.app/Activity" runTimeClassModel="">
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <children xsi:type="editmodel:CompartmentEditModel" size="0,0"/>
     <classifierPreferences xsi:type="editmodel:UMLClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural" innerClassSorter="Natural" showPublicInnerClasses="true" showPackageInnerClasses="true" showStaticInnerClasses="true" packageIndication="3"/>
   </children>
-  <children xsi:type="editmodel:NotepadEditModel" location="764,465" size="268,46" fontInfo="Sans-8-0" note="RecipeApplication is called on startup to initialize &#xA;the needed singletons as noted in the diagram.&#xA;"/>
+  <children xsi:type="editmodel:NotepadEditModel" location="505,973" size="437,34" fontInfo="Sans-8-0" note="Not reflected in the diagam, in the interest of preserving readability,&#xA;is the fact that RecipeViews accessed from &quot;MyRecipes&quot; make use of the DbController."/>
   <diagramOptions xsi:type="options:ClassDiagramOptions" properties="wireOptions=1;Product=eUML2" autoName="false"/>
   <boardSetting snapToGeometry="true" gridEnabled="true" gridSpacing="15,15" gridOrigin="0,0" rulerUnit="pixel" gridVisibility="false">
     <leftRuler/>

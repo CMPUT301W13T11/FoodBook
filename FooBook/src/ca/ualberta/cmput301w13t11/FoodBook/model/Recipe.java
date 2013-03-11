@@ -124,7 +124,7 @@ public class Recipe {
 	 * Returns title of recipe - method of this name needed to populate ListViews.
 	 * @return  Title of recipe.
 	 */
-	public String getString()
+	public String toSring()
 	{
 		return this.title;
 	}
