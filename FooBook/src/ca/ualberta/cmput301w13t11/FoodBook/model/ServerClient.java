@@ -31,7 +31,7 @@ public class ServerClient {
 	private static ServerClient instance = null;
 	static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
 	static private String test_server_string = "http://cmput301.softwareprocess.es:8080/testing/cmput301w13t11/";
-	private HttpClient httpclient = this.getThreadSafeClient();
+	private HttpClient httpclient = ServerClient.getThreadSafeClient();
 	private ClientHelper helper = new ClientHelper();
 	public static enum ReturnCode
 	{
@@ -67,10 +67,10 @@ public class ServerClient {
 	public boolean hasConnection(String url)
 	{
 		try {
-			HttpGet httpGet = new HttpGet(url);
-			HttpResponse response = httpclient.execute(httpGet);
+			HttpGet get = new HttpGet(url);
+			HttpResponse response = httpclient.execute(get);
 			int ret = response.getStatusLine().getStatusCode();
-			logger.log(Level.INFO, "Connection test return status: ");
+			logger.log(Level.INFO, "Connection test return status: " + Integer.toString(ret));
 			if (ret == HttpStatus.SC_OK) {
 				return true;
 			}
@@ -182,10 +182,26 @@ public class ServerClient {
 		
 	}
 	
+	/**
+	 * Search the server for recipes which are composed of ingredients 
+	 * @param ingredients The list of ingredients by which to search.
+	 * @return An ArrayList of the Recipes found.
+	 */
+	public ArrayList<Recipe> searchByIngredients(ArrayList<Ingredient> ingredients)
+	{
+		//TODO: implement this code
+		return new ArrayList<Recipe>();
+	}
 	
-	public void attachPhotoToRecipe(Photo photo, Recipe recipe)
+	/**
+	 * Upload the given Photo to the appropriate Recipe.
+	 * @param photo The photo to be added to the server-side version of the Recipe.
+	 * @param recipe The Recipe to be updated.
+	 */
+	public ReturnCode uploadPhotoToRecipe(Photo photo, Recipe recipe)
 	{
 		//TODO: implement
+		return ReturnCode.ERROR;
 	}
 	
 	public String getServerUrl()

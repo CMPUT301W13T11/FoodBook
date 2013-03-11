@@ -12,6 +12,10 @@ public class ServerRecipeTest extends AndroidTestCase {
 		super.setUp();
 	}	
 	
+	/*
+	 * Make sure that a given ServerRecipe is converted without error to a Recipe.
+	 * Preservation of image information will have to be tested visually.
+	 */
 	public void testToRecipe()
 	{
 		int equal_count = 0;
@@ -54,6 +58,7 @@ public class ServerRecipeTest extends AndroidTestCase {
 
 	/*
 	 * Make sure that a given Recipe is converted without error to a ServerRecipe.
+	 * Preservation of image information will have to be tested visually.
 	 */
 	public void testServerRecipe() 
 	{
