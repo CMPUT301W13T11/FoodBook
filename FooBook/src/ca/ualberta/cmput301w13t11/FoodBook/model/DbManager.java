@@ -38,6 +38,7 @@ public class DbManager extends FModel<FView> {
      * Protected constructor because we're using the singleton pattern.
      */
     protected DbManager(Context context) {
+    	super();
     	// open or create the sqlite db accordingly
     	if (DbManager.has_executed == false) {
     		// Use the has_executed flag to ensure we do not open
