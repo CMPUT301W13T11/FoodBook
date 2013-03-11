@@ -36,12 +36,12 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 	DbController DbC = DbController.getInstance(this);
 	ListView listView = (ListView) findViewById(R.id.mylist);
 		
-		Recipe testRecipe=Recipe.generateTestRecipe();
-		ArrayList <Recipe> test = new ArrayList<Recipe>();
-		test.add(testRecipe);
-		//DbC.getUserRecipes();
+		//Recipe testRecipe=Recipe.generateTestRecipe();
+		//ArrayList <Recipe> test = new ArrayList<Recipe>();
+		//test.add(testRecipe);
+
 		//Displays the user's recipes
-		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, test);
+		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getUserRecipes());
 		//Assigns the adapter
 		listView.setAdapter(adapter);
 		

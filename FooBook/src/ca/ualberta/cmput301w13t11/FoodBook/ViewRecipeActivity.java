@@ -9,7 +9,6 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -29,31 +28,25 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		Intent intent = getIntent();
 		String URI = intent.getStringExtra(MyRecipes.EXTRA_URI);
 		long uri=Long.parseLong(URI);
-		//ArrayList<Recipe> RecipeList= DbC.getUserRecipes();
+		ArrayList<Recipe> RecipeList= DbC.getUserRecipes();
 		Recipe viewedRecipe = Recipe.generateTestRecipe();
 		
-		/*for(int index=0; index<RecipeList.size(); index++)
+		for(int index=0; index<RecipeList.size(); index++)
 		{
 			if(RecipeList.get(index).getUri()==uri)
 					{
-					index=RecipeList.size();
 					viewedRecipe=RecipeList.get(index);
+					index=RecipeList.size();
+					
 					}
-		}*/
+		}
 		
 		
 		recipeName.setText(viewedRecipe.getTitle());
 		instructions.setText(viewedRecipe.getInstructions());
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
 
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.view_recipe, menu);
-		return true;
-	}
 	public void OnGotoMyRecipes(View View)
     {
 		// responds to button Go Back
@@ -88,9 +81,6 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	@Override
 	public void update(DbManager db)
 	{
-
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -56,6 +56,7 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 			editText = (EditText) findViewById(R.id.editText2);
 			String Author = editText.getText().toString();
 			
+			
 			//Still have to do ingredients and photos
 			User author=new User(Author);
 			Recipe newRecipe=new Recipe(author, Title, Instructions);
