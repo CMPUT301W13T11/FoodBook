@@ -1,12 +1,17 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
+import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 
 public class AddRecipesActivity extends Activity implements FView<DbManager>
 {
@@ -19,14 +24,6 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 		setContentView(R.layout.activity_add_recipes);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.add_recipes, menu);
-		return true;
-	}
 	public void OnGobacktoMyRecipes(View View)
     {
 		// responds to button Go Back to My Recipes
@@ -49,13 +46,28 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
     }
 	public void OnSaveChanges (View View)
     {
-		// responds to button Edit Ingredients
-    	
+			//Gets the user's recipes
+			DbController DbC = DbController.getInstance(this);
+			
+			EditText editText = (EditText) findViewById(R.id.editText1);
+			String Title= editText.getText().toString();
+			
+			editText = (EditText) findViewById(R.id.editText3);
+			String Instructions = editText.getText().toString();
+			
+			editText = (EditText) findViewById(R.id.editText2);
+			String Author = editText.getText().toString();
+			
+			//Still have to do ingredients and photos
+			User author=new User(Author);
+			Recipe newRecipe=new Recipe(author, Title, Instructions);
+			DbC.addRecipe(newRecipe);
+			
+			finish();
     }
 	@Override
 	public void update(DbManager db)
 	{
-
 	}
 
 }

@@ -54,6 +54,7 @@
 	<string name="go_back_to_search_results">Go Back to Search Results</string>
 	<string name="view_photos">View Photos</string>
 	<string name="add_photos">Add Photos</string>
+	<string name="user_name">Author</string>
 	
     
  </resources>
