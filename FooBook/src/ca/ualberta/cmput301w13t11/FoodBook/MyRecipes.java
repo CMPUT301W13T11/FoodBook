@@ -39,7 +39,7 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 		Recipe testRecipe=Recipe.generateTestRecipe();
 		ArrayList <Recipe> test = new ArrayList<Recipe>();
 		test.add(testRecipe);
-		 //DbC.getUserRecipes();
+		//DbC.getUserRecipes();
 		//Displays the user's recipes
 		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, test);
 		//Assigns the adapter

@@ -1,5 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import android.os.Bundle;
@@ -7,6 +9,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class SearchActivity extends Activity implements FView<DbManager>
 {
@@ -37,7 +41,11 @@ public class SearchActivity extends Activity implements FView<DbManager>
 	
 	public void OnSearch (View View)
     {
-		// responds to button Add Recipe
+		EditText keywords = (EditText) findViewById(R.id.editText1);
+		String keyword=keywords.toString();
+		ServerController SC=ServerController.getInstance();
+		SC.searchByKeywords(keyword);
+		
     	Intent intent = new Intent(this, SearchResultsActivity.class);
 		startActivity(intent);
     }
