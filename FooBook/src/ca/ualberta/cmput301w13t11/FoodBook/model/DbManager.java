@@ -76,9 +76,9 @@ public class DbManager extends FModel<FView> {
      * @return should i return boolean for success?
      */
     public void storeResults(ArrayList<Recipe> recipes) {
-    	db.delete("ResultRecipes", null, null);
+    	db.delete("ResultsRecipes", null, null);
     	for (Recipe recipe : recipes) {
-    		insert(recipe, "ResultRecipes");
+    		insert(recipe, "ResultsRecipes");
     	}
     }
     
