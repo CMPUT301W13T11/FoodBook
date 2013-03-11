@@ -162,7 +162,7 @@ public class DbManager extends FModel<FView> {
      * @return An ArrayList of the Ingredients associated with the recipe.
      */
     protected ArrayList<Ingredient> getRecipeIngredients(long uri) {
-    	Cursor cursor = db.rawQuery("From RecipeIngredients Select * Where recipeURI = " + uri, null);
+    	Cursor cursor = db.rawQuery("Select * From RecipeIngredients Where recipeURI = " + uri, null);
     	cursor.moveToFirst();
     	ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
     	while (!cursor.isAfterLast()) {
