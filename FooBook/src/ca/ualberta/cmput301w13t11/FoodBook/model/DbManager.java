@@ -50,6 +50,14 @@ public class DbManager extends FModel<FView> {
     }
     
     /**
+     * @return True if DbManager constructor has been called before, false if not
+     */
+    public static boolean getHasExecuted()
+    {
+    	return has_executed;
+    }
+    
+    /**
      * Get instance of the singleton DbManager.
      * @return The instance of the class.
      */
