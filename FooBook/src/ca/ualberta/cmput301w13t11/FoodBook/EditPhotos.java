@@ -25,7 +25,7 @@ public class EditPhotos extends Activity
 		getMenuInflater().inflate(R.menu.edit_photos, menu);
 		return true;
 	}
-	public void OnGobacktoPrevScreen(View View)
+	public void OnGoBack(View View)
     {
 		// responds to button Go Back
 		// not sure if this is enough -Pablo 
@@ -37,9 +37,9 @@ public class EditPhotos extends Activity
     	Intent intent = new Intent(this, TakePhotosActivity.class);
 		startActivity(intent);
     }
-	public void OnSavePhoto (View View)
+	public void OnDeletePhoto (View View)
     {
-		// responds to button Save Photo
+		// responds to button Delete Photo
     	
     }
 
