@@ -1,10 +1,15 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import java.util.ArrayList;
+
+import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class MyRecipes extends Activity
 {
@@ -15,6 +20,29 @@ public class MyRecipes extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_recipes);
+		ListView listView = (ListView) findViewById(R.id.mylist);
+		ArrayList<String> RecipeNames = new ArrayList<String>();
+		
+		//Replace this with code to access my recipes
+		RecipeNames.add("RecipeName");
+		RecipeNames.add("RecipeName");
+		RecipeNames.add("RecipeName");
+		RecipeNames.add("RecipeName");
+		RecipeNames.add("RecipeName");
+		RecipeNames.add("RecipeName");
+		RecipeNames.add("RecipeName");
+		RecipeNames.add("RecipeName");
+		RecipeNames.add("RecipeName");
+		RecipeNames.add("RecipeName");
+		RecipeNames.add("RecipeName");
+		Recipe testRecipe=Recipe.generateTestRecipe();
+		RecipeNames.add(testRecipe.getTitle());
+		//
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, RecipeNames);
+		 //Assigns the adapter
+			listView.setAdapter(adapter);
+		
 	}
 
 	@Override
