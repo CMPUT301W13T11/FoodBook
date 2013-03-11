@@ -34,8 +34,7 @@ public class DbController {
     	if (instance == null) {
     		// db instance doesn't exist, create new one
     		instance = new DbController(context);
-    	}
-    			
+    	}	
     	return instance;
     }
 
@@ -43,7 +42,6 @@ public class DbController {
      * @return Returns an ArrayList containing all the Recipes the user has stored on their device.
      */
 	public ArrayList<Recipe> getUserRecipes() {
-		//DbManager db = RecipeApplication.getDbManager();
 		return db.getUserRecipes();
 	}
 	
