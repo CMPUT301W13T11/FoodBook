@@ -45,6 +45,12 @@
         android:text="@string/ingredients"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <ExpandableListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ExpandableListView>
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -60,13 +66,6 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:lines="5" />
-
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </ListView>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -125,7 +124,7 @@
         style="@style/OrangeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onGobacktoMyRecipes"
+        android:onClick="OnGotoMyRecipes"
         android:text="@string/go_back_to_my_recipes"
         android:textSize="18sp" />
 
