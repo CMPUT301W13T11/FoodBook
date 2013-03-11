@@ -3,6 +3,8 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 import java.util.ArrayList;
 
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FModel;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import android.os.Bundle;
 import android.app.Activity;
@@ -12,7 +14,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MyRecipes extends Activity
+public class MyRecipes extends Activity implements FView
 {
 
 	@Override
@@ -55,5 +57,13 @@ public class MyRecipes extends Activity
     	Intent intent = new Intent(this, AddRecipesActivity.class);
 		startActivity(intent);
     }
+
+	@Override
+	public void update(FModel model)
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
 
 }

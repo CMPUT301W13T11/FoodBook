@@ -1,12 +1,14 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import ca.ualberta.cmput301w13t11.FoodBook.model.FModel;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
-public class MyIngredients extends Activity
+public class MyIngredients extends Activity implements FView
 {
 
 	@Override
@@ -46,5 +48,10 @@ public class MyIngredients extends Activity
     {
 		//responds to button Modify ingredient
     }
+
+	@Override
+	public void update(FModel model)
+	{
+	}
 
 }

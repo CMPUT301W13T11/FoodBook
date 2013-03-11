@@ -1,12 +1,14 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import ca.ualberta.cmput301w13t11.FoodBook.model.FModel;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class EditRecipeActivity extends Activity
+public class EditRecipeActivity extends Activity implements FView
 {
 
 	@Override
@@ -55,5 +57,13 @@ public class EditRecipeActivity extends Activity
 		// responds to button Delete Recipe
     	
     }
+
+	@Override
+	public void update(FModel model)
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
 
 }

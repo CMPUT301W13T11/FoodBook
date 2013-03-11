@@ -1,12 +1,14 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import ca.ualberta.cmput301w13t11.FoodBook.model.FModel;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class MainScreen extends Activity {
+public class MainScreen extends Activity implements FView{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,5 +38,13 @@ public class MainScreen extends Activity {
 	public void OnSearch(View view) {
 		Intent intent = new Intent(this, SearchActivity.class);
 		startActivity(intent);
+	}
+
+	@Override
+	public void update(FModel model)
+	{
+
+		// TODO Auto-generated method stub
+		
 	}
 }

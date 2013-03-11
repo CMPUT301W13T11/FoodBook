@@ -2,6 +2,9 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import java.util.ArrayList;
 
+import ca.ualberta.cmput301w13t11.FoodBook.model.FModel;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -9,7 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class EditIngredients extends Activity
+public class EditIngredients extends Activity implements FView
 {
 
 	@Override
@@ -51,5 +54,13 @@ public class EditIngredients extends Activity
     {
 		//responds to button Modify ingredient
     }
+
+	@Override
+	public void update(FModel model)
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
 
 }
