@@ -1,14 +1,13 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import ca.ualberta.cmput301w13t11.FoodBook.model.FModel;
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 
-public class MainScreen extends Activity implements FView{
+public class MainScreen extends Activity implements FView<DbManager>{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,12 +15,12 @@ public class MainScreen extends Activity implements FView{
         setContentView(R.layout.activity_main_screen);
     }
 
-    @Override
+   /* @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_main_screen, menu);
         return true;
-    }
+    }*/
     
     /** Called when the user clicks the My Recipes button */
 	public void OnMyRecipes(View view) {
@@ -41,7 +40,7 @@ public class MainScreen extends Activity implements FView{
 	}
 
 	@Override
-	public void update(FModel model)
+	public void update(DbManager db)
 	{
 
 		// TODO Auto-generated method stub
