@@ -19,15 +19,14 @@ public class MyRecipes extends Activity
 	protected void onCreate(Bundle savedInstanceState)
 	{
 
-		/*THIS IS THE SECTION TO LOOK AT*/
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_recipes);
 
+		//Gets the user's recipes
 		DbController DataTest = DbController.getInstance(this);
-		DataTest.getUserRecipes();
-		
 		ListView listView = (ListView) findViewById(R.id.mylist);
 		
+		//Displays the user's recipes
 		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DataTest.getUserRecipes());
 		 //Assigns the adapter
 			listView.setAdapter(adapter);
