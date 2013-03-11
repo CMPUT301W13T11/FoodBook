@@ -33,7 +33,7 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 	public void updateList()
     {
 		//Gets the user's recipes
-	DbController DbC = DbController.getInstance(this);
+	DbController DbC = DbController.getInstance(this, this);
 	ListView listView = (ListView) findViewById(R.id.mylist);
 		
 		//Recipe testRecipe=Recipe.generateTestRecipe();

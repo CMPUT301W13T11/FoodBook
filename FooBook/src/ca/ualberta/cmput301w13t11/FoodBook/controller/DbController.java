@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 
@@ -14,7 +15,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
  */
 public class DbController {
 	
-	private DbManager db;
+	private static DbManager db;
 	
 	// singleton pattern implementation
     private static DbController instance = null;
@@ -30,11 +31,12 @@ public class DbController {
      * Get instance of the singleton DbController.
      * @return The instance of the class.
      */
-    public static DbController getInstance(Context context) {
+    public static DbController getInstance(Context context, FView<DbManager> view) {
     	if (instance == null) {
     		// db instance doesn't exist, create new one
     		instance = new DbController(context);
-    	}	
+    	}
+    	db.addView(view);
     	return instance;
     }
 

@@ -45,7 +45,7 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 	public void OnSaveChanges (View View)
     {
 			//Gets the user's recipes
-			DbController DbC = DbController.getInstance(this);
+			DbController DbC = DbController.getInstance(this, this);
 			
 			EditText editText = (EditText) findViewById(R.id.editText1);
 			String Title= editText.getText().toString();

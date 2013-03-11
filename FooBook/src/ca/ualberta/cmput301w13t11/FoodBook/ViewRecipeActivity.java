@@ -21,7 +21,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);
 		
-		DbController DbC = DbController.getInstance(this);
+		DbController DbC = DbController.getInstance(this, this);
 		TextView recipeName = (TextView) findViewById(R.id.textView2);
 		TextView instructions = (TextView) findViewById(R.id.textView5);
 		
