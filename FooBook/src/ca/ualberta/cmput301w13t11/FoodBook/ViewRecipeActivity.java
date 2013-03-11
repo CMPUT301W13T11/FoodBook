@@ -25,27 +25,35 @@ public class ViewRecipeActivity extends Activity
 		getMenuInflater().inflate(R.menu.view_recipe, menu);
 		return true;
 	}
-
-	/** Called when the user clicks the Back button */
-	public void GoToMyRecipes(View view) {
-			Intent intent = new Intent(this, MyRecipes.class);
-			startActivity(intent);
-	}
-	/** Called when the user clicks the Publish Recipe button */
-	public void Publish(View view) {
-	}
-	/** Called when the user clicks the Edit Photo button */
-	public void EditPhotos(View view) {
-			Intent intent = new Intent(this, EditPhotos.class);
-			startActivity(intent);
-	}
-	/** Called when the user clicks the EmailRecipe button */
-	public void EmailRecipe(View view) {
-	}
-	/** Called when the user clicks the Edit Recipe button */
-	public void EditRecipe(View view) {
-			Intent intent = new Intent(this, EditRecipeActivity.class);
-			startActivity(intent);
-	}
+	public void OnGotoMyRecipes(View View)
+    {
+		// responds to button Go Back
+		 Intent intent = new Intent(View.getContext(), MyRecipes.class);
+		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		 ViewRecipeActivity.this.finish();
+    }
 	
+	public void OnEditRecipe (View View)
+    {
+		// responds to button Edit Recipe
+    	Intent intent = new Intent(this, EditRecipeActivity.class);
+		startActivity(intent);
+    }
+	public void OnEditPhotos (View View)
+    {
+		// responds to button Edit Photos
+    	Intent intent = new Intent(this, EditPhotos.class);
+		startActivity(intent);
+    }
+	public void OnEmailRecipe (View View)
+    {
+		// responds to button Email Recipe
+    	
+    }
+	public void OnPublishRecipe (View View)
+    {
+		// responds to button Publish Recipe
+    	
+    }
+
 }

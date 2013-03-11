@@ -1,8 +1,8 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 
@@ -14,7 +14,7 @@ public class MyIngredients extends Activity
 	{
 
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_my_recipes);
+		setContentView(R.layout.activity_my_ingredients);
 	}
 
 	@Override
@@ -26,21 +26,25 @@ public class MyIngredients extends Activity
 		return true;
 	}
 	
-
-	/** Called when the user clicks the Add Ingredient button */
-	public void AddIngredient(View view) {
-		}
-		
-	public void RemoveIngredient(View view) {
-	}
-		
-	/** Called when the user clicks the Back button */
-	public void GoToMainMenu(View view) {
-			Intent intent = new Intent(this, MainScreen.class);
-			startActivity(intent);
-	}
-	/** Called when the user clicks the Modify button */
-	public void Modify(View view) {
-		}
+	public void OnGotoMainMenu(View View)
+    {
+		// responds to button Main Menu
+		 Intent intent = new Intent(View.getContext(), MainScreen.class);
+		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		 MyIngredients.this.finish();
+    }
+	
+	public void OnAddIngredient(View View)
+    {
+		 //responds to button Add ingredient
+    }
+	public void OnModifyIngredient(View View)
+    {
+		//responds to button Modify ingredient
+    }
+	public void OnRemoveIngredient(View View)
+    {
+		//responds to button Modify ingredient
+    }
 
 }

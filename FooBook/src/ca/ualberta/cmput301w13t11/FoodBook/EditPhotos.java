@@ -25,17 +25,22 @@ public class EditPhotos extends Activity
 		getMenuInflater().inflate(R.menu.edit_photos, menu);
 		return true;
 	}
-
-	/** Called when the user clicks the TakePhoto button */
-	public void TakePhoto(View view) {
-	
-	}
-	/** Called when the user clicks the Back button */
-	public void GoToEditRecipes(View view) {
-		Intent intent = new Intent(this, EditRecipeActivity.class);
+	public void OnGobacktoPrevScreen(View View)
+    {
+		// responds to button Go Back
+		// not sure if this is enough -Pablo 
+		 EditPhotos.this.finish();
+    }
+	public void OnTakePhoto(View View)
+    {
+		// responds to button TakePhoto
+    	Intent intent = new Intent(this, TakePhotosActivity.class);
 		startActivity(intent);
-	}
-	/** Called when the user clicks the Delete Photo button */
-	public void DeletePhoto(View view) {
-	}
+    }
+	public void OnSavePhoto (View View)
+    {
+		// responds to button Save Photo
+    	
+    }
+
 }

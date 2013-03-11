@@ -25,17 +25,19 @@ public class SearchResultsActivity extends Activity
 		getMenuInflater().inflate(R.menu.search_results, menu);
 		return true;
 	}
-
-	/** Called when the user clicks the Back button */
-	public void GoToMainMenu(View view) {
-			Intent intent = new Intent(this, MainScreen.class);
-			startActivity(intent);
-			finish();
-	}
-	/** Called when the user clicks the Search Again button */
-	public void Search(View view) {
-		Intent intent = new Intent(this, SearchActivity.class);
-		startActivity(intent);
-	}
+	public void OnGotoMainMenu(View View)
+    {
+		// responds to button Go Back to Main Menu
+		 Intent intent = new Intent(View.getContext(), MainScreen.class);
+		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		 SearchResultsActivity.this.finish();
+    }
+	public void OnSearchAgain(View View)
+    {
+		// responds to button Search Again
+		 Intent intent = new Intent(View.getContext(), SearchActivity.class);
+		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		 SearchResultsActivity.this.finish();
+    }
 
 }

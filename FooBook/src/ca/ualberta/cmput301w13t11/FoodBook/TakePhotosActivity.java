@@ -25,17 +25,23 @@ public class TakePhotosActivity extends Activity
 		getMenuInflater().inflate(R.menu.take_photos, menu);
 		return true;
 	}
-
-	/** Called when the user clicks the Back button */
-	public void GoToMainMenu(View view) {
-		Intent intent = new Intent(this, MainScreen.class);
-		startActivity(intent);
-	}
 	
-	/** Called when the user clicks the capture button */
-	public void CapturePhoto(View view) {}
-	/** Called when the user clicks the Save button */
-	public void SavePhoto(View view) {
-		GoToMainMenu(view);
-	}
+	public void OnGobacktoPrevScreen(View View)
+    {
+		// responds to button Go Back
+		// not sure if this is enough -Pablo 
+		 TakePhotosActivity.this.finish();
+    }
+	public void OnCapture(View View)
+    {
+		// responds to button Capture
+    	Intent intent = new Intent(this, AddRecipesActivity.class);
+		startActivity(intent);
+    }
+	public void OnSavePhoto (View View)
+    {
+		// responds to button Save Photo
+    	Intent intent = new Intent(this, AddRecipesActivity.class);
+		startActivity(intent);
+    }
 }

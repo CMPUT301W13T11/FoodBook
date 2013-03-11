@@ -25,26 +25,31 @@ public class ViewSearchResultActivity extends Activity
 		getMenuInflater().inflate(R.menu.view_search_result, menu);
 		return true;
 	}
-
-	/** Called when the user clicks the Back button */
-	public void GoToSearchResults(View view) {
-			Intent intent = new Intent(this, SearchResultsActivity.class);
-			startActivity(intent);
-	}
-	/** Called when the user clicks the Add Photos button */
-	public void AddPhotos(View view) {
-			Intent intent = new Intent(this, TakePhotosActivity.class);
-			startActivity(intent);
-	}
-	/** Called when the user clicks the Download Photo button */
-	public void DownloadRecipe(View view) {
-			Intent intent = new Intent(this, MyRecipes.class);
-			startActivity(intent);
-	}
-	/** Called when the user clicks the View Photos button */
-	public void ViewPhotos(View view) {
-			Intent intent = new Intent(this, ViewPhotosActivity.class);
-			startActivity(intent);
-	}
 	
+	public void OnGobacktoSearchResults(View View)
+    {
+		// responds to button Go Back to Search Results
+		 Intent intent = new Intent(View.getContext(), SearchResultsActivity.class);
+		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		 ViewSearchResultActivity.this.finish();
+    }
+	
+	public void OnViewPhotos (View View)
+    {
+		// responds to button View Photos
+    	Intent intent = new Intent(this, EditIngredientActivity.class);
+		startActivity(intent);
+    }
+	public void OnAddPhotos (View View)
+    {
+		// responds to button Add Photos
+    	Intent intent = new Intent(this, EditPhotos.class);
+		startActivity(intent);
+    }
+	public void OnDownloadRecipe (View View)
+    {
+		// responds to button Download Recipe
+    	
+    }
+
 }

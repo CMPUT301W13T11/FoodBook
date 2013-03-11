@@ -1,11 +1,58 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">   
-     <!--    
-         Base application theme, dependent on API level. This theme is replaced
-         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.  
-           -->      
-              <color name="custom_theme_color">#ff1111</color>  
-              <color name="grey">#fafafa</color>  
-              <color name="search_b">#808080</color>       
-              <style name="AppBaseTheme" parent="android:Theme.Light.NoTitleBar"> 
-              <item name="android:windowBackground">@color/custom_theme_color</item>  
-              <item name="android:colorBackground">@color/custom_theme_color</item>    </style>    <!-- Application theme. -->    <style name="AppTheme" parent="AppBaseTheme">        <!-- All customizations that are NOT specific to a particular API-level can go here. -->    </style>        <style name="BlueButton">    	<item name="android:textColor">#ffffffff</item>    	<item name="android:textSize">24sp</item>    	<item name="android:shadowColor">#000000</item>    	<item name="android:shadowDx">1</item>    	<item name="android:shadowDy">1</item>    	<item name="android:shadowRadius">1</item>    	<item name="android:background">@drawable/button_style1</item>  </style>      <style name="NameFont" parent="@android:style/TextAppearance.Large">		<item name="android:textColor">#0000ff</item>    	<item name="android:textSize">24sp</item>      	</style>    	<style name="GreenButton" parent="@android:style/TextAppearance.Large">    	<item name="android:textColor">#ffffffff</item>    	<item name="android:textSize">24sp</item>       	<item name="android:shadowColor">#000000</item>    	<item name="android:shadowDx">1</item>    	<item name="android:shadowDy">1</item>    	<item name="android:shadowRadius">1</item>    	<item name="android:background">@drawable/button_style2</item>    	</style>    	    	<style name="OrangeButton" parent="@android:style/TextAppearance.Large">    	<item name="android:textColor">#ffffffff</item>    	<item name="android:textSize">24sp</item>       	<item name="android:shadowColor">#000000</item>    	<item name="android:shadowDx">1</item>    	<item name="android:shadowDy">1</item>    	<item name="android:shadowRadius">1</item>    	<item name="android:background">@drawable/button_style3</item>	    	</style>    </resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    
+     <color name="custom_theme_color">#ffffff</color>
+     <color name="grey">#fafafa</color>
+     <color name="search_b">#808080</color>
+     
+    <style name="AppBaseTheme" parent="android:Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">@color/custom_theme_color</item>   
+        <item name="android:colorBackground">@color/custom_theme_color</item>
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    
+    <style name="BlueButton">
+    	<item name="android:textColor">#ffffffff</item>
+    	<item name="android:textSize">24sp</item>
+    	<item name="android:shadowColor">#000000</item>
+    	<item name="android:shadowDx">1</item>
+    	<item name="android:shadowDy">1</item>
+    	<item name="android:shadowRadius">1</item>
+    	<item name="android:background">@drawable/button_style1</item>
+  </style>
+  
+    <style name="NameFont" parent="@android:style/TextAppearance.Large">
+		<item name="android:textColor">#0000ff</item>
+    	<item name="android:textSize">24sp</item>  
+    	</style>
+
+
+    	<style name="GreenButton" parent="@android:style/TextAppearance.Large">
+    	<item name="android:textColor">#ffffffff</item>
+    	<item name="android:textSize">24sp</item>   
+    	<item name="android:shadowColor">#000000</item>
+    	<item name="android:shadowDx">1</item>
+    	<item name="android:shadowDy">1</item>
+    	<item name="android:shadowRadius">1</item>
+    	<item name="android:background">@drawable/button_style2</item>
+    	</style>
+    	
+    	<style name="OrangeButton" parent="@android:style/TextAppearance.Large">
+    	<item name="android:textColor">#ffffffff</item>
+    	<item name="android:textSize">24sp</item>   
+    	<item name="android:shadowColor">#000000</item>
+    	<item name="android:shadowDx">1</item>
+    	<item name="android:shadowDy">1</item>
+    	<item name="android:shadowRadius">1</item>
+    	<item name="android:background">@drawable/button_style3</item>	
+    	</style>
+    
+</resources>

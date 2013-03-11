@@ -6,12 +6,6 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-/* Mark: for now, put all of the relevant data for
- * a recipe (author, title, instructions, ingredients)
- * into a ContentValues. I'll give you a Controller with
- * the proper method to use soon
- */
-
 public class AddRecipesActivity extends Activity
 {
 
@@ -31,25 +25,30 @@ public class AddRecipesActivity extends Activity
 		getMenuInflater().inflate(R.menu.add_recipes, menu);
 		return true;
 	}
+	public void OnGobacktoMyRecipes(View View)
+    {
+		// responds to button Go Back to My Recipes
+		 Intent intent = new Intent(View.getContext(), MyRecipes.class);
+		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		 AddRecipesActivity.this.finish();
+    }
 	
-	/** Called when the user clicks the Back to My Recipes button */
-		public void GoToMyRecipes(View view) {
-			Intent intent = new Intent(this, MyRecipes.class);
-			startActivity(intent);
-		}
-		
-		public void SaveRecipe(View view) {
-			GoToMyRecipes(view);
-		}
-		
-		/** Called when the user clicks the Edit Photos button */
-		public void GoToEditPhotos(View view) {
-			Intent intent = new Intent(this, EditPhotos.class);
-			startActivity(intent);
-		}
-		/** Called when the user clicks the Edit Ingredients button */
-		public void GoToEditIngredients(View view) {
-			Intent intent = new Intent(this, EditIngredientActivity.class);
-			startActivity(intent);
-		}
+	public void OnEditIngredients (View View)
+    {
+		// responds to button Edit Ingredients
+    	Intent intent = new Intent(this, EditIngredientActivity.class);
+		startActivity(intent);
+    }
+	public void OnEditPhotos (View View)
+    {
+		// responds to button Edit Photos
+    	Intent intent = new Intent(this, EditPhotos.class);
+		startActivity(intent);
+    }
+	public void OnSaveChanges (View View)
+    {
+		// responds to button Edit Ingredients
+    	
+    }
+
 }

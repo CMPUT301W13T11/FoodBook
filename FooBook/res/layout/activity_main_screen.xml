@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@android:style/Theme.NoTitleBar"
+    style="@style/AppBaseTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainScreen" 
@@ -10,48 +10,49 @@
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button3"
-        android:layout_alignRight="@+id/button3"
+        android:layout_alignLeft="@+id/search"
+        android:layout_alignRight="@+id/search"
         android:layout_centerVertical="true"
         android:src="@drawable/foodbook_title1" />
-
+
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/search"
         style="@style/GreenButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
+        android:layout_alignLeft="@+id/my_ingredients"
         android:layout_alignRight="@+id/my_recipes_button"
         android:layout_below="@+id/imageView1"
         android:layout_marginTop="43dp"
-        android:onClick="GoToSearch"
         android:fitsSystemWindows="false"
+        android:onClick="OnSearch"
         android:text="@string/search"
         android:textSize="30sp" />
-
+
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/my_ingredients"
         style="@style/BlueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/button3"
+        android:layout_below="@+id/search"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="29dp"
-        android:onClick="GoToMyIngredients"
+        android:onClick="OnMyIngredients"
         android:text="@string/my_ingredients"
         android:textSize="20sp" />
-
+
     <Button
         android:id="@+id/my_recipes_button"
         style="@style/BlueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
+        android:layout_alignBaseline="@+id/my_ingredients"
+        android:layout_alignBottom="@+id/my_ingredients"
         android:layout_alignParentRight="true"
         android:layout_marginRight="17dp"
-        android:onClick="GoToMyRecipes"
+        android:layout_toRightOf="@+id/my_ingredients"
+        android:onClick="OnMyRecipes"
         android:text="@string/my_recipes"
         android:textSize="20sp" />
 

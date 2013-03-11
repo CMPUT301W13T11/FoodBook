@@ -5,28 +5,15 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     tools:context=".TakePhotosActivity" >
-
+
     <VideoView
         android:id="@+id/videoView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Button02"
-        android:layout_alignLeft="@+id/menu_button"
-        android:layout_alignRight="@+id/Button01"
-        android:layout_marginBottom="15dp"
-        android:layout_below="@+id/textView1" />
-
-    <Button
-        android:id="@+id/Button01"
-        style="@style/GreenButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/Button02"
-        android:layout_marginRight="18dp"
-        android:onClick="SavePhoto"
-        android:text="@string/save_photo"
-        android:textSize="20sp" />
+        android:layout_above="@+id/capture"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textView1"
+        android:layout_marginBottom="15dp" />
 
     <TextView
         android:id="@+id/textView1"
@@ -36,29 +23,43 @@
         android:layout_centerHorizontal="true"
         android:text="@string/take_photo"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <Button
         android:id="@+id/menu_button"
         style="@style/OrangeButton"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginBottom="15dp"
-        android:layout_toLeftOf="@+id/textView1"
-        android:onClick="GoToMainMenu"
+        android:layout_marginLeft="10dp"
+        android:onClick="OnGotoPrevScreen"
         android:text="@string/go_back"
         android:textSize="20sp" />
-
+
     <Button
-        android:id="@+id/Button02"
+        android:id="@+id/capture"
         style="@style/BlueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/menu_button"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="15dp"
-        android:onClick="CapturePhoto"
+        android:onClick="OnCapture"
         android:text="@string/capture"
         android:textSize="40sp" />
+
+    <Button
+        android:id="@+id/save_photo"
+        style="@style/GreenButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/menu_button"
+        android:layout_alignBottom="@+id/menu_button"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:onClick="OnSavePhoto"
+        android:text="@string/save_photo"
+        android:textSize="20sp" />
 
 </RelativeLayout>

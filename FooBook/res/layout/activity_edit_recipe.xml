@@ -58,7 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:onClick="GoToMyRecipes"
+        android:onClick="onGobacktoMyRecipes"
         android:text="@string/go_back_to_my_recipes"
         android:textSize="18sp" />
 
@@ -68,11 +68,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button4"
-        android:layout_alignParentLeft="true"
+        android:layout_alignLeft="@+id/button5"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
+        android:onClick="onSaveChanges"
         android:text="@string/save_changes"
-        android:onClick="SaveRecipe"
         android:textSize="18sp" />
 
     <Button
@@ -80,24 +80,23 @@
         style="@style/OrangeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button3"
+        android:layout_above="@+id/button4"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
+        android:layout_alignRight="@+id/button1"
+        android:layout_marginBottom="5dp"
+        android:onClick="onDeleteRecipe"
         android:text="@string/delete_recipe"
-        android:onClick="DeleteRecipe"
         android:textSize="18sp" />
 
     <Button
         android:id="@+id/button1"
         style="@style/BlueButton"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button2"
         android:layout_alignParentLeft="true"
-        android:layout_alignRight="@+id/textView2"
-        android:onClick="GoToEditPhotos"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
+        android:onClick="onPhotos"
         android:text="@string/photos"
         android:textSize="18sp" />
 
@@ -135,12 +134,12 @@
     <Button
         android:id="@+id/button5"
         style="@style/BlueButton"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/button1"
+        android:onClick="onIngredients"
         android:text="@string/ingredients"
-        android:onClick="GoToEditIngredients"
         android:textSize="18sp" />
 
 </RelativeLayout>

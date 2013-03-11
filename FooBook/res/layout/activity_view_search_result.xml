@@ -38,41 +38,40 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/goback_searchresults"
         style="@style/OrangeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:onClick="GoToSearchResults"
         android:text="@string/go_back_to_search_results"
+        android:onClick="OnGobacktoSearchResults"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/download_recipe"
         style="@style/GreenButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button4"
+        android:layout_above="@+id/goback_searchresults"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
-        android:onClick="DownloadRecipe"
         android:text="@string/download_recipe"
-  		android:textSize="18sp" />
-
+        android:onClick="OnDownloadRecipe"
+        android:textSize="18sp" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/add_photos"
         style="@style/BlueButton"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button3"
+        android:layout_above="@+id/download_recipe"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dp"
-        android:text="@string/view_photos"
-         android:onClick="ViewPhotos"
+        android:layout_marginBottom="5dp"
+        android:onClick="OnAddPhotos"
+        android:text="@string/add_photos"
         android:textSize="18sp" />
 
     <ListView
@@ -86,14 +85,14 @@
     </ListView>
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/view_photos"
         style="@style/BlueButton"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button2"
-        android:layout_alignBottom="@+id/button2"
-        android:onClick="AddPhotos"
-        android:text="@string/add_photos"
+        android:layout_alignBaseline="@+id/add_photos"
+        android:layout_alignBottom="@+id/add_photos"
+        android:onClick="OnViewPhotos"
+        android:text="@string/view_photos"
         android:textSize="18sp" />
 
     <TextView
@@ -108,11 +107,13 @@
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
+        android:layout_above="@+id/add_photos"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:ems="10"
         android:inputType="textMultiLine"
-        android:lines="5" />
+        android:lines="5" >
+    </EditText>
+i
 
 </RelativeLayout>

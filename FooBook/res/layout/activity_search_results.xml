@@ -20,35 +20,33 @@
         android:id="@+id/mylist"
         android:layout_width="match_parent"
         android:layout_height="355dp"
-        android:layout_above="@+id/Button01"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1" >
-
     </ListView>
-
+
     <Button
         android:id="@+id/menu_button"
         style="@style/OrangeButton"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="21dp"
-        android:layout_marginLeft="28dp"
-        android:onClick="GoToMainMenu"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="18dp"
+        android:onClick="OnGotoMainMenu"
         android:text="@string/main_menu"
         android:textSize="20sp" />
-
+
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/search_again"
         style="@style/GreenButton"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/menu_button"
-        android:layout_alignBottom="@+id/menu_button"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/menu_button"
-        android:onClick="Search"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="18dp"
+        android:onClick="OnSearchAgain"
         android:text="@string/search_again"
         android:textSize="20sp" />
 
