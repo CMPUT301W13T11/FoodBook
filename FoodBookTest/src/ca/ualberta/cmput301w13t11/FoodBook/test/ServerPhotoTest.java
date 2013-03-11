@@ -3,7 +3,11 @@ package ca.ualberta.cmput301w13t11.FoodBook.test;
 import android.test.AndroidTestCase;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerPhoto;
-
+/**
+ * Unit tests for the ServerPhoto class.
+ * @author mbabic
+ *
+ */
 public class ServerPhotoTest extends AndroidTestCase {
 
 	protected void setUp() throws Exception
@@ -11,7 +15,7 @@ public class ServerPhotoTest extends AndroidTestCase {
 		super.setUp();
 	}	
 	
-	/*
+	/**
 	 * Test the ServerPhoto constructor to insure a photo is transformed into a ServerPhoto without error.
 	 * Equality of images will have to be inspected visually.
 	 */
@@ -22,7 +26,7 @@ public class ServerPhotoTest extends AndroidTestCase {
 		assertTrue("Names not identical.", sp.getName().equals(photo.getName()));
 	}
 
-	/*
+	/**
 	 * Test toPhoto() by insuring a given Photo.
 	 * Equality of images will have to be inspected visually.
 	 */

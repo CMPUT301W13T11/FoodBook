@@ -4,7 +4,11 @@ import android.test.AndroidTestCase;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerRecipe;
-
+/**
+ * Unit tests for the ServerRecipe class.
+ * @author mbabic
+ *
+ */
 public class ServerRecipeTest extends AndroidTestCase {
 
 	protected void setUp() throws Exception

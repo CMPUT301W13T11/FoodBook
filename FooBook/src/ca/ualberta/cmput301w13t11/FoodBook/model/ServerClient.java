@@ -22,6 +22,9 @@ import org.apache.http.params.HttpParams;
 /**
  * Communicates with the server to perform searches, upload recipes and upload photos to recipes.
  * Implements the singleton design pattern.
+ * 
+ * getThreadSafeClient() method cribbed from http://tech.chitgoks.com/2011/05/05/fixing-the-invalid-use-of-singleclientconnmanager-connection-still-allocated-problem/
+ * (last accessed March 10, 2013)
  * TODO: write tests for these methods
  * @author Marko Tomislav Babic
  *
@@ -47,9 +50,8 @@ public class ServerClient {
 	}
 	
 	/**
-	 * Returns the instance of ServerClient, or generates it if has
-	 * not yet be instantiated.
-	 * @return
+	 * Returns the instance of ServerClient, or generates it if has not yet be instantiated.
+	 * @return The instance of the ServerClient
 	 */
 	public static ServerClient getInstance()
 	{
@@ -119,7 +121,9 @@ public class ServerClient {
 	}
 	
 	/**
-	 * Gets a thread safe client.
+	 * Gets a thread safe client - that is, a client which can be used in a multithreaded
+	 * program and protects against certain errors that exist even in single threaded programs.
+	 * @return A Object of type DefaultHttpClient which will
 	 */
 	public static DefaultHttpClient getThreadSafeClient()
 	{
