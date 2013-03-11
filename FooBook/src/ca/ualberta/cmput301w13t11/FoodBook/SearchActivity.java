@@ -1,6 +1,5 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class SearchActivity extends Activity implements FView<DbManager>
 {
@@ -56,8 +54,6 @@ public class SearchActivity extends Activity implements FView<DbManager>
 	@Override
 	public void update(DbManager db)
 	{
-
-		// TODO Auto-generated method stub
 		
 	}
 

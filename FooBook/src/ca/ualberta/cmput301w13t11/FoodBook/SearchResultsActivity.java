@@ -41,13 +41,15 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		 SearchResultsActivity.this.finish();
     }
-
+	public void updateList()
+	{
+		                                                                                 
+	}
+	
 	@Override
 	public void update(DbManager db)
 	{
-
-		// TODO Auto-generated method stub
-		
+		updateList();
 	}
 
 }
