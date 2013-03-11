@@ -48,40 +48,43 @@ public class ServerClientTests extends TestCase {
 	
 	@Test
 	/**
-	 * Test uploading a recipe to the server.
+	 * Test uploading a novel recipe to the server, ensure return code
+	 * is SUCCESS.
 	 */
-	public void testUploadRecipe()
+	public void testUploadRecipePass()
 	{
+		ReturnCode ret = null;
 		sc = ServerClient.getInstance();
+		String title = Long.toString(System.currentTimeMillis());
 
-		Recipe recipe = new Recipe(new User("tester"), "test");
+		Recipe recipe = new Recipe(new User("tester"), title);
 		try { 
-			sc.uploadRecipe(recipe);
+			ret = sc.uploadRecipe(recipe);
 		} catch (IOException ioe) {
 			fail("ioe");
 		}
-		/* If we got here, we successfully uploaded a recipe. */
-		assertTrue(true);
+
+		assertTrue("uploadRecipe should return SUCCESS", ret == ReturnCode.SUCCESS);
 	}
 	
 	@Test
 	/**
-	 * Test to see if a recipe known to exist on server will be found by
-	 * searchByKeywords().
+	 * Test uploadRecipe() by passing it a recipe known to already exists on the server
+	 * and ensure it correctly returns ALREADY_EXISTS.
 	 */
-	public void testSearchByKeywordsPass()
+	public void testUploadRecipeFail()
 	{
+		ReturnCode ret = null;
 		sc = ServerClient.getInstance();
 
-		try {
-			ReturnCode result = sc.searchByKeywords("turdosandowich");
-			assertTrue(result == ReturnCode.SUCCESS);
-		} catch (ClientProtocolException cpe) {
-			fail("cpe");
+		Recipe recipe = new Recipe(new User("tester"), "test");
+		try { 
+			ret = sc.uploadRecipe(recipe);
 		} catch (IOException ioe) {
 			fail("ioe");
 		}
-		
+
+		assertTrue("uploadRecipe should return ALREADY_EXISTS", ret == ReturnCode.ALREADY_EXISTS);
 	}
 	
 	@Test
@@ -140,5 +143,46 @@ public class ServerClientTests extends TestCase {
 
 		assertTrue(sc.hasConnection("http://www.google.com"));
 	}
+
 	
+	@Test
+	/**
+	 * Test searchByKeywords by seeing if passing it a keyword known to now relate to any uploaded recipe
+	 * will cause it to return the code NO_RESULTS.
+	 */
+	public void testSearchByKeywordsFail()
+	{
+		sc = ServerClient.getInstance();
+
+		try {
+			ReturnCode result = sc.searchByKeywords("&&^367 78tqyfgylgaahslfauy7 iw");
+			assertTrue(result == ReturnCode.SUCCESS);
+		} catch (ClientProtocolException cpe) {
+			fail("cpe");
+		} catch (IOException ioe) {
+			fail("ioe");
+		}
+		
+	}
+	
+	@Test
+	/**
+	 * Test to see if a recipe known to exist on server will be found by
+	 * searchByKeywords().
+	 */
+	public void testSearchByKeywordsPass()
+	{
+		sc = ServerClient.getInstance();
+
+		try {
+			ReturnCode result = sc.searchByKeywords("turdosandowich");
+			assertTrue(result == ReturnCode.SUCCESS);
+		} catch (ClientProtocolException cpe) {
+			fail("cpe");
+		} catch (IOException ioe) {
+			fail("ioe");
+		}
+		
+	}
+
 }
