@@ -1,5 +1,6 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import android.os.Bundle;
@@ -7,16 +8,25 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class ViewRecipeActivity extends Activity implements FView<DbManager>
 {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
-	{
-
+	{		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);
+		
+		DbController DbC = DbController.getInstance(this);
+		TextView textView = (TextView) findViewById(R.id.textView2);
+		
+		Intent intent = getIntent();
+		String URI = intent.getStringExtra(MyRecipes.EXTRA_URI);
+		
+		//textView.setText(message);
 	}
 
 	@Override
