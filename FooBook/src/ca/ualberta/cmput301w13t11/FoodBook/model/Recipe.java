@@ -15,8 +15,7 @@ public class Recipe {
 	private String instructions;
 	private ArrayList<Ingredient> ingredients;
 	private ArrayList<Photo> photos;
-	
-	
+		
 	/**
 	 * Constructor
 	 * Used when a the Recipes Db is queried and a row is returned to transform

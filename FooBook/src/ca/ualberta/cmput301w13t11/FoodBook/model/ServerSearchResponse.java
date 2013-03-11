@@ -25,8 +25,7 @@ public class ServerSearchResponse<T> {
 	SearchHits<T> hits;
 	boolean exists;
 	/**
-	 * Returns a Collection of Server Responses 
-	 * @return
+	 * @return Returns a Collection of Server Responses 
 	 */
 	public Collection<ServerResponse<T>> getHits()
 	{
