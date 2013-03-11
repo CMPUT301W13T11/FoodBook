@@ -2,7 +2,7 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import java.util.ArrayList;
 
-import ca.ualberta.cmput301w13t11.FoodBook.model.FModel;
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class EditIngredients extends Activity implements FView
+public class EditIngredients extends Activity implements FView<DbManager>
 {
 
 	@Override
@@ -56,7 +56,7 @@ public class EditIngredients extends Activity implements FView
     }
 
 	@Override
-	public void update(FModel model)
+	public void update(DbManager db)
 	{
 
 		// TODO Auto-generated method stub

@@ -1,14 +1,14 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
-import ca.ualberta.cmput301w13t11.FoodBook.model.FModel;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 
-public class ViewRecipeActivity extends Activity implements FView
+public class ViewRecipeActivity extends Activity implements FView<DbManager>
 {
 
 	@Override
@@ -59,7 +59,7 @@ public class ViewRecipeActivity extends Activity implements FView
     }
 
 	@Override
-	public void update(FModel model)
+	public void update(DbManager db)
 	{
 
 		// TODO Auto-generated method stub
