@@ -1,9 +1,13 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class EditIngredients extends Activity
 {
@@ -14,6 +18,21 @@ public class EditIngredients extends Activity
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_ingredients);
+		ListView listView = (ListView) findViewById(R.id.mylist);
+
+		//ArrayList to hold the ingredients
+		ArrayList<String> IngredientNames = new ArrayList<String>();
+		
+		/*
+		 *Functions to fill the array go here 
+		 * 
+		 */
+		
+		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, IngredientNames);
+		 //Assigns the adapter
+			listView.setAdapter(adapter);
+		
 	}
 
 	public void OnGotoMainMenu(View View)

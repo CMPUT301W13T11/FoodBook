@@ -38,7 +38,6 @@ public class MyRecipes extends Activity
 		Recipe testRecipe=Recipe.generateTestRecipe();
 		RecipeNames.add(testRecipe.getTitle());
 		//
-		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, RecipeNames);
 		 //Assigns the adapter
 			listView.setAdapter(adapter);
