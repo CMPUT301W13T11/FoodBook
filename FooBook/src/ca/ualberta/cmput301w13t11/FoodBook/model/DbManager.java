@@ -75,7 +75,10 @@ public class DbManager extends FModel<FView> {
      * @return should i return boolean for success?
      */
     public void storeResults(ArrayList<Recipe> recipes) {
-    	
+    	db.delete("ResultRecipes", null, null);
+    	for (Recipe recipe : recipes) {
+    		insert(recipe, "ResultRecipes");
+    	}
     }
     /**
      * Returns an ArrayList of all the Recipes stored in the database.
@@ -90,9 +93,9 @@ public class DbManager extends FModel<FView> {
      * Inserts a recipe into the database.
      * @param recipe The Recipe to be stored in the database.
      */
-    public void insert(Recipe recipe) {
+    public void insert(Recipe recipe, String tableName) {
       ContentValues values = RecipeToMap(recipe);
-      db.insert("UserRecipes", null, values);
+      db.insert(tableName, null, values);
       for (Ingredient ingred : recipe.getIngredients()) {
           insert(ingred, recipe.getUri());
       }

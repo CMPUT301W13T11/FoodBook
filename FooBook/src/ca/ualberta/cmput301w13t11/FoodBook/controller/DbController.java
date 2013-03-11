@@ -52,7 +52,7 @@ public class DbController {
 	 * @param recipe The recipe to add.
 	 */
 	public void addRecipe(Recipe recipe) {
-		db.insert(recipe);
+		db.insert(recipe, "UserRecipes");
 	}
 	
 	/**
