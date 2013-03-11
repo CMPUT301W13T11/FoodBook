@@ -3,7 +3,11 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
+/**
+ * Database helper class.  Responsible for executing the Database creation statements and handling upgrades.
+ * @author Mark Tupala
+ *
+ */
 public class DbOpenHelper extends SQLiteOpenHelper {
 	
     // create table SQL statements
@@ -12,6 +16,11 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     private String createUserIngredientsTable = "CREATE TABLE UserIngredients (name text, unit text, quantity text)";
     private String createRecipeIngredientsTable = "CREATE TABLE RecipeIngredients (recipeURI text, name text, unit text, quantity text)";
 
+    /**
+     * Constructor.
+     * @param context The context the Db is created in.
+     * @param name the name of the database to be created.
+     */
 	public DbOpenHelper(Context context, String name) {
 		super(context, name, null, 1);
 	}

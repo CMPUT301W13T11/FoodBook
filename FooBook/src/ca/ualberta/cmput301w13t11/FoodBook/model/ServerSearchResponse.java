@@ -24,11 +24,18 @@ public class ServerSearchResponse<T> {
 	transient Object _shards;
 	SearchHits<T> hits;
 	boolean exists;
+	/**
+	 * Returns a Collection of Server Responses 
+	 * @return
+	 */
 	public Collection<ServerResponse<T>> getHits()
 	{
 		return hits.getHits();
 	}
 	
+	/**
+	 * @return Returns a collection of source objects from the server search response.
+	 */
 	public Collection<T> getSources()
 	{
 		Collection<T> out = new ArrayList<T>();

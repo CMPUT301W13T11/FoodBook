@@ -23,6 +23,11 @@ public class ServerResponse<T> {
 	boolean exists;
 	T _source;
 	double max_score;
+	
+	/**
+	 * 
+	 * @return Return the source object from the ServerResponse.
+	 */
 	public T getSource()
 	{
 		return _source;
