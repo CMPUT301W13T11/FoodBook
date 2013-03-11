@@ -7,7 +7,6 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -25,28 +24,17 @@ public class MyRecipes extends Activity implements FView
 		
 	}
 
-	
 	public void updateList()
     {
 		//Gets the user's recipes
 		DbController DbC = DbController.getInstance(this);
 		ListView listView = (ListView) findViewById(R.id.mylist);
-				
 		//Displays the user's recipes
 		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getUserRecipes());
 		//Assigns the adapter
 		listView.setAdapter(adapter);
     }
 	
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_my_recipes, menu);
-		return true;
-	}
 	public void OnGotoMainMenu(View View)
     {
 		// responds to button Main Menu
