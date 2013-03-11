@@ -41,7 +41,7 @@ public class DbManagerTests extends AndroidTestCase {
 		if (db == null)
 			fail();
 		
-		db.insert(recipe);
+		db.insert(recipe, "UserRecipes");
 		
 		/* Got here with no errors. */
 		assertTrue(true);

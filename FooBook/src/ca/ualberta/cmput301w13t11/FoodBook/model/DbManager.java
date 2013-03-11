@@ -15,8 +15,8 @@ import android.database.sqlite.SQLiteDatabase;
 public class DbManager extends FModel<FView> {
 
 	// the 
-    private SQLiteDatabase db;
-    private DbOpenHelper dbHelper;
+    protected SQLiteDatabase db;
+    protected DbOpenHelper dbHelper;
     
     // singleton pattern implementation
     private static DbManager instance = null;
@@ -38,9 +38,9 @@ public class DbManager extends FModel<FView> {
     }
     
     /**
-     * private constructor because we're using the singleton pattern.
+     * Protected constructor because we're using the singleton pattern.
      */
-    private DbManager(Context context) {
+    protected DbManager(Context context) {
     	// open or create the sqlite db accordingly
     	dbHelper = new DbOpenHelper(context, dbFileName);
     	db = dbHelper.getWritableDatabase();
@@ -92,6 +92,7 @@ public class DbManager extends FModel<FView> {
     /**
      * Inserts a recipe into the database.
      * @param recipe The Recipe to be stored in the database.
+     * @param The name of the table into which the recipe is to be stored.
      */
     public void insert(Recipe recipe, String tableName) {
       ContentValues values = RecipeToMap(recipe);
@@ -107,23 +108,6 @@ public class DbManager extends FModel<FView> {
      */
     public void delete(Recipe recipe) {
       db.delete("UserRecipes", "URI = " + recipe.getUri(), null);
-    }
-
-    /**
-     * Inserts the given Ingredient into the database.
-     * @param ingred The ingredient to be stored.
-     */
-    public void insert(Ingredient ingred) {
-      ContentValues values = IngredientToMap(ingred);
-      db.insert("UserIngredients", null, values);
-    }
-    
-    /**
-     * Deletes the given Ingredient from the database.
-     * @param ingred the ingredient to be deleted.
-     */
-    public void delete(Ingredient ingred) {
-      db.delete("UserIngredients", "name = " + ingred.getName(), null);
     }
 
     /**
