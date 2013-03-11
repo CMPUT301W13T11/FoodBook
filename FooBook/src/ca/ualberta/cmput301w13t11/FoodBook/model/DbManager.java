@@ -26,6 +26,7 @@ public class DbManager extends FModel<FView> {
     
     // SQL queries
     private String getUserRecipesSQL = "FROM UserRecipes SELECT *";
+    private String getResultRecipesSQL = "FROM ResultRecipes SELECT *";
     private String getUserIngredientsSQL = "FROM UserIngredients SELECT *";
     
     // for the controllers
@@ -59,7 +60,23 @@ public class DbManager extends FModel<FView> {
     			
     	return instance;
     }
+
+    /**
+     * Get instance of the singleton DbManager, when we
+     * know that it exists
+     * @return The instance of the class.
+     */
+    public static DbManager getInstance() {	
+    	return instance;
+    }
     
+    /**
+     * store results from server.
+     * @return should i return boolean for success?
+     */
+    public void storeResults(ArrayList<Recipe> recipes) {
+    	
+    }
     /**
      * Returns an ArrayList of all the Recipes stored in the database.
      * @return An ArrayList of all the Recipes stored in the database.

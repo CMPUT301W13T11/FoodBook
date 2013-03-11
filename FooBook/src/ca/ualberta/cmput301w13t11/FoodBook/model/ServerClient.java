@@ -201,6 +201,8 @@ public class ServerClient {
 			return ReturnCode.NO_RESULTS;
 		
 		/* TODO: stores these results in the "SearchResults" db and notify that db's views. */
+		DbManager db = DbManager.getInstance();
+		db.storeResults(search_results);
 		return ReturnCode.SUCCESS;
 		
 		
