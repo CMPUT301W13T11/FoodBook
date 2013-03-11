@@ -21,6 +21,7 @@ public class MyRecipes extends Activity implements FView
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_recipes);
+		updateList();
 		
 	}
 
