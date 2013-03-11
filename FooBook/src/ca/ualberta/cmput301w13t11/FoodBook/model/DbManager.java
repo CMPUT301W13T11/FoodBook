@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 /**
@@ -19,6 +20,9 @@ public class DbManager extends FModel<FView> {
     
     // singleton pattern implementation
     private static DbManager instance = null;
+    
+    // name of database file
+    private String dbFileName = "RecipeApplicationDb.sqlite";
     
     // create table SQL statements
     private String createRecipeTable = "CREATE TABLE UserRecipes (URI text, title text, author text, instructions text)";
@@ -38,23 +42,24 @@ public class DbManager extends FModel<FView> {
     }
     
     /**
-     * Empty constructor.
+     * private constructor because we're using the singleton pattern.
      */
-    public DbManager()
-    {
-    	
+    private DbManager(Context context) {
+    	// open or create the sqlite db accordingly
+    	dbHelper = new DbOpenHelper(context, dbFileName);
+    	db = dbHelper.getWritableDatabase();
     }
     
     /**
      * Get instance of the singleton DbManager.
      * @return The instance of the class.
      */
-    public static DbManager getInstance() {
+    public static DbManager getInstance(Context context) {
     	if (instance == null) {
     		// db instance doesn't exist, create new one
-    		instance = new DbManager();
     		// check to see if sqlite database exists on local, create it if not
     		//db = openOrCreateDatabase(DbPath);
+    		instance = new DbManager(context);
     	}
     			
     	return instance;

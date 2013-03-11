@@ -17,10 +17,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 public class DbManagerTests extends AndroidTestCase {
 
 	private DbManager db = null;
-//	public DbManagerTests()
-//	{
-//		super("ca.ualberta.cmput301w13t11.FoodBook.model", DbManagerTestActivity.class);
-//	}
+
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -35,9 +32,8 @@ public class DbManagerTests extends AndroidTestCase {
 	}
 	
 	/*
-	 * Test the getInstance() method -- should not return null.
 	 */
-	public void testInsert() 
+	public void testInsertRecipe() 
 	{
 		Recipe recipe = Recipe.generateTestRecipe();
 		db = DbManager.getInstance();
@@ -45,7 +41,41 @@ public class DbManagerTests extends AndroidTestCase {
 			fail();
 		
 		db.insert(recipe);
+		
+		/* Got here with no errors. */
 		assertTrue(true);
+	}
+	
+	/*
+	 * Test the insert(Ingredient, uri) method to see if a simple invocation will cause an error.
+	 */
+	public void testInsertIngredient() 
+	{
+		Recipe recipe = Recipe.generateTestRecipe();
+		db = DbManager.getInstance();
+		if (db == null)
+			fail();
+		try {
+			/* Testing private member function, need to use reflection. */
+			Class[] args = new Class[2];
+			args[0] = Ingredient.class;
+			args[1] = long.class;
+			Method method = db.getClass().getDeclaredMethod("insert", args);
+			method.setAccessible(true);
+			method.invoke(db, recipe.getIngredients().get(0), recipe.getUri());
+			/* Got here without error. */
+			assertTrue(true);
+			
+		} catch (NoSuchMethodException nsme) {
+			fail("NoSuchMethodException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException");
+		}
+
 	}
 	
 	/*
@@ -77,7 +107,7 @@ public class DbManagerTests extends AndroidTestCase {
 	}
 	
 	/*
-	 * Test RecipeToMap() 
+	 * Test RecipeToMap() for error in ContentValues creation.
 	 */
 	public void testIngredientToMap()
 	{
@@ -104,5 +134,9 @@ public class DbManagerTests extends AndroidTestCase {
 		}
 		
 	}
+	
+	/*
+	 * 
+	 */
 
 }
