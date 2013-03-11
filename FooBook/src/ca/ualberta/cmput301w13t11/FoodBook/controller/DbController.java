@@ -42,6 +42,11 @@ public class DbController {
 	}
 	
 	public void addRecipe(Recipe recipe) {
-		
+		db.insert(recipe);
+	}
+	
+	public void deleteRecipe(Recipe recipe)
+	{
+		db.delete(recipe);
 	}
 }

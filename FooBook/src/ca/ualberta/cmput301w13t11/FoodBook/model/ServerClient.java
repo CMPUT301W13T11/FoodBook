@@ -33,7 +33,8 @@ import org.apache.http.params.HttpParams;
  * To the extent possible under law, Abram Hindle and Chenlei Zhang has waived all copyright and related or neighboring rights to this work. This work is published from: Canada.
  * 
  * 
- * getThreadSafeClient() method cribbed from http://tech.chitgoks.com/2011/05/05/fixing-the-invalid-use-of-singleclientconnmanager-connection-still-allocated-problem/
+ * getThreadSafeClient() method cribbed from
+ * http://tech.chitgoks.com/2011/05/05/fixing-the-invalid-use-of-singleclientconnmanager-connection-still-allocated-problem/
  * (last accessed March 10, 2013)
  *
  * @author Abram Hindle, Chenlei Zhang, Marko Babic
@@ -98,15 +99,16 @@ public class ServerClient {
 	/**
 	 * Uploads the given recipe to the server.
 	 * @param recipe The recipe to be uploaded.
-	 * @throws IllegalStateException
-	 * @throws IOException
+	 * ReturnCode.ERROR if anything goes wrong, ReturnCode.ALREADY_EXISTS if a recipe
+	 * by that name already exists on the server (this will eventually be modified to check
+	 * against URI instead of Recipe title), ReturnCode.SUCCESS if the recipe was successfully
+	 * uploaded.
 	 */
 	public ReturnCode uploadRecipe(Recipe recipe) throws IllegalStateException, IOException
 	{
 		HttpResponse response = null;
 		HttpPost httpPost = new HttpPost(test_server_string+recipe.getTitle());
 		StringEntity se = null;
-		String status;
 		
 		se = helper.toJSON(recipe);
 		
@@ -125,7 +127,7 @@ public class ServerClient {
 			return ReturnCode.ERROR;
 		}
 		
-		status = response.getEntity().toString();
+		String status = response.getEntity().toString();
 		int retcode = response.getStatusLine().getStatusCode();
 		logger.log(Level.INFO, "upload request server response: " + response);
 
@@ -154,7 +156,10 @@ public class ServerClient {
 	/**
 	 * Performs a search of online recipes by keywords.
 	 * @param str The string of keywords we wish to search by.
-	 * @return True on successful connection + return of 
+	 * @return ReturnCode.ERROR if anything goes wrong, ReturnCode.NO_RESULTS if
+	 * the search returned no results, ReturnCode.SUCCESS if the search was successful,
+	 * in which case the results are written to the database and the observing views
+	 * are notified.
 	 */
 	public ReturnCode searchByKeywords(String str) throws ClientProtocolException, IOException
 	{

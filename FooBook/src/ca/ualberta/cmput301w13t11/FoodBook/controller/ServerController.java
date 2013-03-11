@@ -15,6 +15,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 public class ServerController {
 
 	private ServerClient sc = null;
+	private ServerController instance = null;
 	
 	/**
 	 * Construct -- simply need to get the instance of the ServerClient.
@@ -22,6 +23,19 @@ public class ServerController {
 	public ServerController()
 	{
 		sc = ServerClient.getInstance();
+	}
+	
+	
+	/**
+	 * Singleton method.
+	 * @return The instance of this class
+	 */
+	public ServerController getInstance()
+	{
+		if (instance == null) {
+			instance = new ServerController();
+		}
+		return instance;
 	}
 	
 	/**
