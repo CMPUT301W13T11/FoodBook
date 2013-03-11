@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * than storing images as a Bitmap it encodes them as a string using Base64
  * encoding.  Also provides functionality for converting a ServerRecipe
  * to a regular recipe which can be utilized by the rest of the program.
- * @author Marko
+ * @author Marko Babic
  *
  */
 public class ServerRecipe{
@@ -19,6 +19,10 @@ public class ServerRecipe{
 	private ArrayList<ServerPhoto> photos;
 	private long uri;
 	
+	/**
+	 * Constructor -- creates a ServerRecipe from the given Recipe.
+	 * @param recipe The Recipe from which a ServerRecipe is to be constructed.
+	 */
 	public ServerRecipe(Recipe recipe)
 	{
 		this.author = recipe.getAuthor();
@@ -37,6 +41,11 @@ public class ServerRecipe{
 	}
 	
 
+	/**
+	 * Converts the given ServerRecipe to a Recipe.
+	 * @param sr The ServerRecipe to be converted.
+	 * @return A Recipe transfomred from the ServerRecipe.
+	 */
 	public static Recipe toRecipe(ServerRecipe sr)
 	{
 		Recipe ret = new Recipe(sr.getAuthor(), sr.getTitle(), sr.getInstructions(),

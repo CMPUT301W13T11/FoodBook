@@ -1,8 +1,8 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 /**
- * Class which models an ingredient object. (TODO: better class description)
- * @author Marko
+ * Class which models an ingredient (as part of a recipe, or in the User's MyIngredients Db).
+ * @author Marko Babic
  *
  */
 public class Ingredient {
@@ -11,6 +11,12 @@ public class Ingredient {
 	private String unit;
 	private float quantity;
 	
+	/**
+	 * Constructor -- creates an Ingredient object from the given parameters.
+	 * @param name The name of the Ingredient.
+	 * @param unit The unit type of the Ingredient.
+	 * @param quantity The quantity of this Ingredient.
+	 */
 	public Ingredient(String name, String unit, float quantity)
 	{
 		this.name = name;
