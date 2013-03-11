@@ -19,6 +19,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.HttpParams;
+
+import android.os.StrictMode;
 /**
  * Communicates with the server to perform searches, upload recipes and upload photos to recipes.
  * Implements the singleton design pattern.
@@ -39,6 +41,8 @@ import org.apache.http.params.HttpParams;
  *
  * @author Abram Hindle, Chenlei Zhang, Marko Babic
  *
+ *
+ *NOTE: these operation should be done in Async task --- his will be implemented at a later date.
  */
 public class ServerClient {	
 	
@@ -68,6 +72,10 @@ public class ServerClient {
 	public static ServerClient getInstance()
 	{
 		if (instance == null) {
+			/* Allow networking on main thread. Will be changed later.*/
+			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+			StrictMode.setThreadPolicy(policy); 
+			
 			instance = new ServerClient();
 			dbManager = DbManager.getInstance();
 			httpclient = ServerClient.getThreadSafeClient();
