@@ -20,6 +20,9 @@ public class DbManager extends FModel<FView> {
     
     // singleton pattern implementation
     private static DbManager instance = null;
+    
+    //Used to ensure that multiple connections to the database are not opened and
+    //also to ensure that multiple database helpers do not open.
     private static boolean has_executed = false;
     
     // name of database file
@@ -129,7 +132,7 @@ public class DbManager extends FModel<FView> {
      * @param cursor The cursor over which we will iterate to get recipes from.
      * @return An ArrayList of Recipes.
      */
-    private ArrayList<Recipe> CursorToRecipes(Cursor cursor) {
+    protected ArrayList<Recipe> CursorToRecipes(Cursor cursor) {
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		while (!cursor.isAfterLast()) {
 			long uri = cursor.getLong(0);
@@ -149,7 +152,7 @@ public class DbManager extends FModel<FView> {
      * @param uri The URI of the recipe whose ingredients we are fetching.
      * @return An ArrayList of the Ingredients associated with the recipe.
      */
-    private ArrayList<Ingredient> getRecipeIngredients(long uri) {
+    protected ArrayList<Ingredient> getRecipeIngredients(long uri) {
     	Cursor cursor = db.rawQuery("From RecipeIngredients Select * Where recipeURI = " + uri, null);
     	ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
     	while (!cursor.isAfterLast()) {
@@ -168,7 +171,7 @@ public class DbManager extends FModel<FView> {
      * @param recipe The recipe to be converted.
      * @return An appropriately transformed copy of the Recipe for database storage.
      */
-    private ContentValues RecipeToMap(Recipe recipe) {
+    protected ContentValues RecipeToMap(Recipe recipe) {
         ContentValues values = new ContentValues();
         values.put("URI", recipe.getUri());
         values.put("author", recipe.getAuthor().getName());
