@@ -1,48 +1,65 @@
 package ca.ualberta.cmput301w13t11.FoodBook.test;
 
-import java.util.ArrayList;
-
-import junit.framework.TestCase;
-
-import org.junit.Test;
-
-import android.graphics.Bitmap;
+import android.test.AndroidTestCase;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
-import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerRecipe;
-import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 
-/**
- * Unit tests for the ServerRecipe class.
- * @author mbabic
- *
- */
-public class ServerRecipeTest extends TestCase {
+public class ServerRecipeTest extends AndroidTestCase {
 
-	@Test
-	/*
-	 * Test the ServerRecipe constructor.
-	 */
-	public void testServerRecipeConstructor() 
+	protected void setUp() throws Exception
 	{
-		ServerRecipe sr = new ServerRecipe(Recipe.generateTestRecipe());
-		assertTrue("ServerRecipe constructor failed.", sr != null);	
-	}
+		super.setUp();
+	}	
 	
-	@Test
-	/*
-	 * Test the ServerRecipe toRecipe function.
-	 */
 	public void testToRecipe()
 	{
+		int equal_count = 0;
 		Recipe gr = Recipe.generateTestRecipe();
 		ServerRecipe sr = new ServerRecipe(gr);
 		Recipe ret = ServerRecipe.toRecipe(sr);
 		
 		/* Confirm equality of generated recipe and results of toRecipe */
 		assertTrue("Users not equal.", ret.getAuthor().getName().equals(gr.getAuthor().getName()));
-		assertTrue("Title not equal.", ret.getTitle().equals(gr.getTitle()));
+		assertTrue("Titles not equal.", ret.getTitle().equals(gr.getTitle()));
+		assertTrue("Instructions not equal.", ret.getInstructions().equals(gr.getInstructions()));
+		System.out.println(ret.getIngredients().get(0).getName());
+
+		/* Make sure the ingredient lists are identical. */
+		System.out.println(ret.getIngredients().get(0).getName());
+		for (Ingredient i : ret.getIngredients())
+		{
+			for (Ingredient j : gr.getIngredients())
+			{
+				if (i.getName().equals(j.getName()) && i.getUnit().equals(j.getUnit())
+						&& (i.getQuantity() == j.getQuantity())) {
+					equal_count++;
+				}
+			}
+		}
+		
+		assertTrue("Ingredients not equal.", equal_count == ret.getIngredients().size());
+		
+		/* Make sure the photos are identical. */
+		equal_count = 0;
+		assertTrue("Photo lists sizes not equal.", ret.getPhotos().size() == gr.getPhotos().size());
+		for (int i = 0; i < ret.getPhotos().size(); i++)
+		{
+			if (ret.getPhotos().get(i).getName().equals(gr.getPhotos().get(i).getName()))
+			{
+				equal_count++;
+			}
+		}
+		assertTrue("Photo lists not identical.", equal_count == ret.getPhotos().size());
+		
 	}
+
+	/*
+	 * 
+	 */
+	public void testServerRecipe() {
+		
+	}
+
 
 }

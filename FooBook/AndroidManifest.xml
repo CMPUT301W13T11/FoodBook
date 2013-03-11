@@ -27,6 +27,11 @@
             android:label="@string/title_activity_my_recipes" >
         </activity>
         <activity
+            android:name="ca.ualberta.cmput301w13t11.FoodBook.model.DbManagerTestActivity"
+            android:label="@string/title_activity_my_recipes" >
+            
+        </activity>
+        <activity
             android:name="ca.ualberta.cmput301w13t11.FoodBook.MyIngredients"
             android:label="@string/title_activity_my_ingredients" >
         </activity>

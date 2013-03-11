@@ -27,7 +27,7 @@ public class Recipe {
 		this.setAuthor(author);
 		this.title = title;
 		this.setInstructions(instructions);
-		this.ingredients = ingredients;
+		this.ingredients = ingreds;
 		this.photos = new ArrayList<Photo>();	
 	}
 	
@@ -41,7 +41,7 @@ public class Recipe {
 		this.setAuthor(author);
 		this.title = title;
 		this.setInstructions(instructions);
-		this.ingredients = ingredients;
+		this.ingredients = ingreds;
 		this.photos = photos;	
 	}
 	
