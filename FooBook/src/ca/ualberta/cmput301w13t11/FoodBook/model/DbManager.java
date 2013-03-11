@@ -89,6 +89,7 @@ public class DbManager extends FModel<FView> {
     	for (Recipe recipe : recipes) {
     		insert(recipe, "ResultsRecipes");
     	}
+    	notifyViews();
     }
     
     /**
