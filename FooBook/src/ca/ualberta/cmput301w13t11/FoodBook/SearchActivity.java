@@ -38,6 +38,9 @@ public class SearchActivity extends Activity implements FView<DbManager>
 		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		 SearchActivity.this.finish();
     }
+	/*
+	 * Sends the user input keywords to the server controller
+	 */
 	
 	public void OnSearch (View View)
     {
