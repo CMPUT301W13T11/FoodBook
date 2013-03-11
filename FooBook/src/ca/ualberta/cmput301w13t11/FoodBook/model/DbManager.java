@@ -24,11 +24,6 @@ public class DbManager extends FModel<FView> {
     // name of database file
     private String dbFileName = "RecipeApplicationDb.sqlite";
     
-    // create table SQL statements
-    private String createRecipeTable = "CREATE TABLE UserRecipes (URI text, title text, author text, instructions text)";
-    private String createUserIngredientTable = "CREATE TABLE UserIngredients (name text, unit text, quantity text)";
-    private String createRecipeIngredientTable = "CREATE TABLE RecipeIngredients (recipeURI text, name text, unit text, quantity text)";
-
     // SQL queries
     private String getUserRecipesSQL = "FROM UserRecipes SELECT *";
     private String getUserIngredientsSQL = "FROM UserIngredients SELECT *";
