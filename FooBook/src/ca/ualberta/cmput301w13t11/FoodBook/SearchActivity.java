@@ -44,7 +44,7 @@ public class SearchActivity extends Activity implements FView<DbManager>
     {
 		EditText keywords = (EditText) findViewById(R.id.editText1);
 		String keyword=keywords.toString();
-		ServerController SC=ServerController.getInstance();
+		ServerController SC=ServerController.getInstance(this);
 		SC.searchByKeywords(keyword);
 		
     	Intent intent = new Intent(this, SearchResultsActivity.class);

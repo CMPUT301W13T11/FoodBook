@@ -2,6 +2,8 @@ package ca.ualberta.cmput301w13t11.FoodBook.controller;
 
 import java.io.IOException;
 
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
@@ -30,11 +32,13 @@ public class ServerController {
 	 * Singleton method.
 	 * @return The instance of this class
 	 */
-	public static ServerController getInstance()
+	public static ServerController getInstance(FView<DbManager> view)
 	{
 		if (instance == null) {
 			instance = new ServerController();
 		}
+		DbManager temp = DbManager.getInstance();
+		temp.addView(view);
 		return instance;
 	}
 	
