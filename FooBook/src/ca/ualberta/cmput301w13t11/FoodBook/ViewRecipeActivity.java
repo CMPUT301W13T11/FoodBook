@@ -15,6 +15,8 @@ import android.widget.TextView;
 public class ViewRecipeActivity extends Activity implements FView<DbManager>
 {
 
+	static final String EXTRA_URI = null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{		
@@ -56,9 +58,12 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
     }
 	
 	public void OnEditRecipe (View View)
-    {
+    {	Intent intent1 = getIntent();
+		String URI = intent1.getStringExtra(MyRecipes.EXTRA_URI);
+		
 		// responds to button Edit Recipe
     	Intent intent = new Intent(this, EditRecipeActivity.class);
+    	intent.putExtra(EXTRA_URI, URI);
 		startActivity(intent);
     }
 	public void OnEditPhotos (View View)

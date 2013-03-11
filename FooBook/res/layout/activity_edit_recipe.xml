@@ -77,7 +77,7 @@
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:onClick="onPhotos"
+            android:onClick="OnPhotos"
             android:text="@string/photos"
             android:textSize="18sp" />
 
@@ -86,7 +86,7 @@
             style="@style/BlueButton"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:onClick="onIngredients"
+            android:onClick="OnIngredients"
             android:text="@string/ingredients"
             android:textSize="18sp" />
 
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginRight="20dp"
-            android:onClick="onSaveChanges"
+            android:onClick="OnSaveChanges"
             android:text="@string/save_changes"
             android:textSize="18sp" />
 
@@ -113,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:onClick="onDeleteRecipe"
+            android:onClick="OnDeleteRecipe"
             android:text="@string/delete_recipe"
             android:textSize="18sp" />
 
