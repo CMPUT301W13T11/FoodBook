@@ -25,7 +25,7 @@ public class DbManagerTests extends AndroidTestCase {
 
 	public void testGetInstance()
 	{
-		db = DbManager.getInstance();
+		db = DbManager.getInstance(this.getContext());
 		if (db == null)
 			fail("getInstance failed");
 		assertTrue(true);
@@ -36,7 +36,7 @@ public class DbManagerTests extends AndroidTestCase {
 	public void testInsertRecipe() 
 	{
 		Recipe recipe = Recipe.generateTestRecipe();
-		db = DbManager.getInstance();
+		db = DbManager.getInstance(this.getContext());
 		if (db == null)
 			fail();
 		
@@ -52,7 +52,7 @@ public class DbManagerTests extends AndroidTestCase {
 	public void testInsertIngredient() 
 	{
 		Recipe recipe = Recipe.generateTestRecipe();
-		db = DbManager.getInstance();
+		db = DbManager.getInstance(this.getContext());
 		if (db == null)
 			fail();
 		try {
@@ -83,7 +83,7 @@ public class DbManagerTests extends AndroidTestCase {
 	 */
 	public void testRecipeToMap()
 	{
-		db = DbManager.getInstance();
+		db = DbManager.getInstance(this.getContext());
 		Recipe recipe = Recipe.generateTestRecipe();
 		try {
 			/* Testing private member function, need to use reflection. */
@@ -111,7 +111,7 @@ public class DbManagerTests extends AndroidTestCase {
 	 */
 	public void testIngredientToMap()
 	{
-		db = DbManager.getInstance();
+		db = DbManager.getInstance(this.getContext());
 		Ingredient ingredient = new Ingredient("test", "test", 100);
 		
 		try {
