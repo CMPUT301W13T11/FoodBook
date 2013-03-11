@@ -72,7 +72,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
-        android:onClick="SaveChanges"
+        android:onClick="OnSaveChanges"
         android:text="@string/save_changes"
         android:textSize="18sp" />
 
@@ -85,7 +85,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
         android:layout_toRightOf="@+id/edit_ingredients"
-        android:onClick="EditPhotos"
+        android:onClick="OnEditPhotos"
         android:text="@string/edit_photos"
         android:textSize="18sp" />
 
@@ -97,7 +97,7 @@
         android:layout_above="@+id/save_changes"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="5dp"
-        android:onClick="EditIngredients"
+        android:onClick="OnEditIngredients"
         android:text="@string/edit_ingredients"
         android:textSize="18sp" />
 
