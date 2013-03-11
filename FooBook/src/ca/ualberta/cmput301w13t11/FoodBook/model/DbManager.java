@@ -42,9 +42,9 @@ public class DbManager extends FModel<FView> {
     }
     
     /**
-     * Empty constructor.
+     * private constructor because we're using the singleton pattern.
      */
-    public DbManager(Context context) {
+    private DbManager(Context context) {
     	// open or create the sqlite db accordingly
     	dbHelper = new DbOpenHelper(context, dbFileName);
     	db = dbHelper.getWritableDatabase();
