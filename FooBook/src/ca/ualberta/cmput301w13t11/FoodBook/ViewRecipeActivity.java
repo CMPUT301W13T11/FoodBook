@@ -3,6 +3,7 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 import java.util.ArrayList;
 
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
@@ -80,6 +81,22 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	public void OnPublishRecipe (View View)
     {
 		// responds to button Publish Recipe
+		DbController DbC = DbController.getInstance(this, this);
+		ServerController SC=ServerController.getInstance(this);
+		Intent intent = getIntent();
+		String URI = intent.getStringExtra(MyRecipes.EXTRA_URI);
+		long uri=Long.parseLong(URI);
+		ArrayList<Recipe> RecipeList= DbC.getUserRecipes();
+		
+		for(int index=0; index<RecipeList.size(); index++)
+		{
+			if(RecipeList.get(index).getUri()==uri)
+					{
+					SC.uploadRecipe(RecipeList.get(index));
+					index=RecipeList.size();
+					
+					}
+		}
     	
     }
 

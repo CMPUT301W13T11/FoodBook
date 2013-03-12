@@ -7,6 +7,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -44,7 +45,8 @@ public class SearchActivity extends Activity implements FView<DbManager>
 	public void OnSearch (View View)
     {
 		EditText keywords = (EditText) findViewById(R.id.editText1);
-		String keyword=keywords.toString();
+		Editable Keyword=keywords.getText();
+		String keyword=Keyword.toString();
 		ServerController SC=ServerController.getInstance(this);
 		SC.searchByKeywords(keyword);
 		

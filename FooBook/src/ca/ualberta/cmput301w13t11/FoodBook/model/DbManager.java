@@ -30,7 +30,7 @@ public class DbManager extends FModel<FView> {
     
     // SQL queries
     private String getUserRecipesSQL = "SELECT * FROM UserRecipes";
-    private String getResultRecipesSQL = "SELECT * FROM ResultRecipes";
+    private String getResultRecipesSQL = "SELECT * FROM ResultsRecipes";
     private String getUserIngredientsSQL = "SELECT * FROM UserIngredients";
     
     // for the controllers

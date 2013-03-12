@@ -181,6 +181,8 @@ public class ServerClient {
 		ArrayList<Recipe> search_results = null;
 		HttpResponse response = null;
 		try {
+			logger.log(Level.SEVERE, "Search string passed:" + str);
+
 			HttpGet search_request = new HttpGet(test_server_string+"_search?q=" + 
 												java.net.URLEncoder.encode(str, "UTF-8"));
 			search_request.setHeader("Accept", "application/json");
@@ -212,11 +214,17 @@ public class ServerClient {
 		 * If no results were found, inform the caller by setting ReturnCode to 
 		 * NO_RESULTS -- do NOT attempt to clear/write these results to ServerDb.
 		 */
-		if (search_results.isEmpty())
+		if (search_results.isEmpty()) {
+			logger.log(Level.SEVERE, "NO RESULTS");
 			return ReturnCode.NO_RESULTS;
+
+		}
 		
 		/* TODO: stores these results in the "SearchResults" db and notify that db's views. */
 		dbManager.storeResults(search_results);
+		logger.log(Level.SEVERE, "GOT RESULTS");
+		logger.log(Level.SEVERE, "First result: " + search_results.get(0).getTitle());
+
 		return ReturnCode.SUCCESS;
 		
 		

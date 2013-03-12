@@ -64,8 +64,9 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		Recipe testRecipe=Recipe.generateTestRecipe();
 		ArrayList <Recipe> test = new ArrayList<Recipe>();
 		
+		DbController DbC = DbController.getInstance(this, this);
 		
-		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, test);
+		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getStoredRecipes());
 		//Assigns the adapter
 		listView.setAdapter(adapter);
 		

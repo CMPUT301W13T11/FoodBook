@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class ViewSearchResultActivity extends Activity implements FView<DbManager>
 {
@@ -17,21 +19,33 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-
+		DbController DbC = DbController.getInstance(this, this);
+		
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_search_result);
 		
+		Intent intent = getIntent();
+		String URI = intent.getStringExtra(SearchResultsActivity.EXTRA_URI);
+		long uri=Long.parseLong(URI);
+		Recipe viewedRecipe=null;
+		for(int index=0; index<DbC.getStoredRecipes().size(); index++)
+		{
+			if(DbC.getStoredRecipes().get(index).getUri()==uri)
+					{
+					viewedRecipe=DbC.getStoredRecipes().get(index);
+					index=DbC.getStoredRecipes().size();
+					
+					}
+		}
+	
+		TextView recipeName = (TextView) findViewById(R.id.textView2);
+		EditText instructions = (EditText) findViewById(R.id.editText3);
+		recipeName.setText(viewedRecipe.getTitle());
+		instructions.setText(viewedRecipe.getInstructions());	
 		
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.view_search_result, menu);
-		return true;
-	}
 	
 	public void OnGobacktoSearchResults(View View)
     {
@@ -70,7 +84,9 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 
 	@Override
 	public void update(DbManager db)
-	{}
+	{
+		
+	}
 
 	public void onDestroy()
 	{	super.onDestroy();
