@@ -157,8 +157,8 @@ public class DbManager extends FModel<FView> {
 		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 		while (!cursor.isAfterLast()) {
 			long uri = cursor.getLong(0);
-			User author = new User(cursor.getString(1));
-			String title = cursor.getString(2);
+			User author = new User(cursor.getString(2));
+			String title = cursor.getString(1);
 			String instructions = cursor.getString(3);
 			ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
 			Recipe recipe = new Recipe(uri, author, title, instructions, ingredients);
