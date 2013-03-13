@@ -33,7 +33,6 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_recipe);
 		
-//<<<<<<< HEAD
 		EditText recipeName = (EditText) findViewById(R.id.editText1);
 		EditText instructions = (EditText) findViewById(R.id.editText3);
 	
@@ -58,9 +57,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		
 		recipeName.setText(viewedRecipe.getTitle());
 		instructions.setText(viewedRecipe.getInstructions());
-//=======
-		
-//>>>>>>> branch 'master' of https://github.com/CMPUT301W13T11/FoodBook.git
+
 	}
 		
 
@@ -99,7 +96,6 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
     }
 	public void OnDeleteRecipe (View View)
     {
-//<<<<<<< HEAD
 		// responds to button Delete Recipe
 		
 		DbController DbC = DbController.getInstance(this, this);		
@@ -134,8 +130,6 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		Log.d("what", "what");
 		//popUp.update(50, 50, 300, 80);
 		
-		
->>>>>>> branch 'master' of https://github.com/CMPUT301W13T11/FoodBook.git
 
     }*/
 	@Override

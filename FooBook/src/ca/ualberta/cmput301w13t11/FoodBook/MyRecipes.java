@@ -1,7 +1,5 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import java.util.ArrayList;
-
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
