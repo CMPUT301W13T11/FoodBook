@@ -69,16 +69,25 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
     }
 	public void OnDownloadRecipe (View View)
     {
-		// responds to button Download Recipe
-		
-		/*Intent intent=
 		DbController DbC = DbController.getInstance(this, this);
-		ServerController SC=ServerController.getInstance();
-		//Recipe recipe =SC.getSearchResult()
-		Recipe recipe = null;
-		DbC.addRecipe(recipe);
+		
+		Intent intent = getIntent();
+		String URI = intent.getStringExtra(SearchResultsActivity.EXTRA_URI);
+		long uri=Long.parseLong(URI);
+		Recipe viewedRecipe=null;
+		for(int index=0; index<DbC.getStoredRecipes().size(); index++)
+		{
+			if(DbC.getStoredRecipes().get(index).getUri()==uri)
+					{
+					viewedRecipe=DbC.getStoredRecipes().get(index);
+					index=DbC.getStoredRecipes().size();
+					
+					}
+		}
+		
+		DbC.addRecipe(viewedRecipe);
 		finish();
-*/
+
     	
     }
 
