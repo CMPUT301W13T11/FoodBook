@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 public class AddRecipesActivity extends Activity implements FView<DbManager>
 {
-
+//Test
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
