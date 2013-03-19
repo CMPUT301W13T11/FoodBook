@@ -10,8 +10,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -98,6 +99,38 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
     {
 		// responds to button Delete Recipe
 		
+		//first darken the screen
+		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+		LayoutParams darkenParams = darkenScreen.getLayoutParams();
+		darkenParams.height = 1000;
+		darkenParams.width = 1000;
+		darkenScreen.setLayoutParams(darkenParams);
+		//make the popup
+		LinearLayout layout = new LinearLayout(this);
+		LayoutInflater inflater = LayoutInflater.from(this);
+		popUp = new PopupWindow(inflater.inflate(R.layout.popup, null, false),300,150, true);
+		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
+		
+		WindowManager.LayoutParams lp = this.getWindow().getAttributes();
+		lp.dimAmount=1.0f;
+		this.getWindow().setAttributes(lp);
+		
+		Log.d("what", "what");
+		//popUp.update(50, 50, 300, 80);
+		
+
+    }
+	@Override
+	public void update(DbManager db)
+	{
+
+		// TODO Auto-generated method stub
+		
+	}
+	public void OnOK(View v){
+		
+		popUp.dismiss();
+		//delete the recipe
 		DbController DbC = DbController.getInstance(this, this);		
 		Intent intent = getIntent();
 		String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
@@ -113,37 +146,21 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 					
 					}
 		}
-		finish();
+		
 		Intent intentGo = new Intent(this, MyRecipes.class);
 		startActivity(intentGo);
-    }
-/*=======
-		LinearLayout layout = new LinearLayout(this);
-		LayoutInflater inflater = LayoutInflater.from(this);
-		popUp = new PopupWindow(inflater.inflate(R.layout.popup, null, false),300,150, true);
-		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
-		
-		WindowManager.LayoutParams lp = this.getWindow().getAttributes();
-		lp.dimAmount=1.0f;
-		this.getWindow().setAttributes(lp);
-		
-		Log.d("what", "what");
-		//popUp.update(50, 50, 300, 80);
-		
-
-    }*/
-	@Override
-	public void update(DbManager db)
-	{
-
-		// TODO Auto-generated method stub
-		
-	}
-	public void OnOK(View v){
-		popUp.dismiss();
+		finish();
 	}
 	public void OnCancel(View v){
+		
+		
 		popUp.dismiss();
+		//remove the darkScreen
+		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+		LayoutParams darkenParams = darkenScreen.getLayoutParams();
+		darkenParams.height = 0;
+		darkenParams.width = 0;
+		darkenScreen.setLayoutParams(darkenParams);
 	}
 	public void onDestroy()
 	{	super.onDestroy();
