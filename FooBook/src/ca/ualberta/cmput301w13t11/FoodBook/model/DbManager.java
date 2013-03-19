@@ -14,7 +14,7 @@ import android.database.sqlite.SQLiteDatabase;
  */
 public class DbManager extends FModel<FView> {
 
-	// the actual database 
+    // the actual database 
     protected static SQLiteDatabase db;
     protected static DbOpenHelper dbHelper;
     
@@ -26,12 +26,17 @@ public class DbManager extends FModel<FView> {
     private static boolean has_executed = false;
     
     // name of database file
-    private String dbFileName = "RecipeApplicationDb.sqlite";
+    private String dbFileName = "RecipeApplicationDb";
+    
+    // name of tables
+    private String UserRecipes = "UserRecipes";
+    private String ResultsRecipes = "ResultsRecipes";
+    private String UserIngredients = "UserIngredients";
     
     // SQL queries
-    private String getUserRecipesSQL = "SELECT * FROM UserRecipes";
-    private String getResultRecipesSQL = "SELECT * FROM ResultsRecipes";
-    private String getUserIngredientsSQL = "SELECT * FROM UserIngredients";
+    private String getUserRecipesSQL = "SELECT * FROM " + UserRecipes;
+    private String getResultRecipesSQL = "SELECT * FROM " + ResultsRecipes;
+    private String getUserIngredientsSQL = "SELECT * FROM " + UserIngredients;
     
     // for the controllers
     /**
