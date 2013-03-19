@@ -103,8 +103,8 @@ public class ServerClientTest extends AndroidTestCase {
 		ingredients.add(new Ingredient("test2", "xxxx", 100));
 		ingredients.add(new Ingredient("test3", "xxxxx", 1000));
 
-		ArrayList<Recipe> results = sc.searchByIngredients(ingredients);
-		assertTrue("Resuls empty.", results.size() != 0);
+		ReturnCode ret = sc.searchByIngredients(ingredients);
+		assertTrue("Returns error.", ret == ReturnCode.ERROR);
 		
 	}
 	

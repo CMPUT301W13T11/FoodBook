@@ -38,7 +38,7 @@ public class ClientHelperTests extends TestCase {
 	/**
 	 * Test that a recipe is converted to a JSON object successfully.
 	 */
-	public void testToJSONPass()
+	public void testRecipeToJSONPass()
 	{
 		/* Generate a set of ingredients. */
 		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
@@ -49,7 +49,7 @@ public class ClientHelperTests extends TestCase {
 		Recipe test_recipe = new Recipe(new User("Tester"), "Nothing you'd want to eat.",
 										"Don't cook this.",ingredients);
 		
-		StringEntity ret = helper.toJSON(test_recipe);
+		StringEntity ret = helper.recipeToJSON(test_recipe);
 		
 		assertTrue(ret != null);
 	}

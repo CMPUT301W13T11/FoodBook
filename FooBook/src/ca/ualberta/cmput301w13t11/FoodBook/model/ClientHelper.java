@@ -7,6 +7,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.entity.StringEntity;
 
@@ -48,7 +49,7 @@ public class ClientHelper {
 	 * @param recipe The recipe to be converted.
 	 * @return A JSON version of the given recipe.
 	 */
-	public StringEntity toJSON(Recipe recipe)
+	public StringEntity recipeToJSON(Recipe recipe)
 	{
 		StringEntity se = null;
 		ServerRecipe sr = new ServerRecipe(recipe);
@@ -61,6 +62,25 @@ public class ClientHelper {
 		
 		return se;
 		
+	}
+	
+	/**
+	 * Converts the given HTTP response to a string.
+	 * @param (HttpResponse) http_response The response to be converted to a string.
+	 * @return A string version of the HttpResponse passed.
+	 * @throws IOException 
+	 */
+	public String responseToString(HttpResponse http_response) throws IOException
+	{
+		String ret = "";
+		HttpEntity entity = http_response.getEntity();
+		BufferedReader br = new BufferedReader(new InputStreamReader((http_response.getEntity().getContent())));
+		String out;
+		
+		while ((out = br.readLine()) != null) {
+			ret += out;
+		}
+		return ret;
 	}
 	
 	/**
