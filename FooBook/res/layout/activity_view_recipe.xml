@@ -1,7 +1,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
-
+<FrameLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content" >
     <TableLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -115,5 +117,11 @@
                 android:textSize="18sp" />
         </LinearLayout>
     </TableLayout>
-
+    <ImageView
+       android:id="@+id/darkenScreen"
+       android:layout_height="0dp"
+       android:layout_width="0dp"
+       android:contentDescription = "Popup Fade out"
+       android:src="@drawable/trans_black" />
+</FrameLayout>
 </ScrollView>

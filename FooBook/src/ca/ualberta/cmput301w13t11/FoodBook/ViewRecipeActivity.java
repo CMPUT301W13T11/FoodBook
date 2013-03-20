@@ -10,13 +10,20 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 public class ViewRecipeActivity extends Activity implements FView<DbManager>
 {
 
 	static final String EXTRA_URI = null;
+	private PopupWindow popUp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -97,9 +104,29 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 					
 					}
 		}
+		
+		//first darken the screen
+		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+		LayoutParams darkenParams = darkenScreen.getLayoutParams();
+		darkenParams.height = 1000;
+		darkenParams.width = 1000;
+		darkenScreen.setLayoutParams(darkenParams);
+		//make the popup
+		LinearLayout layout = new LinearLayout(this);
+		LayoutInflater inflater = LayoutInflater.from(this);
+		popUp = new PopupWindow(inflater.inflate(R.layout.popup_recipe_upload_success, null, false),300,130,true);
+		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
     	
     }
-
+	public void OnOK(View v){
+		popUp.dismiss();
+		//remove the darkScreen
+		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+		LayoutParams darkenParams = darkenScreen.getLayoutParams();
+		darkenParams.height = 0;
+		darkenParams.width = 0;
+		darkenScreen.setLayoutParams(darkenParams);
+	}
 	@Override
 	public void update(DbManager db)
 	{
