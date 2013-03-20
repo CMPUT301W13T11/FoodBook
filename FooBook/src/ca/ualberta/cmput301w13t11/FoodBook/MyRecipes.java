@@ -17,7 +17,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class MyRecipes extends Activity implements FView<DbManager>{
 
@@ -27,7 +26,6 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_recipes);
 		updateList();
@@ -70,13 +68,7 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 
 		        @Override
 		        public void onTextChanged(CharSequence s, int start, int before, int count) {
-		       //         updateListSearch(s);
 		        }
-
-		       /* private boolean filterLongEnough() {
-		            return tv_filter.getText().toString().trim().length() > 2;
-		        }
-		        */
 		    };
 		    search.addTextChangedListener(keyPressed);		
     }
@@ -115,26 +107,17 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 	DbController DbC = DbController.getInstance(this, this);
 	ListView listView = (ListView) findViewById(R.id.mylist);
 	ArrayList <Recipe> userRecipes=DbC.getUserRecipes();
-		//Recipe testRecipe=Recipe.generateTestRecipe();
-		//ArrayList <Recipe> test = new ArrayList<Recipe>();
-		//test.add(testRecipe);
 	int index=0;	
-	/*if(userRecipes.get(index).getTitle().substring(0, search.length()).equals(search.toString()))
-			{
-	String zzz=search.toString()+String.valueOf(userRecipes.size())+String.valueOf(search.length())+userRecipes.get(index).getTitle().substring(0, search.length());
-	TextView xxx = (TextView) findViewById(R.id.textView1);
-	xxx.setText(zzz);
-			}*/
+
 	while(index<userRecipes.size())
 	{
 		
-		if(search.length()>userRecipes.get(index).getTitle().length()||userRecipes.get(index).getTitle().substring(0, search.length()).equals(search.toString())==false)
+		if(search.length()>userRecipes.get(index).getTitle().length()||userRecipes.get(index).getTitle().substring(0, search.length()).toLowerCase().equals(search.toString().toLowerCase())==false)
 			userRecipes.remove(index);
 		else
 			index++;
 	}
-//	if(userRecipes.isEmpty()!=true)
-	//	{
+
 		//Displays the matching user's recipes
 		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, userRecipes);
 		//Assigns the adapter
@@ -148,6 +131,5 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 				intent.putExtra(EXTRA_URI, testString);
 				startActivity(intent);
 			}});
-    	//}
     }
 }
