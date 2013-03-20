@@ -3,10 +3,15 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class MyIngredients extends Activity implements FView<DbManager>
 {
@@ -41,7 +46,31 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		//responds to button Modify ingredient
     }
 
-	@Override
+
+	public void updateIngredients()
+	{
+		//Gets the user's recipes
+		DbController DbC = DbController.getInstance(this, this);
+		ListView listView = (ListView) findViewById(R.id.mylist);
+			//Recipe testRecipe=Recipe.generateTestRecipe();
+			//ArrayList <Recipe> test = new ArrayList<Recipe>();
+			//test.add(testRecipe);
+
+			//Displays the user's recipes
+			/*ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.);
+			//Assigns the adapter
+			listView.setAdapter(adapter);
+			listView.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+				{	long recipe_uri = ((Recipe) parent.getItemAtPosition(position)).getUri();
+					Intent intent = new Intent(MyRecipes.this, ViewRecipeActivity.class);
+					String testString=Long.toString(recipe_uri);
+					intent.putExtra(EXTRA_URI, testString);
+					startActivity(intent);
+				}});*/
+	}
+	
 	public void update(DbManager db)
 	{
 	}

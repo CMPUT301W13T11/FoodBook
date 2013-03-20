@@ -43,13 +43,26 @@
         android:layout_marginTop="22dp"
         android:text="@string/my_recipes"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <ListView
         android:id="@+id/mylist"
         android:layout_width="match_parent"
         android:layout_height="355dp"
+        android:layout_above="@+id/editText1"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1" >
+
     </ListView>
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/menu_button"
+        android:layout_alignLeft="@+id/menu_button"
+        android:layout_alignRight="@+id/add_recipe_button"
+        android:hint="@string/search" >
+		
+    </EditText>
 
 </RelativeLayout>

@@ -42,13 +42,13 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
     {
 		// responds to button Capture
 		
-		Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+		/*Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         // request code
 
         startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
 
     	Intent intent = new Intent(this, AddRecipesActivity.class);
-		startActivity(intent);
+		startActivity(intent);*/
     }
 	public void OnSavePhoto (View View)
     {
