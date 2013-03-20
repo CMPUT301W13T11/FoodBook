@@ -29,9 +29,9 @@ public class DbManager extends FModel<FView> {
     private String dbFileName = "RecipeApplicationDb";
     
     // name of tables
-    private String UserRecipes = "UserRecipes";
-    private String ResultsRecipes = "ResultsRecipes";
-    private String UserIngredients = "UserIngredients";
+    protected String UserRecipes = "UserRecipes";
+    protected String ResultsRecipes = "ResultsRecipes";
+    protected String UserIngredients = "UserIngredients";
     
     // SQL queries
     private String getUserRecipesSQL = "SELECT * FROM " + UserRecipes;
@@ -84,59 +84,6 @@ public class DbManager extends FModel<FView> {
     public static DbManager getInstance() {	
     	return instance;
     }
-    
-    /**
-     * store results from server.
-     * @return should i return boolean for success?
-     */
-    public void storeResults(ArrayList<Recipe> recipes) {
-    	db.delete("ResultsRecipes", null, null);
-    	for (Recipe recipe : recipes) {
-    		insert(recipe, "ResultsRecipes");
-    	}
-    	notifyViews();
-    }
-    
-    /**
-     * Returns an ArrayList of all the Recipes stored in the database.
-     * @return An ArrayList of all the Recipes stored in the database.
-     */
-    public ArrayList<Recipe> getUserRecipes() {
-    	Cursor cursor = db.rawQuery(getUserRecipesSQL, null);
-    	cursor.moveToFirst();
-    	return CursorToRecipes(cursor);
-    }
-
-    /**
-     * Returns an ArrayList of all the Recipes stored in the database.
-     * @return An ArrayList of all the Recipes stored in the database.
-     */
-    public ArrayList<Recipe> getStoredRecipes() {
-    	Cursor cursor = db.rawQuery(getResultRecipesSQL, null);
-    	cursor.moveToFirst();
-    	return CursorToRecipes(cursor);
-    }
-
-    /**
-     * Inserts a recipe into the database.
-     * @param recipe The Recipe to be stored in the database.
-     * @param The name of the table into which the recipe is to be stored.
-     */
-    public void insert(Recipe recipe, String tableName) {
-      ContentValues values = RecipeToMap(recipe);
-      db.insert(tableName, null, values);
-      for (Ingredient ingred : recipe.getIngredients()) {
-          insert(ingred, recipe.getUri());
-      }
-    }
-    
-    /**
-     * Deletes the given Recipe from the database.
-     * @param recipe The Recipe to be deleted.
-     */
-    public void delete(Recipe recipe) {
-      db.delete("UserRecipes", "URI = " + recipe.getUri(), null);
-    }
 
     /**
      * Inserts the given Ingredient into the database such that it is associated with the
@@ -151,26 +98,6 @@ public class DbManager extends FModel<FView> {
         values.put("unit", ingred.getUnit());
         values.put("quantity", ingred.getQuantity());
         db.insert("RecipeIngredients", null, values);
-    }
-       
-    /**
-     * Given a cursor, convert it to an ArrayList of Recipes.
-     * @param cursor The cursor over which we will iterate to get recipes from.
-     * @return An ArrayList of Recipes.
-     */
-    protected ArrayList<Recipe> CursorToRecipes(Cursor cursor) {
-		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-		while (!cursor.isAfterLast()) {
-			long uri = cursor.getLong(0);
-			User author = new User(cursor.getString(2));
-			String title = cursor.getString(1);
-			String instructions = cursor.getString(3);
-			ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
-			Recipe recipe = new Recipe(uri, author, title, instructions, ingredients);
-			recipes.add(recipe);
-			cursor.moveToNext();
-		}
-		return recipes;
     }
     
     /**
@@ -191,20 +118,6 @@ public class DbManager extends FModel<FView> {
     		cursor.moveToNext();
     	}
     	return ingreds;
-    }
-    
-    /**
-     * Converts a Recipe to a ContentValues object to be stored in the database.
-     * @param recipe The recipe to be converted.
-     * @return An appropriately transformed copy of the Recipe for database storage.
-     */
-    protected ContentValues RecipeToMap(Recipe recipe) {
-        ContentValues values = new ContentValues();
-        values.put("URI", recipe.getUri());
-        values.put("author", recipe.getAuthor().getName());
-        values.put("title", recipe.getTitle());
-        values.put("instructions", recipe.getInstructions());
-        return values;
     }
 
     /**
