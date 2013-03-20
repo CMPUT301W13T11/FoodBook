@@ -17,13 +17,18 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 	
     static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
 
-	
     // create table SQL statements
+    // storing recipes requires 3 tables: recipes, ingredients, photos
     private String createRecipesTable = "CREATE TABLE UserRecipes (URI text, title text, author text, instructions text)";
-    private String createResultsTable = "CREATE TABLE ResultsRecipes (URI text, title text, author text, instructions text)";
-    private String createUserIngredientsTable = "CREATE TABLE UserIngredients (name text, unit text, quantity text)";
     private String createRecipeIngredientsTable = "CREATE TABLE RecipeIngredients (recipeURI text, name text, unit text, quantity text)";
     private String createRecipePhotosTable = "CREATE TABLE RecipePhotos (recipeURI text, filename text)";
+    // storing recipes from search, so 3 more tables
+    private String createResultsTable = "CREATE TABLE ResultsRecipes (URI text, title text, author text, instructions text)";
+    private String createResultsIngredientsTable = "CREATE TABLE ResultsIngredients (recipeURI text, name text, unit text, quantity text)";
+    private String createResultsPhotosTable = "CREATE TABLE ResultsPhotos (recipeURI text, filename text)";
+    // the user's ingredients table
+    private String createUserIngredientsTable = "CREATE TABLE UserIngredients (name text, unit text, quantity text)";
+    
     
     //private String table_name = "create table UserRecipes (_id integer primary key autoincrement, URI text not null, title text no null, author text not null, " +
     //								"instructions text not null";	
@@ -46,10 +51,12 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// DB has just been created, create tables
 		db.execSQL(createRecipesTable);
-		db.execSQL(createResultsTable);
-		db.execSQL(createUserIngredientsTable);
 		db.execSQL(createRecipeIngredientsTable);
 		db.execSQL(createRecipePhotosTable);
+		db.execSQL(createResultsTable);
+		db.execSQL(createResultsIngredientsTable);
+		db.execSQL(createResultsPhotosTable);
+		db.execSQL(createUserIngredientsTable);
 	}
 
 	@Override
