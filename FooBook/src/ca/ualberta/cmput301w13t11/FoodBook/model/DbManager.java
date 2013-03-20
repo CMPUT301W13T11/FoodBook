@@ -84,21 +84,6 @@ public class DbManager extends FModel<FView> {
     public static DbManager getInstance() {	
     	return instance;
     }
-
-    /**
-     * Inserts the given Ingredient into the database such that it is associated with the
-     * recipe identified by recipeURI.
-     * @param ingred The ingredient to be inserted.
-     * @param recipeURI The URI of the Recipe with which to associate the Ingredient.
-     */
-    public void insert(Ingredient ingred, long recipeURI) {
-        ContentValues values = new ContentValues();
-        values.put("recipeURI", recipeURI);
-        values.put("name", ingred.getName());
-        values.put("unit", ingred.getUnit());
-        values.put("quantity", ingred.getQuantity());
-        db.insert("RecipeIngredients", null, values);
-    }
     
     /**
      * Gets all the Ingredients associated with the recipe identified by its URI.
@@ -121,16 +106,18 @@ public class DbManager extends FModel<FView> {
     }
 
     /**
-     * Converts an Ingredient object to a ContentValues object to be stored in the database.
-     * @param ingred The ingredient to be transformed.
-     * @return An appropriately transformed cop of the Ingredient for database storage.
+     * Inserts the given Ingredient into the database such that it is associated with the
+     * recipe identified by recipeURI.
+     * @param ingred The ingredient to be inserted.
+     * @param recipeURI The URI of the Recipe with which to associate the Ingredient.
      */
-    private ContentValues IngredientToMap(Ingredient ingred) {
+    public void insert(Ingredient ingred, long recipeURI) {
         ContentValues values = new ContentValues();
+        values.put("recipeURI", recipeURI);
         values.put("name", ingred.getName());
-        values.put("quantity", ingred.getQuantity());
         values.put("unit", ingred.getUnit());
-        return values;
+        values.put("quantity", ingred.getQuantity());
+        db.insert("RecipeIngredients", null, values);
     }
     
 }
