@@ -16,6 +16,16 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.RecipesDbManager;
  */
 public class DbController {
         
+    // name of tables
+    protected String UserRecipes = "UserRecipes";
+    protected String ResultsRecipes = "ResultsRecipes";
+    protected String UserIngredients = "UserIngredients";
+    
+    // SQL queries
+    private String getUserRecipesSQL = "SELECT * FROM " + UserRecipes;
+    private String getResultRecipesSQL = "SELECT * FROM " + ResultsRecipes;
+    private String getUserIngredientsSQL = "SELECT * FROM " + UserIngredients;
+    
         private static DbManager db;
         private static RecipesDbManager recipesDB;
         
@@ -55,14 +65,14 @@ public class DbController {
      * @return Returns an ArrayList containing all the Recipes the user has stored on their device.
      */
         public ArrayList<Recipe> getUserRecipes() {
-                return recipesDB.getRecipes("UserRecipes");
+                return recipesDB.getRecipes(getUserRecipesSQL);
         }
 
     /**
      * @return Returns an ArrayList containing all the Recipes stored from search
      */
         public ArrayList<Recipe> getStoredRecipes() {
-                return recipesDB.getRecipes("ResultsRecipes");
+                return recipesDB.getRecipes(getResultRecipesSQL);
         }
         
         /**
