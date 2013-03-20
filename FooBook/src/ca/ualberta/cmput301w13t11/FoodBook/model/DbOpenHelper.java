@@ -15,7 +15,7 @@ import android.util.Log;
  */
 public class DbOpenHelper extends SQLiteOpenHelper {
 	
-	static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
+    static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
 
 	
     // create table SQL statements
@@ -30,7 +30,6 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     private String createResultsTable = "CREATE TABLE ResultsRecipes (URI text, title text, author text, instructions text)";
     private String createUserIngredientsTable = "CREATE TABLE UserIngredients (name text, unit text, quantity text)";
     private String createRecipeIngredientsTable = "CREATE TABLE RecipeIngredients (recipeURI text, name text, unit text, quantity text)";
-    String name = "data";
 
     /**
      * Constructor.
@@ -38,7 +37,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
      * @param name the name of the database to be created.
      */
 	public DbOpenHelper(Context context, String name) {
-		super(context, "data", null, 1);
+		super(context, name, null, 1);
 	}
 
 	@Override
