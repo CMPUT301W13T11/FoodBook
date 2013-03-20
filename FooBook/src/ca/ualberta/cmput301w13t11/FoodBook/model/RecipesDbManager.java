@@ -48,15 +48,6 @@ public class RecipesDbManager extends DbManager {
 	{
 		return instance;
 	}
-	
-	/**
-	 * Returns an ArrayList of all the Recipes stored in the table.
-	 * @return An ArrayList of all the Recipes stored in the table.
-	 */
-	public ArrayList<Recipe> getRecipes(String query) {
-	    Cursor cursor = db.rawQuery(query, null);
-	    return cursorToRecipes(cursor);
-	}
 
 	/**
 	 * Deletes the given Recipe from the database.
@@ -65,7 +56,5 @@ public class RecipesDbManager extends DbManager {
 	public void deleteRecipe(Recipe recipe) {
 	    db.delete(recipesTable, "URI = " + recipe.getUri(), null);
 	}
-
-	// PRIVATE METHODS *********************************************************
         
 }

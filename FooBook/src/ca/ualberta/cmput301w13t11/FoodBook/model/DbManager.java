@@ -114,6 +114,15 @@ public class DbManager extends FModel<FView> {
         db.insert("RecipePhotos", null, values);
     }
     
+	/**
+	 * Returns an ArrayList of all the Recipes stored in the table.
+	 * @return An ArrayList of all the Recipes stored in the table.
+	 */
+	public ArrayList<Recipe> getRecipes(String query) {
+	    Cursor cursor = db.rawQuery(query, null);
+	    return cursorToRecipes(cursor);
+	}
+    
     /**
      * Given a cursor, convert it to an ArrayList of Recipes.
      * @param cursor The cursor over which we will iterate to get recipes from.
