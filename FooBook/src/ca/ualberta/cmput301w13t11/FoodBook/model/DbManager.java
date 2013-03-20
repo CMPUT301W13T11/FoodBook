@@ -28,7 +28,6 @@ public class DbManager extends FModel<FView> {
     // name of database file
     private String dbFileName = "RecipeApplicationDb";
     
-    // for the controllers
     /**
      * Protected constructor because we're using the singleton pattern.
      */
@@ -61,8 +60,7 @@ public class DbManager extends FModel<FView> {
     	if (instance == null) {
     		// db instance doesn't exist, create new one
     		instance = new DbManager(context);
-    	}
-    			
+    	}	
     	return instance;
     }
 
@@ -104,7 +102,10 @@ public class DbManager extends FModel<FView> {
 	    ContentValues values = recipe.toContentValues();
 	    db.insert(tableName, null, values);
 	    for (Ingredient ingred : recipe.getIngredients()) {
-	        insert(ingred, recipe.getUri());
+	        insertRecipeIngredients(ingred, recipe.getUri());
+	    }
+	    for (Photo photo : recipe.getPhotos()) {
+	        insertRecipePhotos(photo, recipe.getUri());
 	    }
 	}
     
@@ -114,14 +115,23 @@ public class DbManager extends FModel<FView> {
      * @param ingred The ingredient to be inserted.
      * @param recipeURI The URI of the Recipe with which to associate the Ingredient.
      */
-    public void insert(Ingredient ingred, long recipeURI) {
-        ContentValues values = new ContentValues();
+    public void insertRecipeIngredients(Ingredient ingred, long recipeURI) {
+        ContentValues values = ingred.toContentValues();
         values.put("recipeURI", recipeURI);
-        values.put("name", ingred.getName());
-        values.put("unit", ingred.getUnit());
-        values.put("quantity", ingred.getQuantity());
         db.insert("RecipeIngredients", null, values);
     }
     
+    /**
+     * Inserts the given Photo into the database such that it is associated with the
+     * recipe identified by recipeURI.
+     * @param photo The photo to be inserted.
+     * @param recipeURI The URI of the Recipe with which to associate the Photo.
+     */
+    public void insertRecipePhotos(Photo photo, long recipeURI) {
+        ContentValues values = new ContentValues();
+        values.put("recipeURI", recipeURI);
+        values.put("filename", photo.getName());
+        db.insert("RecipePhotos", null, values);
+    }
 }
     
