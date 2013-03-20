@@ -28,15 +28,6 @@ public class DbManager extends FModel<FView> {
     // name of database file
     private String dbFileName = "RecipeApplicationDb";
     
-    // name of tables
-    protected String UserRecipes = "UserRecipes";
-    protected String ResultsRecipes = "ResultsRecipes";
-    
-    // SQL queries
-    private String getUserRecipesSQL = "SELECT * FROM " + UserRecipes;
-    private String getResultRecipesSQL = "SELECT * FROM " + ResultsRecipes;
-    
-    
     // for the controllers
     /**
      * Protected constructor because we're using the singleton pattern.
@@ -104,6 +95,19 @@ public class DbManager extends FModel<FView> {
     	return ingreds;
     }
 
+	/**
+	 * Inserts a recipe into the table.
+	 * @param recipe The Recipe to be stored in the table.
+	 * @param The name of the table into which the recipe is to be stored.
+	 */
+	public void insertRecipe(Recipe recipe, String tableName) {
+	    ContentValues values = RecipeToMap(recipe);
+	    db.insert(tableName, null, values);
+	    for (Ingredient ingred : recipe.getIngredients()) {
+	        insert(ingred, recipe.getUri());
+	    }
+	}
+    
     /**
      * Inserts the given Ingredient into the database such that it is associated with the
      * recipe identified by recipeURI.
@@ -117,6 +121,20 @@ public class DbManager extends FModel<FView> {
         values.put("unit", ingred.getUnit());
         values.put("quantity", ingred.getQuantity());
         db.insert("RecipeIngredients", null, values);
+    }
+
+    /**
+     * Converts a Recipe to a ContentValues object to be stored in the database.
+     * @param recipe The recipe to be converted.
+     * @return An appropriately transformed copy of the Recipe for database storage.
+     */
+    protected ContentValues RecipeToMap(Recipe recipe) {
+        ContentValues values = new ContentValues();
+        values.put("URI", recipe.getUri());
+        values.put("author", recipe.getAuthor().getName());
+        values.put("title", recipe.getTitle());
+        values.put("instructions", recipe.getInstructions());
+        return values;
     }
     
 }

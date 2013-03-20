@@ -18,7 +18,8 @@ import android.database.Cursor;
 public class RecipesDbManager extends DbManager {
 	
 	private static RecipesDbManager instance = null;
-    private String getUserRecipesSQL = "FROM UserRecipes SELECT *";
+	protected String recipesTable = "UserRecipes";
+	private String getUserRecipesSQL = "SELECT * FROM " + recipesTable;
 
 	public RecipesDbManager(Context context)
 	{
@@ -47,31 +48,6 @@ public class RecipesDbManager extends DbManager {
 	{
 		return instance;
 	}
-
-	/**
-	 * store results from server.
-	 * @return should i return boolean for success?
-	 */
-	public void storeRecipes(ArrayList<Recipe> recipes) {
-	    db.delete(ResultsRecipes, null, null);
-	    for (Recipe recipe : recipes) {
-	        insertRecipe(recipe, ResultsRecipes);
-	    }
-	    notifyViews();
-	}
-	
-	/**
-	 * Inserts a recipe into the table.
-	 * @param recipe The Recipe to be stored in the table.
-	 * @param The name of the table into which the recipe is to be stored.
-	 */
-	public void insertRecipe(Recipe recipe, String tableName) {
-	    ContentValues values = RecipeToMap(recipe);
-	    db.insert(tableName, null, values);
-	    for (Ingredient ingred : recipe.getIngredients()) {
-	        insert(ingred, recipe.getUri());
-	    }
-	}
 	
 	/**
 	 * Returns an ArrayList of all the Recipes stored in the table.
@@ -88,23 +64,10 @@ public class RecipesDbManager extends DbManager {
 	 * @param recipe The Recipe to be deleted.
 	 */
 	public void deleteRecipe(Recipe recipe) {
-	    db.delete(UserRecipes, "URI = " + recipe.getUri(), null);
+	    db.delete(recipesTable, "URI = " + recipe.getUri(), null);
 	}
 
 	// PRIVATE METHODS *********************************************************
-        /**
-         * Converts a Recipe to a ContentValues object to be stored in the database.
-         * @param recipe The recipe to be converted.
-         * @return An appropriately transformed copy of the Recipe for database storage.
-         */
-        protected ContentValues RecipeToMap(Recipe recipe) {
-            ContentValues values = new ContentValues();
-            values.put("URI", recipe.getUri());
-            values.put("author", recipe.getAuthor().getName());
-            values.put("title", recipe.getTitle());
-            values.put("instructions", recipe.getInstructions());
-            return values;
-        }
 
         /**
          * Given a cursor, convert it to an ArrayList of Recipes.

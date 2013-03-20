@@ -54,7 +54,7 @@ import android.os.StrictMode;
 public class ServerClient {	
 	
 	private static ServerClient instance = null;
-	private static RecipesDbManager dbManager = null;
+	private static ResultsDbManager dbManager = null;
 	static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
 	static private String test_server_string = "http://cmput301.softwareprocess.es:8080/testing/cmput301w13t11/";
 	private static HttpClient httpclient = null;
@@ -84,7 +84,7 @@ public class ServerClient {
 			StrictMode.setThreadPolicy(policy); 
 			
 			instance = new ServerClient();
-			dbManager = RecipesDbManager.getInstance();
+			dbManager = ResultsDbManager.getInstance();
 			httpclient = ServerClient.getThreadSafeClient();
 			helper = new ClientHelper();
 		}

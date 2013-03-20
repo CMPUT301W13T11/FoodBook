@@ -1,5 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 /**
  * Implements the functionality required to manage the Results database, which
@@ -11,6 +13,8 @@ import android.content.Context;
 public class ResultsDbManager extends DbManager {
 	
 	private static ResultsDbManager instance = null;
+	protected String resultsTable = "ResultsRecipes";
+	private String getSQL = "SELECT * FROM " + resultsTable;
 	
 	public ResultsDbManager(Context context)
 	{
@@ -38,6 +42,17 @@ public class ResultsDbManager extends DbManager {
 	{
 		return instance;
 	}
-	
+
+	/**
+	 * store results from server.
+	 * @return should i return boolean for success?
+	 */
+	public void storeRecipes(ArrayList<Recipe> recipes) {
+	    db.delete(resultsTable, null, null);
+	    for (Recipe recipe : recipes) {
+	        insertRecipe(recipe, resultsTable);
+	    }
+	    notifyViews();
+	}
 	
 }
