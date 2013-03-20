@@ -20,6 +20,15 @@ public class Photo {
 	private String name;
 	private byte[] bit_data;
 	
+	/**
+	 * Construct photo from file name (data is already stored on disk, must read it if needed)
+	 * @param name
+	 */
+	public Photo(String name)
+	{
+		this.name = name;
+		this.bit_data = null;
+	}
 	
 	/**
 	 * Construct photo from given name and byte array.

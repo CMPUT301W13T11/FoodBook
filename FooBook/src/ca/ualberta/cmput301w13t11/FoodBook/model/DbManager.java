@@ -128,7 +128,8 @@ public class DbManager extends FModel<FView> {
             String title = cursor.getString(1);
             String instructions = cursor.getString(3);
             ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
-            Recipe recipe = new Recipe(uri, author, title, instructions, ingredients);
+            ArrayList<Photo> photos = getRecipePhotos(uri);
+            Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, photos);
             recipes.add(recipe);
             cursor.moveToNext();
         }
@@ -143,6 +144,16 @@ public class DbManager extends FModel<FView> {
     protected ArrayList<Ingredient> getRecipeIngredients(long uri) {
     	Cursor cursor = db.rawQuery("Select * From RecipeIngredients Where recipeURI = " + uri, null);
     	return cursorToIngredients(cursor);
+    }
+    
+    /**
+     * Gets all the Photos associated with the recipe identified by its URI.
+     * @param uri The URI of the recipe whose photos we are fetching.
+     * @return An ArrayList of the Photos associated with the recipe.
+     */
+    protected ArrayList<Photo> getRecipePhotos(long uri) {
+    	Cursor cursor = db.rawQuery("Select * From RecipePhotos Where recipeURI = " + uri, null);
+    	return cursorToPhotos(cursor);
     }
     
     /**
@@ -162,6 +173,23 @@ public class DbManager extends FModel<FView> {
             cursor.moveToNext();
         }
         return ingreds;
+    }
+    
+    /**
+     * Given a cursor, convert it to an ArrayList of Photos.
+     * @param cursor The cursor over which we will iterate to get photos from.
+     * @return An ArrayList of Photos.
+     */
+    protected ArrayList<Photo> cursorToPhotos(Cursor cursor) {
+        ArrayList<Photo> photos = new ArrayList<Photo>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String name = cursor.getString(1);
+            Photo photo = new Photo(name);
+            photos.add(photo);
+            cursor.moveToNext();
+        }
+        return photos;
     }
 }
     
