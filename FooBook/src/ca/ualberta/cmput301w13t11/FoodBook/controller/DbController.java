@@ -6,6 +6,7 @@ import android.content.Context;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
+import ca.ualberta.cmput301w13t11.FoodBook.model.IngredientsDbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.RecipesDbManager;
 
@@ -26,19 +27,21 @@ public class DbController {
     private String getResultRecipesSQL = "SELECT * FROM " + ResultsRecipes;
     private String getUserIngredientsSQL = "SELECT * FROM " + UserIngredients;
     
-        private static DbManager db;
-        private static RecipesDbManager recipesDB;
+    private static DbManager db;
+    private static RecipesDbManager recipesManager;
+    private static IngredientsDbManager ingredsManager;
         
-        // singleton pattern implementation
+    // singleton pattern implementation
     private static DbController instance = null;
         
-        /* 
-         * private constructor because we're using the singleton pattern.
-         */
-        private DbController(Context context) {
-                db = DbManager.getInstance(context);
-                recipesDB = RecipesDbManager.getInstance(context);
-        }
+    /* 
+     * private constructor because we're using the singleton pattern.
+     */
+    private DbController(Context context) {
+    	db = DbManager.getInstance(context);
+    	recipesManager = RecipesDbManager.getInstance(context);
+    	ingredsManager = IngredientsDbManager.getInstance(context);
+    }
         
     /**
      * Get instance of the singleton DbController.
@@ -65,14 +68,14 @@ public class DbController {
      * @return Returns an ArrayList containing all the Recipes the user has stored on their device.
      */
         public ArrayList<Recipe> getUserRecipes() {
-                return recipesDB.getRecipes(getUserRecipesSQL);
+                return recipesManager.getRecipes(getUserRecipesSQL);
         }
 
     /**
      * @return Returns an ArrayList containing all the Recipes stored from search
      */
         public ArrayList<Recipe> getStoredRecipes() {
-                return recipesDB.getRecipes(getResultRecipesSQL);
+                return recipesManager.getRecipes(getResultRecipesSQL);
         }
         
         /**
@@ -80,17 +83,17 @@ public class DbController {
          * @param recipe The recipe to add.
          */
         public void addRecipe(Recipe recipe) {
-                recipesDB.insertRecipe(recipe, "UserRecipes");
+                recipesManager.insertRecipe(recipe, "UserRecipes");
                 db.notifyViews();
         }
         
         /**
          * Deletes the given Recipe from the database.
-         * @param recipe The recipe to save.
+         * @param recipe The recipe to delete.
          */
         public void deleteRecipe(Recipe recipe)
         {
-                recipesDB.deleteRecipe(recipe);
+                recipesManager.deleteRecipe(recipe);
                 db.notifyViews();
         }
         
@@ -102,6 +105,36 @@ public class DbController {
         public void addIngredientToRecipe(Ingredient ingredient, Recipe recipe)
         {
                 db.insert(ingredient, recipe.getUri());
+                db.notifyViews();
+        }
+        
+        /* *****************************************************************
+         USE THESE METHODS FOR ADDING, EDITING, RETRIEVING, AND DELETING
+         THE USER'S PERSONAL INGREDIENTS
+        ********************************************************************* */
+        
+        /**
+         * Adds the given Ingredient to the database.
+         * @param ingredient The Ingredient to add.
+         */
+        public void addIngredient(Ingredient ingredient) {
+                ingredsManager.insert(ingredient);
+                db.notifyViews();
+        }
+        
+        /**
+         * @return Returns an ArrayList containing all the Recipes the user has stored on their device.
+         */
+        public ArrayList<Ingredient> getUserIngredients() {
+        	return ingredsManager.get();
+        }
+        
+        /**
+         * Deletes the given Ingredient from the database.
+         * @param ingredient The Ingredient to delete.
+         */
+        public void deleteIngredient(Ingredient ingred) {
+                ingredsManager.delete(ingred);
                 db.notifyViews();
         }
 }
