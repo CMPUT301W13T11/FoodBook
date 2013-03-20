@@ -7,6 +7,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
+import ca.ualberta.cmput301w13t11.FoodBook.model.RecipesDbManager;
 
 /**
  * Controller for the DbManager.
