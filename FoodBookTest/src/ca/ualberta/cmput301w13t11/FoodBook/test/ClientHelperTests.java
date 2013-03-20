@@ -51,6 +51,7 @@ public class ClientHelperTests extends TestCase {
 		
 		StringEntity ret = helper.recipeToJSON(test_recipe);
 		
+		/* TODO: IDEA: could maybe include JSON parser here? */
 		assertTrue(ret != null);
 	}
 	
@@ -106,12 +107,14 @@ public class ClientHelperTests extends TestCase {
 			fail("IOException");
 		}
 		
+		long test_long = 1363130068665L;
 
 		for (Recipe r: result) {
-			assertTrue("Title failed.", r.getTitle().equals("test"));
-			assertTrue("User name failed.", r.getAuthor().getName().equals("tester"));
-			System.out.println(r.getUri());
-			assertTrue("Uri failed.", r.getUri() == 0);
+			
+			assertTrue("Title failed.", r.getTitle().equals("cgy"));
+			assertTrue("User name failed.", r.getAuthor().getName().equals("fgg"));
+			assertTrue("Uri failed.", r.getUri() == test_long);
+			assertTrue("Instructions failed.", r.getInstructions().equals("ghhh"));
 		}
 		assertTrue(!(result.isEmpty()));
 	}

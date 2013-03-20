@@ -38,8 +38,12 @@ public class ServerClientTest extends AndroidTestCase {
 	public void testGetInstance()
 	{
 		sc = ServerClient.getInstance();
+		// for no reason
+		ClientHelper whatever = new ClientHelper();
+		whatever.recipeToJSON(new Recipe(new User(""), ""));
 		assertTrue("getInstance() failure", sc != null);
 	}
+	
 	
 	/**
 	 * Test that getThreadSafeClient does not return null.
@@ -96,15 +100,28 @@ public class ServerClientTest extends AndroidTestCase {
 	 */
 	public void testSearchByIngredients()
 	{
-		sc = ServerClient.getInstance();
-
 		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 		ingredients.add(new Ingredient("test1", "xxx", 10));
 		ingredients.add(new Ingredient("test2", "xxxx", 100));
 		ingredients.add(new Ingredient("test3", "xxxxx", 1000));
 
-		ReturnCode ret = sc.searchByIngredients(ingredients);
-		assertTrue("Returns error.", ret == ReturnCode.ERROR);
+		ReturnCode ret = null;
+		sc = ServerClient.getInstance();
+		long uri = System.currentTimeMillis();
+
+		Recipe recipe = new Recipe(uri, new User("tester"), "fake title", "", ingredients);
+		try { 
+			ret = sc.uploadRecipe(recipe);
+		} catch (IOException ioe) {
+			fail("ioe");
+		}
+		assertTrue("uploadRecipe should return SUCCESS", ret == ReturnCode.SUCCESS);
+		
+		sc = ServerClient.getInstance();
+
+
+		ReturnCode returnCode = sc.searchByIngredients(ingredients);
+		assertTrue("Returns no_esuls.", returnCode == ReturnCode.NO_RESULTS);
 		
 	}
 	
@@ -120,7 +137,7 @@ public class ServerClientTest extends AndroidTestCase {
 		Photo photo = new Photo("testname", new byte[10]);
 		Recipe recipe = Recipe.generateTestRecipe();
 		
-		assertTrue("return code != SUCCESS", sc.uploadPhotoToRecipe(photo, recipe) == ReturnCode.SUCCESS);
+		assertTrue("return code != SUCCESS", sc.uploadPhotoToRecipe(photo, recipe.getUri()) == ReturnCode.SUCCESS);
 	}
 
 	/**
@@ -152,7 +169,7 @@ public class ServerClientTest extends AndroidTestCase {
 	 * THIS IS AN ERROR IN ECLIPSE/ANDROID CONFIGURATION, NOT WITH THE METHOD ITSELF
 	 */
 	public void testSearchByKeywordsFail()
-	{/*
+	{
 		sc = ServerClient.getInstance();
 
 		try {
@@ -163,7 +180,7 @@ public class ServerClientTest extends AndroidTestCase {
 		} catch (IOException ioe) {
 			fail("ioe");
 		}
-		*/
+		
 		fail();
 		
 	}
@@ -177,15 +194,18 @@ public class ServerClientTest extends AndroidTestCase {
 	 */
 	public void testSearchByKeywordsPass()
 	{
-//		sc = ServerClient.getInstance();
-//		try {
-//			ReturnCode result = sc.searchByKeywords("turdosandowich");
-//			assertTrue(result == ReturnCode.SUCCESS);
-//		} catch (ClientProtocolException cpe) {
-//			fail("cpe");
-//		} catch (IOException ioe) {
-//			fail("ioe");
-//		}
+		sc = ServerClient.getInstance();
+		assertTrue("sc null", sc != null);
+		try {
+			assertTrue("sc null", sc != null);
+
+			ReturnCode result = sc.searchByKeywords("turdosandowich");
+			assertTrue(result == ReturnCode.SUCCESS);
+		} catch (ClientProtocolException cpe) {
+			fail("cpe");
+		} catch (IOException ioe) {
+			fail("ioe");
+		}
 		fail();
 
 		

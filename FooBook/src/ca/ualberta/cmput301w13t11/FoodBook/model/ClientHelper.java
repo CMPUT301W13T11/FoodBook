@@ -73,7 +73,6 @@ public class ClientHelper {
 	public String responseToString(HttpResponse http_response) throws IOException
 	{
 		String ret = "";
-		HttpEntity entity = http_response.getEntity();
 		BufferedReader br = new BufferedReader(new InputStreamReader((http_response.getEntity().getContent())));
 		String out;
 		
@@ -84,10 +83,24 @@ public class ClientHelper {
 	}
 	
 	/**
+	 * Transforms the given JSON string representing a recipe to a Recipe object.
+	 * @param (String) json The JSON string representation of a Recipe object.
+	 * @return The Recipe object extracted
+	 */
+	public Recipe responseStringToRecipe(String json)
+	{
+		/* We inform GSON of the type of object we expect to get from the JSON string. */
+		Type ServerResponse = new TypeToken<ServerResponse<Recipe>>(){}.getType();
+		ServerResponse<Recipe> server_response = gson.fromJson(json, ServerResponse);
+		/* Get the Recipe object from the server response and return it. */
+		return server_response.getSource();
+	}
+	
+	/**
 	 * After executing a search on the server, this method is called to 
 	 * transform the search results into a list of recipes.
 	 * @param response
-	 * @return
+	 * @return 
 	 * @throws IOException
 	 */
 	public ArrayList<Recipe> toRecipeList(String json) throws IOException
