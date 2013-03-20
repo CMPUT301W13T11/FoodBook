@@ -16,6 +16,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 public class DbController {
 	
 	private static DbManager db;
+	private static RecipesDbManager recipesDB;
 	
 	// singleton pattern implementation
     private static DbController instance = null;
@@ -25,6 +26,7 @@ public class DbController {
 	 */
 	private DbController(Context context) {
 		db = DbManager.getInstance(context);
+		recipesDB = RecipesDbManager.getInstance(context);
 	}
 	
     /**
@@ -52,14 +54,14 @@ public class DbController {
      * @return Returns an ArrayList containing all the Recipes the user has stored on their device.
      */
 	public ArrayList<Recipe> getUserRecipes() {
-		return db.getUserRecipes();
+		return recipesDB.getRecipes("UserRecipes");
 	}
 
     /**
      * @return Returns an ArrayList containing all the Recipes stored from search
      */
 	public ArrayList<Recipe> getStoredRecipes() {
-		return db.getStoredRecipes();
+		return recipesDB.getRecipes("ResultsRecipes");
 	}
 	
 	/**
@@ -67,7 +69,7 @@ public class DbController {
 	 * @param recipe The recipe to add.
 	 */
 	public void addRecipe(Recipe recipe) {
-		db.insert(recipe, "UserRecipes");
+	        recipesDB.insertRecipe(recipe, "UserRecipes");
 		db.notifyViews();
 	}
 	
@@ -77,7 +79,7 @@ public class DbController {
 	 */
 	public void deleteRecipe(Recipe recipe)
 	{
-		db.delete(recipe);
+	        recipesDB.deleteRecipe(recipe);
 		db.notifyViews();
 	}
 	
