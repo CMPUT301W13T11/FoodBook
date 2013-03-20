@@ -19,17 +19,18 @@ public class DbOpenHelper extends SQLiteOpenHelper {
 
 	
     // create table SQL statements
-    private String createRecipeTable = "CREATE TABLE UserRecipes (URI text, title text, author text, instructions text)";
-    private String table_name = "create table UserRecipes (_id integer primary key autoincrement, URI text not null, title text no null, author text not null, " +
-    								"instructions text not null";
-    		
+    private String createRecipeTable = "CREATE TABLE " + UserRecipes + " (URI text, title text, author text, instructions text)";
+    private String createResultsTable = "CREATE TABLE " + ResultsRecipes + " (URI text, title text, author text, instructions text)";
+    private String createUserIngredientsTable = "CREATE TABLE " + UserIngredients + " (name text, unit text, quantity text)";
+    private String createRecipeIngredientsTable = "CREATE TABLE " + RecipeIngredients + " (recipeURI text, name text, unit text, quantity text)";
+    
+    //private String table_name = "create table UserRecipes (_id integer primary key autoincrement, URI text not null, title text no null, author text not null, " +
+    //								"instructions text not null";	
 //            "create table entries (_id integer primary key autoincrement, "
 //                    + "date text not null, description text not null, " +
 //                    "calories_per_serving text not null, units_per_serving text not null, " +
 //                    "units_consumed text not null, total_calories text not null);";
-    private String createResultsTable = "CREATE TABLE ResultsRecipes (URI text, title text, author text, instructions text)";
-    private String createUserIngredientsTable = "CREATE TABLE UserIngredients (name text, unit text, quantity text)";
-    private String createRecipeIngredientsTable = "CREATE TABLE RecipeIngredients (recipeURI text, name text, unit text, quantity text)";
+
 
     /**
      * Constructor.

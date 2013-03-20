@@ -29,9 +29,9 @@ public class DbManager extends FModel<FView> {
     private String dbFileName = "RecipeApplicationDb";
     
     // name of tables
-    private String UserRecipes = "UserRecipes";
-    private String ResultsRecipes = "ResultsRecipes";
-    private String UserIngredients = "UserIngredients";
+    protected String UserRecipes = "UserRecipes";
+    protected String ResultsRecipes = "ResultsRecipes";
+    protected String UserIngredients = "UserIngredients";
     
     // SQL queries
     private String getUserRecipesSQL = "SELECT * FROM " + UserRecipes;
