@@ -55,23 +55,7 @@ public class IngredientsDbManager extends DbManager {
      */
     public void delete(Ingredient ingred) {
       db.delete("UserIngredients", "name = " + ingred.getName(), null);
-    }
-	
-    /**
-     * Inserts the given Ingredient into the database such that it is associated with the
-     * recipe identified by recipeURI.
-     * @param ingred The ingredient to be inserted.
-     * @param recipeURI The URI of the Recipe with which to associate the Ingredient.
-     */
-    public void insert(Ingredient ingred, long recipeURI) {
-        ContentValues values = new ContentValues();
-        values.put("recipeURI", recipeURI);
-        values.put("name", ingred.getName());
-        values.put("unit", ingred.getUnit());
-        values.put("quantity", ingred.getQuantity());
-        db.insert("RecipeIngredients", null, values);
-    }
-       
+    }  
 	
     /**
      * Converts an Ingredient object to a ContentValues object to be stored in the database.
