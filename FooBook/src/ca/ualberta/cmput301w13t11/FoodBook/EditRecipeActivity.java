@@ -108,14 +108,10 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		//make the popup
 		LinearLayout layout = new LinearLayout(this);
 		LayoutInflater inflater = LayoutInflater.from(this);
-		popUp = new PopupWindow(inflater.inflate(R.layout.popup, null, false),300,150, true);
+		popUp = new PopupWindow(inflater.inflate(R.layout.popup_delete_recipe, null, false),300,150,true);
 		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
 		
-		WindowManager.LayoutParams lp = this.getWindow().getAttributes();
-		lp.dimAmount=1.0f;
-		this.getWindow().setAttributes(lp);
-		
-		Log.d("what", "what");
+		//Log.d("what", "what");
 		//popUp.update(50, 50, 300, 80);
 		
 

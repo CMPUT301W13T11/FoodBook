@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Popup Message"
+        android:text="Are you sure you wish to delete this Recipe?"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
