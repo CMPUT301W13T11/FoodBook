@@ -104,7 +104,7 @@ public class DbController {
          */
         public void addIngredientToRecipe(Ingredient ingredient, Recipe recipe)
         {
-                db.insert(ingredient, recipe.getUri());
+                db.insertRecipeIngredients(ingredient, recipe.getUri());
                 db.notifyViews();
         }
         

@@ -60,8 +60,7 @@ public class IngredientsDbManager extends DbManager {
      */
     public ArrayList<Ingredient> get() {
 	    Cursor cursor = db.rawQuery(getSQL, null);
-	    cursor.moveToFirst();
-	    return CursorToIngredients(cursor);
+	    return cursorToIngredients(cursor);
     }
     
     /**
@@ -71,24 +70,5 @@ public class IngredientsDbManager extends DbManager {
     public void delete(Ingredient ingred) {
       db.delete(tableName, "name = " + ingred.getName(), null);
     }  
-
-    /**
-     * Given a cursor, convert it to an ArrayList of Ingredients.
-     * @param cursor The cursor over which we will iterate to get ingredients from.
-     * @return An ArrayList of Ingredients.
-     */
-    protected ArrayList<Ingredient> CursorToIngredients(Cursor cursor) {
-        ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
-        while (!cursor.isAfterLast()) {
-            String name = cursor.getString(0);
-            String unit = cursor.getString(1);
-            float quantity = cursor.getFloat(2);
-            Ingredient ingred = new Ingredient(name, unit, quantity);
-            ingreds.add(ingred);
-            cursor.moveToNext();
-        }
-        return ingreds;
-    }
-	
 	
 }

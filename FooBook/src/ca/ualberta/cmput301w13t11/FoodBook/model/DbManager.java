@@ -72,26 +72,6 @@ public class DbManager extends FModel<FView> {
     public static DbManager getInstance() {	
     	return instance;
     }
-    
-    /**
-     * Gets all the Ingredients associated with the recipe identified by its URI.
-     * @param uri The URI of the recipe whose ingredients we are fetching.
-     * @return An ArrayList of the Ingredients associated with the recipe.
-     */
-    protected ArrayList<Ingredient> getRecipeIngredients(long uri) {
-    	Cursor cursor = db.rawQuery("Select * From RecipeIngredients Where recipeURI = " + uri, null);
-    	cursor.moveToFirst();
-    	ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
-    	while (!cursor.isAfterLast()) {
-    		String name = cursor.getString(0);
-    		String units = cursor.getString(1);
-    		float quantity = cursor.getFloat(2);
-    		Ingredient ingred = new Ingredient(name, units, quantity);
-    		ingreds.add(ingred);
-    		cursor.moveToNext();
-    	}
-    	return ingreds;
-    }
 
 	/**
 	 * Inserts a recipe into the table.
@@ -132,6 +112,56 @@ public class DbManager extends FModel<FView> {
         values.put("recipeURI", recipeURI);
         values.put("filename", photo.getName());
         db.insert("RecipePhotos", null, values);
+    }
+    
+    /**
+     * Given a cursor, convert it to an ArrayList of Recipes.
+     * @param cursor The cursor over which we will iterate to get recipes from.
+     * @return An ArrayList of Recipes.
+     */
+    protected ArrayList<Recipe> cursorToRecipes(Cursor cursor) {
+        ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            long uri = cursor.getLong(0);
+            User author = new User(cursor.getString(2));
+            String title = cursor.getString(1);
+            String instructions = cursor.getString(3);
+            ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
+            Recipe recipe = new Recipe(uri, author, title, instructions, ingredients);
+            recipes.add(recipe);
+            cursor.moveToNext();
+        }
+        return recipes;
+    }
+    
+    /**
+     * Gets all the Ingredients associated with the recipe identified by its URI.
+     * @param uri The URI of the recipe whose ingredients we are fetching.
+     * @return An ArrayList of the Ingredients associated with the recipe.
+     */
+    protected ArrayList<Ingredient> getRecipeIngredients(long uri) {
+    	Cursor cursor = db.rawQuery("Select * From RecipeIngredients Where recipeURI = " + uri, null);
+    	return cursorToIngredients(cursor);
+    }
+    
+    /**
+     * Given a cursor, convert it to an ArrayList of Ingredients.
+     * @param cursor The cursor over which we will iterate to get ingredients from.
+     * @return An ArrayList of Ingredients.
+     */
+    protected ArrayList<Ingredient> cursorToIngredients(Cursor cursor) {
+        ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String name = cursor.getString(0);
+            String unit = cursor.getString(1);
+            float quantity = cursor.getFloat(2);
+            Ingredient ingred = new Ingredient(name, unit, quantity);
+            ingreds.add(ingred);
+            cursor.moveToNext();
+        }
+        return ingreds;
     }
 }
     

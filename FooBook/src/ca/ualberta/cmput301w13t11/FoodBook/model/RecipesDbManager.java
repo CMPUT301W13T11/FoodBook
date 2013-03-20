@@ -55,8 +55,7 @@ public class RecipesDbManager extends DbManager {
 	 */
 	public ArrayList<Recipe> getRecipes(String query) {
 	    Cursor cursor = db.rawQuery(query, null);
-	    cursor.moveToFirst();
-	    return CursorToRecipes(cursor);
+	    return cursorToRecipes(cursor);
 	}
 
 	/**
@@ -68,25 +67,5 @@ public class RecipesDbManager extends DbManager {
 	}
 
 	// PRIVATE METHODS *********************************************************
-
-        /**
-         * Given a cursor, convert it to an ArrayList of Recipes.
-         * @param cursor The cursor over which we will iterate to get recipes from.
-         * @return An ArrayList of Recipes.
-         */
-        protected ArrayList<Recipe> CursorToRecipes(Cursor cursor) {
-            ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-            while (!cursor.isAfterLast()) {
-                long uri = cursor.getLong(0);
-                User author = new User(cursor.getString(2));
-                String title = cursor.getString(1);
-                String instructions = cursor.getString(3);
-                ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
-                Recipe recipe = new Recipe(uri, author, title, instructions, ingredients);
-                recipes.add(recipe);
-                cursor.moveToNext();
-            }
-            return recipes;
-        }
         
 }
