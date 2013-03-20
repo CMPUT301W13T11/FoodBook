@@ -126,18 +126,15 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 	xxx.setText(zzz);
 			}*/
 	while(index<userRecipes.size())
-		
 	{
 		
-		if(userRecipes.get(index).getTitle().substring(0, search.length()).equals(search.toString())==false)
+		if(search.length()>userRecipes.get(index).getTitle().length()||userRecipes.get(index).getTitle().substring(0, search.length()).equals(search.toString())==false)
 			userRecipes.remove(index);
 		else
 			index++;
 	}
-	
-	
-	if(userRecipes.isEmpty()!=true)
-		{
+//	if(userRecipes.isEmpty()!=true)
+	//	{
 		//Displays the matching user's recipes
 		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, userRecipes);
 		//Assigns the adapter
@@ -151,6 +148,6 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 				intent.putExtra(EXTRA_URI, testString);
 				startActivity(intent);
 			}});
-    	}
+    	//}
     }
 }
