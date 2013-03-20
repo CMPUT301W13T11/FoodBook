@@ -1,7 +1,10 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
+import java.util.ArrayList;
+
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 /**
  * Implements the functionality required to manage the Ingredients database, which
  * is the User maintained database of ingredients meant to reflect the contents of their
@@ -12,6 +15,8 @@ import android.content.Context;
 public class IngredientsDbManager extends DbManager {
 	
 	private static IngredientsDbManager instance = null;
+	private String tableName = "UserIngredients";
+	private String getSQL = "SELECT * FROM " + tableName;
 	
 	public IngredientsDbManager(Context context)
 	{
@@ -46,7 +51,17 @@ public class IngredientsDbManager extends DbManager {
      */
     public void insert(Ingredient ingred) {
       ContentValues values = IngredientToMap(ingred);
-      db.insert("UserIngredients", null, values);
+      db.insert(tableName, null, values);
+    }
+
+    /**
+     * Retrieves the user's Ingredients from the database.
+     * @return ArrayList of Ingredients
+     */
+    public ArrayList<Ingredient> get() {
+	    Cursor cursor = db.rawQuery(getSQL, null);
+	    cursor.moveToFirst();
+	    return CursorToIngredients(cursor);
     }
     
     /**
@@ -54,7 +69,7 @@ public class IngredientsDbManager extends DbManager {
      * @param ingred the ingredient to be deleted.
      */
     public void delete(Ingredient ingred) {
-      db.delete("UserIngredients", "name = " + ingred.getName(), null);
+      db.delete(tableName, "name = " + ingred.getName(), null);
     }  
 	
     /**
@@ -69,7 +84,24 @@ public class IngredientsDbManager extends DbManager {
         values.put("unit", ingred.getUnit());
         return values;
     }
-	
+
+    /**
+     * Given a cursor, convert it to an ArrayList of Ingredients.
+     * @param cursor The cursor over which we will iterate to get ingredients from.
+     * @return An ArrayList of Ingredients.
+     */
+    protected ArrayList<Ingredient> CursorToIngredients(Cursor cursor) {
+        ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
+        while (!cursor.isAfterLast()) {
+            String name = cursor.getString(0);
+            String unit = cursor.getString(1);
+            float quantity = cursor.getFloat(2);
+            Ingredient ingred = new Ingredient(name, unit, quantity);
+            ingreds.add(ingred);
+            cursor.moveToNext();
+        }
+        return ingreds;
+    }
 	
 	
 }

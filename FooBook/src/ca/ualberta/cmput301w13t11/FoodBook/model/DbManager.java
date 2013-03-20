@@ -31,12 +31,11 @@ public class DbManager extends FModel<FView> {
     // name of tables
     protected String UserRecipes = "UserRecipes";
     protected String ResultsRecipes = "ResultsRecipes";
-    protected String UserIngredients = "UserIngredients";
     
     // SQL queries
     private String getUserRecipesSQL = "SELECT * FROM " + UserRecipes;
     private String getResultRecipesSQL = "SELECT * FROM " + ResultsRecipes;
-    private String getUserIngredientsSQL = "SELECT * FROM " + UserIngredients;
+    
     
     // for the controllers
     /**
