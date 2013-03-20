@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Collection;
 
+import android.content.ContentValues;
+
 /**
  * Class which models a recipe. (TODO: better description)
  * @author 
@@ -181,6 +183,20 @@ public class Recipe {
 			}
 		}
 	}
+	
+    /**
+     * Converts a Recipe to a ContentValues object to be stored in the database.
+     * @param recipe The recipe to be converted.
+     * @return An appropriately transformed copy of the Recipe for database storage.
+     */
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put("URI", uri);
+        values.put("title", title);
+        values.put("author", author.getName());
+        values.put("instructions", instructions);
+        return values;
+    }
 
 	/**
 	 * Generates a simple recipe to be used in the tests.

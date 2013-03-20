@@ -101,7 +101,7 @@ public class DbManager extends FModel<FView> {
 	 * @param The name of the table into which the recipe is to be stored.
 	 */
 	public void insertRecipe(Recipe recipe, String tableName) {
-	    ContentValues values = RecipeToMap(recipe);
+	    ContentValues values = recipe.toContentValues();
 	    db.insert(tableName, null, values);
 	    for (Ingredient ingred : recipe.getIngredients()) {
 	        insert(ingred, recipe.getUri());
@@ -121,20 +121,6 @@ public class DbManager extends FModel<FView> {
         values.put("unit", ingred.getUnit());
         values.put("quantity", ingred.getQuantity());
         db.insert("RecipeIngredients", null, values);
-    }
-
-    /**
-     * Converts a Recipe to a ContentValues object to be stored in the database.
-     * @param recipe The recipe to be converted.
-     * @return An appropriately transformed copy of the Recipe for database storage.
-     */
-    protected ContentValues RecipeToMap(Recipe recipe) {
-        ContentValues values = new ContentValues();
-        values.put("URI", recipe.getUri());
-        values.put("author", recipe.getAuthor().getName());
-        values.put("title", recipe.getTitle());
-        values.put("instructions", recipe.getInstructions());
-        return values;
     }
     
 }

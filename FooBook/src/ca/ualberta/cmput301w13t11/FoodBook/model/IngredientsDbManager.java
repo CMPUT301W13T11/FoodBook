@@ -50,7 +50,7 @@ public class IngredientsDbManager extends DbManager {
      * @param ingred The ingredient to be stored.
      */
     public void insert(Ingredient ingred) {
-      ContentValues values = IngredientToMap(ingred);
+      ContentValues values = ingred.toContentValues();
       db.insert(tableName, null, values);
     }
 
@@ -71,19 +71,6 @@ public class IngredientsDbManager extends DbManager {
     public void delete(Ingredient ingred) {
       db.delete(tableName, "name = " + ingred.getName(), null);
     }  
-	
-    /**
-     * Converts an Ingredient object to a ContentValues object to be stored in the database.
-     * @param ingred The ingredient to be transformed.
-     * @return An appropriately transformed cop of the Ingredient for database storage.
-     */
-    private ContentValues IngredientToMap(Ingredient ingred) {
-        ContentValues values = new ContentValues();
-        values.put("name", ingred.getName());
-        values.put("quantity", ingred.getQuantity());
-        values.put("unit", ingred.getUnit());
-        return values;
-    }
 
     /**
      * Given a cursor, convert it to an ArrayList of Ingredients.
