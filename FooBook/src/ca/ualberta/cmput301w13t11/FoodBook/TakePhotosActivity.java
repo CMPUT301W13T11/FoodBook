@@ -1,26 +1,29 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
-import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
-import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 
 public class TakePhotosActivity extends Activity implements FView<DbManager>
 {
 	
-	int CAMERA_PIC_REQUEST = 1337; 
+	private static final int CAMERA_REQUEST = 1337;
+	private ImageView imageView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-
+		DbController DbC = DbController.getInstance(this, this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_take_photos);
+		this.imageView = (ImageView)this.findViewById(R.id.imageView1);
 	}
 
 	@Override
@@ -32,6 +35,20 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		return true;
 	}
 	
+	private Bitmap bitmap;
+	//private Uri fileUri;
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	     if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
+            bitmap = (Bitmap) data.getExtras().get("data");
+
+ 			// If camera is not working, or for testing purposes, use BogoPicGen
+			//bitmap = BogoPicGen.generateBitmap(1024, 1024);
+
+            imageView.setImageBitmap(bitmap);
+        }  
+	}
 	public void OnGoBack(View View)
     {
 		// responds to button Go Back
@@ -42,19 +59,28 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
     {
 		// responds to button Capture
 		
-		/*Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        // request code
+		Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 
-        startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
+        startActivityForResult(cameraIntent, CAMERA_REQUEST);
 
-    	Intent intent = new Intent(this, AddRecipesActivity.class);
-		startActivity(intent);*/
     }
 	public void OnSavePhoto (View View)
     {
+		
+		/*
 		// responds to button Save Photo
-    	Intent intent = new Intent(this, AddRecipesActivity.class);
-		startActivity(intent);
+		File file = new File(Environment.getExternalStorageDirectory()+File.separator +        "image.jpg");
+        try {
+            file.createNewFile();
+            FileOutputStream fo = new FileOutputStream(file);
+            //5
+            fo.write(bytes.toByteArray());
+            fo.close();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        */
     }
 
 	@Override
@@ -70,50 +96,3 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		DbC.deleteView(this);
 	}
 }
-/*
-public class demo extends Activity {
-
-Button ButtonClick;
-int CAMERA_PIC_REQUEST = 1337; 
-
-
-@Override
-public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.main);
-
-    ButtonClick =(Button) findViewById(R.id.Camera);
-    ButtonClick.setOnClickListener(new OnClickListener (){
-        @Override
-        public void onClick(View view)
-        {
-            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            // request code
-
-            startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
-
-        }
-    });
-
-}
-
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) 
-{
-    if( requestCode == 1337)
-    {
-    //  data.getExtras()
-        Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-
-          Now you have received the bitmap..you can pass that bitmap to other activity
-          and play with it in this activity or pass this bitmap to other activity
-          and then upload it to server.
-    }
-    else 
-    {
-        Toast.makeText(demo.this, "Picture NOt taken", Toast.LENGTH_LONG);
-    }
-    super.onActivityResult(requestCode, resultCode, data);
-}
-}
-*/

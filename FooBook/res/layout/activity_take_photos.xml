@@ -5,15 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     tools:context=".TakePhotosActivity" >
-
-    <VideoView
-        android:id="@+id/videoView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/capture"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView1"
-        android:layout_marginBottom="15dp" />
 
     <TextView
         android:id="@+id/textView1"
@@ -61,5 +52,16 @@
         android:onClick="OnSavePhoto"
         android:text="@string/save_photo"
         android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/capture"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1"
+        android:contentDescription="@string/capture"
+        android:src="@android:drawable/screen_background_dark_transparent" />
 
 </RelativeLayout>
