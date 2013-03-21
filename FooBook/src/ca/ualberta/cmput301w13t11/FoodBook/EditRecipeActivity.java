@@ -24,7 +24,10 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 
 public class EditRecipeActivity extends Activity implements FView<DbManager>
 {
+	static final String EXTRA_URI = "extra_uri";
 	PopupWindow popUp;
+	private long uri;
+	private Recipe viewedRecipe;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -39,9 +42,11 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	
 		
 		Intent intent = getIntent();
-		String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
-		long uri=Long.parseLong(URI);
-		
+		//String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
+		//long uri=Long.parseLong(URI);
+		long uri = intent.getLongExtra(EXTRA_URI, 0);
+		viewedRecipe = DbC.getUserRecipe(uri);
+		/*
 		ArrayList<Recipe> RecipeList= DbC.getUserRecipes();
 		Recipe viewedRecipe = Recipe.generateTestRecipe();
 		
@@ -55,7 +60,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 					}
 		}
 		
-		
+		*/
 		recipeName.setText(viewedRecipe.getTitle());
 		instructions.setText(viewedRecipe.getInstructions());
 
@@ -128,9 +133,9 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		popUp.dismiss();
 		//delete the recipe
 		DbController DbC = DbController.getInstance(this, this);		
-		Intent intent = getIntent();
-		String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
-		long uri=Long.parseLong(URI);
+		//Intent intent = getIntent();
+		//String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
+		//long uri=Long.parseLong(URI);
 		
 		ArrayList<Recipe> RecipeList= DbC.getUserRecipes();		
 		for(int index=0; index<RecipeList.size(); index++)

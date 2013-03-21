@@ -7,6 +7,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.IngredientsDbManager;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.RecipesDbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ResultsDbManager;
@@ -77,6 +78,13 @@ public class DbController {
     public ArrayList<Recipe> getUserRecipes() {
     	return db.getRecipes(getUserRecipesSQL);
     }
+    /**
+     * @return Returns a Recipe the user has stored on their device, given recipe uri
+     */
+    public Recipe getUserRecipe(long uri) {
+    	String query = new String(getUserRecipesSQL + " WHERE " + "recipeURI" + " = " + uri);
+    	return db.getRecipe(query);
+    }
 
     /**
      * Adds the given Recipe to the database.
@@ -105,6 +113,16 @@ public class DbController {
     public void addIngredientToRecipe(Ingredient ingredient, Recipe recipe)
     {
     	db.insertRecipeIngredients(ingredient, recipe.getUri());
+    	db.notifyViews();
+    }
+    /**
+     * Associates the Photo argument correctly with the given Recipe in the database.
+     * @param photo The photo to add to the given Recipe.
+     * @param recipe The Recipe to which the photo is to be added.
+     */
+    public void addPhotoToRecipe(Photo photo, long uri)
+    {
+    	db.insertRecipePhotos(photo, uri);
     	db.notifyViews();
     }
 

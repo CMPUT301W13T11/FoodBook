@@ -122,6 +122,14 @@ public class DbManager extends FModel<FView> {
 	    Cursor cursor = db.rawQuery(query, null);
 	    return cursorToRecipes(cursor);
 	}
+	/**
+	 * Returns Recipe stored in the table, given recipe's uri
+	 * @return ARecipes stored in the table.
+	 */
+	public Recipe getRecipe(String query) {
+	    Cursor cursor = db.rawQuery(query, null);
+	    return cursorToRecipe(cursor);
+	}
     
     /**
      * Given a cursor, convert it to an ArrayList of Recipes.
@@ -144,6 +152,30 @@ public class DbManager extends FModel<FView> {
         }
         return recipes;
     }
+    
+    /**
+    * Given a cursor, convert it to an ArrayList of Recipes.
+    * @param cursor The cursor over which we will iterate to get recipes from.
+    * @return An ArrayList of Recipes.
+    */
+   protected Recipe cursorToRecipe(Cursor cursor) {
+ 
+       cursor.moveToFirst();
+
+       long uri = cursor.getLong(0);
+       User author = new User(cursor.getString(2));
+       String title = cursor.getString(1);
+       String instructions = cursor.getString(3);
+       ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
+       ArrayList<Photo> photos = getRecipePhotos(uri);
+       Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, photos);
+
+       if (cursor.getCount()!=0) {
+    	   //print error message here
+       }
+       return recipe;
+   }
+    
     
     /**
      * Gets all the Ingredients associated with the recipe identified by its URI.

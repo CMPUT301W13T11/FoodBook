@@ -21,7 +21,7 @@ import android.widget.ListView;
 public class MyRecipes extends Activity implements FView<DbManager>{
 
 	
-	public static final String EXTRA_URI = null;
+	public static final String EXTRA_URI = "extra_uri";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -49,8 +49,9 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{	long recipe_uri = ((Recipe) parent.getItemAtPosition(position)).getUri();
 				Intent intent = new Intent(MyRecipes.this, ViewRecipeActivity.class);
-				String testString=Long.toString(recipe_uri);
-				intent.putExtra(EXTRA_URI, testString);
+				//String testString=Long.toString(recipe_uri);
+				//intent.putExtra(EXTRA_URI, testString);
+				intent.putExtra(EXTRA_URI, recipe_uri);
 				startActivity(intent);
 			}});
 
@@ -127,8 +128,9 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{	long recipe_uri = ((Recipe) parent.getItemAtPosition(position)).getUri();
 				Intent intent = new Intent(MyRecipes.this, ViewRecipeActivity.class);
-				String testString=Long.toString(recipe_uri);
-				intent.putExtra(EXTRA_URI, testString);
+				//String testString=Long.toString(recipe_uri);
+				//intent.putExtra(EXTRA_URI, testString);
+				intent.putExtra(EXTRA_URI, recipe_uri);
 				startActivity(intent);
 			}});
     }
