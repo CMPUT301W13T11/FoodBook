@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -28,24 +29,26 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	PopupWindow popUp;
 	private long uri;
 	private Recipe viewedRecipe;
+	private EditText recipeName;
+	private EditText instructions;
+	private DbManager db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		DbController DbC = DbController.getInstance(this, this);
 		
+		db = DbManager.getInstance(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_recipe);
 		
-		EditText recipeName = (EditText) findViewById(R.id.editText1);
-		EditText instructions = (EditText) findViewById(R.id.editText3);
-	
+		recipeName = (EditText) findViewById(R.id.editText1);
+		instructions = (EditText) findViewById(R.id.editText3);
 		
 		Intent intent = getIntent();
 		//String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
 		//long uri=Long.parseLong(URI);
-		long uri = intent.getLongExtra(EXTRA_URI, 0);
-		viewedRecipe = DbC.getUserRecipe(uri);
+		uri = intent.getLongExtra(EXTRA_URI, 0);
+		
 		/*
 		ArrayList<Recipe> RecipeList= DbC.getUserRecipes();
 		Recipe viewedRecipe = Recipe.generateTestRecipe();
@@ -61,8 +64,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		}
 		
 		*/
-		recipeName.setText(viewedRecipe.getTitle());
-		instructions.setText(viewedRecipe.getInstructions());
+		this.update(db);
 
 	}
 		
@@ -126,17 +128,22 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	{
 
 		// TODO Auto-generated method stub
+		DbController DbC = DbController.getInstance(this, this);
+		viewedRecipe = DbC.getUserRecipe(uri);
+		recipeName.setText(viewedRecipe.getTitle());
+		instructions.setText(viewedRecipe.getInstructions());
 		
 	}
 	public void OnOK(View v){
 		
 		popUp.dismiss();
 		//delete the recipe
-		DbController DbC = DbController.getInstance(this, this);		
+		DbController DbC = DbController.getInstance(this, this);
+		DbC.deleteRecipe(viewedRecipe);
 		//Intent intent = getIntent();
 		//String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
 		//long uri=Long.parseLong(URI);
-		
+		/*
 		ArrayList<Recipe> RecipeList= DbC.getUserRecipes();		
 		for(int index=0; index<RecipeList.size(); index++)
 		{
@@ -147,7 +154,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 					
 					}
 		}
-		
+		*/
 		Intent intentGo = new Intent(this, MyRecipes.class);
 		startActivity(intentGo);
 		finish();

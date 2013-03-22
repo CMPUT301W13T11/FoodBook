@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:background="@color/grey"
     tools:context=".EditPhotos" >
-
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="10dp"
         android:text="@string/edit_photos"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -56,5 +56,15 @@
         android:onClick="OnTakePhoto"
         android:text="@string/take_photo"
         android:textSize="20sp" />
+
+    <Gallery
+        android:id="@+id/pic_gallery_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/take_photo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1"
+        android:layout_toRightOf="@+id/go_back" />
 
 </RelativeLayout>

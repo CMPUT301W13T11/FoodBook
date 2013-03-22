@@ -24,41 +24,31 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 
 	static final String EXTRA_URI = "extra_uri";
 	private long uri;
+	private Recipe viewedRecipe;
 	private PopupWindow popUp;
+	private TextView recipeName;
+	private TextView instructions;
+	private DbManager db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
-	{		
+	{	
+		db = DbManager.getInstance(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);
 		
-		DbController DbC = DbController.getInstance(this, this);
-		TextView recipeName = (TextView) findViewById(R.id.textView2);
-		TextView instructions = (TextView) findViewById(R.id.textView5);
+		recipeName = (TextView) findViewById(R.id.textView2);
+		instructions = (TextView) findViewById(R.id.textView5);
 		
-		Intent intent = getIntent();		
-		//String URI = intent.getStringExtra(MyRecipes.EXTRA_URI);
+		Intent intent = getIntent();
+		//String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
 		//long uri=Long.parseLong(URI);
 		uri = intent.getLongExtra(EXTRA_URI, 0);
-		ArrayList<Recipe> RecipeList= DbC.getUserRecipes();
-		Recipe viewedRecipe = Recipe.generateTestRecipe();
 		
-		for(int index=0; index<RecipeList.size(); index++)
-		{
-			if(RecipeList.get(index).getUri()==uri)
-					{
-					viewedRecipe=RecipeList.get(index);
-					index=RecipeList.size();
-					
-					}
-		}
+		this.update(db);
 		
-		
-		recipeName.setText(viewedRecipe.getTitle());
-		instructions.setText(viewedRecipe.getInstructions());
 	}
-
-
+		
 	public void OnGotoMyRecipes(View View)
     {
 		// responds to button Go Back
@@ -68,7 +58,8 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
     }
 	
 	public void OnEditRecipe (View View)
-    {	Intent intent1 = getIntent();
+    {	
+		//Intent intent1 = getIntent();
 		//String URI = intent1.getStringExtra(MyRecipes.EXTRA_URI);
 		
 		// responds to button Edit Recipe
@@ -97,6 +88,8 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		//String URI = intent.getStringExtra(MyRecipes.EXTRA_URI);
 		//long uri=Long.parseLong(URI);
 		intent.putExtra(EXTRA_URI, uri);
+		SC.uploadRecipe(viewedRecipe);
+		/*
 		ArrayList<Recipe> RecipeList= DbC.getUserRecipes();
 		
 		for(int index=0; index<RecipeList.size(); index++)
@@ -108,7 +101,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 					
 					}
 		}
-		
+		*/
 		//first darken the screen
 		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
 		LayoutParams darkenParams = darkenScreen.getLayoutParams();
@@ -134,6 +127,10 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	@Override
 	public void update(DbManager db)
 	{
+		DbController DbC = DbController.getInstance(this, this);
+		viewedRecipe = DbC.getUserRecipe(uri);
+		recipeName.setText(viewedRecipe.getTitle());
+		instructions.setText(viewedRecipe.getInstructions());
 	}
 
 	public void onDestroy()

@@ -26,6 +26,7 @@ public class DbController {
     
     // SQL queries
     private String getUserRecipesSQL = "SELECT * FROM " + UserRecipes;
+    
     private String getResultRecipesSQL = "SELECT * FROM " + ResultsRecipes;
     private String getUserIngredientsSQL = "SELECT * FROM " + UserIngredients;
     
@@ -82,7 +83,7 @@ public class DbController {
      * @return Returns a Recipe the user has stored on their device, given recipe uri
      */
     public Recipe getUserRecipe(long uri) {
-    	String query = new String(getUserRecipesSQL + " WHERE " + "recipeURI" + " = " + uri);
+    	String query = new String("SELECT * FROM " + UserRecipes + " WHERE URI = " + uri);
     	return db.getRecipe(query);
     }
 

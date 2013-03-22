@@ -23,13 +23,14 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	
 	private static final int CAMERA_REQUEST = 1337;
 	static final String EXTRA_URI = "extra_uri";
-	private ImageView imageView;
 	private long uri;
+	private ImageView imageView;
+	private Bitmap bitmap = null;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		DbController DbC = DbController.getInstance(this, this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_take_photos);
 		this.imageView = (ImageView)this.findViewById(R.id.imageView1);
@@ -44,13 +45,11 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		return true;
 	}
 	
-	private Bitmap bitmap = null;
-	//private Uri fileUri;
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	     if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
-            bitmap = (Bitmap) data.getExtras().get("data");
+            this.bitmap = (Bitmap) data.getExtras().get("data");
 
  			// If camera is not working, or for testing purposes, use BogoPicGen
 			//bitmap = BogoPicGen.generateBitmap(1024, 1024);
