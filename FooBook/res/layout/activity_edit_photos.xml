@@ -28,10 +28,10 @@
         android:onClick="OnGoBack"
         android:text="@string/go_back"
         android:textSize="20sp" />
-
+
     <Button
         android:id="@+id/delete_photo"
-        style="@style/GrayButton"
+        style="@style/BlueButton"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/go_back"
