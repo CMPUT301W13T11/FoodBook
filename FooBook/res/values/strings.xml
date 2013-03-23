@@ -38,25 +38,29 @@
     <string name="gallery">Gallery</string>
     <string name="delete_photo">Delete Photo</string>
     <string name="save_changes">Save Changes</string>
-	<string name="add_recipe">Add Recipe</string>
-	<string name="recipe_name">Recipe Name</string>
-	<string name="ingredients">Ingredients</string>
-	<string name="go_back_to_my_recipes">Return to Recipe</string>
+    <string name="add_recipe">Add Recipe</string>
+    <string name="recipe_name">Recipe Name</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="go_back_to_my_recipes">Return to Recipe</string>
     <string name="instructions">Instructions</string>
-	<string name="edit_photos">Edit Photos</string>
-	<string name="publish_recipe">Publish Recipe</string>
-	<string name="edit_recipe">Edit Recipe</string>
-	<string name="email_recipe">Email Recipe</string>
-	<string name="recipe">Recipe</string>
-	<string name="delete_recipe">Delete Recipe</string>
-	<string name="photos">Photos</string>
-	<string name="download_recipe">Download Recipe</string>
-	<string name="go_back_to_search_results">Go Back to Search Results</string>
-	<string name="view_photos">View Photos</string>
-	<string name="add_photos">Add Photos</string>
-	<string name="user_name">Author</string>
-	<string name="cancel">Cancel</string>
-	<string name="ok">OK</string>
-	
-    
- </resources>
+    <string name="edit_photos">Edit Photos</string>
+    <string name="publish_recipe">Publish Recipe</string>
+    <string name="edit_recipe">Edit Recipe</string>
+    <string name="email_recipe">Email Recipe</string>
+    <string name="recipe">Recipe</string>
+    <string name="delete_recipe">Delete Recipe</string>
+    <string name="photos">Photos</string>
+    <string name="download_recipe">Download Recipe</string>
+    <string name="go_back_to_search_results">Go Back to Search Results</string>
+    <string name="view_photos">View Photos</string>
+    <string name="add_photos">Add Photos</string>
+    <string name="user_name">Author</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="pls_wait_txt">Please wait</string>
+    <string name="name">name</string>
+    <string name="image">Image</string>
+    <string name="title_activity_full_image_edit_photos">FullImageEditPhotosActivity</string>
+    <string name="title_activity_full_image_view_photos">FullImageViewPhotosActivity</string>
+
+</resources>

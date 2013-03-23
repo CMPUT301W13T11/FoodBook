@@ -68,6 +68,7 @@
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:ems="10"
         android:inputType="textMultiLine"
         android:lines="5" />
@@ -82,6 +83,7 @@
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
+            android:layout_weight="1"
             android:onClick="OnPhotos"
             android:text="@string/photos"
             android:textSize="18sp" />
@@ -91,6 +93,7 @@
             style="@style/BlueButton"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:onClick="OnIngredients"
             android:text="@string/ingredients"
             android:textSize="18sp" />
@@ -107,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:layout_marginRight="20dp"
+            android:layout_weight="1"
             android:onClick="OnSaveChanges"
             android:text="@string/save_changes"
             android:textSize="18sp" />
@@ -117,7 +120,7 @@
             style="@style/OrangeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
             android:onClick="OnDeleteRecipe"
             android:text="@string/delete_recipe"
             android:textSize="18sp" />

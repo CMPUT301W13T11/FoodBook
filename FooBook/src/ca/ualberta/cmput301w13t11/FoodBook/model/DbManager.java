@@ -72,7 +72,7 @@ public class DbManager extends FModel<FView> {
     public static DbManager getInstance() {	
     	return instance;
     }
-
+    
 	/**
 	 * Inserts a recipe into the table.
 	 * @param recipe The Recipe to be stored in the table.
@@ -122,6 +122,7 @@ public class DbManager extends FModel<FView> {
 	    Cursor cursor = db.rawQuery(query, null);
 	    return cursorToRecipes(cursor);
 	}
+	// Added this so we can fetch a recipe with its uri. -Pablo
 	/**
 	 * Returns Recipe stored in the table, given recipe's uri
 	 * @return ARecipes stored in the table.
@@ -130,6 +131,7 @@ public class DbManager extends FModel<FView> {
 	    Cursor cursor = db.rawQuery(query, null);
 	    return cursorToRecipe(cursor);
 	}
+	//---
     
     /**
      * Given a cursor, convert it to an ArrayList of Recipes.
@@ -152,7 +154,7 @@ public class DbManager extends FModel<FView> {
         }
         return recipes;
     }
-    
+    // This is the aux.function to getUserRecipe -Pablo
     /**
     * Given a cursor, convert it to an ArrayList of Recipes.
     * @param cursor The cursor over which we will iterate to get recipes from.
@@ -175,6 +177,7 @@ public class DbManager extends FModel<FView> {
        }
        return recipe;
    }
+   // --- 
     
     
     /**
@@ -192,7 +195,9 @@ public class DbManager extends FModel<FView> {
      * @param uri The URI of the recipe whose photos we are fetching.
      * @return An ArrayList of the Photos associated with the recipe.
      */
-    protected ArrayList<Photo> getRecipePhotos(long uri) {
+    // Changed to public so that we can retrieve just photos for galleries -Pablo
+    //protected ArrayList<Photo> getRecipePhotos(long uri) {
+    public ArrayList<Photo> getRecipePhotos(long uri) {
     	Cursor cursor = db.rawQuery("Select * From RecipePhotos Where recipeURI = " + uri, null);
     	return cursorToPhotos(cursor);
     }

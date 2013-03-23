@@ -31,13 +31,12 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	private Recipe viewedRecipe;
 	private EditText recipeName;
 	private EditText instructions;
-	private DbManager db;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		
-		db = DbManager.getInstance(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_recipe);
 		
@@ -64,7 +63,10 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		}
 		
 		*/
-		this.update(db);
+		DbController DbC = DbController.getInstance(this, this);
+		viewedRecipe = DbC.getUserRecipe(uri);
+		recipeName.setText(viewedRecipe.getTitle());
+		instructions.setText(viewedRecipe.getInstructions());
 
 	}
 		

@@ -116,6 +116,12 @@ public class DbController {
     	db.insertRecipeIngredients(ingredient, recipe.getUri());
     	db.notifyViews();
     }
+    
+    // Added this method. Or was it there before? -Pablo
+    
+    /* *****************************************************************
+    USE THESE METHODS FOR RETRIEVING/SAVING PHOTOS TO RECIPES
+   ********************************************************************* */
     /**
      * Associates the Photo argument correctly with the given Recipe in the database.
      * @param photo The photo to add to the given Recipe.
@@ -125,6 +131,12 @@ public class DbController {
     {
     	db.insertRecipePhotos(photo, uri);
     	db.notifyViews();
+    }
+    /**
+     * @return Returns an ArrayList of Photos for a given recipe
+     */
+    public ArrayList<Photo> getRecipePhotos(long uri) {
+    	return db.getRecipePhotos(uri);
     }
 
     /* *****************************************************************

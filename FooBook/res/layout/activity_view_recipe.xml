@@ -1,6 +1,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent" >
 <FrameLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content" >
@@ -57,7 +57,8 @@
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginBottom="20dp" />
+            android:layout_marginBottom="5dp"
+            android:lines="6" />
 
         <Button
             android:id="@+id/edit_recipe"
@@ -71,14 +72,15 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp" >
 
             <Button
                 android:id="@+id/edit_photos"
                 style="@style/BlueButton"
-                android:layout_width="140dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:onClick="OnEditPhotos"
                 android:text="@string/edit_photos"
                 android:textSize="18sp" />
@@ -88,9 +90,11 @@
                 style="@style/BlueButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:onClick="OnEmailRecipe"
                 android:text="@string/email_recipe"
                 android:textSize="18sp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -100,8 +104,9 @@
             <Button
                 android:id="@+id/publish_recipe"
                 style="@style/GreenButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:onClick="OnPublishRecipe"
                 android:text="@string/publish_recipe"
                 android:textSize="18sp" />
@@ -110,11 +115,12 @@
                 android:id="@+id/go_back"
                 style="@style/OrangeButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:onClick="OnGotoMyRecipes"
                 android:text="@string/go_back"
                 android:textSize="18sp" />
+
         </LinearLayout>
     </TableLayout>
     <ImageView

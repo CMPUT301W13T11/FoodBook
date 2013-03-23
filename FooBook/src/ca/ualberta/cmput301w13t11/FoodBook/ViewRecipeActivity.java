@@ -28,12 +28,10 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	private PopupWindow popUp;
 	private TextView recipeName;
 	private TextView instructions;
-	private DbManager db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{	
-		db = DbManager.getInstance(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);
 		
@@ -45,7 +43,10 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		//long uri=Long.parseLong(URI);
 		uri = intent.getLongExtra(EXTRA_URI, 0);
 		
-		this.update(db);
+		DbController DbC = DbController.getInstance(this, this);
+		viewedRecipe = DbC.getUserRecipe(uri);
+		recipeName.setText(viewedRecipe.getTitle());
+		instructions.setText(viewedRecipe.getInstructions());
 		
 	}
 		

@@ -1,105 +1,236 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.os.Bundle;
-import android.view.Menu;
+import android.os.Environment;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.Gallery;
+import android.widget.GridView;
 import android.widget.ImageView;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 
 public class EditPhotos extends Activity implements FView<DbManager>
 {
-	private static final int CAMERA_REQUEST = 1337;
+
 	static final String EXTRA_URI = "extra_uri";
+	static final String EXTRA_IMG = "extra_img";
 	private long uri;
-	private Gallery picGallery;
-	//adapter for gallery view
-	private PicAdapter imgAdapt;
-	private DbManager ourDb;
+	private ArrayList<Photo> photos;
+	//private static Uri[] mUrls = null;
+	//private static String[] strUrls = null;
+	//private String[] mNames = null;
+	//private String[] picNames = null;
+	private GridView gridview = null;
+	//private Cursor cc = null;
+	//private Button btnMoreInfo = null;
+	private ProgressDialog myProgressDialog = null;
 	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		ourDb = DbManager.getInstance(this);
+		DbController DbC = DbController.getInstance(this, this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_photos);
-		picGallery = (Gallery) findViewById(R.id.pic_gallery_edit);
-		this.update(ourDb);
 		
-	}
-	public class PicAdapter extends BaseAdapter {
+			
+		Intent intent = getIntent();
+		//String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
+		//long uri=Long.parseLong(URI);
+		uri = intent.getLongExtra(EXTRA_URI, 0);
+		
+		photos = DbC.getRecipePhotos(uri);
+		
+		//btnMoreInfo = (Button) findViewById(R.id.btnMoreInfo);
+	    // It have to be matched with the directory in SDCard
+	    //cc = this.getContentResolver().query(
+	            //MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null,
+	            //null);
 
-		//use the default gallery background image
-		int defaultItemBackground;
-		//gallery context
-		private Context galleryContext;
-		//array to store bitmaps to display
-		private Bitmap[] imageBitmaps;
-		//placeholder bitmap for empty spaces in gallery
-		Bitmap placeholder;
-		public PicAdapter(Context c) {
-		    //instantiate context
-		    galleryContext = c;
-		    //create bitmap array
-		    imageBitmaps  = new Bitmap[10];
-		    //decode the placeholder image
-		    placeholder = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
-		    //more processing
-		  //set placeholder as all thumbnail images in the gallery initially
-			for(int i=0; i<imageBitmaps.length; i++)
-			    imageBitmaps[i]=placeholder;
-			//get the styling attributes - use default Andorid system resources
-			//TypedArray styleAttrs = galleryContext.obtainStyledAttributes(R.styleable.PicGallery);
-			//get the background resource
-			//defaultItemBackground = styleAttrs.getResourceId(
-			    //R.styleable.PicGallery_android_galleryItemBackground, 0);
-			//recycle attributes
-			//styleAttrs.recycle();
-		}
-		public int getCount() {
-		    return imageBitmaps.length;
-		}
-		//return item at specified position
-		public Object getItem(int position) {
-		    return position;
-		}
-		//return item ID at specified position
-		public long getItemId(int position) {
-		    return position;
-		}
-		//get view specifies layout and display options for each thumbnail in the gallery
-		public View getView(int position, View convertView, ViewGroup parent) {
-		    //create the view
-		    ImageView imageView = new ImageView(galleryContext);
-		    //specify the bitmap at this position in the array
-		    imageView.setImageBitmap(imageBitmaps[position]);
-		    //set layout options
-		    imageView.setLayoutParams(new Gallery.LayoutParams(300, 200));
-		    //scale type within view area
-		    imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-		    //set default gallery item background
-		    imageView.setBackgroundResource(defaultItemBackground);
-		    //return the view
-		    return imageView;
-		}
+	    // File[] files=f.listFiles();
+	    if (!photos.isEmpty()) {
+
+	        myProgressDialog = new ProgressDialog(EditPhotos.this);
+	        myProgressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+	        myProgressDialog.setMessage(getResources().getString(R.string.pls_wait_txt));
+	        //myProgressDialog.setIcon(R.drawable.blind);
+	        myProgressDialog.show();
+	        
+	        new Thread() {
+	            public void run() {
+	                try {
+	                	/*
+	                }
+	                    cc.moveToFirst();
+	                    mUrls = new Uri[cc.getCount()];
+	                    strUrls = new String[cc.getCount()];
+	                    mNames = new String[cc.getCount()];
+	                    for (int i = 0; i < cc.getCount(); i++) {
+	                        cc.moveToPosition(i);
+	                        mUrls[i] = Uri.parse(cc.getString(1));
+	                        strUrls[i] = cc.getString(1);
+	                        mNames[i] = cc.getString(3);
+	                        //Log.e("mNames[i]",mNames[i]+":"+cc.getColumnCount()+ " : " +cc.getString(3));
+	                    }
+	                    */
+	                	
+	                } catch (Exception e) {
+	                }
+	                myProgressDialog.dismiss();
+	            }
+	        }.start();
+	    gridview = (GridView) findViewById(R.id.gridView1);
+	    gridview.setAdapter(new ImageAdapter(this));
+	    
+	    gridview.setOnItemClickListener(new OnItemClickListener() {
+	        public void onItemClick(AdapterView<?> parent, View v,
+	                int position, long id) {
+	            Intent i = new Intent(EditPhotos.this, FullImageEditPhotosActivity.class);
+	            //Log.e("intent : ", ""+position);
+	            //i.putExtra(EXTRA_URI, uri);
+	            Bundle bundle = new Bundle();
+	            bundle.putString(EXTRA_IMG, photos.get(position).getName());
+	            bundle.putLong(EXTRA_URI, uri);
+
+	            i.putExtras(bundle);
+
+	            startActivity(i);
+	        }
+	    });
+	
+	    }
+	    /*
+	    btnMoreInfo.setOnClickListener(new OnClickListener() {
+
+	        @Override
+	        public void onClick(View v) {
+	            // TODO Auto-generated method stub
+	            Intent i = new Intent(GalleryPage.this, ChildLogin.class);
+	            startActivity(i);
+	        }
+	    });
+	    */
 	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
 
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.edit_photos, menu);
-		return true;
+	/**
+	 * This class loads the image gallery in grid view.
+	 *
+	 */
+	
+	public class ImageAdapter extends BaseAdapter {
+	    private Context mContext;
+
+	    public ImageAdapter(Context c) {
+	        mContext = c;
+	    }
+
+	    public int getCount() {
+	        return photos.size();
+	    }
+
+	    public Object getItem(int position) {
+	        return null;
+	    }
+
+	    public long getItemId(int position) {
+	        return 0;
+	    }
+
+	    // create a new ImageView for each item referenced by the Adapter
+	    public View getView(int position, View convertView, ViewGroup parent) {
+	        View v = convertView;
+	        LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	        v = vi.inflate(R.layout.galchild, null);
+
+	        try {
+
+	            ImageView imageView = (ImageView) v.findViewById(R.id.imageView1);
+	            //imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+	            // imageView.setPadding(8, 8, 8, 8);
+	            //Bitmap bmp = decodeURI(mUrls[position].getPath());
+
+	            Bitmap bmp = decodeURI(Environment.getExternalStorageDirectory()+File.separator+photos.get(position).getName());
+	            //BitmapFactory.decodeFile(mUrls[position].getPath());
+	            imageView.setImageBitmap(bmp);
+	            //bmp.
+	            //TextView txtName = (TextView) v.findViewById(R.id.TextView01);
+	            //txtName.setText(mNames[position]);
+	        } catch (Exception e) {
+
+	        }
+	        return v;
+	    }
+	}
+	/*
+	@Override
+	protected void onStart() {
+	    // TODO Auto-generated method stub
+	    super.onStart();
+	    FlurryAgent.onStartSession(this, "LPJJF9WYENDWYXXTEUDM");
+	}
+	*/
+	// @Override
+	// protected void onStop() {
+	// TODO Auto-generated method stub
+	// super.onStop();
+	// FlurryAgent.onEndSession(this);
+
+	// }
+
+	/**
+	 * This method is to scale down the image 
+	 */
+	public Bitmap decodeURI(String filePath){
+
+	    Options options = new Options();
+	    options.inJustDecodeBounds = true;
+	    BitmapFactory.decodeFile(filePath, options);
+
+	    // Only scale if we need to 
+	    // (16384 buffer for img processing)
+	    Boolean scaleByHeight = Math.abs(options.outHeight - 100) >= Math.abs(options.outWidth - 100);
+	    if(options.outHeight * options.outWidth * 2 >= 16384){
+	        // Load, scaling to smallest power of 2 that'll get it <= desired dimensions
+	        double sampleSize = scaleByHeight
+	            ? options.outHeight / 100
+	            : options.outWidth / 100;
+	        options.inSampleSize = 
+	            (int)Math.pow(2d, Math.floor(
+	            Math.log(sampleSize)/Math.log(2d)));
+	    }
+
+	    // Do the actual decoding
+	    options.inJustDecodeBounds = false;
+	    options.inTempStorage = new byte[512];  
+	    Bitmap output = BitmapFactory.decodeFile(filePath, options);
+
+	    return output;
+	}
+	
+	public void OnTakePhoto(View view)
+	{
+		Intent intent = new Intent(this, TakePhotosActivity.class);
+		intent.putExtra(EXTRA_URI, uri);
+        startActivity(intent);
 	}
 	public void OnGoBack(View View)
     {
@@ -107,33 +238,21 @@ public class EditPhotos extends Activity implements FView<DbManager>
 		// not sure if this is enough -Pablo 
 		 EditPhotos.this.finish();
     }
-	public void OnTakePhoto(View View)
-    {
-		// responds to button TakePhoto
-    	Intent intent = new Intent(this, TakePhotosActivity.class);
-		startActivity(intent);
-    }
-	public void OnDeletePhoto (View View)
-    {
-		// responds to button Delete Photo
-    	
-    }
+	
 
 	@Override
 	public void update(DbManager db)
 	{
-
 		// TODO Auto-generated method stub
 		//create a new adapter
-		imgAdapt = new PicAdapter(this);
-		//set the gallery adapter
-		picGallery.setAdapter(imgAdapt);
+
 		
+
 	}
 	public void onDestroy()
 	{	super.onDestroy();
-		DbController DbC = DbController.getInstance(this, this);
-		DbC.deleteView(this);
+	DbController DbC = DbController.getInstance(this, this);
+	DbC.deleteView(this);
 	}
 
 }
