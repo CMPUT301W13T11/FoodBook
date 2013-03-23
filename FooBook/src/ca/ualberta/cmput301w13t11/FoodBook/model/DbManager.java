@@ -140,12 +140,13 @@ public class DbManager extends FModel<FView> {
      */
     public boolean insertRecipePhotos(Bitmap bitmap, long recipeURI) {
     	// Creates 'empty' photo
-    	String filepath;
+    	String filePathString;
+    	String fileNameString;
     	boolean success = false;
-        if (SDCARD_INSTALLED){
-        	filepath = Environment.getExternalStorageDirectory()+File.separator+String.valueOf(System.currentTimeMillis());
+        //if (SDCARD_INSTALLED){
+        	filePathString = Environment.getExternalStorageDirectory()+File.separator+String.valueOf(System.currentTimeMillis());
         	try {
-        		File file = new File(filepath);
+        		File file = new File(filePathString);
         		FileOutputStream outStream = new FileOutputStream(file);
         		//5
         		bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
@@ -157,33 +158,35 @@ public class DbManager extends FModel<FView> {
         		e.printStackTrace();
         	}	
         	
-        }
+       //}
+        /*
         else{
-        	filepath = String.valueOf(System.currentTimeMillis());
-        	try {
-
-        		   File file = new File(Environment.getDataDirectory(), filepath);
-
-        		   if(!file.exists()) {
-
-        		    file.createNewFile();
-
-        		   }
-        		   FileOutputStream outStream = new FileOutputStream(file);
-           		//5
-           		bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
-           		outStream.flush();
-           		outStream.close();
-           		success = true;
-           	} catch (IOException e) {
-           		// TODO Auto-generated catch block
-           		e.printStackTrace();
-           	}	
-       		
-        }
         	
-    		
-    	Photo photo = new Photo(filepath);
+        	try {
+        		//File path = new File(getActivity().getFilesDir(), "Pictures");
+        		// if the directory doesn't exist it will create one.
+        		path.mkdirs();
+        		fileNameString = String.valueOf(System.currentTimeMillis());
+        		File file = new File(path,fileNameString);
+        		//if the file doesn't exist it will create one
+        		file.createNewFile();
+
+        		FileOutputStream outStream = new FileOutputStream(file);
+        		//5
+        		bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
+        		filePathString = new String(file);
+        		outStream.flush();
+        		outStream.close();
+        		success = true;
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}	
+        	*/
+
+        //}
+        		
+    	Photo photo = new Photo(filePathString);
         ContentValues values = new ContentValues();
         values.put("recipeURI", recipeURI);
         values.put("filename", photo.getName());
