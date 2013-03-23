@@ -12,7 +12,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,7 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		DbController DbC = DbController.getInstance(this, this);
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_photos);
 		
@@ -56,7 +55,10 @@ public class EditPhotos extends Activity implements FView<DbManager>
 		//String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
 		//long uri=Long.parseLong(URI);
 		uri = intent.getLongExtra(EXTRA_URI, 0);
-		
+		this.updateView();
+	}
+	protected void updateView(){
+		DbController DbC = DbController.getInstance(this, this);
 		photos = DbC.getRecipePhotos(uri);
 		
 		//btnMoreInfo = (Button) findViewById(R.id.btnMoreInfo);
@@ -67,7 +69,7 @@ public class EditPhotos extends Activity implements FView<DbManager>
 
 	    // File[] files=f.listFiles();
 	    if (!photos.isEmpty()) {
-
+	    	/*
 	        myProgressDialog = new ProgressDialog(EditPhotos.this);
 	        myProgressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 	        myProgressDialog.setMessage(getResources().getString(R.string.pls_wait_txt));
@@ -77,7 +79,7 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	        new Thread() {
 	            public void run() {
 	                try {
-	                	/*
+	                	
 	                }
 	                    cc.moveToFirst();
 	                    mUrls = new Uri[cc.getCount()];
@@ -90,13 +92,14 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	                        mNames[i] = cc.getString(3);
 	                        //Log.e("mNames[i]",mNames[i]+":"+cc.getColumnCount()+ " : " +cc.getString(3));
 	                    }
-	                    */
+	                    
 	                	
 	                } catch (Exception e) {
 	                }
 	                myProgressDialog.dismiss();
 	            }
 	        }.start();
+	        */
 	    gridview = (GridView) findViewById(R.id.gridView1);
 	    gridview.setAdapter(new ImageAdapter(this));
 	    
@@ -129,7 +132,7 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	    });
 	    */
 	}
-	
+
 
 	/**
 	 * This class loads the image gallery in grid view.
@@ -245,7 +248,7 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	{
 		// TODO Auto-generated method stub
 		//create a new adapter
-
+		this.updateView();
 		
 
 	}

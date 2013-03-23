@@ -101,16 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
-            <Button
-                android:id="@+id/publish_recipe"
-                style="@style/GreenButton"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:onClick="OnPublishRecipe"
-                android:text="@string/publish_recipe"
-                android:textSize="18sp" />
-
+           
             <Button
                 android:id="@+id/go_back"
                 style="@style/OrangeButton"
@@ -119,6 +110,15 @@
                 android:layout_weight="1"
                 android:onClick="OnGotoMyRecipes"
                 android:text="@string/go_back"
+                android:textSize="18sp" />
+            <Button
+                android:id="@+id/publish_recipe"
+                style="@style/GreenButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="OnPublishRecipe"
+                android:text="@string/publish_recipe"
                 android:textSize="18sp" />
 
         </LinearLayout>

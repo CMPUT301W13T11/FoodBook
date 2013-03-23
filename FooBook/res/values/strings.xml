@@ -62,5 +62,6 @@
     <string name="image">Image</string>
     <string name="title_activity_full_image_edit_photos">FullImageEditPhotosActivity</string>
     <string name="title_activity_full_image_view_photos">FullImageViewPhotosActivity</string>
+    <color name="black">#FF000000</color>
 
 </resources>
