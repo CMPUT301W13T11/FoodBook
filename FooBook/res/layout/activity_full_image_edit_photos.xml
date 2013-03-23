@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppBaseTheme"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    tools:context=".FullImageEditPhotosActivity" >
+
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/edit_photos"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+
+
+
+
+    <Button
+        android:id="@+id/go_back"
+        style="@style/OrangeButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="18dp"
+        android:onClick="OnGoBack"
+        android:text="@string/go_back"
+        android:textSize="20sp" />
+
+
+
+
+
+    <Button
+        android:id="@+id/delete_photo"
+        style="@style/BlueButton"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/go_back"
+        android:layout_alignBottom="@+id/go_back"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:onClick="OnDeletePhoto"
+        android:text="@string/delete_photo"
+        android:textSize="20sp" />
+
+
+
+
+
+
+
+    <Button
+        android:id="@+id/take_photo"
+        style="@style/GreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/go_back"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="10dp"
+        android:onClick="OnTakePhoto"
+        android:text="@string/take_photo"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/take_photo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/textView1"
+        android:contentDescription="@string/image"
+        android:src="@android:drawable/screen_background_dark" />
+
+</RelativeLayout>
