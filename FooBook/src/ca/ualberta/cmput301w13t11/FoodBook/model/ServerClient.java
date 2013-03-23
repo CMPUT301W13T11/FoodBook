@@ -250,7 +250,7 @@ public class ServerClient {
 		 * functionality.
 		 */
 		
-		String ingredients_str = "";
+		String ingredients_str = "";	/* The list of ingredients with the logical OR between each item. */
 		for (int i = 0; i < ingredients.size(); i++) {
 			if (i != 0) {
 				/* 
@@ -265,7 +265,7 @@ public class ServerClient {
 
 		/* We next form the HTTP query string itself. */
 		HttpPost searchRequest = new HttpPost(test_server_string + "_search?pretty=1");
-		String query = "{\"query\" : {\"query_string\" : {\"default_field\" : \"ingredients\", \"query\" : \"" + ingredients_str + "\"}}}";
+		String query = "{\"query\" : {\"query_string\" : {\"default_field\" : \"ingredients.name\", \"query\" : \"" + ingredients_str + "\"}}}";
 		logger.log(Level.INFO, "query string = " + query);
 		try {
 			StringEntity str_entity = new StringEntity(query);
@@ -338,10 +338,27 @@ public class ServerClient {
 				return ReturnCode.NOT_FOUND;
 			}
 			
-			if (retcode == HttpStatus.SC_OK) {
-				/* Else, the Recipe exists on the server and we should try to get it. */
-				Recipe recipe = getRecipe(uri);
+			if (retcode != HttpStatus.SC_OK) {
+				logger.log(Level.SEVERE, "Recipe to upload photo to could not be found.  Response code: " + retcode);
+				return ReturnCode.ERROR;
 			}
+			
+			/* Else, the Recipe exists online and we try to upload the given photo to it. */
+			
+			/* We first must convert the given Photo to a ServerPhoto. */
+			ServerPhoto serverPhoto = new ServerPhoto(photo);
+			
+			/* Now we must construct a suitable JSON style string for the ServerPhoto. */
+			String sp_str = helper.serverPhotoToJSON(serverPhoto);
+			
+			HttpPost updateRequest = new HttpPost("http://cmput301.softwareprocess.es:8080/testing/lab02/1/_update");
+			String query = 	"{\"script\" : \"ctx._source.photos += photo\", \"params\" : " +
+							"{ \"photo\" : \"" + sp_str + "\"}}";
+			StringEntity stringentity = new StringEntity(query);
+
+			updateRequest.setHeader("Accept","application/json");
+			updateRequest.setEntity(stringentity);
+			response = httpclient.execute(updateRequest);
 			
 		} catch (ClientProtocolException cpe) {
 			logger.log(Level.SEVERE, "ClientProtocolException when executing HttpGet : " + cpe.getMessage());
@@ -352,7 +369,7 @@ public class ServerClient {
 			ioe.printStackTrace();
 			return ReturnCode.ERROR;
 		}
-		return ReturnCode.ERROR;
+		return ReturnCode.SUCCESS;
 	}
 	
 	/**

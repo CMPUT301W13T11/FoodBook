@@ -65,6 +65,17 @@ public class ClientHelper {
 	}
 	
 	/**
+	 * Transfomrs the given ServerPhoto to a JSON-style string suitable for uploading.
+	 * @param sp The ServerPhoto to be converted.
+	 * @return A JSON-style string representing the given ServerPhoto.
+	 */
+	public String serverPhotoToJSON(ServerPhoto sp)
+	{
+		String ret = gson.toJson(sp);
+		return ret;
+	}
+	
+	/**
 	 * Converts the given HTTP response to a string.
 	 * @param (HttpResponse) http_response The response to be converted to a string.
 	 * @return A string version of the HttpResponse passed.
