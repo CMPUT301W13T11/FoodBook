@@ -231,7 +231,7 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	public void OnDeletePhoto(View view)
 	{
 		
-		EditPhotos.this.finish();
+		//EditPhotos.this.finish();
 	}
 	
 	
