@@ -11,14 +11,15 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
+        public static final int black=0x7f060000;
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     
          */
-        public static final int custom_theme_color=0x7f060000;
-        public static final int grey=0x7f060001;
-        public static final int search_b=0x7f060002;
+        public static final int custom_theme_color=0x7f060001;
+        public static final int grey=0x7f060002;
+        public static final int search_b=0x7f060003;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -43,94 +44,101 @@ public final class R {
         public static final int trans_black=0x7f020009;
     }
     public static final class id {
-        public static final int action_settings=0x7f090033;
+        public static final int action_settings=0x7f090034;
         public static final int add_ingredient=0x7f09000f;
-        public static final int add_photos=0x7f090029;
-        public static final int add_recipe_button=0x7f090021;
-        public static final int button1=0x7f090017;
-        public static final int button2=0x7f09001a;
-        public static final int button3=0x7f090019;
-        public static final int button4=0x7f09001b;
-        public static final int button5=0x7f090018;
-        public static final int cancel_button=0x7f090030;
-        public static final int capture=0x7f090023;
+        public static final int add_photos=0x7f09002a;
+        public static final int add_recipe_button=0x7f090022;
+        public static final int button1=0x7f090018;
+        public static final int button2=0x7f09001b;
+        public static final int button3=0x7f09001a;
+        public static final int button4=0x7f09001c;
+        public static final int button5=0x7f090019;
+        public static final int cancel_button=0x7f090031;
+        public static final int capture=0x7f090024;
         public static final int darkenScreen=0x7f09000d;
         public static final int delete_photo=0x7f090014;
-        public static final int download_recipe=0x7f09002a;
-        public static final int editIngredientAmount=0x7f09002f;
-        public static final int editIngredientType=0x7f09002d;
-        public static final int editIngredientUnit=0x7f09002e;
+        public static final int download_recipe=0x7f09002b;
+        public static final int editIngredientAmount=0x7f090030;
+        public static final int editIngredientType=0x7f09002e;
+        public static final int editIngredientUnit=0x7f09002f;
         public static final int editText1=0x7f090004;
         public static final int editText2=0x7f090002;
         public static final int editText3=0x7f090008;
         public static final int edit_ingredients=0x7f09000a;
         public static final int edit_photos=0x7f090009;
-        public static final int edit_recipe=0x7f090025;
-        public static final int email_recipe=0x7f090026;
+        public static final int edit_recipe=0x7f090026;
+        public static final int email_recipe=0x7f090027;
         public static final int expandableListView1=0x7f090006;
         public static final int go_back=0x7f090013;
         public static final int goback_myrecipes=0x7f09000c;
-        public static final int goback_searchresults=0x7f09002b;
-        public static final int imageView1=0x7f09001c;
-        public static final int imageView2=0x7f090020;
-        public static final int listView1=0x7f090016;
+        public static final int goback_searchresults=0x7f09002c;
+        public static final int gridView1=0x7f090016;
+        public static final int imageView1=0x7f09001d;
+        public static final int imageView2=0x7f090021;
+        public static final int listView1=0x7f090017;
         public static final int menu_button=0x7f090010;
-        public static final int menu_settings=0x7f090032;
+        public static final int menu_settings=0x7f090033;
         public static final int modify_ingredient=0x7f090012;
-        public static final int my_ingredients=0x7f09001e;
-        public static final int my_recipes_button=0x7f09001f;
+        public static final int my_ingredients=0x7f09001f;
+        public static final int my_recipes_button=0x7f090020;
         public static final int mylist=0x7f09000e;
-        public static final int ok_button=0x7f090031;
-        public static final int popup_msg=0x7f09002c;
-        public static final int publish_recipe=0x7f090027;
+        public static final int ok_button=0x7f090032;
+        public static final int popup_msg=0x7f09002d;
+        public static final int publish_recipe=0x7f090028;
         public static final int remove_ingredient=0x7f090011;
         public static final int save_changes=0x7f09000b;
-        public static final int save_photo=0x7f090024;
-        public static final int search=0x7f09001d;
-        public static final int search_again=0x7f090022;
+        public static final int save_photo=0x7f090025;
+        public static final int search=0x7f09001e;
+        public static final int search_again=0x7f090023;
         public static final int take_photo=0x7f090015;
         public static final int textView1=0x7f090000;
         public static final int textView2=0x7f090003;
         public static final int textView3=0x7f090005;
         public static final int textView4=0x7f090007;
         public static final int textView5=0x7f090001;
-        public static final int view_photos=0x7f090028;
+        public static final int view_photos=0x7f090029;
     }
     public static final class layout {
         public static final int activity_add_recipes=0x7f030000;
         public static final int activity_edit_ingredients=0x7f030001;
         public static final int activity_edit_photos=0x7f030002;
         public static final int activity_edit_recipe=0x7f030003;
-        public static final int activity_main_screen=0x7f030004;
-        public static final int activity_my_ingredients=0x7f030005;
-        public static final int activity_my_recipes=0x7f030006;
-        public static final int activity_search=0x7f030007;
-        public static final int activity_search_results=0x7f030008;
-        public static final int activity_take_photos=0x7f030009;
-        public static final int activity_view_photos=0x7f03000a;
-        public static final int activity_view_recipe=0x7f03000b;
-        public static final int activity_view_search_result=0x7f03000c;
-        public static final int popup_add_ingredient=0x7f03000d;
-        public static final int popup_add_recipe_incomplete=0x7f03000e;
-        public static final int popup_delete_recipe=0x7f03000f;
-        public static final int popup_recipe_upload_success=0x7f030010;
+        public static final int activity_full_image_edit_photos=0x7f030004;
+        public static final int activity_full_image_view_photos=0x7f030005;
+        public static final int activity_main_screen=0x7f030006;
+        public static final int activity_my_ingredients=0x7f030007;
+        public static final int activity_my_recipes=0x7f030008;
+        public static final int activity_search=0x7f030009;
+        public static final int activity_search_results=0x7f03000a;
+        public static final int activity_take_photos=0x7f03000b;
+        public static final int activity_view_photos=0x7f03000c;
+        public static final int activity_view_recipe=0x7f03000d;
+        public static final int activity_view_search_result=0x7f03000e;
+        public static final int galchild=0x7f03000f;
+        public static final int popup_add_ingredient=0x7f030010;
+        public static final int popup_add_recipe_incomplete=0x7f030011;
+        public static final int popup_delete_recipe=0x7f030012;
+        public static final int popup_recipe_upload_success=0x7f030013;
     }
     public static final class menu {
-        public static final int activity_main_screen=0x7f080000;
-        public static final int activity_my_ingredients=0x7f080001;
-        public static final int activity_my_recipes=0x7f080002;
-        public static final int activity_search=0x7f080003;
-        public static final int add_recipes=0x7f080004;
-        public static final int edit=0x7f080005;
-        public static final int edit_ingredient=0x7f080006;
-        public static final int edit_ingredients=0x7f080007;
-        public static final int edit_photos=0x7f080008;
-        public static final int edit_recipe=0x7f080009;
-        public static final int search_results=0x7f08000a;
-        public static final int take_photos=0x7f08000b;
-        public static final int view_photos=0x7f08000c;
-        public static final int view_recipe=0x7f08000d;
-        public static final int view_search_result=0x7f08000e;
+        public static final int activity_full_image_edit_photos=0x7f080000;
+        public static final int activity_full_image_fromv=0x7f080001;
+        public static final int activity_full_image_view_photos=0x7f080002;
+        public static final int activity_main_screen=0x7f080003;
+        public static final int activity_my_ingredients=0x7f080004;
+        public static final int activity_my_recipes=0x7f080005;
+        public static final int activity_search=0x7f080006;
+        public static final int add_recipes=0x7f080007;
+        public static final int edit=0x7f080008;
+        public static final int edit_ingredient=0x7f080009;
+        public static final int edit_ingredients=0x7f08000a;
+        public static final int edit_photos=0x7f08000b;
+        public static final int edit_recipe=0x7f08000c;
+        public static final int search_results=0x7f08000d;
+        public static final int take_photos=0x7f08000e;
+        public static final int view_photos=0x7f08000f;
+        public static final int view_recipe=0x7f080010;
+        public static final int view_search_result=0x7f080011;
     }
     public static final class string {
         public static final int action_settings=0x7f05000c;
@@ -154,6 +162,7 @@ public final class R {
         public static final int go_back_to_my_recipes=0x7f050028;
         public static final int go_back_to_search_results=0x7f050032;
         public static final int hello_world=0x7f050001;
+        public static final int image=0x7f05003a;
         public static final int ingredients=0x7f050027;
         public static final int instructions=0x7f050029;
         public static final int main_menu=0x7f050015;
@@ -161,8 +170,10 @@ public final class R {
         public static final int modify=0x7f050018;
         public static final int my_ingredients=0x7f050006;
         public static final int my_recipes=0x7f050007;
+        public static final int name=0x7f050039;
         public static final int ok=0x7f050037;
         public static final int photos=0x7f050030;
+        public static final int pls_wait_txt=0x7f050038;
         public static final int publish_recipe=0x7f05002b;
         public static final int recipe=0x7f05002e;
         public static final int recipe_name=0x7f050026;
@@ -178,6 +189,8 @@ public final class R {
         public static final int title_activity_edit_ingredients=0x7f050017;
         public static final int title_activity_edit_photos=0x7f050013;
         public static final int title_activity_edit_recipe=0x7f05000d;
+        public static final int title_activity_full_image_edit_photos=0x7f05003b;
+        public static final int title_activity_full_image_view_photos=0x7f05003c;
         public static final int title_activity_main=0x7f050008;
         public static final int title_activity_my_ingredients=0x7f050009;
         public static final int title_activity_my_recipes=0x7f050004;

@@ -171,7 +171,7 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	            // imageView.setPadding(8, 8, 8, 8);
 	            //Bitmap bmp = decodeURI(mUrls[position].getPath());
 
-	            Bitmap bmp = decodeURI(Environment.getExternalStorageDirectory()+File.separator+photos.get(position).getName());
+	            Bitmap bmp = decodeURI(photos.get(position).getName());
 	            //BitmapFactory.decodeFile(mUrls[position].getPath());
 	            imageView.setImageBitmap(bmp);
 	            //bmp.
@@ -228,6 +228,12 @@ public class EditPhotos extends Activity implements FView<DbManager>
 
 	    return output;
 	}
+	public void OnDeletePhoto(View view)
+	{
+		
+		EditPhotos.this.finish();
+	}
+	
 	
 	public void OnTakePhoto(View view)
 	{

@@ -3,6 +3,7 @@ package ca.ualberta.cmput301w13t11.FoodBook.controller;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
@@ -34,6 +35,7 @@ public class DbController {
     private static RecipesDbManager recipesManager;
     private static ResultsDbManager resultsManager;
     private static IngredientsDbManager ingredsManager;
+     
         
     // singleton pattern implementation
     private static DbController instance = null;
@@ -66,6 +68,14 @@ public class DbController {
      */
     public void deleteView(FView<DbManager> view) {
         db.deleteView(view);
+    }
+    // Need this -Pablo
+    /* *****************************************************************
+    USE THIS METHOD TO DETECT IF THERE IS AN SD CARD INSTALLED
+   ********************************************************************* */
+    public boolean isSDcardInstalled(){
+    	
+    	return db.isSDcardInstalled();
     }
     
     /* *****************************************************************
@@ -117,7 +127,7 @@ public class DbController {
     	db.notifyViews();
     }
     
-    // Added this method. Or was it there before? -Pablo
+    // I've been here -Pablo
     
     /* *****************************************************************
     USE THESE METHODS FOR RETRIEVING/SAVING PHOTOS TO RECIPES
@@ -127,10 +137,11 @@ public class DbController {
      * @param photo The photo to add to the given Recipe.
      * @param recipe The Recipe to which the photo is to be added.
      */
-    public void addPhotoToRecipe(Photo photo, long uri)
+    public boolean addPhotoToRecipe(Bitmap bitmap, long uri)
     {
-    	db.insertRecipePhotos(photo, uri);
+    	Boolean success = db.insertRecipePhotos(bitmap, uri);
     	db.notifyViews();
+    	return success;
     }
     /**
      * @return Returns an ArrayList of Photos for a given recipe

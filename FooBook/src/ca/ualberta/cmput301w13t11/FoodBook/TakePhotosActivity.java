@@ -34,6 +34,11 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_take_photos);
 		this.imageView = (ImageView)this.findViewById(R.id.imageView1);
+		//this.updateView();
+		
+	}
+	public void updateView(){
+		this.imageView.setImageBitmap(bitmap);
 	}
 
 	@Override
@@ -51,10 +56,6 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	     if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
             this.bitmap = (Bitmap) data.getExtras().get("data");
 
- 			// If camera is not working, or for testing purposes, use BogoPicGen
-			//bitmap = BogoPicGen.generateBitmap(1024, 1024);
-
-            imageView.setImageBitmap(bitmap);
         }  
 	}
 	public void OnGoBack(View View)
@@ -67,9 +68,16 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
     {
 		// responds to button Capture
 		
+		DbController DbC = DbController.getInstance(this, this);
+		if (DbC.isSDcardInstalled()){
 		Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
+		}
+		else{
+		//If sd card not installed on vm, use BogoPicGen  
+		this.bitmap = BogoPicGen.generateBitmap(640, 480);
+		}
+		this.updateView();
 
     }
 	public void OnSavePhoto (View View)
@@ -78,24 +86,9 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		if (bitmap!=null){
 			
 			DbController DbC = DbController.getInstance(this, this);
-			Photo ourPhoto = new Photo(String.valueOf(System.currentTimeMillis()));
-		
-			boolean success = false;
-			File file = new File(Environment.getExternalStorageDirectory()+File.separator+ourPhoto.getName());
-			try {
-				file.createNewFile();
-				FileOutputStream outStream = new FileOutputStream(file);
-				//5
-				bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
-				outStream.flush();
-				outStream.close();
-				success = true;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			if (success) {
-				DbC.addPhotoToRecipe(ourPhoto, uri);
+			
+			boolean success = DbC.addPhotoToRecipe(bitmap, uri);
+			if (success) {	
 				Toast.makeText(getApplicationContext(), "Image saved with success",
 						Toast.LENGTH_LONG).show();
 			} else {
@@ -111,6 +104,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	{
 
 		// TODO Auto-generated method stub
+		this.updateView();
 		
 	}
 	public void onDestroy()

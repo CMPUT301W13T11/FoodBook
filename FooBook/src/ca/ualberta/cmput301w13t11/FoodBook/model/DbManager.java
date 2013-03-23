@@ -1,12 +1,18 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.os.Environment;
+import ca.ualberta.cmput301w13t11.FoodBook.MainScreen;
 /**
  * Singleton class that manages the application's database.
  * @author Mark Tupala
@@ -27,6 +33,19 @@ public class DbManager extends FModel<FView> {
     
     // name of database file
     private String dbFileName = "RecipeApplicationDb";
+    
+    //Here's where you choose how you capture -Pablo
+    /* *****************************************************************
+    SET SDcardInstalled to TRUE IF AN SD CARD IS INSTALLED, FALSE OTHERWISE
+    TO INSTALL AN SDCARD ON THE VIRTUAL DEVICE, GOOGLE, MKSDCARD ANDROID
+    WILL NEED TO DOWNLOAD SDK TOOLS. MAKE AT LEAST 256 MB LARGE
+   ********************************************************************* */
+    
+    //Change to 1 save pictures to the SD card, 
+    //Change to 0 to save to local folder 'PicturesFolder', TakePhotosActivity 
+    //uses BogoPicGen in this case -Pablo
+    private static boolean SDCARD_INSTALLED = false;
+    
     
     /**
      * Protected constructor because we're using the singleton pattern.
@@ -75,7 +94,7 @@ public class DbManager extends FModel<FView> {
     
 	/**
 	 * Inserts a recipe into the table.
-	 * @param recipe The Recipe to be stored in the table.
+	 * @param recipe The Recipe to be stor2 saves pics to ed in the table.
 	 * @param The name of the table into which the recipe is to be stored.
 	 */
 	public void insertRecipe(Recipe recipe, String tableName) {
@@ -84,15 +103,16 @@ public class DbManager extends FModel<FView> {
 	    for (Ingredient ingred : recipe.getIngredients()) {
 	        insertRecipeIngredients(ingred, recipe.getUri());
 	    }
-	    for (Photo photo : recipe.getPhotos()) {
-	        insertRecipePhotos(photo, recipe.getUri());
-	    }
+	    // Don't think we need this, pictures get stored one at a time once recipe is in db
+	    //for (Photo photo : recipe.getPhotos()) {
+	        //insertRecipePhotos(photo, recipe.getUri());
+	    //}
 	}
     
     /**
      * Inserts the given Ingredient into the database such that it is associated with the
      * recipe identified by recipeURI.
-     * @param ingred The ingredient to be inserted.
+     * @param ingred The ingredient to be 2 saves pics to inserted.
      * @param recipeURI The URI of the Recipe with which to associate the Ingredient.
      */
     public void insertRecipeIngredients(Ingredient ingred, long recipeURI) {
@@ -100,22 +120,81 @@ public class DbManager extends FModel<FView> {
         values.put("recipeURI", recipeURI);
         db.insert("RecipeIngredients", null, values);
     }
-    
+ // Need this -Pablo
+    /* *****************************************************************
+    USE THIS METHOD TO DETECT IF THERE IS AN SD CARD INSTALLED
+   ********************************************************************* */
+    public boolean isSDcardInstalled(){
+    	
+    	return this.SDCARD_INSTALLED;
+    }
+    // Had to change this a bit Mark -Pablo
+    // Note how the photo is just a "shell", it has a timestamp only. 
+    //The time stamp becomes its uri. The bitmap received in the method is compressed
+    // and stored as an image either in the SD card or locally, depending on the global isSDcardInstalled.
     /**
      * Inserts the given Photo into the database such that it is associated with the
      * recipe identified by recipeURI.
      * @param photo The photo to be inserted.
      * @param recipeURI The URI of the Recipe with which to associate the Photo.
      */
-    public void insertRecipePhotos(Photo photo, long recipeURI) {
+    public boolean insertRecipePhotos(Bitmap bitmap, long recipeURI) {
+    	// Creates 'empty' photo
+    	String filepath;
+    	boolean success = false;
+        if (SDCARD_INSTALLED){
+        	filepath = Environment.getExternalStorageDirectory()+File.separator+String.valueOf(System.currentTimeMillis());
+        	try {
+        		File file = new File(filepath);
+        		FileOutputStream outStream = new FileOutputStream(file);
+        		//5
+        		bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
+        		outStream.flush();
+        		outStream.close();
+        		success = true;
+        	} catch (IOException e) {
+        		// TODO Auto-generated catch block
+        		e.printStackTrace();
+        	}	
+        	
+        }
+        else{
+        	filepath = String.valueOf(System.currentTimeMillis());
+        	try {
+
+        		   File file = new File(Environment.getDataDirectory(), filepath);
+
+        		   if(!file.exists()) {
+
+        		    file.createNewFile();
+
+        		   }
+        		   FileOutputStream outStream = new FileOutputStream(file);
+           		//5
+           		bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
+           		outStream.flush();
+           		outStream.close();
+           		success = true;
+           	} catch (IOException e) {
+           		// TODO Auto-generated catch block
+           		e.printStackTrace();
+           	}	
+       		
+        }
+        	
+    		
+    	Photo photo = new Photo(filepath);
         ContentValues values = new ContentValues();
         values.put("recipeURI", recipeURI);
         values.put("filename", photo.getName());
         db.insert("RecipePhotos", null, values);
+        
+        return success;
+        
     }
-    
-	/**
-	 * Returns an ArrayList of all the Recipes stored in the table.
+
+    /**
+     * Returns an ArrayList of all the Recipes stored in the table.
 	 * @return An ArrayList of all the Recipes stored in the table.
 	 */
 	public ArrayList<Recipe> getRecipes(String query) {
