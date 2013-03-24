@@ -35,6 +35,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
     //Change to 1 save pictures to the SD card, 
     //Change to 0 to save to local folder 'Pictures' and use BogoPicGen
 	//Note that if an actual SD card is not installed, the capturing reverts to local save and BogoPicGen
+	
     protected static boolean SDCARD_INSTALLED = false;
     
     protected static String PICTURES_DIRECTORY = "Pictures";
@@ -112,19 +113,19 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		if (bitmap!=null){
 			
 
-			String timeStamp = String.valueOf(System.currentTimeMillis());
+			String timeStampId = String.valueOf(System.currentTimeMillis());
 			boolean success = false;
 			boolean worked = false;
 
 			try {
 				File file;
 				if (SDCARD_INSTALLED && Environment.MEDIA_MOUNTED.equals(state)){
-					imgPath = Environment.getExternalStorageDirectory()+File.separator+timeStamp+".png";
+					imgPath = Environment.getExternalStorageDirectory()+File.separator+timeStampId;
 					file = new File(imgPath);
 				}
 				else{
 					File dir = getDir(PICTURES_DIRECTORY, Context.MODE_PRIVATE);
-					file = new File(dir, timeStamp+".png");
+					file = new File(dir, timeStampId);
 				} 		
 				FileOutputStream outStream = new FileOutputStream(file);
 				worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
@@ -138,7 +139,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 			}  
 			if (success && worked) {
 				DbController DbC = DbController.getInstance(this, this);
-				Photo photo = new Photo(imgPath);
+				Photo photo = new Photo(timeStampId, imgPath);
 				DbC.addPhotoToRecipe(photo, uri);
 				//Log.d("recipeuri", Long.toString(uri));
 				//Log.d("image path", imgPath);

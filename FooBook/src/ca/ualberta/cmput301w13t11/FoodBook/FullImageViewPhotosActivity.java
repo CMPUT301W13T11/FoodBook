@@ -17,7 +17,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 public class FullImageViewPhotosActivity extends Activity implements FView<DbManager>{
 
 
-	private String img;
+	private String imgPath;
 	private ImageView imageView;
 	
     @Override
@@ -27,9 +27,9 @@ public class FullImageViewPhotosActivity extends Activity implements FView<DbMan
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_full_image_view_photos);
         Intent intent = getIntent();
-        img = intent.getDataString();
+        imgPath = intent.getDataString();
  
-        BitmapFactory.decodeFile(Environment.getExternalStorageDirectory()+File.separator+img);
+        BitmapFactory.decodeFile(Environment.getExternalStorageDirectory()+File.separator+imgPath);
         
     }
 

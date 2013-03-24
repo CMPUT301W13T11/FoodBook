@@ -1,7 +1,6 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -9,8 +8,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.os.Environment;
+import android.util.Log;
 /**
  * Singleton class that manages the application's database.
  * @author Mark Tupala
@@ -18,6 +16,7 @@ import android.os.Environment;
  */
 public class DbManager extends FModel<FView> {
 
+	
     // the actual database 
     protected static SQLiteDatabase db;
     protected static DbOpenHelper dbHelper;
@@ -116,7 +115,8 @@ public class DbManager extends FModel<FView> {
     public void insertRecipePhotos(Photo photo, long recipeURI) {
     	ContentValues values = new ContentValues();
     	values.put("recipeURI", recipeURI);
-    	values.put("filename", photo.getName());
+    	values.put("id", photo.getId());
+    	values.put("path", photo.getPath());
     	db.insert("RecipePhotos", null, values);
     }
 
@@ -209,9 +209,23 @@ public class DbManager extends FModel<FView> {
     }
     
     //method to delete photo -Pablo
-    public void removeRecipePhoto(Photo photo, long uri) {
-    	db.rawQuery("Delete From RecipePhotos Where recipeUri = " + uri + " and filename = " + photo.getName(), null);
+    public boolean removeRecipePhoto(Photo photo) {
+    	//String createStatement = 
     	
+    	//String.format("Delete From RecipePhotos Where recipeUri = %S and filename = %S", uri, photo.getName()); 
+    	int success = db.delete("RecipePhotos", "id = " + photo.getId(), null); 
+    	//Log.d("int", Integer.toString(r));
+    	Boolean deleted = false;
+    	if (success==1){
+    		try{
+		    	File file = new File(photo.getPath());
+		        deleted = file.delete();
+    		}
+    		catch(Exception e){
+    			e.printStackTrace();
+    		}
+    	}    	
+    	return deleted;
     }
     /**
      * Given a cursor, convert it to an ArrayList of Ingredients.
@@ -241,8 +255,11 @@ public class DbManager extends FModel<FView> {
         ArrayList<Photo> photos = new ArrayList<Photo>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            String name = cursor.getString(1);
-            Photo photo = new Photo(name);
+            String id = cursor.getString(1);
+            String path = cursor.getString(2);
+            Photo photo = new Photo(id, path);
+            Log.d("id", id);
+            Log.d("path", "path");
             photos.add(photo);
             cursor.moveToNext();
         }

@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
@@ -14,9 +15,11 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 
 public class FullImageEditPhotosActivity extends Activity implements FView<DbManager>{
 
+	static final String EXTRA_IMG_ID = "extra_img_id";
+	static final String EXTRA_IMG_PATH = "extra_img_path";
 	static final String EXTRA_URI = "extra_uri";
-	static final String EXTRA_IMG = "extra_img";
 	private String imgPath = null;
+	private String id;
 	private Long uri;
 	private ImageView imageView = null;
 	private Bitmap bitmap = null;
@@ -31,13 +34,15 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
         
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        imgPath = bundle.getString(EXTRA_IMG);
+        id = bundle.getString(EXTRA_IMG_ID);
+        imgPath = bundle.getString(EXTRA_IMG_PATH);
         uri = bundle.getLong(EXTRA_URI);
-        bitmap= BitmapFactory.decodeFile(imgPath);
+        
         this.updateView();
     }
     protected void updateView(){
     	
+    	bitmap= BitmapFactory.decodeFile(imgPath);
     	this.imageView.setImageBitmap(bitmap);
     	
     }
@@ -47,7 +52,7 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
     	  if (requestCode == 1) {
 
     	     if(resultCode == RESULT_OK){      
-    	    	 this.bitmap= BitmapFactory.decodeFile(data.getStringExtra("imgPath"));
+    	    	 imgPath = data.getStringExtra("imgPath");
     	    	 this.updateView();
     	     }
     	     if (resultCode == RESULT_CANCELED) {    
@@ -73,8 +78,16 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
     {
 		// responds to button Go Back
 		DbController DbC = DbController.getInstance(this, this);
-		Photo photo = new Photo(imgPath);
-		DbC.deleteRecipePhoto(photo, uri);
+		Photo photo = new Photo(id, imgPath);
+		
+		Boolean success = DbC.deleteRecipePhoto(photo);
+		if (success) {
+			Toast.makeText(getApplicationContext(), "Image deleted with success",
+					Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(getApplicationContext(),
+					"Error during image deleting", Toast.LENGTH_LONG).show();
+		} 
 		FullImageEditPhotosActivity.this.finish();
     }
 

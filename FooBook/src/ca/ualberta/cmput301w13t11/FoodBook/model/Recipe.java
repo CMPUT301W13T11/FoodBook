@@ -177,7 +177,7 @@ public class Recipe {
 	{
 		for(int i = 0; i < photos.size(); i++) {
 			Photo p = photos.get(i);
-			if (p.getName().equals(photo.getName()))
+			if (p.getId().equals(photo.getId()))
 			{
 				photos.remove(p);
 			}
@@ -218,19 +218,20 @@ public class Recipe {
 		ingredients.add(new Ingredient("veal", "the whole baby cow", (float) 1));
 		
 		/* Generate photos */
-		String name1 = "test1";
-		String name2 = "test2";
-		byte[] byte_data1 = new byte[10];
-		byte[] byte_data2 = new byte[10];
+		//String name1 = "test1";
+		//String name2 = "test2";
+		//byte[] byte_data1 = new byte[10];
+		//byte[] byte_data2 = new byte[10];
 
-		Photo photo1 = new Photo(name1, byte_data1);
-		Photo photo2 = new Photo(name2, byte_data2);
-		ArrayList<Photo> photos = new ArrayList<Photo>();
-		photos.add(photo1);
-		photos.add(photo2);
+		//Photo photo1 = new Photo(name1, byte_data1);
+		//Photo photo2 = new Photo(name2, byte_data2);
+		//ArrayList<Photo> photos = new ArrayList<Photo>();
+		//photos.add(photo1);
+		//photos.add(photo2);
 
 		/* Generate recipe. */
-		Recipe ret = new Recipe(uri, user, title, instructions, ingredients, photos);
+		//Recipe ret = new Recipe(uri, user, title, instructions, ingredients, photos);
+		Recipe ret = new Recipe(uri, user, title, instructions, ingredients);
 		return ret;
 
 	}

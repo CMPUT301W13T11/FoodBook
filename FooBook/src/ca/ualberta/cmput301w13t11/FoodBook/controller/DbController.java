@@ -140,10 +140,11 @@ public class DbController {
     	return db.getRecipePhotos(uri);
     }
     
-    public void deleteRecipePhoto(Photo photo, long uri)
+    public boolean deleteRecipePhoto(Photo photo)
     {
-    	db.removeRecipePhoto(photo, uri);
+    	boolean success = db.removeRecipePhoto(photo);
     	db.notifyViews();
+    	return success;
     }
 
     /* *****************************************************************

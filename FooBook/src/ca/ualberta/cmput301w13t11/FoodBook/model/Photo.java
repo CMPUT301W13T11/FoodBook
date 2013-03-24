@@ -17,17 +17,19 @@ public class Photo {
 	// Open question: should a photo know which recipe it is associated with?
 	// Probably not, but I can see arguments for doing it.
 	//
-	private String name;
-	private byte[] bit_data;
+	private String id;
+	private String path;
+	//private String name;
+	//private byte[] bit_data;
 	
 	/**
 	 * Construct photo from file name (data is already stored on disk, must read it if needed)
 	 * @param name
 	 */
-	public Photo(String name)
+	public Photo(String id)
 	{
-		this.name = name;
-		this.bit_data = null;
+		this.id = id;
+		this.path = null;
 	}
 	
 	/**
@@ -35,10 +37,10 @@ public class Photo {
 	 * @param name
 	 * @param data
 	 */
-	public Photo(String name, byte[] data)
+	public Photo(String id, String path)
 	{
-		this.name = name;
-		this.bit_data = data;
+		this.id = id;
+		this.path = path;
 	}
 	
 	/**
@@ -46,6 +48,7 @@ public class Photo {
 	 * we aren't storing/downloading/uploading huge files).
 	 * @param bitmap The Bitmap which encodes the photo information.
 	 */
+	/*
 	public Photo(Bitmap bitmap)
 	{
 
@@ -54,29 +57,29 @@ public class Photo {
 		
 		bit_data = out.toByteArray();
 		
-		/* 
-		 * A simple timestamp isn't rigorous enough to insure name uniqueness, 
-		 * I'll figure out a better way to do this at some point.
-		 */
+		 
+		 //A simple timestamp isn't rigorous enough to insure name uniqueness, 
+		 //I'll figure out a better way to do this at some point.
+		 
 		
 		long time = System.currentTimeMillis();
 		name = String.valueOf(time);
 	}
 	
-	/**
-	 *  Returns the bitmap associated with this photo.
-	 * @return Bitmap associated with the photo.
-	 */
+	
+	 //Returns the bitmap associated with this photo.
+	 //@return Bitmap associated with the photo.
+	 
 	public Bitmap getPhotoBitmap()
 	{
 		return BitmapFactory.decodeByteArray(bit_data, 0, bit_data.length);
 	}
-
-	public byte[] getBitData()
+	*/
+	public String getId()
 	{
-		return bit_data;
+		return id;
 	}
-	public String getName() {
-		return name;
+	public String getPath() {
+		return path;
 	}
 }

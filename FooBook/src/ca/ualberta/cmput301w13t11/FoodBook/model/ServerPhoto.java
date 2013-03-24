@@ -10,18 +10,20 @@ import android.util.Base64;
  * @author Marko Babic
  *
  */
+
 public class ServerPhoto {
 
-	private String name;
-	private String encoded_bitmap;
+	private String id;
+	//private String path;
 	
 	/**
 	 *  Constructor - turns the given photo into a photo that can be written to the server.
 	 */
 	public ServerPhoto(Photo photo)
 	{
-		this.name = photo.getName();
-		this.encoded_bitmap = new String(Base64.encode(photo.getBitData(), Base64.DEFAULT));
+		this.id = photo.getId();
+		//this.path = photo.getPath();
+		//this.encoded_bitmap = new String(Base64.encode(photo.getBitData(), Base64.DEFAULT));
 	}
 
 	/**
@@ -31,16 +33,19 @@ public class ServerPhoto {
 	 */
 	public static Photo toPhoto(ServerPhoto sp)
 	{
-		byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);
-		return new Photo(sp.getName(), data);
+		//byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);
+		//return new Photo(sp.getName(), data);
+		
+		//WE HAVE TO FILL IN THE PATH SOMEHOW LATER
+		return new Photo(sp.getId());
 	}
 	
 	/**
 	 * 
 	 * @return Name of photo.
 	 */
-	public String getName() {
-		return name;
+	public String getId() {
+		return id;
 	}
 
 
@@ -48,7 +53,8 @@ public class ServerPhoto {
 	 * 
 	 * @return the Base64 String encoding the bitmap of the original image.
 	 */
-	public String getEncodedBitmap() {
-		return encoded_bitmap;
-	}
+	//public String getEncodedBitmap() {
+		//return encoded_bitmap;
+	//}
 }
+

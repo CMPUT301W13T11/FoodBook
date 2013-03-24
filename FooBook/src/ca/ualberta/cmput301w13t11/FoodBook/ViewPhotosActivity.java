@@ -30,7 +30,7 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 {
 
 	static final String EXTRA_URI = "extra_uri";
-	static final String EXTRA_IMG = "extra_img";
+	static final String EXTRA_IMG_PATH = "extra_img_path";
 	private long uri;
 	private ArrayList<Photo> photos;
 	
@@ -59,7 +59,7 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 	                int position, long id) {
 	            Intent i = new Intent(ViewPhotosActivity.this, FullImageViewPhotosActivity.class);
 	            //Log.e("intent : ", ""+position);
-	            i.putExtra("EXTRA_IMG", photos.get(position).getName());
+	            i.putExtra("EXTRA_IMG_PATH", photos.get(position).getPath());
 	            startActivity(i);
 	        }
 	    });
@@ -102,7 +102,7 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 	        	imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 	        	imageView.setPadding(8, 8, 8, 8);
 	        	//Bitmap bmp = decodeURI(mUrls[position].getPath());
-	        	Bitmap bmp = decodeURI(photos.get(position).getName());
+	        	Bitmap bmp = decodeURI(photos.get(position).getPath());
 	        	//BitmapFactory.decodeFile(mUrls[position].getPath());
 	        	imageView.setImageBitmap(bmp);
 	        	//bmp.
