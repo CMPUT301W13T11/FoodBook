@@ -5,9 +5,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -27,15 +29,27 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	static final String EXTRA_URI = "extra_uri";
 	private long uri;
 	private ImageView imageView;
-	private Bitmap bitmap = null;
+	
+	protected Bitmap bitmap;
 	private String imgPath = null;
+	private File file;
+	private ProgressDialog progressDialog;
+	private String timeStampId = String.valueOf(System.currentTimeMillis());
+	boolean success = false;
+	boolean worked = false;
+	private FileOutputStream outStream;
+	private DbController DbC; 
 	
 	//Here's where you choose external or internal image storage  
     //Change to 1 save pictures to the SD card, 
     //Change to 0 to save to local folder 'Pictures' and use BogoPicGen
 	//Note that if an actual SD card is not installed, the capturing reverts to local save and BogoPicGen
 	
-    protected static boolean SDCARD_INSTALLED = false;
+    //protected static boolean SDCARD_INSTALLED = true;
+	
+	//Automatically done with this
+	
+	public String state = Environment.getExternalStorageState();
     
     protected static String PICTURES_DIRECTORY = "Pictures";
     
@@ -48,17 +62,20 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		
 		Intent intent = getIntent();
 		uri = intent.getLongExtra(EXTRA_URI, 0);
-		this.imageView = (ImageView)this.findViewById(R.id.imageView1);
-		this.updateView();
+		imageView = (ImageView)this.findViewById(R.id.imageView1);
+		DbC = DbController.getInstance(this, this);
+		
+		
+		updateView();
 		
 	}
 	protected void updateView(){
 		
 		if (bitmap!=null){
-			this.imageView.setImageBitmap(bitmap);
+			imageView.setImageBitmap(bitmap);
 		}
 	}
-
+ /*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -67,13 +84,14 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		getMenuInflater().inflate(R.menu.take_photos, menu);
 		return true;
 	}
+	*/
 	
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	     if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
-            this.bitmap = (Bitmap) data.getExtras().get("data");
-            this.updateView();
+            bitmap = (Bitmap) data.getExtras().get("data");
+            updateView();
         }  
 	}
 	// responds to button Go Back
@@ -83,42 +101,82 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 			Intent returnIntent = new Intent();
 			returnIntent.putExtra("imgPath", imgPath);
 			setResult(RESULT_OK,returnIntent);
-			Log.d("es", "yes");
+			//Log.d("Received result", "yes");
 			finish();
 		}
 		else{
 			Intent returnIntent = new Intent();
 			setResult(RESULT_CANCELED, returnIntent);
-			Log.d("ghggh", "no");
+			//Log.d("Received result", "no");
 			finish();
 		}
     }
-	public void OnCapture(View View)
+	// Weird bug here
+	public void OnCapturePB(View View)
     {
+	
 		// responds to button Capture
-		if (SDCARD_INSTALLED){
+		//if (SDCARD_INSTALLED){
+		if (Environment.MEDIA_MOUNTED.equals(state)) {
 			Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 			startActivityForResult(cameraIntent, CAMERA_REQUEST);
 		}
 		else{
-			//If sd card not installed on vm, use BogoPicGen  
-			this.bitmap = BogoPicGen.generateBitmap(640, 480);
-			this.updateView();
+			//If sd card not installed on vm, use BogoPicGen 
+			progressDialog = ProgressDialog.show(TakePhotosActivity.this, "", "Making BogoPic...");
+
+			new Thread() 
+			{
+				public void run() 
+				{
+					try{
+						bitmap = BogoPicGen.generateBitmap(640, 480);
+					}
+					catch (Exception ex)
+					{
+						ex.printStackTrace();
+					}
+					try
+					{
+						sleep(1500);
+						
+					}catch (InterruptedException e)
+					{
+						Log.e("tag",e.getMessage());
+					}
+					// dismiss the progressdialog   
+					progressDialog.dismiss();
+				}
+			}.start();
+			if (bitmap==null){ Log.d("what", "what");};
+			updateView();
 		}
     }
+	public void OnCaptureNo(View View)
+    {
+	
+		// responds to button Capture
+		//if (SDCARD_INSTALLED){
+		if (Environment.MEDIA_MOUNTED.equals(state)) {
+			Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+			startActivityForResult(cameraIntent, CAMERA_REQUEST);
+		}
+		else{
+			Toast.makeText(getApplicationContext(), "Making Bogopic...",
+					Toast.LENGTH_LONG).show();
+			bitmap = BogoPicGen.generateBitmap(640, 480);
+			updateView();
+		}
+    }
+	
+	//With progress bar (spinner)
 	public void OnSavePhoto (View View)
 	{
 		// responds to button Save Photo
 		if (bitmap!=null){
-			
-
-			String timeStampId = String.valueOf(System.currentTimeMillis());
-			boolean success = false;
-			boolean worked = false;
-
-			try {
-				File file;
-				if (SDCARD_INSTALLED){
+			try {	
+				//if (SDCARD_INSTALLED){
+				if (Environment.MEDIA_MOUNTED.equals(state)) {
 					imgPath = Environment.getExternalStorageDirectory()+File.separator+timeStampId;
 					file = new File(imgPath);
 				}
@@ -126,18 +184,52 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 					File dir = getDir(PICTURES_DIRECTORY, Context.MODE_PRIVATE);
 					file = new File(dir, timeStampId);
 				} 		
-				FileOutputStream outStream = new FileOutputStream(file);
+				outStream = new FileOutputStream(file);
 				worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
 				outStream.flush();
 				outStream.close();
 				success = true;
 				imgPath = file.getAbsolutePath();
-			} catch (IOException e) {
+			} catch (IOException ex) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}  
+				ex.printStackTrace();
+			} 
+			
+			progressDialog = ProgressDialog.show(TakePhotosActivity.this, "", "Saving...");
+			new Thread() 
+			{
+				public void run() 
+				{
+					try {
+						worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
+					} catch (Exception ex) {
+						// TODO Auto-generated catch block
+						ex.printStackTrace();
+					} 
+	
+					try
+					{
+						sleep(1500);
+
+					}catch (InterruptedException e)
+					{
+						Log.e("tag",e.getMessage());
+					}
+					// dismiss the progressdialog   
+					progressDialog.dismiss();
+				}
+			}.start();
+			try {		
+				outStream.flush();
+				outStream.close();
+				success = true;
+				imgPath = file.getAbsolutePath();
+			} catch (IOException ex) {
+				// TODO Auto-generated catch block
+				ex.printStackTrace();
+			} 
 			if (success && worked) {
-				DbController DbC = DbController.getInstance(this, this);
+
 				Photo photo = new Photo(timeStampId, imgPath);
 				DbC.addPhotoToRecipe(photo, uri);
 				//Log.d("recipeuri", Long.toString(uri));
@@ -147,16 +239,59 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 			} else {
 				Toast.makeText(getApplicationContext(),
 						"Error during image saving", Toast.LENGTH_LONG).show();
-			} 
+			}
 		}
 	}
+	// no progress bar
+	public void OnSavePhotoNoProgBar (View View)
+	{
+		// responds to button Save Photo
+		if (bitmap!=null){
+
+			     try
+			     {
+			    	 //if (SDCARD_INSTALLED){
+			    	 if (Environment.MEDIA_MOUNTED.equals(state)) {
+			    		 imgPath = Environment.getExternalStorageDirectory()+File.separator+timeStampId;
+			    		 file = new File(imgPath);
+			    	 }
+			    	 else{
+			    		 File dir = getDir(PICTURES_DIRECTORY, Context.MODE_PRIVATE);
+			    		 file = new File(dir, timeStampId);
+			    	 } 		
+			    	 FileOutputStream outStream = new FileOutputStream(file);
+			    	 worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
+			    	 outStream.flush();
+			    	 outStream.close();
+			    	 success = true;
+			    	 imgPath = file.getAbsolutePath();
+			     } catch (Exception e) {
+			    	 // TODO Auto-generated catch block
+			    	 e.printStackTrace();
+			     } 
+	
+			if (success && worked) {
+
+				Photo photo = new Photo(timeStampId, imgPath);
+				DbC.addPhotoToRecipe(photo, uri);
+				//Log.d("recipeuri", Long.toString(uri));
+				//Log.d("image path", imgPath);
+				Toast.makeText(getApplicationContext(), "Image saved with success",
+						Toast.LENGTH_LONG).show();
+			} else {
+				Toast.makeText(getApplicationContext(),
+						"Error during image saving", Toast.LENGTH_LONG).show();
+			}
+		}
+	}
+	
 
 	@Override
 	public void update(DbManager db)
 	{
 
 		// TODO Auto-generated method stub
-		this.updateView();
+		updateView();
 		
 	}
 	public void onDestroy()

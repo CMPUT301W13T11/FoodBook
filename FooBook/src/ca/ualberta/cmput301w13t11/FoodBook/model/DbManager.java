@@ -258,8 +258,8 @@ public class DbManager extends FModel<FView> {
             String id = cursor.getString(1);
             String path = cursor.getString(2);
             Photo photo = new Photo(id, path);
-            Log.d("id", id);
-            Log.d("path", "path");
+            Log.d("DbManager fetched: photo id", id);
+            Log.d("DbManager fetched: photo path", path);
             photos.add(photo);
             cursor.moveToNext();
         }
