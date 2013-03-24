@@ -41,7 +41,7 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 	{
 		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_edit_photos);
+		setContentView(R.layout.activity_view_photos);
 		Intent intent = getIntent();
 		uri = intent.getLongExtra(EXTRA_URI, 0);
 		this.updateView();

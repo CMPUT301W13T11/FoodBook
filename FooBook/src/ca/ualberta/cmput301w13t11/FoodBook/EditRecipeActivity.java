@@ -87,7 +87,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		 EditRecipeActivity.this.finish();
     }
 	
-	public void OnPhotos (View View)
+	public void OnEditPhotos (View View)
     {
 		// responds to button OnPhotos
     	Intent intent = new Intent(this, EditPhotos.class);
