@@ -17,8 +17,6 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 /**
  * Unit tests for the ServerClient class.
- * Run configurations note: if test fails to run, please go to Run Configurations -> ClassPath; if Android 4.1 is present in the
- * bootstrap entries, then delete it and replace it with the JRE System Library (Advanced -> Add Library -> JRE System Library).
  * @author mbabic
  *
  */
