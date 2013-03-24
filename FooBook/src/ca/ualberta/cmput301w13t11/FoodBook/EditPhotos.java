@@ -1,17 +1,14 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,15 +30,9 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	static final String EXTRA_IMG = "extra_img";
 	private long uri;
 	private ArrayList<Photo> photos;
-	//private static Uri[] mUrls = null;
-	//private static String[] strUrls = null;
-	//private String[] mNames = null;
-	//private String[] picNames = null;
-	private GridView gridview = null;
-	//private Cursor cc = null;
-	//private Button btnMoreInfo = null;
-	private ProgressDialog myProgressDialog = null;
 	
+	private GridView gridview = null;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -49,48 +40,43 @@ public class EditPhotos extends Activity implements FView<DbManager>
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_photos);
-		
-			
+	
 		Intent intent = getIntent();
-		//String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
-		//long uri=Long.parseLong(URI);
 		uri = intent.getLongExtra(EXTRA_URI, 0);
+		//Log.d("recipe", Long.toString(uri));
 
 		this.updateView();
 	}
 	protected void updateView(){	
-		
+
 		DbController DbC = DbController.getInstance(this, this);
 		photos = DbC.getRecipePhotos(uri);
-	    if (!photos.isEmpty()) {
-	    
-	    gridview = (GridView) findViewById(R.id.gridView1);
-	    gridview.setAdapter(new ImageAdapter(this));
-	    
-	    gridview.setOnItemClickListener(new OnItemClickListener() {
-	        public void onItemClick(AdapterView<?> parent, View v,
-	                int position, long id) {
-	            Intent i = new Intent(EditPhotos.this, FullImageEditPhotosActivity.class);
-	            //Log.e("intent : ", ""+position);
-	            //i.putExtra(EXTRA_URI, uri);
-	            Bundle bundle = new Bundle();
-	            bundle.putString(EXTRA_IMG, photos.get(position).getName());
-	            bundle.putLong(EXTRA_URI, uri);
+		if (!photos.isEmpty()) {
 
-	            i.putExtras(bundle);
+			gridview = (GridView) findViewById(R.id.gridView1);
+			gridview.setAdapter(new ImageAdapter(this));
 
-	            startActivity(i);
-	        }
-	    });
-	    }
+			gridview.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> parent, View v,
+						int position, long id) {
+					Intent i = new Intent(EditPhotos.this, FullImageEditPhotosActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putString(EXTRA_IMG, photos.get(position).getName());
+					bundle.putLong(EXTRA_URI, uri);
+					//Log.d("recipe", Long.toString(uri));
+					//Log.d("filename", photos.get(position).getName());
+					i.putExtras(bundle);
+					startActivity(i);
+				}
+			});
+		}
 	}
-
 
 	/**
 	 * This class loads the image gallery in grid view.
 	 *
 	 */
-	
+
 	public class ImageAdapter extends BaseAdapter {
 	    private Context mContext;
 
@@ -119,12 +105,10 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	        try {
 
 	            ImageView imageView = (ImageView) v.findViewById(R.id.imageView1);
-	            //imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-	            // imageView.setPadding(8, 8, 8, 8);
+	            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+	            imageView.setPadding(8, 8, 8, 8);
 	            //Bitmap bmp = decodeURI(mUrls[position].getPath());
-	            String name = photos.get(position).getName();
 	            Bitmap bmp = decodeURI(photos.get(position).getName());
-	            Log.d("name", name);
 	            //BitmapFactory.decodeFile(mUrls[position].getPath());
 	            imageView.setImageBitmap(bmp);
 	            //bmp.

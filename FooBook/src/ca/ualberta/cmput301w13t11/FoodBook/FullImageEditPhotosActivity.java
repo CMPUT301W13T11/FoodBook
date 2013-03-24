@@ -1,13 +1,10 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import java.io.File;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,7 +18,7 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 	static final String EXTRA_IMG = "extra_img";
 	private Bundle bundle;
 	private ImageView imageView = null;
-	private Bitmap bmp = null;
+	private Bitmap bitmap = null;
 
 	
     @Override
@@ -35,20 +32,34 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
         bundle = intent.getExtras();
         String imgPath = bundle.getString(EXTRA_IMG);
         
-        bmp= BitmapFactory.decodeFile(imgPath);
+        bitmap= BitmapFactory.decodeFile(imgPath);
         this.updateView();
     }
-    public void updateView(){
+    protected void updateView(){
     	
-    	this.imageView.setImageBitmap(bmp);
+    	this.imageView.setImageBitmap(bitmap);
     	
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	super.onActivityResult(requestCode, resultCode, data);
+    	  if (requestCode == 1) {
+
+    	     if(resultCode == RESULT_OK){      
+    	    	 this.bitmap= BitmapFactory.decodeFile(data.getStringExtra("imgPath"));
+    	    	 this.updateView();
+    	     }
+    	     if (resultCode == RESULT_CANCELED) {    
+    	         //Write your code on no result return 
+    	     }
+    	  }
+    	}//onActivityResult
 
     public void OnTakePhoto(View view)
 	{
 		Intent intent = new Intent(this, TakePhotosActivity.class);
 		intent.putExtra(EXTRA_URI, bundle.getLong(EXTRA_URI));
-        startActivity(intent);
+        startActivityForResult(intent, 1);
 	}
 
     public void OnGoBack(View View)

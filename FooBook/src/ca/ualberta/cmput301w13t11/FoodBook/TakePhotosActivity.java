@@ -28,6 +28,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	private long uri;
 	private ImageView imageView;
 	private Bitmap bitmap = null;
+	private String imgPath = null;
 	
 	//Here's where you choose external or internal image storage  
     //Change to 1 save pictures to the SD card, 
@@ -43,11 +44,14 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_take_photos);
+		
+		Intent intent = getIntent();
+		uri = intent.getLongExtra(EXTRA_URI, 0);
 		this.imageView = (ImageView)this.findViewById(R.id.imageView1);
 		this.updateView();
 		
 	}
-	public void updateView(){
+	protected void updateView(){
 		
 		if (bitmap!=null){
 			this.imageView.setImageBitmap(bitmap);
@@ -71,11 +75,22 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
             this.updateView();
         }  
 	}
+	// responds to button Go Back
 	public void OnGoBack(View View)
     {
-		// responds to button Go Back
-		// not sure if this is enough -Pablo 
-		 TakePhotosActivity.this.finish();
+		if (imgPath!=null){
+			Intent returnIntent = new Intent();
+			returnIntent.putExtra("imgPath", imgPath);
+			setResult(RESULT_OK,returnIntent);
+			Log.d("es", "yes");
+			finish();
+		}
+		else{
+			Intent returnIntent = new Intent();
+			setResult(RESULT_CANCELED, returnIntent);
+			Log.d("ghggh", "no");
+			finish();
+		}
     }
 	public void OnCapture(View View)
     {
@@ -97,7 +112,6 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 			String state = Environment.getExternalStorageState();
 
 			String timeStamp = String.valueOf(System.currentTimeMillis());
-			String imgPath = null;
 			boolean success = false;
 			boolean worked = false;
 
@@ -108,7 +122,6 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 					file = new File(imgPath);
 				}
 				else{
-
 					File dir = getDir(PICTURES_DIRECTORY, Context.MODE_PRIVATE);
 					file = new File(dir, timeStamp+".png");
 				} 		
@@ -125,7 +138,9 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 			if (success && worked) {
 				DbController DbC = DbController.getInstance(this, this);
 				Photo photo = new Photo(imgPath);
-				DbC.addPhotoToRecipe(photo, uri);	
+				DbC.addPhotoToRecipe(photo, uri);
+				//Log.d("recipeuri", Long.toString(uri));
+				//Log.d("image path", imgPath);
 				Toast.makeText(getApplicationContext(), "Image saved with success",
 						Toast.LENGTH_LONG).show();
 			} else {

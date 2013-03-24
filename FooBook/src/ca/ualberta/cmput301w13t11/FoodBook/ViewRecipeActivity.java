@@ -1,15 +1,9 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import java.util.ArrayList;
-
-import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
-import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
-import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
-import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
-import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 
 public class ViewRecipeActivity extends Activity implements FView<DbManager>
 {
@@ -42,16 +41,19 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		//String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
 		//long uri=Long.parseLong(URI);
 		uri = intent.getLongExtra(EXTRA_URI, 0);
-		
+		//Log.d("recipeuri", Long.toString(uri));
+
+		this.updateView();
+	}
+	public void updateView(){
 		DbController DbC = DbController.getInstance(this, this);
 		viewedRecipe = DbC.getUserRecipe(uri);
 		recipeName.setText(viewedRecipe.getTitle());
 		instructions.setText(viewedRecipe.getInstructions());
-		
 	}
-		
+
 	public void OnGotoMyRecipes(View View)
-    {
+	{
 		// responds to button Go Back
 		 Intent intent = new Intent(View.getContext(), MyRecipes.class);
 		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -73,6 +75,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
     {
 		// responds to button Edit Photos
     	Intent intent = new Intent(this, EditPhotos.class);
+    	intent.putExtra(EXTRA_URI, uri);
 		startActivity(intent);
     }
 	public void OnEmailRecipe (View View)
@@ -128,10 +131,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	@Override
 	public void update(DbManager db)
 	{
-		DbController DbC = DbController.getInstance(this, this);
-		viewedRecipe = DbC.getUserRecipe(uri);
-		recipeName.setText(viewedRecipe.getTitle());
-		instructions.setText(viewedRecipe.getInstructions());
+		this.updateView();
 	}
 
 	public void onDestroy()
