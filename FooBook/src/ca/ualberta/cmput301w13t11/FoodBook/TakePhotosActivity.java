@@ -5,10 +5,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,6 +29,14 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	private ImageView imageView;
 	private Bitmap bitmap = null;
 	
+	//Here's where you choose external or internal image storage  
+    //Change to 1 save pictures to the SD card, 
+    //Change to 0 to save to local folder 'Pictures' and use BogoPicGen
+	//Note that if an actual SD card is not installed, the capturing reverts to local save and BogoPicGen
+    protected static boolean SDCARD_INSTALLED = false;
+    
+    protected static String PICTURES_DIRECTORY = "Pictures";
+    
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -34,11 +44,14 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_take_photos);
 		this.imageView = (ImageView)this.findViewById(R.id.imageView1);
-		//this.updateView();
+		this.updateView();
 		
 	}
 	public void updateView(){
-		this.imageView.setImageBitmap(bitmap);
+		
+		if (bitmap!=null){
+			this.imageView.setImageBitmap(bitmap);
+		}
 	}
 
 	@Override
@@ -55,7 +68,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	     if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
             this.bitmap = (Bitmap) data.getExtras().get("data");
-
+            this.updateView();
         }  
 	}
 	public void OnGoBack(View View)
@@ -67,37 +80,60 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	public void OnCapture(View View)
     {
 		// responds to button Capture
-		
-		DbController DbC = DbController.getInstance(this, this);
-		if (DbC.isSDcardInstalled()){
-		Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+		if (SDCARD_INSTALLED){
+			Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+			startActivityForResult(cameraIntent, CAMERA_REQUEST);
 		}
 		else{
-		//If sd card not installed on vm, use BogoPicGen  
-		this.bitmap = BogoPicGen.generateBitmap(640, 480);
+			//If sd card not installed on vm, use BogoPicGen  
+			this.bitmap = BogoPicGen.generateBitmap(640, 480);
+			this.updateView();
 		}
-		this.updateView();
-
     }
 	public void OnSavePhoto (View View)
-    {
+	{
 		// responds to button Save Photo
 		if (bitmap!=null){
-			
-			DbController DbC = DbController.getInstance(this, this);
-			
-			boolean success = DbC.addPhotoToRecipe(bitmap, uri);
-			if (success) {	
+			String state = Environment.getExternalStorageState();
+
+			String timeStamp = String.valueOf(System.currentTimeMillis());
+			String imgPath = null;
+			boolean success = false;
+			boolean worked = false;
+
+			try {
+				File file;
+				if (SDCARD_INSTALLED && Environment.MEDIA_MOUNTED.equals(state)){
+					imgPath = Environment.getExternalStorageDirectory()+File.separator+timeStamp+".png";
+					file = new File(imgPath);
+				}
+				else{
+
+					File dir = getDir(PICTURES_DIRECTORY, Context.MODE_PRIVATE);
+					file = new File(dir, timeStamp+".png");
+				} 		
+				FileOutputStream outStream = new FileOutputStream(file);
+				worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
+				outStream.flush();
+				outStream.close();
+				success = true;
+				imgPath = file.getAbsolutePath();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  
+			if (success && worked) {
+				DbController DbC = DbController.getInstance(this, this);
+				Photo photo = new Photo(imgPath);
+				DbC.addPhotoToRecipe(photo, uri);	
 				Toast.makeText(getApplicationContext(), "Image saved with success",
 						Toast.LENGTH_LONG).show();
 			} else {
 				Toast.makeText(getApplicationContext(),
 						"Error during image saving", Toast.LENGTH_LONG).show();
-			}
-        
+			} 
 		}
-    }
+	}
 
 	@Override
 	public void update(DbManager db)

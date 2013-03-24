@@ -12,10 +12,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -55,51 +55,15 @@ public class EditPhotos extends Activity implements FView<DbManager>
 		//String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
 		//long uri=Long.parseLong(URI);
 		uri = intent.getLongExtra(EXTRA_URI, 0);
+
 		this.updateView();
 	}
-	protected void updateView(){
+	protected void updateView(){	
+		
 		DbController DbC = DbController.getInstance(this, this);
 		photos = DbC.getRecipePhotos(uri);
-		
-		//btnMoreInfo = (Button) findViewById(R.id.btnMoreInfo);
-	    // It have to be matched with the directory in SDCard
-	    //cc = this.getContentResolver().query(
-	            //MediaStore.Images.Media.EXTERNAL_CONTENT_URI, null, null, null,
-	            //null);
-
-	    // File[] files=f.listFiles();
 	    if (!photos.isEmpty()) {
-	    	/*
-	        myProgressDialog = new ProgressDialog(EditPhotos.this);
-	        myProgressDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-	        myProgressDialog.setMessage(getResources().getString(R.string.pls_wait_txt));
-	        //myProgressDialog.setIcon(R.drawable.blind);
-	        myProgressDialog.show();
-	        
-	        new Thread() {
-	            public void run() {
-	                try {
-	                	
-	                }
-	                    cc.moveToFirst();
-	                    mUrls = new Uri[cc.getCount()];
-	                    strUrls = new String[cc.getCount()];
-	                    mNames = new String[cc.getCount()];
-	                    for (int i = 0; i < cc.getCount(); i++) {
-	                        cc.moveToPosition(i);
-	                        mUrls[i] = Uri.parse(cc.getString(1));
-	                        strUrls[i] = cc.getString(1);
-	                        mNames[i] = cc.getString(3);
-	                        //Log.e("mNames[i]",mNames[i]+":"+cc.getColumnCount()+ " : " +cc.getString(3));
-	                    }
-	                    
-	                	
-	                } catch (Exception e) {
-	                }
-	                myProgressDialog.dismiss();
-	            }
-	        }.start();
-	        */
+	    
 	    gridview = (GridView) findViewById(R.id.gridView1);
 	    gridview.setAdapter(new ImageAdapter(this));
 	    
@@ -118,19 +82,7 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	            startActivity(i);
 	        }
 	    });
-	
 	    }
-	    /*
-	    btnMoreInfo.setOnClickListener(new OnClickListener() {
-
-	        @Override
-	        public void onClick(View v) {
-	            // TODO Auto-generated method stub
-	            Intent i = new Intent(GalleryPage.this, ChildLogin.class);
-	            startActivity(i);
-	        }
-	    });
-	    */
 	}
 
 
@@ -170,8 +122,9 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	            //imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 	            // imageView.setPadding(8, 8, 8, 8);
 	            //Bitmap bmp = decodeURI(mUrls[position].getPath());
-
+	            String name = photos.get(position).getName();
 	            Bitmap bmp = decodeURI(photos.get(position).getName());
+	            Log.d("name", name);
 	            //BitmapFactory.decodeFile(mUrls[position].getPath());
 	            imageView.setImageBitmap(bmp);
 	            //bmp.
@@ -183,14 +136,15 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	        return v;
 	    }
 	}
-	/*
+	
 	@Override
 	protected void onStart() {
 	    // TODO Auto-generated method stub
 	    super.onStart();
-	    FlurryAgent.onStartSession(this, "LPJJF9WYENDWYXXTEUDM");
+	    updateView();
+	    //FlurryAgent.onStartSession(this, "LPJJF9WYENDWYXXTEUDM");
 	}
-	*/
+	
 	// @Override
 	// protected void onStop() {
 	// TODO Auto-generated method stub

@@ -22,7 +22,6 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 	private Bundle bundle;
 	private ImageView imageView = null;
 	private Bitmap bmp = null;
-	private String filePath;
 
 	
     @Override
@@ -34,21 +33,17 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
         
         Intent intent = getIntent();
         bundle = intent.getExtras();
-        String imgFileName = bundle.getString(EXTRA_IMG);
+        String imgPath = bundle.getString(EXTRA_IMG);
         
-        //filePath = new String(Environment.getExternalStorageDirectory()+File.separator+imgName);
-        //Log.d("file", filePath);
-        bmp= BitmapFactory.decodeFile(imgFileName);
+        bmp= BitmapFactory.decodeFile(imgPath);
         this.updateView();
     }
     public void updateView(){
-    		
+    	
     	this.imageView.setImageBitmap(bmp);
-    	if (bmp==null)
-    	Log.d("file", filePath);
+    	
     }
-	
-	
+
     public void OnTakePhoto(View view)
 	{
 		Intent intent = new Intent(this, TakePhotosActivity.class);

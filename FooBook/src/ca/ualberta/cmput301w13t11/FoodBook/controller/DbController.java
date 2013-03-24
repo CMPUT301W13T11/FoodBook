@@ -69,14 +69,6 @@ public class DbController {
     public void deleteView(FView<DbManager> view) {
         db.deleteView(view);
     }
-    // Need this -Pablo
-    /* *****************************************************************
-    USE THIS METHOD TO DETECT IF THERE IS AN SD CARD INSTALLED
-   ********************************************************************* */
-    public boolean isSDcardInstalled(){
-    	
-    	return db.isSDcardInstalled();
-    }
     
     /* *****************************************************************
     USE THESE METHODS FOR ADDING, EDITING, RETRIEVING, AND DELETING
@@ -137,11 +129,10 @@ public class DbController {
      * @param photo The photo to add to the given Recipe.
      * @param recipe The Recipe to which the photo is to be added.
      */
-    public boolean addPhotoToRecipe(Bitmap bitmap, long uri)
+    public void addPhotoToRecipe(Photo photo, long uri)
     {
-    	Boolean success = db.insertRecipePhotos(bitmap, uri);
+    	db.insertRecipePhotos(photo, uri);
     	db.notifyViews();
-    	return success;
     }
     /**
      * @return Returns an ArrayList of Photos for a given recipe
