@@ -152,7 +152,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 			updateView();
 		}
     }
-	public void OnCaptureNo(View View)
+	public void OnCapture(View View)
     {
 	
 		// responds to button Capture
