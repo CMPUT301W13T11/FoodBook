@@ -118,11 +118,10 @@ public class DbController {
     	db.insertRecipeIngredients(ingredient, recipe.getUri());
     	db.notifyViews();
     }
-    
-    // I've been here -Pablo
+   
     
     /* *****************************************************************
-    USE THESE METHODS FOR RETRIEVING/SAVING PHOTOS TO RECIPES
+    USE THESE METHODS FOR RETRIEVING/SAVING/DELETING PHOTOS TO RECIPES
    ********************************************************************* */
     /**
      * Associates the Photo argument correctly with the given Recipe in the database.
@@ -139,6 +138,12 @@ public class DbController {
      */
     public ArrayList<Photo> getRecipePhotos(long uri) {
     	return db.getRecipePhotos(uri);
+    }
+    
+    public void deleteRecipePhoto(Photo photo, long uri)
+    {
+    	db.removeRecipePhoto(photo, uri);
+    	db.notifyViews();
     }
 
     /* *****************************************************************

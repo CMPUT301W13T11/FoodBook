@@ -208,6 +208,11 @@ public class DbManager extends FModel<FView> {
     	return cursorToPhotos(cursor);
     }
     
+    //method to delete photo -Pablo
+    public void removeRecipePhoto(Photo photo, long uri) {
+    	db.rawQuery("Delete From RecipePhotos Where recipeUri = " + uri + " and filename = " + photo.getName(), null);
+    	
+    }
     /**
      * Given a cursor, convert it to an ArrayList of Ingredients.
      * @param cursor The cursor over which we will iterate to get ingredients from.

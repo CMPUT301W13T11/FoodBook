@@ -5,18 +5,19 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 
 public class FullImageEditPhotosActivity extends Activity implements FView<DbManager>{
 
 	static final String EXTRA_URI = "extra_uri";
 	static final String EXTRA_IMG = "extra_img";
-	private Bundle bundle;
+	private String imgPath = null;
+	private Long uri;
 	private ImageView imageView = null;
 	private Bitmap bitmap = null;
 
@@ -29,9 +30,9 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
         super.onCreate(savedInstanceState);
         
         Intent intent = getIntent();
-        bundle = intent.getExtras();
-        String imgPath = bundle.getString(EXTRA_IMG);
-        
+        Bundle bundle = intent.getExtras();
+        imgPath = bundle.getString(EXTRA_IMG);
+        uri = bundle.getLong(EXTRA_URI);
         bitmap= BitmapFactory.decodeFile(imgPath);
         this.updateView();
     }
@@ -58,7 +59,7 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
     public void OnTakePhoto(View view)
 	{
 		Intent intent = new Intent(this, TakePhotosActivity.class);
-		intent.putExtra(EXTRA_URI, bundle.getLong(EXTRA_URI));
+		intent.putExtra(EXTRA_URI, uri);
         startActivityForResult(intent, 1);
 	}
 
@@ -67,6 +68,14 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 		// responds to button Go Back
 		// not sure if this is enough -Pablo 
 		 FullImageEditPhotosActivity.this.finish();
+    }
+    public void OnDeletePhoto(View View)
+    {
+		// responds to button Go Back
+		DbController DbC = DbController.getInstance(this, this);
+		Photo photo = new Photo(imgPath);
+		DbC.deleteRecipePhoto(photo, uri);
+		FullImageEditPhotosActivity.this.finish();
     }
 
 	@Override

@@ -29,6 +29,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	private ImageView imageView;
 	private Bitmap bitmap = null;
 	private String imgPath = null;
+	private String state = Environment.getExternalStorageState();
 	
 	//Here's where you choose external or internal image storage  
     //Change to 1 save pictures to the SD card, 
@@ -95,7 +96,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	public void OnCapture(View View)
     {
 		// responds to button Capture
-		if (SDCARD_INSTALLED){
+		if (SDCARD_INSTALLED && Environment.MEDIA_MOUNTED.equals(state)){
 			Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 			startActivityForResult(cameraIntent, CAMERA_REQUEST);
 		}
@@ -109,7 +110,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	{
 		// responds to button Save Photo
 		if (bitmap!=null){
-			String state = Environment.getExternalStorageState();
+			
 
 			String timeStamp = String.valueOf(System.currentTimeMillis());
 			boolean success = false;

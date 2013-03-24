@@ -57,10 +57,9 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 	    gridview.setOnItemClickListener(new OnItemClickListener() {
 	        public void onItemClick(AdapterView<?> parent, View v,
 	                int position, long id) {
-	            Intent i = new Intent(ViewPhotosActivity.this, FullImageEditPhotosActivity.class);
+	            Intent i = new Intent(ViewPhotosActivity.this, FullImageViewPhotosActivity.class);
 	            //Log.e("intent : ", ""+position);
 	            i.putExtra("EXTRA_IMG", photos.get(position).getName());
-
 	            startActivity(i);
 	        }
 	    });
@@ -163,7 +162,6 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 	public void OnGoBack(View View)
     {
 		// responds to button Go Back
-		// not sure if this is enough -Pablo 
 		 ViewPhotosActivity.this.finish();
     }
 	
