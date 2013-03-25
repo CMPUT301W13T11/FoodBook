@@ -106,15 +106,10 @@ public class DbController {
      */
     public boolean deleteRecipe(Recipe recipe)
     {	
-    	
-    	//Adjusted this so recipes could be deleted
-    	//recipesManager.deleteRecipe(recipe);
-    	//db.notifyViews();
     	Log.d("are we here as well", "are we here as well");
-    	boolean success = db.removeRecipe(recipe);
+    	boolean success = recipesManager.removeRecipe(recipe);
     	db.notifyViews();
     	return success;
-    	
     }
 
     /**
@@ -124,7 +119,7 @@ public class DbController {
      */
     public void addIngredientToRecipe(Ingredient ingredient, Recipe recipe)
     {
-    	db.insertRecipeIngredients(ingredient, recipe.getUri());
+    	recipesManager.insertRecipeIngredients(ingredient, recipe.getUri());
     	db.notifyViews();
     }
    
@@ -139,7 +134,7 @@ public class DbController {
      */
     public void addPhotoToRecipe(Photo photo, long uri)
     {
-    	db.insertRecipePhotos(photo, uri);
+    	recipesManager.insertRecipePhotos(photo, uri);
     	db.notifyViews();
     }
     /**
@@ -151,7 +146,7 @@ public class DbController {
     
     public boolean deleteRecipePhoto(Photo photo)
     {
-    	boolean success = db.removeRecipePhoto(photo);
+    	boolean success = recipesManager.removeRecipePhoto(photo);
     	db.notifyViews();
     	return success;
     }
