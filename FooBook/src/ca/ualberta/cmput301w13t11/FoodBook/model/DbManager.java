@@ -31,6 +31,10 @@ public class DbManager extends FModel<FView> {
     // name of database file
     private String dbFileName = "RecipeApplicationDb";
     
+    // overwritten by subclasses
+    protected String ingredsTable;
+    protected String photosTable;
+    
 
     /**
      * Protected constructor because we're using the singleton pattern.
@@ -103,7 +107,7 @@ public class DbManager extends FModel<FView> {
     public void insertRecipeIngredients(Ingredient ingred, long recipeURI) {
         ContentValues values = ingred.toContentValues();
         values.put("recipeURI", recipeURI);
-        db.insert("RecipeIngredients", null, values);
+        db.insert(this.ingredsTable, null, values);
     }
    
     /**
@@ -117,7 +121,7 @@ public class DbManager extends FModel<FView> {
     	values.put("recipeURI", recipeURI);
     	values.put("id", photo.getId());
     	values.put("path", photo.getPath());
-    	db.insert("RecipePhotos", null, values);
+    	db.insert(this.photosTable, null, values);
     }
 
     /**

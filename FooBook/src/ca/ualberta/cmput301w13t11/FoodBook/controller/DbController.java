@@ -48,6 +48,7 @@ public class DbController {
     	db = DbManager.getInstance(context);
     	recipesManager = RecipesDbManager.getInstance(context);
     	ingredsManager = IngredientsDbManager.getInstance(context);
+    	resultsManager = ResultsDbManager.getInstance(context);
     }
         
     /**
@@ -163,7 +164,7 @@ public class DbController {
      * @return Returns an ArrayList containing all the Recipes stored from search
      */
     public ArrayList<Recipe> getStoredRecipes() {
-    	return db.getRecipes(getResultRecipesSQL);
+    	return resultsManager.getRecipes(getResultRecipesSQL);
     }
     
     /* *****************************************************************

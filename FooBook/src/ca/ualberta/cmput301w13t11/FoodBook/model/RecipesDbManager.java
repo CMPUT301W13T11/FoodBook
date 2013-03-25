@@ -16,6 +16,8 @@ public class RecipesDbManager extends DbManager {
 	
 	private static RecipesDbManager instance = null;
 	protected String recipesTable = "UserRecipes";
+	protected String ingredsTable = "RecipeIngredients";
+	protected String photosTable = "RecipePhotos";
 	private String getUserRecipesSQL = "SELECT * FROM " + recipesTable;
 
 	public RecipesDbManager(Context context)

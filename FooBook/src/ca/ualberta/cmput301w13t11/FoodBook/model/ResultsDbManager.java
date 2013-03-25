@@ -14,6 +14,8 @@ public class ResultsDbManager extends DbManager {
 	
 	private static ResultsDbManager instance = null;
 	protected String resultsTable = "ResultsRecipes";
+	protected String ingredsTable = "ResultsIngredients";
+	protected String photosTable = "ResultsPhotos";
 	private String getSQL = "SELECT * FROM " + resultsTable;
 	
 	public ResultsDbManager(Context context)
