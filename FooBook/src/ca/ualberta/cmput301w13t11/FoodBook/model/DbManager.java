@@ -88,9 +88,9 @@ public class DbManager extends FModel<FView> {
 	 * @param recipe The Recipe to be stor2 saves pics to ed in the table.
 	 * @param The name of the table into which the recipe is to be stored.
 	 */
-	public void insertRecipe(Recipe recipe, String tableName) {
+	public void insertRecipe(Recipe recipe) {
 	    ContentValues values = recipe.toContentValues();
-	    db.insert(tableName, null, values);
+	    db.insert(recipesTable, null, values);
 	    for (Ingredient ingred : recipe.getIngredients()) {
 	        insertRecipeIngredients(ingred, recipe.getUri());
 	    }
@@ -155,43 +155,43 @@ public class DbManager extends FModel<FView> {
         ArrayList<Recipe> recipes = new ArrayList<Recipe>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            long uri = cursor.getLong(0);
-            User author = new User(cursor.getString(2));
-            String title = cursor.getString(1);
-            String instructions = cursor.getString(3);
-            ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
-            ArrayList<Photo> photos = getRecipePhotos(uri);
-            Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, photos);
+            Recipe recipe = createRecipe(cursor);
             recipes.add(recipe);
             cursor.moveToNext();
         }
         return recipes;
     }
-    // This is the aux.function to getUserRecipe -Pablo
+
     /**
-    * Given a cursor, convert it to an ArrayList of Recipes.
-    * @param cursor The cursor over which we will iterate to get recipes from.
-    * @return An ArrayList of Recipes.
+    * Given a cursor, convert it to a Recipe.
+    * @param cursor The cursor which we will get recipe from.
+    * @return A Recipe.
     */
    protected Recipe cursorToRecipe(Cursor cursor) {
- 
        cursor.moveToFirst();
-
-       long uri = cursor.getLong(0);
-       User author = new User(cursor.getString(2));
-       String title = cursor.getString(1);
-       String instructions = cursor.getString(3);
-       ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
-       ArrayList<Photo> photos = getRecipePhotos(uri);
-       Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, photos);
+       Recipe recipe = createRecipe(cursor);
 
        if (cursor.getCount()!=0) {
     	   //print error message here
        }
        return recipe;
    }
-   // --- 
     
+   /**
+   * Given a cursor, convert it to an ArrayList of Recipes.
+   * @param cursor The cursor over which we will iterate to get recipes from.
+   * @return An ArrayList of Recipes.
+   */
+   protected Recipe createRecipe(Cursor cursor) {
+	   long uri = cursor.getLong(0);
+       User author = new User(cursor.getString(2));
+       String title = cursor.getString(1);
+       String instructions = cursor.getString(3);
+       ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
+       ArrayList<Photo> photos = getRecipePhotos(uri);
+       return new Recipe(uri, author, title, instructions, ingredients, photos);
+   }
+   
     
     /**
      * Gets all the Ingredients associated with the recipe identified by its URI.
@@ -199,7 +199,7 @@ public class DbManager extends FModel<FView> {
      * @return An ArrayList of the Ingredients associated with the recipe.
      */
     protected ArrayList<Ingredient> getRecipeIngredients(long uri) {
-    	Cursor cursor = db.rawQuery("Select * From RecipeIngredients Where recipeURI = " + uri, null);
+    	Cursor cursor = db.rawQuery("Select * From " + ingredsTable + " Where recipeURI = " + uri, null);
     	return cursorToIngredients(cursor);
     }
     
@@ -208,10 +208,8 @@ public class DbManager extends FModel<FView> {
      * @param uri The URI of the recipe whose photos we are fetching.
      * @return An ArrayList of the Photos associated with the recipe.
      */
-    // Changed to public so that we can retrieve just photos for galleries -Pablo
-    //protected ArrayList<Photo> getRecipePhotos(long uri) {
     public ArrayList<Photo> getRecipePhotos(long uri) {
-    	Cursor cursor = db.rawQuery("Select * From RecipePhotos Where recipeURI = " + uri, null);
+    	Cursor cursor = db.rawQuery("Select * From " + photosTable + " Where recipeURI = " + uri, null);
     	return cursorToPhotos(cursor);
     }
     

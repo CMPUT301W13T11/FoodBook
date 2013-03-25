@@ -52,7 +52,7 @@ public class ResultsDbManager extends DbManager {
 	public void storeRecipes(ArrayList<Recipe> recipes) {
 	    db.delete(recipesTable, null, null);
 	    for (Recipe recipe : recipes) {
-	        insertRecipe(recipe, recipesTable);
+	        insertRecipe(recipe);
 	    }
 	    notifyViews();
 	}
