@@ -22,7 +22,11 @@ public class ServerPhoto {
 	public ServerPhoto(Photo photo)
 	{
 		this.id = photo.getId();
-		this.encoded_bitmap = new String(Base64.encode(photo.getBitData(), Base64.DEFAULT));
+		if (photo.getBitData() != null) {
+			this.encoded_bitmap = new String(Base64.encode(photo.getBitData(), Base64.DEFAULT));
+		}
+		else
+			this.encoded_bitmap = null;
 	}
 
 	/**
@@ -32,8 +36,12 @@ public class ServerPhoto {
 	 */
 	public static Photo toPhoto(ServerPhoto sp)
 	{
-		byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);
-		return new Photo(sp.getId(), data);
+		if (sp.encoded_bitmap != null) {
+			byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);
+			return new Photo(sp.getId(), data);
+		}
+		byte[] d = null;
+		return new Photo(sp.getId(), d);
 	}
 	
 	/**

@@ -418,7 +418,7 @@ public class DbManager extends FModel<FView> {
 		}
 		ArrayList<Photo> fullPhotos = new ArrayList<Photo>();
 	    Options options = new Options();
-	    options.inJustDecodeBounds = true;
+	    options.inJustDecodeBounds = false;
 		for (int i = 0; i < photos.size(); i++)
 		{
 			Photo temp = photos.get(i);

@@ -225,7 +225,12 @@ public class ServerClient {
 
 		}
 		
-		/* TODO: stores these results in the "SearchResults" db and notify that db's views. */
+		dbManager = ResultsDbManager.getInstance();
+		if (dbManager == null)
+		{
+			logger.log(Level.SEVERE, "ResultsDbManager null!!!");
+			return ReturnCode.ERROR;
+		}
 		dbManager.storeRecipes(search_results);
 		logger.log(Level.SEVERE, "GOT RESULTS");
 		logger.log(Level.SEVERE, "First result: " + search_results.get(0).getTitle());
@@ -307,6 +312,11 @@ public class ServerClient {
 		}
 		
 		/* Else, our search returned results; we write them to the Results Db and return success code. */
+		dbManager = ResultsDbManager.getInstance();
+		if (dbManager == null)
+		{
+			return ReturnCode.ERROR;
+		}
 		dbManager.storeRecipes(search_results);
 		return ReturnCode.SUCCESS;
 	}
