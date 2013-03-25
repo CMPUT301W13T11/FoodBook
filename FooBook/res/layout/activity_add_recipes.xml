@@ -85,16 +85,17 @@
             android:lines="5" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
             <Button
                 android:id="@+id/edit_photos"
                 style="@style/BlueButton"
                 android:layout_width="wrap_content"
-                android:layout_marginRight="10dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
                 android:onClick="OnEditPhotos"
                 android:text="@string/edit_photos"
                 android:textSize="18sp" />
@@ -102,10 +103,10 @@
             <Button
                 android:id="@+id/edit_ingredients"
                 style="@style/BlueButton"
-                android:layout_marginLeft="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:layout_weight="1"
                 android:onClick="OnEditIngredients"
                 android:text="@string/edit_ingredients"
                 android:textSize="18sp" />

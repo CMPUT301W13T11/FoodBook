@@ -1,10 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
-import java.util.ArrayList;
-
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
+import android.util.Log;
 
 /**
  * Implements the functionality required to manage the table of Recipes for the application.
@@ -53,8 +50,18 @@ public class RecipesDbManager extends DbManager {
 	 * Deletes the given Recipe from the database.
 	 * @param recipe The Recipe to be deleted.
 	 */
+	
+	//something's going here! Im bypassing this in dbController -pablo
+	/*
 	public void deleteRecipe(Recipe recipe) {
-	    db.delete(recipesTable, "URI = " + recipe.getUri(), null);
+		try{
+		//String s = Long.toString(recipe.getUri());
+		//Log.d("uri in String", s);
+	    int r = db.delete("UserRecipes", "URI = " + recipe.getUri(), null);
+	    //s = Integer.toString(r);
+	    //Log.d("results", s);
+		}catch(Exception e){e.printStackTrace();};
 	}
+	*/
         
 }

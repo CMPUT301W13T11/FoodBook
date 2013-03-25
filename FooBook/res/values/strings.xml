@@ -63,6 +63,9 @@
     <string name="title_activity_full_image_edit_photos">FullImageEditPhotosActivity</string>
     <string name="title_activity_full_image_view_photos">FullImageViewPhotosActivity</string>
     <color name="black">#FF000000</color>
+    <string name="popup_msg">Popup Message</string>
+    <string name="are_you_sure_delete_recipe">Are you sure you want to delete the recipe?</string>
+    <string name="popup_fadeout">Popup fadeout</string>
 
 
 </resources>

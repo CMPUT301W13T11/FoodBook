@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
@@ -102,10 +103,17 @@ public class DbController {
      * Deletes the given Recipe from the database.
      * @param recipe The recipe to delete.
      */
-    public void deleteRecipe(Recipe recipe)
-    {
-    	recipesManager.deleteRecipe(recipe);
+    public boolean deleteRecipe(Recipe recipe)
+    {	
+    	
+    	//Adjusted this so recipes could be deleted
+    	//recipesManager.deleteRecipe(recipe);
+    	//db.notifyViews();
+    	Log.d("are we here as well", "are we here as well");
+    	boolean success = db.removeRecipe(recipe);
     	db.notifyViews();
+    	return success;
+    	
     }
 
     /**

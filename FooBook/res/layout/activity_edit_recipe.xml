@@ -1,4 +1,5 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
@@ -78,7 +79,7 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/edit_photos"
             style="@style/BlueButton"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
@@ -89,13 +90,13 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/edit_ingredients"
             style="@style/BlueButton"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="OnIngredients"
-            android:text="@string/ingredients"
+            android:onClick="OnEditIngredients"
+            android:text="@string/edit_ingredients"
             android:textSize="18sp" />
 
     </LinearLayout>
@@ -105,7 +106,7 @@
         android:layout_height="wrap_content" >
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/save_changes"
             style="@style/GreenButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -116,7 +117,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/delete_recipe"
             style="@style/OrangeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -128,7 +129,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/return_to_recipe"
         style="@style/OrangeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -140,7 +141,7 @@
         android:id="@+id/darkenScreen"
         android:layout_height="0dp"
         android:layout_width="0dp"
-        android:contentDescription = "Popup Fade out"
+        android:contentDescription = "@+id/popup_fadeout"
         android:src="@drawable/trans_black" />
  </FrameLayout>
 
