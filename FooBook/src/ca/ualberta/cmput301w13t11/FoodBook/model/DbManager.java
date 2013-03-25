@@ -2,16 +2,15 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.os.Environment;
 import android.util.Log;
 /**
@@ -84,8 +83,8 @@ public class DbManager extends FModel<FView> {
     
 	/**
 	 * Inserts a recipe into the table.
-	 * @param recipe The Recipe to be stor2 saves pics to ed in the table.
-	 * @param The name of the table into which the recipe is to be stored.
+	 * @param recipe The Recipe to be stored.
+	 * @param tableName The name of the table into which the recipe is to be stored.
 	 */
 	public void insertRecipe(Recipe recipe, String tableName) {
 	    ContentValues values = recipe.toContentValues();
@@ -94,13 +93,11 @@ public class DbManager extends FModel<FView> {
 	        insertRecipeIngredients(ingred, recipe.getUri());
 	    }
 
-	    /*
-	     * The section below is commented until a few things get sorted out.
-	     * 
+	
 	    for (Photo photo : recipe.getPhotos()) {
 	        insertRecipePhotos(photo, photo.getPhotoBitmap(), recipe.getUri());
 	    }
-	    */
+	    
 	}
     
     /**
@@ -129,7 +126,6 @@ public class DbManager extends FModel<FView> {
     	}
     	
     	/* Else, we can safely place the photo information into the database. */
-    	
     	ContentValues values = new ContentValues();
     	values.put("recipeURI", recipeURI);
     	values.put("id", photo.getId());
@@ -147,7 +143,8 @@ public class DbManager extends FModel<FView> {
 	    Cursor cursor = db.rawQuery(query, null);
 	    return cursorToRecipes(cursor);
 	}
-	// Added this so we can fetch a recipe with its uri. -Pablo
+
+	
 	/**
 	 * Returns Recipe stored in the table, given recipe's uri
 	 * @return ARecipes stored in the table.
@@ -156,7 +153,6 @@ public class DbManager extends FModel<FView> {
 	    Cursor cursor = db.rawQuery(query, null);
 	    return cursorToRecipe(cursor);
 	}
-	//---
     
     /**
      * Given a cursor, convert it to an ArrayList of Recipes.
@@ -173,15 +169,17 @@ public class DbManager extends FModel<FView> {
             String instructions = cursor.getString(3);
             ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
             ArrayList<Photo> photos = getRecipePhotos(uri);
-            Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, photos);
+            ArrayList<Photo> fullPhotos = getFullPhotos(photos);
+            Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, fullPhotos);
             recipes.add(recipe);
             cursor.moveToNext();
         }
         return recipes;
     }
-    // This is the aux.function to getUserRecipe -Pablo
+
+
     /**
-    * Given a cursor, convert it to an ArrayList of Recipes.
+    * Given a cursor, convert it to a Recipe.
     * @param cursor The cursor over which we will iterate to get recipes from.
     * @return An ArrayList of Recipes.
     */
@@ -195,7 +193,8 @@ public class DbManager extends FModel<FView> {
        String instructions = cursor.getString(3);
        ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
        ArrayList<Photo> photos = getRecipePhotos(uri);
-       Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, photos);
+       ArrayList<Photo> fullPhotos = getFullPhotos(photos);
+       Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, fullPhotos);
 
        if (cursor.getCount()!=0) {
     	   //print error message here
@@ -372,6 +371,62 @@ public class DbManager extends FModel<FView> {
 
     	return (success && worked);
     }
+    
+	/**
+	 * TODO: better documentation for this function
+	 * Returns a scaled down version of the image defined by filePath.
+	 * @param Where the photo can be found.
+	 * @return A scaled down version of the photo.
+	 */
+	public Bitmap decodeURI(String filePath){
+
+	    Options options = new Options();
+	    options.inJustDecodeBounds = true;
+	    BitmapFactory.decodeFile(filePath, options);
+
+	    // Only scale if we need to 
+	    // (16384 buffer for img processing)
+	    Boolean scaleByHeight = Math.abs(options.outHeight - 100) >= Math.abs(options.outWidth - 100);
+	    if(options.outHeight * options.outWidth * 2 >= 16384){
+	        // Load, scaling to smallest power of 2 that'll get it <= desired dimensions
+	        double sampleSize = scaleByHeight
+	            ? options.outHeight / 100
+	            : options.outWidth / 100;
+	        options.inSampleSize = 
+	            (int)Math.pow(2d, Math.floor(
+	            Math.log(sampleSize)/Math.log(2d)));
+	    }
+
+	    // Do the actual decoding
+	    options.inJustDecodeBounds = false;
+	    options.inTempStorage = new byte[512];  
+	    Bitmap output = BitmapFactory.decodeFile(filePath, options);
+
+	    return output;
+	}
+	
+	/**
+	 * Given the ArrayList of a photos with only an id and a pathname, returns a list of photos
+	 * with a byte_array as well.
+	 * @param photos
+	 * @return
+	 */
+	private ArrayList<Photo> getFullPhotos(ArrayList<Photo> photos)
+	{
+		if (photos == null || photos.isEmpty()) {
+			return new ArrayList<Photo>();
+		}
+		ArrayList<Photo> fullPhotos = new ArrayList<Photo>();
+	    Options options = new Options();
+	    options.inJustDecodeBounds = true;
+		for (int i = 0; i < photos.size(); i++)
+		{
+			Photo temp = photos.get(i);
+			Photo fullPhoto = new Photo(temp.getId(), temp.getPath(), BitmapFactory.decodeFile(temp.getPath(), options));
+			fullPhotos.add(fullPhoto);
+		}
+		return fullPhotos;
+	}
 }
 
 

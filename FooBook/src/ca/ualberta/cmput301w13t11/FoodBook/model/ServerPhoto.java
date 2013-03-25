@@ -14,16 +14,15 @@ import android.util.Base64;
 public class ServerPhoto {
 
 	private String id;
-	//private String path;
-	
+	private String path;
+	private String encoded_bitmap;
 	/**
 	 *  Constructor - turns the given photo into a photo that can be written to the server.
 	 */
 	public ServerPhoto(Photo photo)
 	{
 		this.id = photo.getId();
-		//this.path = photo.getPath();
-		//this.encoded_bitmap = new String(Base64.encode(photo.getBitData(), Base64.DEFAULT));
+		this.encoded_bitmap = new String(Base64.encode(photo.getBitData(), Base64.DEFAULT));
 	}
 
 	/**
@@ -33,9 +32,8 @@ public class ServerPhoto {
 	 */
 	public static Photo toPhoto(ServerPhoto sp)
 	{
-		//byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);
-		//return new Photo(sp.getName(), data);
-				return new Photo(sp.getId());
+		byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);
+		return new Photo(sp.getId(), data);
 	}
 	
 	/**
@@ -48,11 +46,10 @@ public class ServerPhoto {
 
 
 	/**
-	 * 
 	 * @return the Base64 String encoding the bitmap of the original image.
 	 */
-	//public String getEncodedBitmap() {
-		//return encoded_bitmap;
-	//}
+	public String getEncodedBitmap() {
+		return encoded_bitmap;
+	}
 }
 
