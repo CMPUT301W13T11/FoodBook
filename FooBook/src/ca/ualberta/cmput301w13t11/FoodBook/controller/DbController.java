@@ -81,14 +81,14 @@ public class DbController {
      * @return Returns an ArrayList containing all the Recipes the user has stored on their device.
      */
     public ArrayList<Recipe> getUserRecipes() {
-    	return db.getRecipes(getUserRecipesSQL);
+    	return recipesManager.getRecipes();
     }
+    
     /**
      * @return Returns a Recipe the user has stored on their device, given recipe uri
      */
     public Recipe getUserRecipe(long uri) {
-    	String query = new String("SELECT * FROM " + UserRecipes + " WHERE URI = " + uri);
-    	return db.getRecipe(query);
+    	return recipesManager.getRecipe(uri);
     }
 
     /**
@@ -164,7 +164,7 @@ public class DbController {
      * @return Returns an ArrayList containing all the Recipes stored from search
      */
     public ArrayList<Recipe> getStoredRecipes() {
-    	return resultsManager.getRecipes(getResultRecipesSQL);
+    	return resultsManager.getRecipes();
     }
     
     /* *****************************************************************

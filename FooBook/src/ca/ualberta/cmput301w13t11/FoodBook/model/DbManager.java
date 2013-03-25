@@ -32,8 +32,10 @@ public class DbManager extends FModel<FView> {
     private String dbFileName = "RecipeApplicationDb";
     
     // overwritten by subclasses
+    protected String recipesTable;
     protected String ingredsTable;
     protected String photosTable;
+    protected String getSQL;
     
 
     /**
@@ -107,7 +109,7 @@ public class DbManager extends FModel<FView> {
     public void insertRecipeIngredients(Ingredient ingred, long recipeURI) {
         ContentValues values = ingred.toContentValues();
         values.put("recipeURI", recipeURI);
-        db.insert(this.ingredsTable, null, values);
+        db.insert(ingredsTable, null, values);
     }
    
     /**
@@ -121,15 +123,15 @@ public class DbManager extends FModel<FView> {
     	values.put("recipeURI", recipeURI);
     	values.put("id", photo.getId());
     	values.put("path", photo.getPath());
-    	db.insert(this.photosTable, null, values);
+    	db.insert(photosTable, null, values);
     }
 
     /**
      * Returns an ArrayList of all the Recipes stored in the table.
 	 * @return An ArrayList of all the Recipes stored in the table.
 	 */
-	public ArrayList<Recipe> getRecipes(String query) {
-	    Cursor cursor = db.rawQuery(query, null);
+	public ArrayList<Recipe> getRecipes() {
+	    Cursor cursor = db.rawQuery(getSQL, null);
 	    return cursorToRecipes(cursor);
 	}
 	// Added this so we can fetch a recipe with its uri. -Pablo
@@ -137,7 +139,8 @@ public class DbManager extends FModel<FView> {
 	 * Returns Recipe stored in the table, given recipe's uri
 	 * @return ARecipes stored in the table.
 	 */
-	public Recipe getRecipe(String query) {
+	public Recipe getRecipe(long uri) {
+		String query = new String("SELECT * FROM " + recipesTable + " WHERE URI = " + uri);
 	    Cursor cursor = db.rawQuery(query, null);
 	    return cursorToRecipe(cursor);
 	}
