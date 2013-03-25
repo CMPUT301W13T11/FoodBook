@@ -18,10 +18,10 @@ import android.util.Log;
 public class RecipesDbManager extends DbManager {
 	
 	private static RecipesDbManager instance = null;
-	protected String recipesTable = "UserRecipes";
-	protected String ingredsTable = "RecipeIngredients";
-	protected String photosTable = "RecipePhotos";
-	private String getSQL = "SELECT * FROM " + recipesTable;
+	public String recipesTable = "UserRecipes";
+	public String ingredsTable = "RecipeIngredients";
+	public String photosTable = "RecipePhotos";
+	public String getSQL = "SELECT * FROM " + recipesTable;
 
 	public RecipesDbManager(Context context)
 	{
