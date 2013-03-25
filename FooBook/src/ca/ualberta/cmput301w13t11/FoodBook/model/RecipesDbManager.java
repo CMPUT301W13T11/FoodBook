@@ -101,7 +101,7 @@ public class RecipesDbManager extends DbManager {
     	//String createStatement = 
     	
     	//String.format("Delete From RecipePhotos Where recipeUri = %S and filename = %S", uri, photo.getName()); 
-    	int success = db.delete("RecipePhotos", "id = " + photo.getId(), null); 
+    	int success = db.delete(photosTable, "id = " + photo.getId(), null); 
     	//Log.d("int", Integer.toString(r));
     	Boolean deleted = false;
     	
@@ -119,7 +119,7 @@ public class RecipesDbManager extends DbManager {
     public boolean removeRecipeIngredients(long uri) {
     	//String createStatement = 
     	
-    	int success = db.delete("RecipeIngredients", "recipeURI = " + uri, null); 
+    	int success = db.delete(ingredsTable, "recipeURI = " + uri, null); 
     	    	
     	return (success>=1);
     }
