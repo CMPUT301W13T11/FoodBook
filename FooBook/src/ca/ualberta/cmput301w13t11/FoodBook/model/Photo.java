@@ -13,14 +13,9 @@ import android.graphics.BitmapFactory;
  */
 public class Photo {
 
-	//
-	// Open question: should a photo know which recipe it is associated with?
-	// Probably not, but I can see arguments for doing it.
-	//
 	private String id;
 	private String path;
-	//private String name;
-	//private byte[] bit_data;
+	private byte[] bit_data;
 	
 	/**
 	 * Construct photo from file name (data is already stored on disk, must read it if needed)
@@ -30,6 +25,7 @@ public class Photo {
 	{
 		this.id = id;
 		this.path = null;
+		bit_data = null;
 	}
 	
 	/**
@@ -41,6 +37,7 @@ public class Photo {
 	{
 		this.id = id;
 		this.path = path;
+		bit_data = null;
 	}
 	
 	/**
@@ -48,22 +45,15 @@ public class Photo {
 	 * we aren't storing/downloading/uploading huge files).
 	 * @param bitmap The Bitmap which encodes the photo information.
 	 */
-	/*
-	public Photo(Bitmap bitmap)
+	
+	public Photo(String id, String path, Bitmap bitmap)
 	{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		bitmap.compress(Bitmap.CompressFormat.PNG, 30, out);
-		
 		bit_data = out.toByteArray();
-		
-		 
-		 //A simple timestamp isn't rigorous enough to insure name uniqueness, 
-		 //I'll figure out a better way to do this at some point.
-		 
-		
 		long time = System.currentTimeMillis();
-		name = String.valueOf(time);
+		this.id = String.valueOf(time);
 	}
 	
 	
@@ -74,7 +64,7 @@ public class Photo {
 	{
 		return BitmapFactory.decodeByteArray(bit_data, 0, bit_data.length);
 	}
-	*/
+	
 	public String getId()
 	{
 		return id;

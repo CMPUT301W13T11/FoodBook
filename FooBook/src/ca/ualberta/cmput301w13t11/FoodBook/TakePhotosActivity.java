@@ -174,116 +174,73 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	{
 		// responds to button Save Photo
 		if (bitmap!=null){
-			try {	
-				//if (SDCARD_INSTALLED){
-				if (Environment.MEDIA_MOUNTED.equals(state)) {
-					imgPath = Environment.getExternalStorageDirectory()+File.separator+timeStampId;
-					file = new File(imgPath);
-				}
-				else{
-					File dir = getDir(PICTURES_DIRECTORY, Context.MODE_PRIVATE);
-					file = new File(dir, timeStampId);
-				} 		
-				outStream = new FileOutputStream(file);
-				worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
-				outStream.flush();
-				outStream.close();
-				success = true;
-				imgPath = file.getAbsolutePath();
-			} catch (IOException ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
-			} 
+			if (Environment.MEDIA_MOUNTED.equals(state)) {
+				imgPath = Environment.getExternalStorageDirectory()+File.separator+timeStampId;
+				file = new File(imgPath);
+			}
+			else {
+				File dir = getDir(PICTURES_DIRECTORY, Context.MODE_PRIVATE);
+				file = new File(dir, timeStampId);
+			}
 			
 			progressDialog = ProgressDialog.show(TakePhotosActivity.this, "", "Saving...");
-			new Thread() 
-			{
-				public void run() 
-				{
-					try {
-						worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
-					} catch (Exception ex) {
-						// TODO Auto-generated catch block
-						ex.printStackTrace();
-					} 
-	
-					try
-					{
-						sleep(1500);
-
-					}catch (InterruptedException e)
-					{
-						Log.e("tag",e.getMessage());
-					}
-					// dismiss the progressdialog   
-					progressDialog.dismiss();
-				}
-			}.start();
-			try {		
-				outStream.flush();
-				outStream.close();
-				success = true;
-				imgPath = file.getAbsolutePath();
-			} catch (IOException ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
-			} 
-			if (success && worked) {
-
-				Photo photo = new Photo(timeStampId, imgPath);
-				DbC.addPhotoToRecipe(photo, uri);
-				//Log.d("recipeuri", Long.toString(uri));
-				//Log.d("image path", imgPath);
+			Photo photo = new Photo(timeStampId, imgPath);
+			
+			/* Attempt to save photo to device. */
+			if (DbC.addPhotoToRecipe(photo, bitmap, uri)) {
+				progressDialog.dismiss();
 				Toast.makeText(getApplicationContext(), "Image saved with success",
 						Toast.LENGTH_LONG).show();
 			} else {
+				progressDialog.dismiss();
 				Toast.makeText(getApplicationContext(),
 						"Error during image saving", Toast.LENGTH_LONG).show();
 			}
 		}
 	}
+
 	// no progress bar
-	public void OnSavePhotoNoProgBar (View View)
-	{
-		// responds to button Save Photo
-		if (bitmap!=null){
-
-			     try
-			     {
-			    	 //if (SDCARD_INSTALLED){
-			    	 if (Environment.MEDIA_MOUNTED.equals(state)) {
-			    		 imgPath = Environment.getExternalStorageDirectory()+File.separator+timeStampId;
-			    		 file = new File(imgPath);
-			    	 }
-			    	 else{
-			    		 File dir = getDir(PICTURES_DIRECTORY, Context.MODE_PRIVATE);
-			    		 file = new File(dir, timeStampId);
-			    	 } 		
-			    	 FileOutputStream outStream = new FileOutputStream(file);
-			    	 worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
-			    	 outStream.flush();
-			    	 outStream.close();
-			    	 success = true;
-			    	 imgPath = file.getAbsolutePath();
-			     } catch (Exception e) {
-			    	 // TODO Auto-generated catch block
-			    	 e.printStackTrace();
-			     } 
-	
-			if (success && worked) {
-
-				Photo photo = new Photo(timeStampId, imgPath);
-				DbC.addPhotoToRecipe(photo, uri);
-				//Log.d("recipeuri", Long.toString(uri));
-				//Log.d("image path", imgPath);
-				Toast.makeText(getApplicationContext(), "Image saved with success",
-						Toast.LENGTH_LONG).show();
-			} else {
-				Toast.makeText(getApplicationContext(),
-						"Error during image saving", Toast.LENGTH_LONG).show();
-			}
-		}
-	}
+//	public void OnSavePhotoNoProgBar (View View)
+//	{
+//		// responds to button Save Photo
+//		if (bitmap!=null){
+//
+//			     try
+//			     {
+//			    	 //if (SDCARD_INSTALLED){
+//			    	 if (Environment.MEDIA_MOUNTED.equals(state)) {
+//			    		 imgPath = Environment.getExternalStorageDirectory()+File.separator+timeStampId;
+//			    		 file = new File(imgPath);
+//			    	 }
+//			    	 else{
+//			    		 File dir = getDir(PICTURES_DIRECTORY, Context.MODE_PRIVATE);
+//			    		 file = new File(dir, timeStampId);
+//			    	 } 		
+//			    	 FileOutputStream outStream = new FileOutputStream(file);
+//			    	 worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
+//			    	 outStream.flush();
+//			    	 outStream.close();
+//			    	 success = true;
+//			    	 imgPath = file.getAbsolutePath();
+//			     } catch (Exception e) {
+//			    	 // TODO Auto-generated catch block
+//			    	 e.printStackTrace();
+//			     } 
+//	
+//			if (success && worked) {
+//
+//				Photo photo = new Photo(timeStampId, imgPath);
+//				DbC.addPhotoToRecipe(photo, uri);
+//				//Log.d("recipeuri", Long.toString(uri));
+//				//Log.d("image path", imgPath);
+//				Toast.makeText(getApplicationContext(), "Image saved with success",
+//						Toast.LENGTH_LONG).show();
+//			} else {
+//				Toast.makeText(getApplicationContext(),
+//						"Error during image saving", Toast.LENGTH_LONG).show();
+//			}
+//		}
+//	}
 	
 
 	@Override

@@ -35,9 +35,7 @@ public class ServerPhoto {
 	{
 		//byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);
 		//return new Photo(sp.getName(), data);
-		
-		//WE HAVE TO FILL IN THE PATH SOMEHOW LATER
-		return new Photo(sp.getId());
+				return new Photo(sp.getId());
 	}
 	
 	/**

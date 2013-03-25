@@ -1,13 +1,18 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.util.Log;
 /**
  * Singleton class that manages the application's database.
@@ -88,10 +93,14 @@ public class DbManager extends FModel<FView> {
 	    for (Ingredient ingred : recipe.getIngredients()) {
 	        insertRecipeIngredients(ingred, recipe.getUri());
 	    }
-	    // Pictures get stored one at a time once recipe is in database so we don' need this -Pablo
+
+	    /*
+	     * The section below is commented until a few things get sorted out.
+	     * 
 	    for (Photo photo : recipe.getPhotos()) {
-	        insertRecipePhotos(photo, recipe.getUri());
+	        insertRecipePhotos(photo, photo.getPhotoBitmap(), recipe.getUri());
 	    }
+	    */
 	}
     
     /**
@@ -112,12 +121,22 @@ public class DbManager extends FModel<FView> {
      * @param photo The photo to be inserted.
      * @param recipeURI The URI of the Recipe with which to associate the Photo.
      */
-    public void insertRecipePhotos(Photo photo, long recipeURI) {
+    public boolean insertRecipePhotos(Photo photo, Bitmap bitmap, long recipeURI) {
+    	/* We first attempt to store the bitmap associated with the photo to the Db */
+    	if (!savePhotoToDevice(bitmap, photo)) {
+    		/* Saving failed, return false. */
+    		return false;
+    	}
+    	
+    	/* Else, we can safely place the photo information into the database. */
+    	
     	ContentValues values = new ContentValues();
     	values.put("recipeURI", recipeURI);
     	values.put("id", photo.getId());
     	values.put("path", photo.getPath());
     	db.insert("RecipePhotos", null, values);
+    	/* If we got here, everything was successful. */
+    	return true;
     }
 
     /**
@@ -235,6 +254,7 @@ public class DbManager extends FModel<FView> {
     	    	
     	return (success>=1);
     }
+    
     /**
      * Given a cursor, convert it to an ArrayList of Ingredients.
      * @param cursor The cursor over which we will iterate to get ingredients from.
@@ -313,6 +333,44 @@ public class DbManager extends FModel<FView> {
     	}catch(Exception e){e.printStackTrace();};
 
     	return (recipes_removed==1 && deleted_pictures==true && deleted_ingreds==true);
+    }
+    
+    /**
+     * Saves the given bitmap to the local device.
+     * @param bitmap The bitmap to be saved.
+     * @param timeStampdId The name of the photo.
+     * @return True on success, false on failure.
+     */
+    private boolean savePhotoToDevice(Bitmap bitmap, Photo photo)
+    {
+    	String timeStampId = photo.getId();
+    	String imgPath = photo.getPath();
+    	File file = null;
+    	boolean success = false;
+    	boolean worked = false;
+    	FileOutputStream outStream = null;
+        String PICTURES_DIRECTORY = "Pictures";
+    	String state = Environment.getExternalStorageState();
+    	
+    	try {
+
+    		file = new File(imgPath);
+			outStream = new FileOutputStream(file);
+			
+			worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
+			outStream.flush();
+			outStream.close();
+			success = true;
+			imgPath = file.getAbsolutePath();
+
+		} catch (Exception ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+			Log.d("Failed to save image.", "Failed to save image.");
+			return false;
+		} 
+
+    	return (success && worked);
     }
 }
 

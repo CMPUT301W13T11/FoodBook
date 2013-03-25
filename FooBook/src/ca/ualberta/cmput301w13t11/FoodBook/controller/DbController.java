@@ -136,10 +136,11 @@ public class DbController {
      * @param photo The photo to add to the given Recipe.
      * @param recipe The Recipe to which the photo is to be added.
      */
-    public void addPhotoToRecipe(Photo photo, long uri)
+    public boolean addPhotoToRecipe(Photo photo, Bitmap bitmap,long uri)
     {
-    	db.insertRecipePhotos(photo, uri);
+    	boolean status = db.insertRecipePhotos(photo, bitmap, uri);
     	db.notifyViews();
+    	return status;
     }
     /**
      * @return Returns an ArrayList of Photos for a given recipe
@@ -170,7 +171,6 @@ public class DbController {
          USE THESE METHODS FOR ADDING, EDITING, RETRIEVING, AND DELETING
          THE USER'S PERSONAL INGREDIENTS
      ********************************************************************* */
-
     /**
      * Adds the given Ingredient to the database.
      * @param ingredient The Ingredient to add.
