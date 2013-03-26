@@ -326,7 +326,7 @@ public class ServerClient {
 	 */
 	public ReturnCode uploadPhotoToRecipe(Photo photo, long uri)
 	{
-		int maxTries = 50;
+		int maxTries = 10;
 		int tries = 0;
 		/* 
 		 * We first must determine if the Recipe to which we wish to upload the photo
@@ -366,10 +366,13 @@ public class ServerClient {
 
 				/* Now we must construct a suitable JSON style string for the ServerPhoto. */
 				String sp_str = helper.serverPhotoToJSON(serverPhoto);
+				logger.log(Level.INFO, "serverPhotoToJson() result: " + sp_str);
 
-				HttpPost updateRequest = new HttpPost("http://cmput301.softwareprocess.es:8080/testing/lab02/1/_update");
-				String query = 	"{\"script\" : \"ctx._source.photos += photo\", \"params\" : " +
-						"{ \"photo\" : \"" + sp_str + "\"}}";
+				HttpPost updateRequest = new HttpPost(test_server_string + uri + "/_update");
+				String query = 	"{\"script\":\"ctx._source.photos += xxx\", \"params\" : " +
+						"{ \"xxx\" : " + sp_str + "}}";
+				logger.log(Level.INFO, "stringQuery = " + query);
+
 				StringEntity stringentity = new StringEntity(query);
 
 				updateRequest.setHeader("Accept","application/json");
