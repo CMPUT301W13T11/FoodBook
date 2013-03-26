@@ -56,8 +56,8 @@ public class MyIngredients extends Activity implements FView<DbManager>
 			//ArrayList <Recipe> test = new ArrayList<Recipe>();
 			//test.add(testRecipe);
 
-			//Displays the user's recipes
-			/*ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.);
+			/*//Displays the user's recipes
+			ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getUserIngredients);
 			//Assigns the adapter
 			listView.setAdapter(adapter);
 			listView.setOnItemClickListener(new OnItemClickListener() {

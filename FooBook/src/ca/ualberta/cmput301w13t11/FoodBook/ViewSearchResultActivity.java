@@ -33,9 +33,9 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 		
 		Intent intent = getIntent();
 		// Minor adj. passing uris as long -Pablo
-		//String URI = 
-		//long uri=Long.parseLong(URI);
-		uri = intent.getLongExtra(EXTRA_URI, 0);
+		String URI = intent.getStringExtra(EXTRA_URI);
+		long uri=Long.parseLong(URI);
+		//uri = intent.getLongExtra(EXTRA_URI, 0);
 		
 		
 		Recipe viewedRecipe=null;
@@ -53,8 +53,8 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 		instructions = (TextView) findViewById(R.id.editText3);
 		recipeName.setText(viewedRecipe.getTitle());
 		instructions.setText(viewedRecipe.getInstructions());	
-		
-		updateView();
+		//This method appeas to function fine if this method is commented out? For now I'll go with it -Thomas
+		//updateView();
 		
 	}
 protected void updateView(){

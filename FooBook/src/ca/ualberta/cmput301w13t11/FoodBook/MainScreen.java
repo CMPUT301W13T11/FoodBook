@@ -20,13 +20,6 @@ public class MainScreen extends Activity implements FView<DbManager>{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);	
     }
-
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_main_screen, menu);
-        return true;
-    }*/
     
     /** Called when the user clicks the My Recipes button */
 	public void OnMyRecipes(View view) {
