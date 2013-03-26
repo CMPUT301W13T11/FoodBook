@@ -1,5 +1,6 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -28,7 +29,10 @@ public class SearchHits<T> {
 	 */
 	public Collection<ServerResponse<T>> getHits()
 	{
-		return hits;
+		if (hits != null)
+			return hits;
+		else
+			return new ArrayList<ServerResponse<T>>();
 	}
 	public String toString()
 	{

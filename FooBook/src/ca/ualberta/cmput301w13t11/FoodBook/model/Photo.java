@@ -33,11 +33,36 @@ public class Photo {
 	 * @param name
 	 * @param data
 	 */
+	public Photo(String id, byte[] byte_array)
+	{
+		this.id = id;
+		bit_data = byte_array;
+		
+	}
+	
+	
+	/**
+	 * Construct photo from given name and byte array.
+	 * @param name
+	 * @param data
+	 */
 	public Photo(String id, String path)
 	{
 		this.id = id;
 		this.path = path;
 		bit_data = null;
+	}
+	
+	/**
+	 * Construct photo from given name, path, and byte_array.
+	 * @param name
+	 * @param data
+	 */
+	public Photo(String id, String path, byte[] byte_array)
+	{
+		this.id = id;
+		this.path = path;
+		bit_data = byte_array;
 	}
 	
 	/**
@@ -50,16 +75,26 @@ public class Photo {
 	{
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		bitmap.compress(Bitmap.CompressFormat.PNG, 30, out);
-		bit_data = out.toByteArray();
+		if (bitmap != null) {
+			bitmap.compress(Bitmap.CompressFormat.PNG, 30, out);
+			bit_data = out.toByteArray();
+		}
+		else {
+			bit_data = null;
+		}
 		long time = System.currentTimeMillis();
 		this.id = String.valueOf(time);
 	}
 	
+	public byte[] getBitData()
+	{
+		return bit_data;
+	}
 	
-	 //Returns the bitmap associated with this photo.
-	 //@return Bitmap associated with the photo.
-	 
+	/**
+	 *Returns the bitmap associated with this photo.
+	 *@return Bitmap associated with the photo.
+	 */
 	public Bitmap getPhotoBitmap()
 	{
 		return BitmapFactory.decodeByteArray(bit_data, 0, bit_data.length);
@@ -71,5 +106,10 @@ public class Photo {
 	}
 	public String getPath() {
 		return path;
+	}
+	
+	public void setPath(String path)
+	{
+		this.path = path;
 	}
 }

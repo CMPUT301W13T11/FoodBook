@@ -2,20 +2,20 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import java.util.ArrayList;
 
-import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
-import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
-import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
-import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
-import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
-import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
+import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
+import ca.ualberta.cmput301w13t11.FoodBook.tasks.SearchByKeywordsTask;
 
 public class SearchResultsActivity extends Activity implements FView<DbManager>
 {
@@ -28,6 +28,8 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_results);
+		Intent intent = getIntent();
+		new SearchByKeywordsTask().execute(intent.getStringExtra(SearchActivity.KEYWORD));
 		updateList();
 	}
 
@@ -39,6 +41,118 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		getMenuInflater().inflate(R.menu.search_results, menu);
 		return true;
 	}
+
+Explore
+Gist
+Blog
+Help
+mbabic
+Pull Request
+ Unwatch
+ Star  0  Fork  0
+PUBLIC CMPUT301W13T11 / FoodBook
+
+Code
+Network
+Pull Requests 0
+Issues 0
+Wiki
+Graphs
+Tags
+ branch: PhotoForkx
+ Files Commits Branches 4
+FoodBook / FooBook / src / ca / ualberta / cmput301w13t11 / FoodBook / tasks / SearchByKeywordsTask.java 
+  mbabic 33 minutes ago Can download recipes with photos now! Search by keywords only network
+0 contributors
+ file 29 lines (24 sloc) 0.765 kb EditRawBlameHistory
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+package ca.ualberta.cmput301w13t11.FoodBook.tasks;
+
+import android.os.AsyncTask;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
+
+public class SearchByKeywordsTask extends AsyncTask<String, Void, ReturnCode>{
+
+	@Override
+	protected ReturnCode doInBackground(String... keywords) {
+		String searchString = keywords[0];
+		ServerClient sc = ServerClient.getInstance();
+		try {
+			ReturnCode retcode = sc.searchByKeywords(searchString);
+			return retcode;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ReturnCode.ERROR;
+		}
+	}
+
+	@Override
+	protected void onPostExecute(ReturnCode ret)
+	{
+		ServerClient sc = ServerClient.getInstance();
+		sc.writeResultsToDb();
+	}
+}
+
+
+GitHub
+About us
+Blog
+Contact & support
+GitHub Enterprise
+Site status
+Applications
+GitHub for Mac
+GitHub for Windows
+GitHub for Eclipse
+GitHub mobile apps
+Services
+Gauges: Web analytics
+Speaker Deck: Presentations
+Gist: Code snippets
+Job board
+Documentation
+GitHub Help
+Developer API
+GitHub Flavored Markdown
+GitHub Pages
+More
+Training
+Students & teachers
+The Shop
+Plans & pricing
+The Octodex
+© 2013 GitHub, Inc. All rights reserved.
+Terms of Service Privacy Security
+ 
 	public void OnGotoMainMenu(View View)
     {
 		// responds to button Go Back to Main Menu

@@ -1,6 +1,12 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
+import java.io.File;
+
+import android.content.Context;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.util.Base64;
+import ca.ualberta.cmput301w13t11.FoodBook.FoodBookApplication;
 
 
 /**
@@ -14,16 +20,19 @@ import android.util.Base64;
 public class ServerPhoto {
 
 	private String id;
-	//private String path;
-	
+	private String path;
+	private String encoded_bitmap;
 	/**
 	 *  Constructor - turns the given photo into a photo that can be written to the server.
 	 */
 	public ServerPhoto(Photo photo)
 	{
 		this.id = photo.getId();
-		//this.path = photo.getPath();
-		//this.encoded_bitmap = new String(Base64.encode(photo.getBitData(), Base64.DEFAULT));
+		if (photo.getBitData() != null) {
+			this.encoded_bitmap = new String(Base64.encode(photo.getBitData(), Base64.DEFAULT));
+		}
+		else
+			this.encoded_bitmap = null;
 	}
 
 	/**
@@ -33,9 +42,25 @@ public class ServerPhoto {
 	 */
 	public static Photo toPhoto(ServerPhoto sp)
 	{
-		//byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);
-		//return new Photo(sp.getName(), data);
-				return new Photo(sp.getId());
+		String imgPath = "";
+		File file = null;
+		String state = Environment.getExternalStorageState();
+		FoodBookApplication app = FoodBookApplication.getApplicationInstance();
+		/* We first get the save path on this device. */
+		if (Environment.MEDIA_MOUNTED.equals(state)) {
+			imgPath = Environment.getExternalStorageDirectory()+File.separator+sp.getId();
+			file = new File(imgPath);
+		}
+		else {
+			File dir = app.getDir("Pictures", Context.MODE_PRIVATE);
+			file = new File(dir, sp.getId());
+		}
+		if (sp.encoded_bitmap != null) {
+			byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);
+			return new Photo(sp.getId(), imgPath, data);
+		}
+		byte[] d = null;
+		return new Photo(sp.getId());
 	}
 	
 	/**
@@ -48,11 +73,10 @@ public class ServerPhoto {
 
 
 	/**
-	 * 
 	 * @return the Base64 String encoding the bitmap of the original image.
 	 */
-	//public String getEncodedBitmap() {
-		//return encoded_bitmap;
-	//}
+	public String getEncodedBitmap() {
+		return encoded_bitmap;
+	}
 }
 

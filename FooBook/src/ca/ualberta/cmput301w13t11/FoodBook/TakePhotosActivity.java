@@ -21,7 +21,9 @@ import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
-
+/**
+ *
+ */
 public class TakePhotosActivity extends Activity implements FView<DbManager>
 {
 	
@@ -34,7 +36,6 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	private String imgPath = null;
 	private File file;
 	private ProgressDialog progressDialog;
-	private String timeStampId = String.valueOf(System.currentTimeMillis());
 	boolean success = false;
 	boolean worked = false;
 	private FileOutputStream outStream;
@@ -172,6 +173,8 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	//With progress bar (spinner)
 	public void OnSavePhoto (View View)
 	{
+		String timeStampId = String.valueOf(System.currentTimeMillis());
+
 		// responds to button Save Photo
 		if (bitmap!=null){
 			if (Environment.MEDIA_MOUNTED.equals(state)) {
