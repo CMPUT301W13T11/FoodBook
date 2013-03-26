@@ -43,7 +43,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	 * @author mbabic
 	 *
 	 */
-	private class UploadRecipeTaska extends AsyncTask<Recipe, Void, ReturnCode>{
+	private class UploadRecipeTask extends AsyncTask<Recipe, Void, ReturnCode>{
 
 		@Override
 		protected void onPreExecute()
@@ -85,8 +85,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 			}
 			else if (ret == ReturnCode.ALREADY_EXISTS) {
 				/* Temp toast, could eventually be its own popup if someone cares to do it. */
-				Toast.makeText(getApplicationContext(),
-						"A recipe with this uri already exists. :S", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "A recipe with this uri already exists. :S", Toast.LENGTH_LONG).show();
 			}
 			else if (ret == ReturnCode.ERROR) {
 				/* Temp toast, could eventually be its own popup */
@@ -161,7 +160,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		//long uri=Long.parseLong(URI);
 		intent.putExtra(EXTRA_URI, uri);
 		//SC.uploadRecipe(viewedRecipe);
-		new UploadRecipeTaska().execute(viewedRecipe);
+		new UploadRecipeTask().execute(viewedRecipe);
 		/*
 		ArrayList<Recipe> RecipeList= DbC.getUserRecipes();
 		

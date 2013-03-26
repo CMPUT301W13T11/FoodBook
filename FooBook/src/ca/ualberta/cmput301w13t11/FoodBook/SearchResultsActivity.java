@@ -3,7 +3,9 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -11,17 +13,59 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
-import ca.ualberta.cmput301w13t11.FoodBook.tasks.SearchByKeywordsTask;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
 public class SearchResultsActivity extends Activity implements FView<DbManager>
 {
 
 	protected static final String EXTRA_URI = null;
 
+
+	/**
+	 * Performs a keyword search asynchronously.
+	 * @author mbabic
+	 */
+	private class SearchByKeywordsTask extends AsyncTask<String, Void, ReturnCode>{
+		private ProgressDialog progressDialog;
+
+		@Override
+		protected void onPreExecute()
+		{
+			progressDialog = ProgressDialog.show(SearchResultsActivity.this, "", "Searching...");
+		}
+		@Override
+		protected ReturnCode doInBackground(String... keywords) {
+			String searchString = keywords[0];
+			ServerController SC=ServerController.getInstance(SearchResultsActivity.this);
+			ReturnCode ret = SC.searchByKeywords(searchString);
+			return ret;
+		}
+		
+		@Override
+		protected void onPostExecute(ReturnCode ret)
+		{
+			progressDialog.dismiss();
+			ServerClient sc = ServerClient.getInstance();
+			if (ret == ReturnCode.SUCCESS) {
+				sc.writeResultsToDb();
+			}
+			else if (ret == ReturnCode.NO_RESULTS) {
+				Toast.makeText(getApplicationContext(), "Your search returned no results.\n Here are your old ones though. :)", Toast.LENGTH_LONG).show();
+			}
+			else if (ret == ReturnCode.ERROR) {
+				Toast.makeText(getApplicationContext(), "An error occurred.  Me so sorry. :(", Toast.LENGTH_LONG).show();
+			}
+		}
+	}
+
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
