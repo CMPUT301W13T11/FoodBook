@@ -33,9 +33,9 @@ public class DbController {
     private String getUserIngredientsSQL = "SELECT * FROM " + UserIngredients;
     
     private static DbManager db;
-    private static RecipesDbManager recipesManager;
-    private static ResultsDbManager resultsManager;
-    private static IngredientsDbManager ingredsManager;
+    private static DbManager recipesManager;
+    private static DbManager resultsManager;
+    private static DbManager ingredsManager;
      
         
     // singleton pattern implementation
@@ -46,9 +46,9 @@ public class DbController {
      */
     private DbController(Context context) {
     	db = DbManager.getInstance(context);
-    	recipesManager = RecipesDbManager.getInstance(context);
-    	ingredsManager = IngredientsDbManager.getInstance(context);
-    	resultsManager = ResultsDbManager.getInstance(context);
+    	recipesManager = DbManager.getInstance(context);
+    	ingredsManager = DbManager.getInstance(context);
+    	resultsManager = DbManager.getInstance(context);
     }
         
     /**
@@ -81,7 +81,7 @@ public class DbController {
      * @return Returns an ArrayList containing all the Recipes the user has stored on their device.
      */
     public ArrayList<Recipe> getUserRecipes() {
-    	return recipesManager.getRecipes();
+    	return recipesManager.getRecipes(getUserRecipesSQL);
     }
     
     /**
@@ -96,7 +96,7 @@ public class DbController {
      * @param recipe The recipe to add.
      */
     public void addRecipe(Recipe recipe) {
-    	recipesManager.insertRecipe(recipe);
+    	recipesManager.insertRecipe(recipe, UserRecipes);
     	db.notifyViews();
     }
 
@@ -160,35 +160,35 @@ public class DbController {
      * @return Returns an ArrayList containing all the Recipes stored from search
      */
     public ArrayList<Recipe> getStoredRecipes() {
-    	return resultsManager.getRecipes();
+    	return resultsManager.getRecipes(getResultRecipesSQL);
     }
     
     /* *****************************************************************
          USE THESE METHODS FOR ADDING, EDITING, RETRIEVING, AND DELETING
          THE USER'S PERSONAL INGREDIENTS
      ********************************************************************* */
-    /**
-     * Adds the given Ingredient to the database.
-     * @param ingredient The Ingredient to add.
-     */
-    public void addIngredient(Ingredient ingredient) {
-    	ingredsManager.insert(ingredient);
-    	db.notifyViews();
-    }
-
-    /**
-     * @return Returns an ArrayList containing all the Ingredients the user has stored on their device.
-     */
-    public ArrayList<Ingredient> getUserIngredients() {
-    	return ingredsManager.get();
-    }
-
-    /**
-     * Deletes the given Ingredient from the database.
-     * @param ingredient The Ingredient to delete.
-     */
-    public void deleteIngredient(Ingredient ingred) {
-    	ingredsManager.delete(ingred);
-    	db.notifyViews();
-    }
+//    /**
+//     * Adds the given Ingredient to the database.
+//     * @param ingredient The Ingredient to add.
+//     */
+//    public void addIngredient(Ingredient ingredient) {
+//    	ingredsManager.insert(ingredient);
+//    	db.notifyViews();
+//    }
+//
+//    /**
+//     * @return Returns an ArrayList containing all the Ingredients the user has stored on their device.
+//     */
+//    public ArrayList<Ingredient> getUserIngredients() {
+//    	return ingredsManager.get();
+//    }
+//
+//    /**
+//     * Deletes the given Ingredient from the database.
+//     * @param ingredient The Ingredient to delete.
+//     */
+//    public void deleteIngredient(Ingredient ingred) {
+//    	ingredsManager.delete(ingred);
+//    	db.notifyViews();
+//    }
 }

@@ -73,6 +73,8 @@ public class Photo {
 	
 	public Photo(String id, String path, Bitmap bitmap)
 	{
+		this.id = id;
+		this.path = path;
 
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		if (bitmap != null) {

@@ -45,16 +45,5 @@ public class ResultsDbManager extends DbManager {
 		return instance;
 	}
 
-	/**
-	 * store results from server.
-	 * @return should i return boolean for success?
-	 */
-	public void storeRecipes(ArrayList<Recipe> recipes) {
-	    db.delete(recipesTable, null, null);
-	    for (Recipe recipe : recipes) {
-	        insertRecipe(recipe);
-	    }
-	    notifyViews();
-	}
 	
 }
