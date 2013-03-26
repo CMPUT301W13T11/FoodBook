@@ -13,8 +13,10 @@ import android.content.Context;
 public class ResultsDbManager extends DbManager {
 	
 	private static ResultsDbManager instance = null;
-	protected String resultsTable = "ResultsRecipes";
-	private String getSQL = "SELECT * FROM " + resultsTable;
+	protected String recipesTable = "ResultsRecipes";
+	protected String ingredsTable = "ResultsIngredients";
+	protected String photosTable = "ResultsPhotos";
+	private String getSQL = "SELECT * FROM " + recipesTable;
 	
 	public ResultsDbManager(Context context)
 	{
@@ -48,9 +50,9 @@ public class ResultsDbManager extends DbManager {
 	 * @return should i return boolean for success?
 	 */
 	public void storeRecipes(ArrayList<Recipe> recipes) {
-	    db.delete(resultsTable, null, null);
+	    db.delete(recipesTable, null, null);
 	    for (Recipe recipe : recipes) {
-	        insertRecipe(recipe, resultsTable);
+	        insertRecipe(recipe);
 	    }
 	    notifyViews();
 	}

@@ -48,6 +48,7 @@ public class DbController {
     	db = DbManager.getInstance(context);
     	recipesManager = RecipesDbManager.getInstance(context);
     	ingredsManager = IngredientsDbManager.getInstance(context);
+    	resultsManager = ResultsDbManager.getInstance(context);
     }
         
     /**
@@ -80,14 +81,14 @@ public class DbController {
      * @return Returns an ArrayList containing all the Recipes the user has stored on their device.
      */
     public ArrayList<Recipe> getUserRecipes() {
-    	return db.getRecipes(getUserRecipesSQL);
+    	return recipesManager.getRecipes();
     }
+    
     /**
      * @return Returns a Recipe the user has stored on their device, given recipe uri
      */
     public Recipe getUserRecipe(long uri) {
-    	String query = new String("SELECT * FROM " + UserRecipes + " WHERE URI = " + uri);
-    	return db.getRecipe(query);
+    	return recipesManager.getRecipe(uri);
     }
 
     /**
@@ -95,7 +96,7 @@ public class DbController {
      * @param recipe The recipe to add.
      */
     public void addRecipe(Recipe recipe) {
-    	recipesManager.insertRecipe(recipe, "UserRecipes");
+    	recipesManager.insertRecipe(recipe);
     	db.notifyViews();
     }
 
@@ -105,15 +106,10 @@ public class DbController {
      */
     public boolean deleteRecipe(Recipe recipe)
     {	
-    	
-    	//Adjusted this so recipes could be deleted
-    	//recipesManager.deleteRecipe(recipe);
-    	//db.notifyViews();
     	Log.d("are we here as well", "are we here as well");
-    	boolean success = db.removeRecipe(recipe);
+    	boolean success = recipesManager.removeRecipe(recipe);
     	db.notifyViews();
     	return success;
-    	
     }
 
     /**
@@ -123,7 +119,7 @@ public class DbController {
      */
     public void addIngredientToRecipe(Ingredient ingredient, Recipe recipe)
     {
-    	db.insertRecipeIngredients(ingredient, recipe.getUri());
+    	recipesManager.insertRecipeIngredients(ingredient, recipe.getUri());
     	db.notifyViews();
     }
    
@@ -151,7 +147,7 @@ public class DbController {
     
     public boolean deleteRecipePhoto(Photo photo)
     {
-    	boolean success = db.removeRecipePhoto(photo);
+    	boolean success = recipesManager.removeRecipePhoto(photo);
     	db.notifyViews();
     	return success;
     }
@@ -164,7 +160,7 @@ public class DbController {
      * @return Returns an ArrayList containing all the Recipes stored from search
      */
     public ArrayList<Recipe> getStoredRecipes() {
-    	return db.getRecipes(getResultRecipesSQL);
+    	return resultsManager.getRecipes();
     }
     
     /* *****************************************************************
