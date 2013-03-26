@@ -59,7 +59,7 @@
 
 
     <Button
-        android:id="@+id/take_photo"
+        android:id="@+id/upload_photo"
         style="@style/GreenButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,8 +70,8 @@
         android:layout_marginLeft="18dp"
         android:layout_marginRight="18dp"
         android:layout_marginTop="10dp"
-        android:onClick="OnTakePhoto"
-        android:text="@string/take_photo"
+        android:onClick="OnUploadPhoto"
+        android:text="@string/upload_photo"
         android:textSize="20sp" />
 
     <ImageView

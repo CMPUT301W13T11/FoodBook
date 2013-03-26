@@ -66,6 +66,7 @@
     <string name="popup_msg">Popup Message</string>
     <string name="are_you_sure_delete_recipe">Are you sure you want to delete the recipe?</string>
     <string name="popup_fadeout">Popup fadeout</string>
+    <string name="upload_photo">Upload Photo</string>
 
 
 </resources>

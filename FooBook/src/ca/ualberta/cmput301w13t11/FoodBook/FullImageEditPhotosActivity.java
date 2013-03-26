@@ -109,11 +109,8 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
     	  }
     	}//onActivityResult
 
-    public void OnTakePhoto(View view)
+    public void OnUploadPhoto(View view)
 	{
-		//Intent intent = new Intent(this, TakePhotosActivity.class);
-		//intent.putExtra(EXTRA_URI, uri);
-        //startActivityForResult(intent, 1);
     	new UploadPhotoTask(uri).execute(new Photo(id, imgPath, bitmap));
 	}
 
