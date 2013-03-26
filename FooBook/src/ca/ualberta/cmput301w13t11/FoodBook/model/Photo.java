@@ -54,6 +54,18 @@ public class Photo {
 	}
 	
 	/**
+	 * Construct photo from given name, path, and byte_array.
+	 * @param name
+	 * @param data
+	 */
+	public Photo(String id, String path, byte[] byte_array)
+	{
+		this.id = id;
+		this.path = path;
+		bit_data = byte_array;
+	}
+	
+	/**
 	 * Create a photo from the given bitmap (we first compress the data to make sure
 	 * we aren't storing/downloading/uploading huge files).
 	 * @param bitmap The Bitmap which encodes the photo information.

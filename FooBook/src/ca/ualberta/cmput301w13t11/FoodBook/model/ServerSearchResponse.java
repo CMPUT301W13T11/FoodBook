@@ -29,7 +29,10 @@ public class ServerSearchResponse<T> {
 	 */
 	public Collection<ServerResponse<T>> getHits()
 	{
-		return hits.getHits();
+		if (hits != null)
+			return hits.getHits();
+		else
+			return new ArrayList<ServerResponse<T>>();
 	}
 	
 	/**

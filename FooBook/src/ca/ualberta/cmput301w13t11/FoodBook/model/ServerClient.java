@@ -54,7 +54,7 @@ import android.os.StrictMode;
 public class ServerClient {	
 	
 	private static ServerClient instance = null;
-	private static ResultsDbManager dbManager = null;
+	private static DbManager dbManager = null;
 	static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
 	static private String test_server_string = "http://cmput301.softwareprocess.es:8080/testing/cmput301w13t11/";
 	private static HttpClient httpclient = null;
@@ -84,7 +84,7 @@ public class ServerClient {
 			StrictMode.setThreadPolicy(policy); 
 			
 			instance = new ServerClient();
-			dbManager = ResultsDbManager.getInstance();
+			dbManager = DbManager.getInstance();
 			httpclient = ServerClient.getThreadSafeClient();
 			helper = new ClientHelper();
 		}
@@ -225,7 +225,7 @@ public class ServerClient {
 
 		}
 		
-		dbManager = ResultsDbManager.getInstance();
+		dbManager = DbManager.getInstance();
 		if (dbManager == null)
 		{
 			logger.log(Level.SEVERE, "ResultsDbManager null!!!");
@@ -312,7 +312,7 @@ public class ServerClient {
 		}
 		
 		/* Else, our search returned results; we write them to the Results Db and return success code. */
-		dbManager = ResultsDbManager.getInstance();
+		dbManager = DbManager.getInstance();
 		if (dbManager == null)
 		{
 			return ReturnCode.ERROR;
@@ -369,6 +369,15 @@ public class ServerClient {
 			updateRequest.setHeader("Accept","application/json");
 			updateRequest.setEntity(stringentity);
 			response = httpclient.execute(updateRequest);
+			logger.log(Level.SEVERE, "Upload request return code: " + response.getStatusLine().toString());
+			retcode = response.getStatusLine().getStatusCode();
+			int i = 0;
+			while (retcode == HttpStatus.SC_INTERNAL_SERVER_ERROR && i < 3) {
+				i++;
+				response = httpclient.execute(updateRequest);
+				logger.log(Level.SEVERE, "Upload request return code: " + response.getStatusLine().toString());
+			}
+
 			
 		} catch (ClientProtocolException cpe) {
 			logger.log(Level.SEVERE, "ClientProtocolException when executing HttpGet : " + cpe.getMessage());

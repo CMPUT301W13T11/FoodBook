@@ -8,6 +8,7 @@ import org.apache.http.client.HttpClient;
 
 import android.test.AndroidTestCase;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ClientHelper;
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
@@ -52,46 +53,46 @@ public class ServerClientTest extends AndroidTestCase {
 		assertTrue("test_client null, getThreadSafeClient failed", test_client != null);
 	}
 	
-	/**
-	 * Test uploading a novel recipe to the server, ensure return code
-	 * is SUCCESS.
-	 */
-	public void testUploadRecipePass()
-	{
-		ReturnCode ret = null;
-		sc = ServerClient.getInstance();
-		String title = Long.toString(System.currentTimeMillis());
-
-		Recipe recipe = new Recipe(new User("tester"), title);
-		try { 
-			ret = sc.uploadRecipe(recipe);
-		} catch (IOException ioe) {
-			fail("ioe");
-		}
-
-		assertTrue("uploadRecipe should return SUCCESS", ret == ReturnCode.SUCCESS);
-	}
+//	/**
+//	 * Test uploading a novel recipe to the server, ensure return code
+//	 * is SUCCESS.
+//	 */
+//	public void testUploadRecipePass()
+//	{
+//		ReturnCode ret = null;
+//		sc = ServerClient.getInstance();
+//		String title = Long.toString(System.currentTimeMillis());
+//
+//		Recipe recipe = new Recipe(new User("tester"), title);
+//		try { 
+//			ret = sc.uploadRecipe(recipe);
+//		} catch (IOException ioe) {
+//			fail("ioe");
+//		}
+//
+//		assertTrue("uploadRecipe should return SUCCESS", ret == ReturnCode.SUCCESS);
+//	}
 	
-	/**
-	 * Test uploadRecipe() by passing it a recipe known to already exists on the server
-	 * and ensure it correctly returns ALREADY_EXISTS.
-	 */
-	public void testUploadRecipeFail()
-	{
-		ResultsDbManager db = ResultsDbManager.getInstance(this.getContext());
-
-		ReturnCode ret = null;
-		sc = ServerClient.getInstance();
-
-		Recipe recipe = new Recipe(new User("tester"), "test");
-		try { 
-			ret = sc.uploadRecipe(recipe);
-		} catch (IOException ioe) {
-			fail("ioe");
-		}
-
-		assertTrue("uploadRecipe should return ALREADY_EXISTS", ret == ReturnCode.ALREADY_EXISTS);
-	}
+//	/**
+//	 * Test uploadRecipe() by passing it a recipe known to already exists on the server
+//	 * and ensure it correctly returns ALREADY_EXISTS.
+//	 */
+//	public void testUploadRecipeFail()
+//	{
+//		ResultsDbManager db = ResultsDbManager.getInstance(this.getContext());
+//
+//		ReturnCode ret = null;
+//		sc = ServerClient.getInstance();
+//
+//		Recipe recipe = new Recipe(new User("tester"), "test");
+//		try { 
+//			ret = sc.uploadRecipe(recipe);
+//		} catch (IOException ioe) {
+//			fail("ioe");
+//		}
+//
+//		assertTrue("uploadRecipe should return ALREADY_EXISTS", ret == ReturnCode.ALREADY_EXISTS);
+//	}
 	
 	/**
 	 * Test to see if searchByIngredients will return a recipe known to have the ingredients
@@ -122,7 +123,7 @@ public class ServerClientTest extends AndroidTestCase {
 
 
 		ReturnCode returnCode = sc.searchByIngredients(ingredients);
-		assertTrue("Returns no_esuls.", returnCode == ReturnCode.NO_RESULTS);
+		assertTrue("Returns no_resuls.", returnCode == ReturnCode.SUCCESS);
 		
 	}
 	
@@ -136,9 +137,10 @@ public class ServerClientTest extends AndroidTestCase {
 		sc = ServerClient.getInstance();
 
 		Photo photo = new Photo("testname", new byte[10]);
-		Recipe recipe = Recipe.generateTestRecipe();
-		
-		assertTrue("return code != SUCCESS", sc.uploadPhotoToRecipe(photo, recipe.getUri()) == ReturnCode.SUCCESS);
+		ReturnCode ret = sc.uploadPhotoToRecipe(photo, 1364241542351L);
+		//assertTrue("not found", ret == ReturnCode.NOT_FOUND);
+		assertTrue("return code == error", ret == ReturnCode.ERROR);
+		assertTrue("return code != SUCCESS", ret == ReturnCode.SUCCESS);
 	}
 
 	/**
@@ -177,15 +179,12 @@ public class ServerClientTest extends AndroidTestCase {
 
 		try {
 			ReturnCode result = sc.searchByKeywords("&&^367 78tqyfgylgaahslfauy7 iw");
-			assertTrue(result == ReturnCode.SUCCESS);
+			assertTrue(result == ReturnCode.NO_RESULTS);
 		} catch (ClientProtocolException cpe) {
 			fail("cpe");
 		} catch (IOException ioe) {
 			fail("ioe");
-		}
-		
-		fail();
-		
+		}		
 	}
 	
 	/**
@@ -197,7 +196,7 @@ public class ServerClientTest extends AndroidTestCase {
 	 */
 	public void testSearchByKeywordsPass()
 	{
-		ResultsDbManager db = ResultsDbManager.getInstance(this.getContext());
+		DbManager db = DbManager.getInstance(this.getContext());
 
 		sc = ServerClient.getInstance();
 		assertTrue("sc null", sc != null);
@@ -205,15 +204,12 @@ public class ServerClientTest extends AndroidTestCase {
 			assertTrue("sc null", sc != null);
 
 			ReturnCode result = sc.searchByKeywords("turdosandowich");
-			assertTrue(result == ReturnCode.SUCCESS);
+			assertTrue("Result is not success.", result == ReturnCode.SUCCESS);
 		} catch (ClientProtocolException cpe) {
 			fail("cpe");
 		} catch (IOException ioe) {
 			fail("ioe");
-		}
-		fail();
-
-		
+		}		
 	}
 
 }

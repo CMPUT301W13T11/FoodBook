@@ -73,8 +73,7 @@ public class DbManager extends FModel<FView> {
     }
 
     /**
-     * Get instance of the singleton DbManager, when we
-     * know that it exists
+     * Get instance of the singleton DbManager, when we know that it exists
      * @return The instance of the class.
      */
     public static DbManager getInstance() {	
@@ -86,7 +85,8 @@ public class DbManager extends FModel<FView> {
 	 * @param recipe The Recipe to be stored.
 	 * @param tableName The name of the table into which the recipe is to be stored.
 	 */
-	public void insertRecipe(Recipe recipe, String tableName) {
+	public void insertRecipe(Recipe recipe, String tableName) 
+	{
 	    ContentValues values = recipe.toContentValues();
 	    db.insert(tableName, null, values);
 	    for (Ingredient ingred : recipe.getIngredients()) {
@@ -134,6 +134,26 @@ public class DbManager extends FModel<FView> {
     	/* If we got here, everything was successful. */
     	return true;
     }
+    
+    /* ******************************************************************************************************** */
+    /* *****************************************Temp import for debugging purposes***************************** */
+	protected String resultsTable = "ResultsRecipes";
+	private String getSQL = "SELECT * FROM " + resultsTable;
+	/**
+	 * store results from server.
+	 * @return should i return boolean for success?
+	 */
+	public void storeRecipes(ArrayList<Recipe> recipes) {
+	    db.delete(resultsTable, null, null);
+	    for (Recipe recipe : recipes) {
+	        insertRecipe(recipe, resultsTable);
+	    }
+	    notifyViews();
+	}
+    /* ******************************************************************************************************** */
+    /* ******************************************************************************************************** */
+
+	
 
     /**
      * Returns an ArrayList of all the Recipes stored in the table.
@@ -169,8 +189,7 @@ public class DbManager extends FModel<FView> {
             String instructions = cursor.getString(3);
             ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
             ArrayList<Photo> photos = getRecipePhotos(uri);
-            ArrayList<Photo> fullPhotos = getFullPhotos(photos);
-            Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, fullPhotos);
+            Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, photos);
             recipes.add(recipe);
             cursor.moveToNext();
         }
@@ -193,8 +212,7 @@ public class DbManager extends FModel<FView> {
        String instructions = cursor.getString(3);
        ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
        ArrayList<Photo> photos = getRecipePhotos(uri);
-       ArrayList<Photo> fullPhotos = getFullPhotos(photos);
-       Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, fullPhotos);
+       Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, photos);
 
        if (cursor.getCount()!=0) {
     	   //print error message here
@@ -216,17 +234,21 @@ public class DbManager extends FModel<FView> {
     
     /**
      * Gets all the Photos associated with the recipe identified by its URI.
+     * NOTE: "changed to public so that we can retrieve just photos for galleries" - Pablo
      * @param uri The URI of the recipe whose photos we are fetching.
      * @return An ArrayList of the Photos associated with the recipe.
      */
-    // Changed to public so that we can retrieve just photos for galleries -Pablo
-    //protected ArrayList<Photo> getRecipePhotos(long uri) {
-    public ArrayList<Photo> getRecipePhotos(long uri) {
+    public ArrayList<Photo> getRecipePhotos(long uri) 
+    {
     	Cursor cursor = db.rawQuery("Select * From RecipePhotos Where recipeURI = " + uri, null);
     	return cursorToPhotos(cursor);
     }
     
-    //method to delete photo -Pablo
+    /**
+     * Removes the given photo from the local storage device.
+     * @param photo The photo to be deleted.
+     * @return true on success, false on failure
+     */
     public boolean removeRecipePhoto(Photo photo) {
     	//String createStatement = 
     	
@@ -244,8 +266,13 @@ public class DbManager extends FModel<FView> {
     		}  	
     	return (success==1 && deleted==true);
     }
-    
-    //method to delete ingredients -Pablo
+        
+    /**
+     * Deletes the ingredients associated with the recipe specified by the uri (ie.
+     * removes them from the RecipeIngredients table).
+     * @param uri The uri of the recipe whose ingrediens we would like to remove.
+     * @return true on success, false on failure
+     */
     public boolean removeRecipeIngredients(long uri) {
     	//String createStatement = 
     	
@@ -280,6 +307,7 @@ public class DbManager extends FModel<FView> {
      */
     protected ArrayList<Photo> cursorToPhotos(Cursor cursor) {
         ArrayList<Photo> photos = new ArrayList<Photo>();
+        ArrayList<Photo> fullPhotos = new ArrayList<Photo>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             String id = cursor.getString(1);
@@ -290,13 +318,17 @@ public class DbManager extends FModel<FView> {
             photos.add(photo);
             cursor.moveToNext();
         }
-        return photos;
+        fullPhotos = getFullPhotos(photos);
+        return fullPhotos;
     }
 
 
-    ////added this to delete a recipe -Pablo
-    // must include other methods to remove ingredients and other stuff from other tables
-
+    /**
+     * Remove the given recipe from both local storage and the database.
+     * TODO: "must include other methods to remove ingredients and other stuff from other tables. -Pablo"
+     * @param recipe The recipe to be deleted.
+     * @return True on success, False on failure.
+     */
     public boolean removeRecipe(Recipe recipe) {
     	
     	Long uri = recipe.getUri();
@@ -345,14 +377,11 @@ public class DbManager extends FModel<FView> {
      */
     private boolean savePhotoToDevice(Bitmap bitmap, Photo photo)
     {
-    	String timeStampId = photo.getId();
-    	String imgPath = photo.getPath();
-    	File file = null;
-    	boolean success = false;
-    	boolean worked = false;
-    	FileOutputStream outStream = null;
-        String PICTURES_DIRECTORY = "Pictures";
-    	String state = Environment.getExternalStorageState();
+    	String imgPath = photo.getPath(); 	/* the path to the image file on the device */
+    	File file = null; 					/* the image file itself */
+    	boolean success = false;			/* set to true on successful write of image file to device storage*/
+    	boolean worked = false;			/* set to true on successful compression of given bitmap*/
+    	FileOutputStream outStream = null;	/* the file write stream */
     	
     	try {
 
@@ -409,10 +438,13 @@ public class DbManager extends FModel<FView> {
 	}
 	
 	/**
-	 * Given the ArrayList of a photos with only an id and a pathname, returns a list of photos
+	 * Given the ArrayList of photos with only an id and a pathname, returns a list of photos
 	 * with a byte_array as well.
+	 * TODO: could be modded in the future such that it only modifies the given list of photos -- I'm not sure
+	 * how Java handles references/pointers and all that so I'll defer giving this real consideration until
+	 * other functionality is complete. --Marko
 	 * @param photos
-	 * @return
+	 * @return An ArrayList of a photos with the corresponding byte_area representing the img data included.
 	 */
 	private ArrayList<Photo> getFullPhotos(ArrayList<Photo> photos)
 	{

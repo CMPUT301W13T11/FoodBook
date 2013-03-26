@@ -103,6 +103,7 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 	        	imageView.setPadding(8, 8, 8, 8);
 	        	//Bitmap bmp = decodeURI(mUrls[position].getPath());
 	        	Bitmap bmp = decodeURI(photos.get(position).getPath());
+	        	//Bitmap bmp = photos.get(position).getPhotoBitmap();
 	        	//BitmapFactory.decodeFile(mUrls[position].getPath());
 	        	imageView.setImageBitmap(bmp);
 	        	//bmp.
