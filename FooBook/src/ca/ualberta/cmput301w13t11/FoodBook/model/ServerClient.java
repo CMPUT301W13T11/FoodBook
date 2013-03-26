@@ -59,6 +59,7 @@ public class ServerClient {
 	static private String test_server_string = "http://cmput301.softwareprocess.es:8080/testing/cmput301w13t11/";
 	private static HttpClient httpclient = null;
 	private static ClientHelper helper = null;
+	private ArrayList<Recipe> results;
 	public static enum ReturnCode
 	{
 		SUCCESS, ALREADY_EXISTS,NO_RESULTS, NOT_FOUND, ERROR;
@@ -214,7 +215,7 @@ public class ServerClient {
 			json += out;
 		}
 		search_results = helper.toRecipeList(json);
-		
+		results = search_results;
 		/* 
 		 * If no results were found, inform the caller by setting ReturnCode to 
 		 * NO_RESULTS -- do NOT attempt to clear/write these results to ServerDb.
@@ -225,19 +226,29 @@ public class ServerClient {
 
 		}
 		
+//		dbManager = DbManager.getInstance();
+//		if (dbManager == null)
+//		{
+//			logger.log(Level.SEVERE, "ResultsDbManager null!!!");
+//			return ReturnCode.ERROR;
+//		}
+//		dbManager.storeRecipes(search_results);
+//		logger.log(Level.SEVERE, "GOT RESULTS");
+//		logger.log(Level.SEVERE, "First result: " + search_results.get(0).getTitle());
+
+		return ReturnCode.SUCCESS;		
+	}
+	
+	public void writeResultsToDb()
+	{
 		dbManager = DbManager.getInstance();
 		if (dbManager == null)
 		{
 			logger.log(Level.SEVERE, "ResultsDbManager null!!!");
-			return ReturnCode.ERROR;
 		}
-		dbManager.storeRecipes(search_results);
+		dbManager.storeRecipes(results);
 		logger.log(Level.SEVERE, "GOT RESULTS");
-		logger.log(Level.SEVERE, "First result: " + search_results.get(0).getTitle());
-
-		return ReturnCode.SUCCESS;
-		
-		
+		logger.log(Level.SEVERE, "First result: " + results.get(0).getTitle());
 	}
 	
 	/**

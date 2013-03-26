@@ -4,6 +4,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.tasks.SearchByKeywordsTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 public class SearchActivity extends Activity implements FView<DbManager>
 {
 
+	public static String KEYWORD = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -49,8 +51,10 @@ public class SearchActivity extends Activity implements FView<DbManager>
 		String keyword=Keyword.toString();
 		ServerController SC=ServerController.getInstance(this);
 		SC.searchByKeywords(keyword);
+		//new SearchByKeywordsTask().execute(keyword);
 		
     	Intent intent = new Intent(this, SearchResultsActivity.class);
+    	intent.putExtra(KEYWORD, keyword);
 		startActivity(intent);
     }
 

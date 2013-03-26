@@ -2,11 +2,13 @@ package ca.ualberta.cmput301w13t11.FoodBook.controller;
 
 import java.io.IOException;
 
+import android.os.AsyncTask;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
+import ca.ualberta.cmput301w13t11.FoodBook.tasks.SearchByKeywordsTask;
 
 /**
  * Controller for UI objects that wish to utilize the application's online
@@ -79,10 +81,8 @@ public class ServerController {
 	 */
 	public ReturnCode searchByKeywords(String keywords)
 	{
-		try {
-			return sc.searchByKeywords(keywords);
-		} catch (IOException ioe) {
-			return ReturnCode.ERROR;
-		}
+		
+		//new SearchByKeywordsTask().execute(keywords);
+		return ReturnCode.SUCCESS;
 	}
 }
