@@ -29,7 +29,8 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 
 
 	/**
-	 * Performs a keyword search asynchronously.
+	 * Performs a keyword search asynchronously (ie. not on the UI thread) and reports
+	 * its results.  The process is started by calling "new SearchByKeywordsTask().execute(keyword)".
 	 * @author mbabic
 	 */
 	private class SearchByKeywordsTask extends AsyncTask<String, Void, ReturnCode>{
@@ -57,7 +58,7 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 				sc.writeResultsToDb();
 			}
 			else if (ret == ReturnCode.NO_RESULTS) {
-				Toast.makeText(getApplicationContext(), "Your search returned no results.\n Here are your old ones though. :)", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Your search returned no results.\n We kept your old ones though. :)", Toast.LENGTH_LONG).show();
 			}
 			else if (ret == ReturnCode.ERROR) {
 				Toast.makeText(getApplicationContext(), "An error occurred.  Me so sorry. :(", Toast.LENGTH_LONG).show();

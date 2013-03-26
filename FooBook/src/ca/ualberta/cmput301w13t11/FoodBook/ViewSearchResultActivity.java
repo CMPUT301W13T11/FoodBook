@@ -58,7 +58,7 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 	public void OnViewPhotos (View View)
     {
 		// responds to button View Photos
-    	Intent intent = new Intent(this, EditIngredients.class);
+    	Intent intent = new Intent(this, ViewPhotosActivity.class);
 		startActivity(intent);
     }
 	public void OnAddPhotos (View View)

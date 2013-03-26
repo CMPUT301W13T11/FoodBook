@@ -3,13 +3,14 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
 public class EditPhotos extends Activity implements FView<DbManager>
 {
@@ -35,6 +40,7 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	private GridView gridview = null;
 
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -177,7 +183,10 @@ public class EditPhotos extends Activity implements FView<DbManager>
 		//EditPhotos.this.finish();
 	}
 	
-	
+	/**
+	 * I am changing this to upload a photo..
+	 * @param 
+	 */
 	public void OnTakePhoto(View view)
 	{
 		Intent intent = new Intent(this, TakePhotosActivity.class);
