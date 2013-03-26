@@ -15,6 +15,12 @@ import android.widget.TextView;
 
 public class ViewSearchResultActivity extends Activity implements FView<DbManager>
 {
+	public static final String EXTRA_URI = "extra_uri";
+	private long uri;
+	private Recipe viewedRecipe;
+	private TextView recipeName;
+	private TextView instructions;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -26,8 +32,12 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 		setContentView(R.layout.activity_view_search_result);
 		
 		Intent intent = getIntent();
-		String URI = intent.getStringExtra(SearchResultsActivity.EXTRA_URI);
-		long uri=Long.parseLong(URI);
+		// Minor adj. passing uris as long -Pablo
+		//String URI = 
+		//long uri=Long.parseLong(URI);
+		uri = intent.getLongExtra(EXTRA_URI, 0);
+		
+		
 		Recipe viewedRecipe=null;
 		for(int index=0; index<DbC.getStoredRecipes().size(); index++)
 		{
@@ -38,12 +48,22 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 					
 					}
 		}
-	
-		TextView recipeName = (TextView) findViewById(R.id.textView2);
-		EditText instructions = (EditText) findViewById(R.id.editText3);
+		
+		recipeName = (TextView) findViewById(R.id.textView2);
+		instructions = (TextView) findViewById(R.id.editText3);
 		recipeName.setText(viewedRecipe.getTitle());
 		instructions.setText(viewedRecipe.getInstructions());	
 		
+		updateView();
+		
+	}
+protected void updateView(){
+		
+		DbController DbC = DbController.getInstance(this, this);
+		
+		viewedRecipe = DbC.getUserRecipe(uri);
+		recipeName.setText(viewedRecipe.getTitle());
+		instructions.setText(viewedRecipe.getInstructions());
 	}
 
 	
@@ -59,6 +79,7 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
     {
 		// responds to button View Photos
     	Intent intent = new Intent(this, ViewPhotosActivity.class);
+    	intent.putExtra(EXTRA_URI, uri);
 		startActivity(intent);
     }
 	public void OnAddPhotos (View View)

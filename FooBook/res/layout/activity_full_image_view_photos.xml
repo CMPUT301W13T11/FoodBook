@@ -6,7 +6,6 @@
     android:background="@color/grey"
     tools:context=".FullImageViewPhotosActivity" >
 
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -14,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="@string/gallery"
+        android:text="@string/image"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button

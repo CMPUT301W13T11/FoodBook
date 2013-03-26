@@ -25,7 +25,8 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 public class SearchResultsActivity extends Activity implements FView<DbManager>
 {
 
-	protected static final String EXTRA_URI = null;
+	//protected static final String EXTRA_URI = null;
+	public static final String EXTRA_URI = "extra_uri";
 
 
 	/**
@@ -122,8 +123,9 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{	long recipe_uri = ((Recipe) parent.getItemAtPosition(position)).getUri();
 				Intent intent = new Intent(SearchResultsActivity.this, ViewSearchResultActivity.class);
-				String URI=Long.toString(recipe_uri);
-				intent.putExtra(EXTRA_URI, URI);
+				// Minor adjustment, passing uris as longs -Pablo
+				//String URI=Long.toString(recipe_uri);
+				intent.putExtra(EXTRA_URI, recipe_uri);
 				startActivity(intent);
 			}});                                                                                 
 	}
