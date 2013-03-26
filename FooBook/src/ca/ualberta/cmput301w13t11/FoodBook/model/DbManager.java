@@ -303,14 +303,14 @@ public class DbManager extends FModel<FView> {
     	
     	int recipes_removed = 0;
     	boolean deleted_pictures = true;
-    	boolean deleted_ingreds = true;
+    	//boolean deleted_ingreds = true;
     	try{
     		//String s = Long.toString(recipe.getUri());
     		//Log.d("uri in String", s);
     		recipes_removed = db.delete("UserRecipes", "URI = " + recipe.getUri(), null);
-    		Log.d("we got past removing recipes", "OK");
-    		String s = Integer.toString(recipes_removed);
-    		Log.d("recipes", s);
+    		//Log.d("we got past removing recipes", "OK");
+    		//String s = Integer.toString(recipes_removed);
+    		//Log.d("recipes", s);
     		
     		ArrayList<Photo> photos = getRecipePhotos(uri); 
     		for (Photo p: photos){
@@ -319,19 +319,22 @@ public class DbManager extends FModel<FView> {
     			}
     		}
   
-    		Log.d("we got past removing photos", "OK");
-    		s = new Boolean(deleted_pictures).toString();
-    		Log.d("photos", s);
+    		//Log.d("we got past removing photos", "OK");
+    		//s = new Boolean(deleted_pictures).toString();
+    		//Log.d("photos", s);
     		//Do the same for ingredients
-  			deleted_ingreds = removeRecipeIngredients(uri);
+    		// There might be none, so dont check -Pablo
+  			//deleted_ingreds = removeRecipeIngredients(uri);
+    		removeRecipeIngredients(uri);
   			
-  			Log.d("we got past removing ingredients", "OK");
-    		s = new Boolean(deleted_ingreds).toString();
-    		Log.d("ingreds", s);
+  			//Log.d("we got past removing ingredients", "OK");
+    		//s = new Boolean(deleted_ingreds).toString();
+    		//Log.d("ingreds", s);
     				    		
     	}catch(Exception e){e.printStackTrace();};
-
-    	return (recipes_removed==1 && deleted_pictures==true && deleted_ingreds==true);
+    	// No need to check if ingredients cleared
+    	//return (recipes_removed==1 && deleted_pictures==true && deleted_ingreds==true);
+    	return (recipes_removed==1 && deleted_pictures==true);
     }
     
     /**

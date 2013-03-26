@@ -30,13 +30,14 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	private Recipe viewedRecipe;
 	private EditText recipeName;
 	private EditText instructions;
-	private DbController DbC;
+	//private DbController DbC;
 	private ImageView darkenScreen;
 	private LayoutParams darkenParams;
+	private boolean recipe_may_delete;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
-		DbC = DbController.getInstance(this, this);
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_recipe);
 		
@@ -47,6 +48,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		recipeName = (EditText) findViewById(R.id.editText1);
 		instructions = (EditText) findViewById(R.id.editText3);
 		
+		recipe_may_delete = false;
 		Intent intent = getIntent();
 		
 		//String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
@@ -57,9 +59,13 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	}
 	protected void updateView(){
 		
-		viewedRecipe = DbC.getUserRecipe(uri);
-		recipeName.setText(viewedRecipe.getTitle());
-		instructions.setText(viewedRecipe.getInstructions());
+		if (!recipe_may_delete){
+			// I was here
+			DbController DbC = DbController.getInstance(this, this);
+			viewedRecipe = DbC.getUserRecipe(uri);
+			recipeName.setText(viewedRecipe.getTitle());
+			instructions.setText(viewedRecipe.getInstructions());
+		}
 	}
 
 	@Override
@@ -73,8 +79,14 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	public void OnGotoMyRecipes(View View)
     {
 		// responds to button Go Back to My Recipes
-		 Intent intent = new Intent(View.getContext(), MyRecipes.class);
-		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		// Not needed -Pablo
+		 //Intent intent = new Intent(View.getContext(), MyRecipes.class);
+		 //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		//Needed
+		Intent returnIntent = new Intent();
+		setResult(RESULT_CANCELED, returnIntent);
+
+		//finish();
 		 EditRecipeActivity.this.finish();
     }
 	
@@ -117,8 +129,11 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 			public void onClick(View View){
 
 				//delete the recipe
-
-				Log.d("are we here", "are we here");
+				//blocks updates
+				recipe_may_delete = true;
+				//Log.d("are we here", "are we here");
+				//Brought the DbC here too -Pablo
+				DbController DbC = DbController.getInstance(EditRecipeActivity.this, EditRecipeActivity.this);
 				Boolean success = DbC.deleteRecipe(viewedRecipe);
 				//ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
 				//LayoutParams darkenParams = darkenScreen.getLayoutParams();
@@ -134,6 +149,10 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 					Toast.makeText(getApplicationContext(),
 							"Error during deleting", Toast.LENGTH_LONG).show();
 				} 
+				//gets rid of delete bug
+				Intent returnIntent = new Intent();
+				setResult(RESULT_OK,returnIntent);
+				finish();
 			}
 		};
 		ok_button.setOnClickListener(ok_button_click_listener);

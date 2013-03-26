@@ -1,30 +1,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/AppBaseTheme"
-    android:layout_width="wrap_content"
-    android:layout_height="125dp"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@color/grey"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".EditIngredients" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
         <TextView
             android:id="@+id/popup_msg"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/are_you_sure_delete_recipe"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal" >
 
@@ -35,7 +29,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-   
                 android:text="@string/cancel"
                 android:textSize="18sp" />
 
@@ -46,10 +39,9 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-
                 android:text="@string/ok"
                 android:textSize="18sp" />
+
         </LinearLayout>
-    </LinearLayout>
 
 </LinearLayout>

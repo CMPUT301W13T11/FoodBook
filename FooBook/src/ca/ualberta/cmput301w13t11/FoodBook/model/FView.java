@@ -8,7 +8,10 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
  *
  * @param <M> A Model extending the FModel superclass.
  */
-public interface FView<M extends FModel> {
+
+//Not that it matters but this is how Dr. Hindle has it, and gets rid of one warning -Pablo
+//public interface FView<M extends FModel> {
+public interface FView<M> {
 
 	/**
 	 * Update the View according the changes made to model M.

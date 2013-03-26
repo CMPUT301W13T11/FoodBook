@@ -2,8 +2,8 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +27,9 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	private PopupWindow popUp;
 	private TextView recipeName;
 	private TextView instructions;
+	// gets rid of that pesky deleting bug
+	private boolean recipe_may_delete;
+	private static final int DELETE_REQUEST = 80;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -42,14 +45,18 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		//long uri=Long.parseLong(URI);
 		uri = intent.getLongExtra(EXTRA_URI, 0);
 		//Log.d("recipeuri", Long.toString(uri));
-
+		
+		recipe_may_delete = false;
 		this.updateView();
 	}
 	public void updateView(){
-		DbController DbC = DbController.getInstance(this, this);
-		viewedRecipe = DbC.getUserRecipe(uri);
-		recipeName.setText(viewedRecipe.getTitle());
-		instructions.setText(viewedRecipe.getInstructions());
+		//check if recipe may be deleted, if so, do not update -Pablo
+		if (!recipe_may_delete){
+			DbController DbC = DbController.getInstance(this, this);
+			viewedRecipe = DbC.getUserRecipe(uri);
+			recipeName.setText(viewedRecipe.getTitle());
+			instructions.setText(viewedRecipe.getInstructions());
+		}
 	}
 
 	public void OnGotoMyRecipes(View View)
@@ -62,6 +69,9 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	
 	public void OnEditRecipe (View View)
     {	
+		
+		// need this to block the update if a recipe is deleted (finally found that bug!) -Pablo
+		recipe_may_delete = true;
 		//Intent intent1 = getIntent();
 		//String URI = intent1.getStringExtra(MyRecipes.EXTRA_URI);
 		
@@ -69,8 +79,20 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
     	Intent intent = new Intent(this, EditRecipeActivity.class);
     	//intent.putExtra(EXTRA_URI, URI);
     	intent.putExtra(EXTRA_URI, uri);
-		startActivity(intent);
+		//startActivity(intent);
+    	
+    	//now we call the activity for a result, asking if the recipe was deleted
+    	startActivityForResult(intent, DELETE_REQUEST);
+    	
     }
+	//Added this to get the recipe deletion result  
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	     if (requestCode == DELETE_REQUEST && resultCode == RESULT_OK) {  
+           
+           //updateView();
+	    	finish(); 
+       }  
+	}
 	public void OnEditPhotos (View View)
     {
 		// responds to button Edit Photos
@@ -115,7 +137,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		//make the popup
 		LinearLayout layout = new LinearLayout(this);
 		LayoutInflater inflater = LayoutInflater.from(this);
-		popUp = new PopupWindow(inflater.inflate(R.layout.popup_recipe_upload_success, null, false),300,130,true);
+		popUp = new PopupWindow(inflater.inflate(R.layout.popup_recipe_upload_success, null, false),380,200,true);
 		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
     	
     }
