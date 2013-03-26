@@ -266,8 +266,11 @@ public class DbManager extends FModel<FView> {
     	//String createStatement = 
     	
     	//String.format("Delete From RecipePhotos Where recipeUri = %S and filename = %S", uri, photo.getName()); 
-    	int success = db.delete("RecipePhotos", "id = " + photo.getId(), null); 
-    	//Log.d("int", Integer.toString(r));
+    	//int success = db.delete("RecipePhotos", "id = " + photo.getId(), null); 
+    	//int success = db.delete("RecipePhotos", "id=?", new String[] {photo.getId()});
+    	db.rawQuery("Delete From RecipePhotos Where id = " + photo.getId(), null);
+    	
+    	Log.d("int", "db.delete returned: " + Integer.toString(10));
     	Boolean deleted = false;
     	
     		try{
@@ -277,7 +280,7 @@ public class DbManager extends FModel<FView> {
     		catch(Exception e){
     			e.printStackTrace();
     		}  	
-    	return (success==1 && deleted==true);
+    	return (deleted==true);
     }
         
     /**
