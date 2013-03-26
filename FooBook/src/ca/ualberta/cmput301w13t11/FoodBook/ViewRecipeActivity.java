@@ -18,7 +18,12 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
-
+/**
+ * Activity launched that presents to the user detailed information about a Recipe.
+ * From here, the user may edit, e-mail or publish the recipe.
+ * @author 
+ *
+ */
 public class ViewRecipeActivity extends Activity implements FView<DbManager>
 {
 
@@ -28,9 +33,14 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	private PopupWindow popUp;
 	private TextView recipeName;
 	private TextView instructions;
-	private static boolean uploading = false;
 	private ProgressDialog progressDialog;
 
+	/**
+	 * Task to upload a recipe.
+	 * TODO: change this such that it calls controller functions rather than ServerClient functions directly.
+	 * @author mbabic
+	 *
+	 */
 	private class UploadRecipeTaska extends AsyncTask<Recipe, Void, ReturnCode>{
 
 		@Override
@@ -140,6 +150,11 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 					}
 		}
 		*/
+		
+		
+		//TODO: the code below could be copied to "OnPostExecute" code for the async task such that it is displayed instead of the Toast.
+		
+		
 		//first darken the screen
 //		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
 //		LayoutParams darkenParams = darkenScreen.getLayoutParams();

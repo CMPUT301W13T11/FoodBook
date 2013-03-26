@@ -1,6 +1,9 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import java.io.File;
+
 import android.app.Application;
+import android.os.Environment;
 import android.os.StrictMode;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
@@ -20,6 +23,8 @@ public class FoodBookApplication extends Application {
 		transient private static ServerClient gsc = null;
 		transient private static ServerController gscc = null;
 		transient private static DbController gdbc = null;
+		private static String state;
+		private static String sdCardPath;
 
 
 		@Override
@@ -34,6 +39,20 @@ public class FoodBookApplication extends Application {
 			grecipesdb = RecipesDbManager.getInstance(this);
 			gingredientsdb = IngredientsDbManager.getInstance(this);
 			gsc = ServerClient.getInstance();
+			state = Environment.getExternalStorageState();
+			sdCardPath = Environment.getExternalStorageDirectory()+File.separator;
+
+
+		}
+		
+		public String getState()
+		{
+			return state;
+		}
+		
+		public String getSdCardPath()
+		{
+			return sdCardPath;
 		}
 		
 		public static FoodBookApplication getApplicationInstance()

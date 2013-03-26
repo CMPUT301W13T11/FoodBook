@@ -4,8 +4,8 @@ import java.io.File;
 
 import android.content.Context;
 import android.os.Environment;
-import android.os.StrictMode;
 import android.util.Base64;
+import android.util.Log;
 import ca.ualberta.cmput301w13t11.FoodBook.FoodBookApplication;
 
 
@@ -42,25 +42,26 @@ public class ServerPhoto {
 	 */
 	public static Photo toPhoto(ServerPhoto sp)
 	{
-		String imgPath = "";
+		String imgPath = null;
 		File file = null;
-		String state = Environment.getExternalStorageState();
 		FoodBookApplication app = FoodBookApplication.getApplicationInstance();
+		String state = app.getState();
 		/* We first get the save path on this device. */
-		if (Environment.MEDIA_MOUNTED.equals(state)) {
-			imgPath = Environment.getExternalStorageDirectory()+File.separator+sp.getId();
+		//if (Environment.MEDIA_MOUNTED.equals(state)) {
+			imgPath = app.getSdCardPath() + sp.getId();
 			file = new File(imgPath);
-		}
+		//}
+		/*
 		else {
 			File dir = app.getDir("Pictures", Context.MODE_PRIVATE);
 			file = new File(dir, sp.getId());
-		}
+		}*/
+		Log.d("ServerPhoto.toPhoto()", "imgPath = " + imgPath);
 		if (sp.encoded_bitmap != null) {
 			byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);
 			return new Photo(sp.getId(), imgPath, data);
 		}
-		byte[] d = null;
-		return new Photo(sp.getId());
+		return new Photo(sp.getId(), imgPath);
 	}
 	
 	/**
