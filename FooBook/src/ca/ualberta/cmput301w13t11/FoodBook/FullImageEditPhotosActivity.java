@@ -31,7 +31,7 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 
 	/**
 	 * Performs an photo upload operation asynchronously (ie. not on the UI thread) and reports
-	 * its results.  The process is started by calling "new SearchByKeywordsTask().execute(keyword)".
+	 * its results.  The process is started by calling "new SearchByKeywordsTask(uri of recipe).execute(photo to be uploaded)".
 	 * @author mbabic
 	 */
 	private class UploadPhotoTask extends AsyncTask<Photo, Void, ReturnCode>{
