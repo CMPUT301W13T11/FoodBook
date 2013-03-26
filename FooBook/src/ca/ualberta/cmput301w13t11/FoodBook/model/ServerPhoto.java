@@ -44,18 +44,17 @@ public class ServerPhoto {
 	{
 		String imgPath = null;
 		File file = null;
+		
+		/* We now need to obtains the Sd Card from the device. */
 		FoodBookApplication app = FoodBookApplication.getApplicationInstance();
 		String state = app.getState();
+		
 		/* We first get the save path on this device. */
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
 			imgPath = app.getSdCardPath() + sp.getId();
 			file = new File(imgPath);
 		}
-		/*
-		else {
-			File dir = app.getDir("Pictures", Context.MODE_PRIVATE);
-			file = new File(dir, sp.getId());
-		}*/
+	
 		Log.d("ServerPhoto.toPhoto()", "imgPath = " + imgPath);
 		if (sp.encoded_bitmap != null) {
 			byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);

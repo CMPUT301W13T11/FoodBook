@@ -5,9 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +39,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	private ProgressDialog progressDialog;
 
 	/**
-	 * Task to upload a recipe.
-	 * TODO: change this such that it calls controller functions rather than ServerClient functions directly.
+	 * Async task to upload a recipe -- launched when the PublishRecipe button is pressed.
 	 * @author mbabic
 	 *
 	 */
@@ -48,13 +50,16 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		{
 			progressDialog = ProgressDialog.show(ViewRecipeActivity.this, "", "Uploading Recipe...");
 
+
 		}
 		@Override
 		protected ReturnCode doInBackground(Recipe... recipes) {
 			Recipe recipe = recipes[0];
+			DbController DbC = DbController.getInstance(ViewRecipeActivity.this, ViewRecipeActivity.this);
+			ServerController SC=ServerController.getInstance(ViewRecipeActivity.this);
 			ServerClient sc = ServerClient.getInstance();
 			try {
-				ReturnCode retcode = sc.uploadRecipe(recipe);
+				ReturnCode retcode = SC.uploadRecipe(viewedRecipe);
 				return retcode;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -66,8 +71,28 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		protected void onPostExecute(ReturnCode ret)
 		{
 			progressDialog.dismiss();
-			Toast.makeText(getApplicationContext(),
-					"Recipe uploaded successfully! :)", Toast.LENGTH_LONG).show();
+			if (ret == ReturnCode.SUCCESS) {
+				ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+				LayoutParams darkenParams = darkenScreen.getLayoutParams();
+				darkenParams.height = 1000;
+				darkenParams.width = 1000;
+				darkenScreen.setLayoutParams(darkenParams);
+				//make the popup
+				LinearLayout layout = new LinearLayout(ViewRecipeActivity.this);
+				LayoutInflater inflater = LayoutInflater.from(ViewRecipeActivity.this);
+				popUp = new PopupWindow(inflater.inflate(R.layout.popup_recipe_upload_success, null, false),300,130,true);
+				popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
+			}
+			else if (ret == ReturnCode.ALREADY_EXISTS) {
+				/* Temp toast, could eventually be its own popup if someone cares to do it. */
+				Toast.makeText(getApplicationContext(),
+						"A recipe with this uri already exists. :S", Toast.LENGTH_LONG).show();
+			}
+			else if (ret == ReturnCode.ERROR) {
+				/* Temp toast, could eventually be its own popup */
+				Toast.makeText(getApplicationContext(),
+						"An error occurred.  Sorry about that. :(", Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 
@@ -151,22 +176,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		}
 		*/
 		
-		
-		//TODO: the code below could be copied to "OnPostExecute" code for the async task such that it is displayed instead of the Toast.
-		
-		
-		//first darken the screen
-//		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-//		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-//		darkenParams.height = 1000;
-//		darkenParams.width = 1000;
-//		darkenScreen.setLayoutParams(darkenParams);
-//		//make the popup
-//		LinearLayout layout = new LinearLayout(this);
-//		LayoutInflater inflater = LayoutInflater.from(this);
-//		popUp = new PopupWindow(inflater.inflate(R.layout.popup_recipe_upload_success, null, false),300,130,true);
-//		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
-    	
+		    	
     }
 	public void OnOK(View v){
 		popUp.dismiss();
