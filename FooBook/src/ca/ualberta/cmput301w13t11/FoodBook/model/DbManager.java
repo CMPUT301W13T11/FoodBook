@@ -103,11 +103,35 @@ public class DbManager extends FModel<FView> {
 	    
 	}
 	
+	/**
+	 * Updates the title of the Recipe with the given URI.
+	 * TODO: consider making this a private part of an "update recipe function"
+	 * @param uri The URI of the Recipe to be updated.
+	 * @param tableName The name of the table in which the Recipe resides.
+	 * @param newTitle The new title of the Recipe.
+	 */
 	public void updateRecipeTitle(long uri, String tableName, String newTitle)
 	{
 		String filter = "URI=" + Long.toString(uri);
 		ContentValues args = new ContentValues();
 		args.put("title", newTitle);
+		db.update(tableName, args, filter, null);
+		notifyViews();
+		//db.rawQuery("UPDATE " + tableName + " SET title=" + newTitle + " WHERE URI=" + Long.toString(uri), null);
+	}
+	
+	/**
+	 * Updates the instructions of he Recipe with the given URI.
+  	 * TODO: consider making this a private part of an "update recipe function"
+	 * @param uri The URI of the Recipe to be updated.
+	 * @param tableName The name of the table in which the Recipe resides.
+	 * @param newInstructions The new instructions for the Recipe.
+	 */
+	public void updateRecipeInstructions(long uri, String tableName, String newInstructions)
+	{
+		String filter = "URI=" + Long.toString(uri);
+		ContentValues args = new ContentValues();
+		args.put("instructions", newInstructions);
 		db.update(tableName, args, filter, null);
 		notifyViews();
 		//db.rawQuery("UPDATE " + tableName + " SET title=" + newTitle + " WHERE URI=" + Long.toString(uri), null);
