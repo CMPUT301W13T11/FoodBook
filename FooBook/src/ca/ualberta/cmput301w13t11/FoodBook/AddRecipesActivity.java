@@ -19,13 +19,20 @@ import android.widget.PopupWindow;
 
 public class AddRecipesActivity extends Activity implements FView<DbManager>
 {
-//Testttt
+
 	PopupWindow popUp;
+	private long recipe_uri; /* timestamp the recipe on entry into the  */
+	private Recipe mRecipe;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 
 		super.onCreate(savedInstanceState);
+		
+		/* Initialize the recipe on entry. */
+		recipe_uri = System.currentTimeMillis();
+		mRecipe = new Recipe(recipe_uri);
+		
 		setContentView(R.layout.activity_add_recipes);
 	}
 

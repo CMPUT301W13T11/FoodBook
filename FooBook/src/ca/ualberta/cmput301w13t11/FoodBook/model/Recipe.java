@@ -48,6 +48,19 @@ public class Recipe {
 	}
 	
 	/**
+	 * Constructor with only a URI arg.
+	 * @param uri The URI we want to associate with this recipe.
+	 */
+	public Recipe(long uri)
+	{
+		this.uri = uri;
+		this.author = new User("");
+		this.instructions = "";
+		this.ingredients = new ArrayList<Ingredient>();
+		this.photos = new ArrayList<Photo>();
+	}
+	
+	/**
 	 * Constructor.
 	 * @param title The title of the recipe.
 	 * @param author The author of the recipe.

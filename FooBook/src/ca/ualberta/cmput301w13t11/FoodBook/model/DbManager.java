@@ -102,6 +102,16 @@ public class DbManager extends FModel<FView> {
 	    }
 	    
 	}
+	
+	public void updateRecipeTitle(long uri, String tableName, String newTitle)
+	{
+		String filter = "URI=" + Long.toString(uri);
+		ContentValues args = new ContentValues();
+		args.put("title", newTitle);
+		db.update(tableName, args, filter, null);
+		notifyViews();
+		//db.rawQuery("UPDATE " + tableName + " SET title=" + newTitle + " WHERE URI=" + Long.toString(uri), null);
+	}
     
     /**
      * Inserts the given Ingredient into the database such that it is associated with the
