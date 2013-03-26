@@ -62,7 +62,8 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 			progressDialog.dismiss();
 			ServerClient sc = ServerClient.getInstance();
 			if (ret == ReturnCode.SUCCESS) {
-				sc.writeResultsToDb();
+				Toast.makeText(getApplicationContext(), "Photo successfully uploaded!", Toast.LENGTH_LONG).show();
+
 			}
 			else if (ret == ReturnCode.NOT_FOUND) {
 				Toast.makeText(getApplicationContext(), "Sorry, we couldn't find this recipe online. :( \n Have you uploaded it yet?", Toast.LENGTH_LONG).show();
