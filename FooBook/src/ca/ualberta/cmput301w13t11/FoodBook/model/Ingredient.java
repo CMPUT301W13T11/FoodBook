@@ -69,4 +69,10 @@ public class Ingredient {
         return values;
     }
 	
+    /**
+     * Returns a string representation of the object
+     */
+    public String toString(){
+    	return unit + " " + quantity + " " + name ;
+    }
 }
