@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
@@ -82,6 +83,22 @@ public class ServerController {
 		try {
 			return sc.searchByKeywords(keywords);
 		} catch (IOException ioe) {
+			return ReturnCode.ERROR;
+		}
+	}
+	
+	/**
+	 * Calls the uploadPhotoToRecipe() method of ServerClient.
+	 * @param photo The photo to be uploaded.
+	 * @param uri the URI of the Recipe to which the photo is to be uploaded.
+	 * @return ReturnCode.ERROR if anything goes wrong, ReturnCode.NOT_FOUND if he 
+	 * Recipe does not exist on the server, ReturnCode.SUCCESS if everything went okay.
+	 */
+	public ReturnCode uploadPhotoToRecipe(Photo photo, long uri)
+	{
+		try {
+			return sc.uploadPhotoToRecipe(photo, uri);
+		} catch (Exception e) {
 			return ReturnCode.ERROR;
 		}
 	}
