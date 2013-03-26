@@ -286,7 +286,7 @@ public class DbManager extends FModel<FView> {
     /**
      * Deletes the ingredients associated with the recipe specified by the uri (ie.
      * removes them from the RecipeIngredients table).
-     * @param uri The uri of the recipe whose ingrediens we would like to remove.
+     * @param uri The uri of the recipe whose ingredients we would like to remove.
      * @return true on success, false on failure
      */
     public boolean removeRecipeIngredients(long uri) {

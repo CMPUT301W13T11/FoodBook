@@ -1,22 +1,23 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
 public class ViewRecipeActivity extends Activity implements FView<DbManager>
 {
@@ -27,6 +28,38 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	private PopupWindow popUp;
 	private TextView recipeName;
 	private TextView instructions;
+	private static boolean uploading = false;
+	private ProgressDialog progressDialog;
+
+	private class UploadRecipeTaska extends AsyncTask<Recipe, Void, ReturnCode>{
+
+		@Override
+		protected void onPreExecute()
+		{
+			progressDialog = ProgressDialog.show(ViewRecipeActivity.this, "", "Uploading Recipe...");
+
+		}
+		@Override
+		protected ReturnCode doInBackground(Recipe... recipes) {
+			Recipe recipe = recipes[0];
+			ServerClient sc = ServerClient.getInstance();
+			try {
+				ReturnCode retcode = sc.uploadRecipe(recipe);
+				return retcode;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return ReturnCode.ERROR;
+			}
+		}
+		
+		@Override
+		protected void onPostExecute(ReturnCode ret)
+		{
+			progressDialog.dismiss();
+			Toast.makeText(getApplicationContext(),
+					"Recipe uploaded successfully! :)", Toast.LENGTH_LONG).show();
+		}
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -92,7 +125,8 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		//String URI = intent.getStringExtra(MyRecipes.EXTRA_URI);
 		//long uri=Long.parseLong(URI);
 		intent.putExtra(EXTRA_URI, uri);
-		SC.uploadRecipe(viewedRecipe);
+		//SC.uploadRecipe(viewedRecipe);
+		new UploadRecipeTaska().execute(viewedRecipe);
 		/*
 		ArrayList<Recipe> RecipeList= DbC.getUserRecipes();
 		
@@ -107,16 +141,16 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		}
 		*/
 		//first darken the screen
-		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 1000;
-		darkenParams.width = 1000;
-		darkenScreen.setLayoutParams(darkenParams);
-		//make the popup
-		LinearLayout layout = new LinearLayout(this);
-		LayoutInflater inflater = LayoutInflater.from(this);
-		popUp = new PopupWindow(inflater.inflate(R.layout.popup_recipe_upload_success, null, false),300,130,true);
-		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
+//		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+//		LayoutParams darkenParams = darkenScreen.getLayoutParams();
+//		darkenParams.height = 1000;
+//		darkenParams.width = 1000;
+//		darkenScreen.setLayoutParams(darkenParams);
+//		//make the popup
+//		LinearLayout layout = new LinearLayout(this);
+//		LayoutInflater inflater = LayoutInflater.from(this);
+//		popUp = new PopupWindow(inflater.inflate(R.layout.popup_recipe_upload_success, null, false),300,130,true);
+//		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
     	
     }
 	public void OnOK(View v){
@@ -139,4 +173,5 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		DbController DbC = DbController.getInstance(this, this);
 		DbC.deleteView(this);
 	}
+
 }
