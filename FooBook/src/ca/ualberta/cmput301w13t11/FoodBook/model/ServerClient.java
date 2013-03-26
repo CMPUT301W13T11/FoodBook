@@ -52,7 +52,7 @@ import android.os.StrictMode;
  * ----------------------------------------------------------------------------------------------------
  */
 public class ServerClient {	
-	
+
 	private static ServerClient instance = null;
 	private static DbManager dbManager = null;
 	static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
@@ -64,15 +64,15 @@ public class ServerClient {
 	{
 		SUCCESS, ALREADY_EXISTS,NO_RESULTS, NOT_FOUND, ERROR;
 	}
-	
+
 	/**
 	 * Empty constructor.
 	 */
 	private ServerClient()
 	{
-		
+
 	}
-	
+
 	/**
 	 * Returns the instance of ServerClient, or generates it if has not yet be instantiated.
 	 * @return The instance of the ServerClient
@@ -83,7 +83,7 @@ public class ServerClient {
 			/* Allow networking on main thread. Will be changed later so networking tasks are asynchronous. */
 			StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 			StrictMode.setThreadPolicy(policy); 
-			
+
 			instance = new ServerClient();
 			dbManager = DbManager.getInstance();
 			httpclient = ServerClient.getThreadSafeClient();
@@ -91,7 +91,7 @@ public class ServerClient {
 		}
 		return instance;
 	}
-	
+
 	/**
 	 * Returns true if a connection can be established to the given url.
 	 * Else, returns false
@@ -114,8 +114,8 @@ public class ServerClient {
 
 		return false;
 	}
-	
-	
+
+
 	/**
 	 * Uploads the given recipe to the server.
 	 * @param recipe The recipe to be uploaded.
@@ -130,12 +130,12 @@ public class ServerClient {
 		HttpResponse response = null;
 		HttpPost httpPost = new HttpPost(test_server_string+recipe.getUri());
 		StringEntity se = null;
-		
+
 		se = helper.recipeToJSON(recipe);
-		
+
 		httpPost.setHeader("Accept","application/json");
 		httpPost.setEntity(se);
-		
+
 		try {
 			response = httpclient.execute(httpPost);
 		} catch (ClientProtocolException cpe) {
@@ -147,7 +147,7 @@ public class ServerClient {
 			ioe.printStackTrace();
 			return ReturnCode.ERROR;
 		}
-		
+
 		String status = response.getEntity().toString();
 		int retcode = response.getStatusLine().getStatusCode();
 		logger.log(Level.INFO, "upload request server response: " + response.getStatusLine().toString());
@@ -157,7 +157,7 @@ public class ServerClient {
 		else
 			return ReturnCode.ALREADY_EXISTS;
 	}
-	
+
 	/**
 	 * Gets a thread safe client - that is, a client which can be used in a multithreaded
 	 * program and protects against certain errors that exist even in single threaded programs.
@@ -168,12 +168,12 @@ public class ServerClient {
 		DefaultHttpClient client = new DefaultHttpClient();
 		ClientConnectionManager manager = client.getConnectionManager();
 		HttpParams params = client.getParams();
-		
+
 		client = new DefaultHttpClient(new ThreadSafeClientConnManager(params,
-										manager.getSchemeRegistry()), params);
+				manager.getSchemeRegistry()), params);
 		return client;
 	}
-	
+
 	/**
 	 * Performs a search of online recipes by keywords.
 	 * @param str The string of keywords we wish to search by.
@@ -190,7 +190,7 @@ public class ServerClient {
 			logger.log(Level.SEVERE, "Search string passed:" + str);
 
 			HttpGet search_request = new HttpGet(test_server_string+"_search?q=" + 
-												java.net.URLEncoder.encode(str, "UTF-8"));
+					java.net.URLEncoder.encode(str, "UTF-8"));
 			search_request.setHeader("Accept", "application/json");
 
 			response = httpclient.execute(search_request);
@@ -206,11 +206,11 @@ public class ServerClient {
 			logger.log(Level.SEVERE, "execute failed" + ioe.getMessage());
 			return ReturnCode.ERROR;
 		}
-		
+
 		HttpEntity entity = response.getEntity();
 		BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
 		String out, json = "";
-		
+
 		while ((out = br.readLine()) != null) {
 			json += out;
 		}
@@ -225,20 +225,9 @@ public class ServerClient {
 			return ReturnCode.NO_RESULTS;
 
 		}
-		
-//		dbManager = DbManager.getInstance();
-//		if (dbManager == null)
-//		{
-//			logger.log(Level.SEVERE, "ResultsDbManager null!!!");
-//			return ReturnCode.ERROR;
-//		}
-//		dbManager.storeRecipes(search_results);
-//		logger.log(Level.SEVERE, "GOT RESULTS");
-//		logger.log(Level.SEVERE, "First result: " + search_results.get(0).getTitle());
-
 		return ReturnCode.SUCCESS;		
 	}
-	
+
 	public void writeResultsToDb()
 	{
 		dbManager = DbManager.getInstance();
@@ -250,7 +239,7 @@ public class ServerClient {
 		logger.log(Level.SEVERE, "GOT RESULTS");
 		logger.log(Level.SEVERE, "First result: " + results.get(0).getTitle());
 	}
-	
+
 	/**
 	 * Search the server for recipes which are composed of ingredients 
 	 * @param ingredients The list of ingredients by which to search.
@@ -265,7 +254,7 @@ public class ServerClient {
 		 * OR between the ingredients -- this could be changed later for better
 		 * functionality.
 		 */
-		
+
 		String ingredients_str = "";	/* The list of ingredients with the logical OR between each item. */
 		for (int i = 0; i < ingredients.size(); i++) {
 			if (i != 0) {
@@ -287,32 +276,32 @@ public class ServerClient {
 			StringEntity str_entity = new StringEntity(query);
 			searchRequest.setHeader("Accept","application/json");
 			searchRequest.setEntity(str_entity);
-			
+
 			HttpResponse response = httpclient.execute(searchRequest);
 			logger.log(Level.SEVERE, "Http response (searchByIngredients search attempt): " + response.getStatusLine().toString());
 			String response_str = helper.responseToString(response);
-			
+
 			search_results = helper.toRecipeList(response_str);
-			
+
 		} catch (UnsupportedEncodingException uee) {
-			
+
 			logger.log(Level.SEVERE, "Failed to create StringEntity from query : " + uee.getMessage());
 			uee.printStackTrace();
 			return ReturnCode.ERROR;
-			
+
 		} catch (ClientProtocolException cpe) {
-			
+
 			logger.log(Level.SEVERE, "ClientProtocolException in execution of search request: " + cpe.getMessage());
 			cpe.printStackTrace();
 			return ReturnCode.ERROR;
-			
+
 		} catch (IOException ioe) {
-			
+
 			logger.log(Level.SEVERE, "IOException in execution of search request: " + ioe.getMessage());
 			ioe.printStackTrace();
 			return ReturnCode.ERROR;
 		}
-		
+
 
 		/* 
 		 * If our search returned no results, we do not write anything to the Results Db
@@ -321,17 +310,12 @@ public class ServerClient {
 		if (search_results.isEmpty()) {
 			return ReturnCode.NO_RESULTS;
 		}
-		
-		/* Else, our search returned results; we write them to the Results Db and return success code. */
-		dbManager = DbManager.getInstance();
-		if (dbManager == null)
-		{
-			return ReturnCode.ERROR;
-		}
-		dbManager.storeRecipes(search_results);
+
+		/* Else, our search returned results; we update "results" and return success code. */
+		results = search_results;
 		return ReturnCode.SUCCESS;
 	}
-	
+
 	/**
 	 * Upload the given Photo to the appropriate Recipe.
 	 * @param (Photo) photo The photo to be added to the server-side version of the Recipe.
@@ -342,66 +326,78 @@ public class ServerClient {
 	 */
 	public ReturnCode uploadPhotoToRecipe(Photo photo, long uri)
 	{
+		int maxTries = 50;
+		int tries = 0;
 		/* 
 		 * We first must determine if the Recipe to which we wish to upload the photo
 		 * actually exists on the server.  To do so, we attempt to retrieve the Recipe
 		 * from the server and examine the HTTP return code we receive.
 		 */
+		HttpResponse response = null;
+		int retcode = -1;
 		try {
 			HttpGet get = new HttpGet(test_server_string + uri);
 			get.addHeader("Accept","application/json");
-			HttpResponse response = httpclient.execute(get);
-			int retcode = response.getStatusLine().getStatusCode();
-			logger.log(Level.INFO, "HttpGet server response: " + response.getStatusLine().toString());
-
-			if (retcode == HttpStatus.SC_NOT_FOUND) {
-				logger.log(Level.SEVERE, "Recipe not on server. Response code: " + retcode);
-				return ReturnCode.NOT_FOUND;
-			}
-			
-			if (retcode != HttpStatus.SC_OK) {
-				logger.log(Level.SEVERE, "Recipe to upload photo to could not be found.  Response code: " + retcode);
-				return ReturnCode.ERROR;
-			}
-			
-			/* Else, the Recipe exists online and we try to upload the given photo to it. */
-			
-			/* We first must convert the given Photo to a ServerPhoto. */
-			ServerPhoto serverPhoto = new ServerPhoto(photo);
-			
-			/* Now we must construct a suitable JSON style string for the ServerPhoto. */
-			String sp_str = helper.serverPhotoToJSON(serverPhoto);
-			
-			HttpPost updateRequest = new HttpPost("http://cmput301.softwareprocess.es:8080/testing/lab02/1/_update");
-			String query = 	"{\"script\" : \"ctx._source.photos += photo\", \"params\" : " +
-							"{ \"photo\" : \"" + sp_str + "\"}}";
-			StringEntity stringentity = new StringEntity(query);
-
-			updateRequest.setHeader("Accept","application/json");
-			updateRequest.setEntity(stringentity);
-			response = httpclient.execute(updateRequest);
-			logger.log(Level.SEVERE, "Upload request return code: " + response.getStatusLine().toString());
+			response = httpclient.execute(get);
 			retcode = response.getStatusLine().getStatusCode();
-			int i = 0;
-			while (retcode == HttpStatus.SC_INTERNAL_SERVER_ERROR && i < 3) {
-				i++;
-				response = httpclient.execute(updateRequest);
-				logger.log(Level.SEVERE, "Upload request return code: " + response.getStatusLine().toString());
-			}
-
-			
-		} catch (ClientProtocolException cpe) {
-			logger.log(Level.SEVERE, "ClientProtocolException when executing HttpGet : " + cpe.getMessage());
-			cpe.printStackTrace();
-			return ReturnCode.ERROR;
-		} catch (IOException ioe) {
-			logger.log(Level.SEVERE, "IOException when executing HttpGet : " + ioe.getMessage());
-			ioe.printStackTrace();
+			logger.log(Level.INFO, "HttpGet server response: " + response.getStatusLine().toString());
+		} catch (Exception e) {
 			return ReturnCode.ERROR;
 		}
-		return ReturnCode.SUCCESS;
+
+		if (retcode == HttpStatus.SC_NOT_FOUND) {
+			logger.log(Level.SEVERE, "Recipe not on server. Response code: " + retcode);
+			return ReturnCode.NOT_FOUND;
+		}
+
+		if (retcode != HttpStatus.SC_OK) {
+			logger.log(Level.SEVERE, "Recipe to upload photo to could not be found.  Response code: " + retcode);
+			return ReturnCode.ERROR;
+		}
+
+		/* Else, the Recipe exists online and we try to upload the given photo to it. */
+		retcode = HttpStatus.SC_INTERNAL_SERVER_ERROR;
+		while (tries < maxTries && retcode == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+			tries ++;
+			try {
+				httpclient = getThreadSafeClient();
+				/* We first must convert the given Photo to a ServerPhoto. */
+				ServerPhoto serverPhoto = new ServerPhoto(photo);
+
+				/* Now we must construct a suitable JSON style string for the ServerPhoto. */
+				String sp_str = helper.serverPhotoToJSON(serverPhoto);
+
+				HttpPost updateRequest = new HttpPost("http://cmput301.softwareprocess.es:8080/testing/lab02/1/_update");
+				String query = 	"{\"script\" : \"ctx._source.photos += photo\", \"params\" : " +
+						"{ \"photo\" : \"" + sp_str + "\"}}";
+				StringEntity stringentity = new StringEntity(query);
+
+				updateRequest.setHeader("Accept","application/json");
+				updateRequest.setEntity(stringentity);
+				response = httpclient.execute(updateRequest);
+				retcode = response.getStatusLine().getStatusCode();
+				logger.log(Level.SEVERE, "Upload request return code: " + response.getStatusLine().toString());
+				
+				if (retcode == HttpStatus.SC_OK)
+					break;
+
+			} catch (ClientProtocolException cpe) {
+				logger.log(Level.SEVERE, "ClientProtocolException when executing HttpGet : " + cpe.getMessage());
+				cpe.printStackTrace();
+				return ReturnCode.ERROR;
+			} catch (IOException ioe) {
+				logger.log(Level.SEVERE, "IOException when executing HttpGet : " + ioe.getMessage());
+				ioe.printStackTrace();
+				return ReturnCode.ERROR;
+			}
+		}
+		if (tries < maxTries)
+			return ReturnCode.SUCCESS;
+		else
+			return ReturnCode.ERROR;
+
 	}
-	
+
 	/**
 	 * Retrieves the recipe associated with the given URI from the server;
 	 * only called when we are guaranteed that such a Recipe exists, and 
@@ -425,7 +421,7 @@ public class ServerClient {
 			String response_str = helper.responseToString(response);
 			logger.log(Level.INFO, "Server response string: " + response_str);
 			return helper.responseStringToRecipe(response_str);
-			
+
 		} catch (ClientProtocolException e) {
 
 			e.printStackTrace();
@@ -436,11 +432,10 @@ public class ServerClient {
 		}
 		return null;
 	}
-	
+
 	public String getServerUrl()
 	{
 		return test_server_string;
 	}
 }
 
-	
