@@ -47,10 +47,10 @@ public class ServerPhoto {
 		FoodBookApplication app = FoodBookApplication.getApplicationInstance();
 		String state = app.getState();
 		/* We first get the save path on this device. */
-		//if (Environment.MEDIA_MOUNTED.equals(state)) {
+		if (Environment.MEDIA_MOUNTED.equals(state)) {
 			imgPath = app.getSdCardPath() + sp.getId();
 			file = new File(imgPath);
-		//}
+		}
 		/*
 		else {
 			File dir = app.getDir("Pictures", Context.MODE_PRIVATE);
