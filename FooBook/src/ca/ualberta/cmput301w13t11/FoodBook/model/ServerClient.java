@@ -42,12 +42,6 @@ import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
  * (last accessed March 10, 2013)
  *
  * @author Abram Hindle, Chenlei Zhang, Marko Babic
- *-----------------------------------------------------------------------------------------------------
- *
- * NOTE: IN THIS IMPLEMENTATION WE ALLOW NETWORKING TASKS TO BE PERFORMED IN THE MAIN THREAD.
- * 		THIS WILL NOT BE PRESENT IN THE FINAL IMPLEMENTATION TO ENSURE THAT UI RESPONSIVENESS
- * 		IS NOT AFFECTED BY NETWORKING TASKS.
- * ----------------------------------------------------------------------------------------------------
  */
 public class ServerClient {	
 
@@ -124,6 +118,12 @@ public class ServerClient {
 	 */
 	public ReturnCode uploadRecipe(Recipe recipe) throws IllegalStateException, IOException
 	{
+		
+		ReturnCode checkForRecipe = checkForRecipe(recipe.getUri());
+		if (checkForRecipe == ReturnCode.SUCCESS) {
+			return ReturnCode.ALREADY_EXISTS;
+		}
+		
 		/* We are using the Recipe's URI as its _id on the server */
 		HttpResponse response = null;
 		HttpPost httpPost = new HttpPost(test_server_string+recipe.getUri());
@@ -205,24 +205,20 @@ public class ServerClient {
 			return ReturnCode.ERROR;
 		}
 
-		HttpEntity entity = response.getEntity();
-		BufferedReader br = new BufferedReader(new InputStreamReader((response.getEntity().getContent())));
-		String out, json = "";
-
-		while ((out = br.readLine()) != null) {
-			json += out;
-		}
+		String json = helper.responseToString(response);
 		search_results = helper.toRecipeList(json);
 		results = search_results;
+		
+		
 		/* 
 		 * If no results were found, inform the caller by setting ReturnCode to 
 		 * NO_RESULTS -- do NOT attempt to clear/write these results to ServerDb.
 		 */
 		if (search_results.isEmpty()) {
-			logger.log(Level.SEVERE, "NO RESULTS");
+			logger.log(Level.SEVERE, "Search by keywords \"" + str + "\" yielded no results.");
 			return ReturnCode.NO_RESULTS;
-
 		}
+		
 		return ReturnCode.SUCCESS;		
 	}
 
@@ -240,21 +236,14 @@ public class ServerClient {
 		logger.log(Level.SEVERE, "First result: " + results.get(0).getTitle());
 	}
 
+	
 	/**
-	 * Search the server for recipes which are composed of ingredients 
-	 * @param ingredients The list of ingredients by which to search.
-	 * @return An ArrayList of the Recipes found.
+	 * Converts the given list of ingredients to a string appropriate for use in a server query.
+	 * @param ingredients The list of ingredients to convert to a search appropriate string.
+	 * @return A string consisting of the string names with " OR " inserted between.
 	 */
-	public ReturnCode searchByIngredients(ArrayList<Ingredient> ingredients)
+	private String ingredientsToString(ArrayList<Ingredient> ingredients)
 	{
-		ArrayList<Recipe> search_results = null;
-		/* 
-		 * We first translate the list of ingredients into a string which can be 
-		 * used to query the server.  For now we will simply add the logical operator
-		 * OR between the ingredients -- this could be changed later for better
-		 * functionality.
-		 */
-
 		String ingredients_str = "";	/* The list of ingredients with the logical OR between each item. */
 		for (int i = 0; i < ingredients.size(); i++) {
 			if (i != 0) {
@@ -267,11 +256,28 @@ public class ServerClient {
 			ingredients_str += ingredients.get(i).getName();
 		}
 		logger.log(Level.INFO, "ingredients_str = " + ingredients_str);
+		return ingredients_str;
+	}
+	
+	
+	
+	
+	/**
+	 * Search the server for recipes which are composed of ingredients 
+	 * @param ingredients The list of ingredients by which to search.
+	 * @return An ArrayList of the Recipes found.
+	 */
+	public ReturnCode searchByIngredients(ArrayList<Ingredient> ingredients)
+	{
+		ArrayList<Recipe> search_results = null;
+
+		String ingredients_str = ingredientsToString(ingredients);	
 
 		/* We next form the HTTP query string itself. */
 		HttpPost searchRequest = new HttpPost(test_server_string + "_search?pretty=1");
 		String query = "{\"query\" : {\"query_string\" : {\"default_field\" : \"ingredients.name\", \"query\" : \"" + ingredients_str + "\"}}}";
 		logger.log(Level.INFO, "query string = " + query);
+		
 		try {
 			StringEntity str_entity = new StringEntity(query);
 			searchRequest.setHeader("Accept","application/json");
@@ -316,23 +322,16 @@ public class ServerClient {
 		return ReturnCode.SUCCESS;
 	}
 
+	
 	/**
-	 * Upload the given Photo to the appropriate Recipe.
-	 * @param (Photo) photo The photo to be added to the server-side version of the Recipe.
-	 * @param (long) uri The uri of the Recipe to be updated.
-	 * @return NOT_FOUND if the Recipe cannot be found on the server,
-	 * 			ERROR on any other error occurred while attempting to upload,
-	 * 			SUCCESS on successful upload.
+	 * Query the server for the Recipe with the given uri and return a ReturnCode based on the 
+	 * server response.
+	 * @param uri The uri of the Recipe for which we wish to search.
+	 * @return SUCCESS if recipe was found, NOT_FOUND if we received a 404,
+	 * ERROR if a problem occurred during the query.
 	 */
-	public ReturnCode uploadPhotoToRecipe(Photo photo, long uri)
+	private ReturnCode checkForRecipe(long uri)
 	{
-		int maxTries = 10;
-		int tries = 0;
-		/* 
-		 * We first must determine if the Recipe to which we wish to upload the photo
-		 * actually exists on the server.  To do so, we attempt to retrieve the Recipe
-		 * from the server and examine the HTTP return code we receive.
-		 */
 		HttpResponse response = null;
 		int retcode = -1;
 		try {
@@ -354,12 +353,44 @@ public class ServerClient {
 			logger.log(Level.SEVERE, "Recipe to upload photo to could not be found.  Response code: " + retcode);
 			return ReturnCode.ERROR;
 		}
+		
+		/* Else the recipe was found and we return success. */
+		return ReturnCode.SUCCESS;
+	}
+	
+	
+	
+	
+	/**
+	 * Upload the given Photo to the appropriate Recipe.
+	 * @param (Photo) photo The photo to be added to the server-side version of the Recipe.
+	 * @param (long) uri The uri of the Recipe to be updated.
+	 * @return NOT_FOUND if the Recipe cannot be found on the server,
+	 * 			ERROR on any other error occurred while attempting to upload,
+	 * 			SUCCESS on successful upload.
+	 */
+	public ReturnCode uploadPhotoToRecipe(Photo photo, long uri)
+	{
+		int maxTries = 10;
+		int tries = 0;
 
+		ReturnCode searchForRecipe = checkForRecipe(uri);
+		if (searchForRecipe != ReturnCode.SUCCESS) {
+			/* 
+			 * We couldn't find the recipe online or we encountered an error, so we cannot upload the recipe
+			 * at this time.
+			 */
+			return searchForRecipe;
+		}
+		
+		
 		/* Else, the Recipe exists online and we try to upload the given photo to it. */
-		retcode = HttpStatus.SC_INTERNAL_SERVER_ERROR;
+		int retcode = HttpStatus.SC_INTERNAL_SERVER_ERROR;
+		HttpResponse response = null;
 		while (tries < maxTries && retcode == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
 			tries ++;
 			try {
+				
 				httpclient = getThreadSafeClient();
 				/* We first must convert the given Photo to a ServerPhoto. */
 				ServerPhoto serverPhoto = new ServerPhoto(photo);

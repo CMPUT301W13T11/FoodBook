@@ -84,7 +84,7 @@ public class ServerClientTest extends AndroidTestCase {
 		ReturnCode ret = null;
 		sc = ServerClient.getInstance();
 
-		Recipe recipe = new Recipe(new User("tester"), "test");
+		Recipe recipe = new Recipe(1364339255953L);
 		try { 
 			ret = sc.uploadRecipe(recipe);
 		} catch (IOException ioe) {
@@ -138,8 +138,7 @@ public class ServerClientTest extends AndroidTestCase {
 
 		Photo photo = new Photo("testname", new byte[10]);
 		ReturnCode ret = sc.uploadPhotoToRecipe(photo, 1364241542351L);
-		//assertTrue("not found", ret == ReturnCode.NOT_FOUND);
-		//assertTrue("return code == error", ret == ReturnCode.ERROR);
+
 		assertTrue("return code != SUCCESS", ret == ReturnCode.SUCCESS);
 	}
 
