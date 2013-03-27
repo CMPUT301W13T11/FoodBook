@@ -33,11 +33,11 @@ public class DbManager extends FModel<FView> {
     private static boolean has_executed = false;
     
     // name of database file
-    private String dbFileName = "RecipeApplicationDb";
-	public String recipesTable = "UserRecipes";
-	public String ingredsTable = "RecipeIngredients";
-	public String photosTable = "RecipePhotos";
-    
+    private String dbFileName= "RecipeApplicationDb";
+	public String recipesTable;// = "UserRecipes";
+	public String ingredsTable;// = "RecipeIngredients";
+	public String photosTable;// = "RecipePhotos";
+    public String getSQL;
 
     /**
      * Protected constructor because we're using the singleton pattern.
@@ -146,7 +146,7 @@ public class DbManager extends FModel<FView> {
     public void insertRecipeIngredients(Ingredient ingred, long recipeURI) {
         ContentValues values = ingred.toContentValues();
         values.put("recipeURI", recipeURI);
-        db.insert("RecipeIngredients", null, values);
+        db.insert(ingredsTable, null, values);
     }
    
     /**
@@ -167,37 +167,17 @@ public class DbManager extends FModel<FView> {
     	values.put("recipeURI", recipeURI);
     	values.put("id", photo.getId());
     	values.put("path", photo.getPath());
-    	db.insert("RecipePhotos", null, values);
+    	db.insert(photosTable, null, values);
     	/* If we got here, everything was successful. */
     	return true;
     }
-    
-    /* ******************************************************************************************************** */
-    /* *****************************************Temp import for debugging purposes***************************** */
-	protected String resultsTable = "ResultsRecipes";
-	private String getSQL = "SELECT * FROM " + resultsTable;
-	/**
-	 * store results from server.
-	 * @return should i return boolean for success?
-	 */
-	public void storeRecipes(ArrayList<Recipe> recipes) {
-	    db.delete(resultsTable, null, null);
-	    for (Recipe recipe : recipes) {
-	        insertRecipe(recipe, resultsTable);
-	    }
-	    notifyViews();
-	}
-    /* ******************************************************************************************************** */
-    /* ******************************************************************************************************** */
-
-	
 
     /**
      * Returns an ArrayList of all the Recipes stored in the table.
 	 * @return An ArrayList of all the Recipes stored in the table.
 	 */
-	public ArrayList<Recipe> getRecipes(String query) {
-	    Cursor cursor = db.rawQuery(query, null);
+	public ArrayList<Recipe> getRecipes() {
+	    Cursor cursor = db.rawQuery(getSQL, null);
 	    return cursorToRecipes(cursor);
 	}
 
@@ -215,8 +195,8 @@ public class DbManager extends FModel<FView> {
 	 * Returns Recipe stored in the table, given recipe's uri
 	 * @return ARecipes stored in the table.
 	 */
-	public Recipe getRecipe(String query) {
-	    Cursor cursor = db.rawQuery(query, null);
+	public Recipe getRecipe() {
+	    Cursor cursor = db.rawQuery(getSQL, null);
 	    return cursorToRecipe(cursor);
 	}
     

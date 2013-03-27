@@ -25,7 +25,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
     // storing recipes from search, so 3 more tables
     private String createResultsTable = "CREATE TABLE ResultsRecipes (URI text, title text, author text, instructions text)";
     private String createResultsIngredientsTable = "CREATE TABLE ResultsIngredients (recipeURI text, name text, unit text, quantity text)";
-    private String createResultsPhotosTable = "CREATE TABLE ResultsPhotos (recipeURI text, filename text)";
+    private String createResultsPhotosTable = "CREATE TABLE ResultsPhotos (recipeURI text, id text, path text)";
     // the user's ingredients table
     private String createUserIngredientsTable = "CREATE TABLE UserIngredients (name text, unit text, quantity text)";
     

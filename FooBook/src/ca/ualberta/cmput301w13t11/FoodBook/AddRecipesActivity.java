@@ -33,6 +33,8 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 		recipe_uri = System.currentTimeMillis();
 		mRecipe = new Recipe(recipe_uri);
 		
+		/* Immediately write the Recipe to the Db -- will be deleted if need be at the appropriate time. */
+		DbController DbC = DbController.getInstance(this, this);
 		setContentView(R.layout.activity_add_recipes);
 	}
 

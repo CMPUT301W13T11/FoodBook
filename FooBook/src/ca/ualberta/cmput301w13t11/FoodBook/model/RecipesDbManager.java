@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.util.Log;
 
 /**
@@ -18,14 +19,18 @@ import android.util.Log;
 public class RecipesDbManager extends DbManager {
 	
 	private static RecipesDbManager instance = null;
-	public String recipesTable = "UserRecipes";
-	public String ingredsTable = "RecipeIngredients";
-	public String photosTable = "RecipePhotos";
-	public String getSQL = "SELECT * FROM " + recipesTable;
+	//recipesTable = "UserRecipes";
+	//public String ingredsTable = "RecipeIngredients";
+	//public String photosTable = "RecipePhotos";
+	//public String getSQL = "SELECT * FROM " + recipesTable;
 
 	public RecipesDbManager(Context context)
 	{
 		super(context);
+		recipesTable = "UserRecipes";
+		ingredsTable = "RecipeIngredients";
+		photosTable = "RecipePhotos";
+		getSQL = "SELECT * FROM " + recipesTable;
 	}
 	
 	/**
@@ -51,6 +56,13 @@ public class RecipesDbManager extends DbManager {
 		return instance;
 	}
 
+//	@Override
+//	public Recipe getRecipe(long uri) {
+//		String query = new String("SELECT * FROM " + recipesTable + " WHERE URI = " + uri);
+//	    Cursor cursor = db.rawQuery(query, null);
+//	    return cursorToRecipe(cursor);
+//	}
+	
 	/**
 	 * Deletes the given Recipe from the database.
 	 * @param recipe The Recipe to be deleted.

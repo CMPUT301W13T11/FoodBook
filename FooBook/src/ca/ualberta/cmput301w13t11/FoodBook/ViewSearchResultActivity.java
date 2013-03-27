@@ -36,9 +36,7 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 		//String URI = 
 		//long uri=Long.parseLong(URI);
 		uri = intent.getLongExtra(EXTRA_URI, 0);
-		
-		
-		Recipe viewedRecipe=null;
+		viewedRecipe=null;
 		for(int index=0; index<DbC.getStoredRecipes().size(); index++)
 		{
 			if(DbC.getStoredRecipes().get(index).getUri()==uri)
@@ -61,7 +59,7 @@ protected void updateView(){
 		
 		DbController DbC = DbController.getInstance(this, this);
 		
-		viewedRecipe = DbC.getUserRecipe(uri);
+		//viewedRecipe = DbC.getUserRecipe(uri);
 		recipeName.setText(viewedRecipe.getTitle());
 		instructions.setText(viewedRecipe.getInstructions());
 	}
@@ -93,8 +91,8 @@ protected void updateView(){
 		DbController DbC = DbController.getInstance(this, this);
 		
 		Intent intent = getIntent();
-		String URI = intent.getStringExtra(SearchResultsActivity.EXTRA_URI);
-		long uri=Long.parseLong(URI);
+		long URI = intent.getLongExtra(SearchResultsActivity.EXTRA_URI, 0);
+		//long uri = Long.parseLong(URI);
 		Recipe viewedRecipe=null;
 		for(int index=0; index<DbC.getStoredRecipes().size(); index++)
 		{

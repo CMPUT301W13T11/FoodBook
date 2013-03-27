@@ -100,7 +100,6 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		String newTitle = recipeName.getText().toString();
 		String newInstructions = instructions.getText().toString();
 		
-		
 		db.updateRecipeTitle(uri, "UserRecipes", newTitle);
 		db.updateRecipeInstructions(uri, "UserRecipes", newInstructions);
 

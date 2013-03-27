@@ -121,7 +121,7 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-			{	long recipe_uri = ((Recipe) parent.getItemAtPosition(position)).getUri();
+			{	long recipe_uri = (((Recipe) parent.getItemAtPosition(position)).getUri());
 				Intent intent = new Intent(SearchResultsActivity.this, ViewSearchResultActivity.class);
 				// Minor adjustment, passing uris as longs -Pablo
 				//String URI=Long.toString(recipe_uri);

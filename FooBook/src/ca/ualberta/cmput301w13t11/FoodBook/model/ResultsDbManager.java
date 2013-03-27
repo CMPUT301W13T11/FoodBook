@@ -13,16 +13,28 @@ import android.content.Context;
 public class ResultsDbManager extends DbManager {
 	
 	private static ResultsDbManager instance = null;
-	protected String recipesTable = "ResultsRecipes";
-	protected String ingredsTable = "ResultsIngredients";
-	protected String photosTable = "ResultsPhotos";
-	private String getSQL = "SELECT * FROM " + recipesTable;
-	
+
 	public ResultsDbManager(Context context)
 	{
 		super(context);
+		recipesTable = "ResultsRecipes";
+		ingredsTable = "ResultsIngredients";
+		photosTable = "ResultsPhotos";
+		getSQL = "SELECT * FROM " + recipesTable;
 	}
 
+	/**
+	 * store results from server.
+	 * @return should i return boolean for success?
+	 */
+	public void storeRecipes(ArrayList<Recipe> recipes) {
+	    db.delete(recipesTable, null, null);
+	    for (Recipe recipe : recipes) {
+	        insertRecipe(recipe, recipesTable);
+	    }
+	    super.notifyViews();
+	}
+	
 	/**
 	 * Gets the instance of the IngredientsDbManager -- or creates it, if necessary.
 	 * @param context Context needed to execute database creation statements (if necessary).
@@ -44,6 +56,6 @@ public class ResultsDbManager extends DbManager {
 	{
 		return instance;
 	}
-
+	
 	
 }
