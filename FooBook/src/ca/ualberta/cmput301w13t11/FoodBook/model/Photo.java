@@ -84,8 +84,7 @@ public class Photo {
 		else {
 			bit_data = null;
 		}
-		long time = System.currentTimeMillis();
-		this.id = String.valueOf(time);
+		this.id = id;
 	}
 	
 	public byte[] getBitData()

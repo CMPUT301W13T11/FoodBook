@@ -204,7 +204,6 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	@Override
 	public void update(DbManager db)
 	{
-		// TODO Auto-generated method stub
 		//create a new adapter
 		this.updateView();
 		

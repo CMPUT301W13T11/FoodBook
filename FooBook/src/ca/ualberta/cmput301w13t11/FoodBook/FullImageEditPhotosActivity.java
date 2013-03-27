@@ -1,5 +1,8 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -83,9 +86,9 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 			}
 		}
 	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
 		setContentView(R.layout.activity_full_image_edit_photos);
 		imageView = (ImageView) findViewById(R.id.imageView1);
 		super.onCreate(savedInstanceState);
