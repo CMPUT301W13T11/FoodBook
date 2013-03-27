@@ -52,7 +52,8 @@ public class ServerClient {
 	private static ServerClient instance = null;
 	private static ResultsDbManager dbManager = null;
 	static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
-	static private final long TIMEOUT_PERIOD = 7;
+	static private final long TIMEOUT_PERIOD = 10;
+	static private final long UPLOAD_PHOTO_GRACE_PERIOD = 5;
 	static private String test_server_string = "http://cmput301.softwareprocess.es:8080/testing/cmput301w13t11/";
 	private static HttpClient httpclient = null;
 	private static ClientHelper helper = null;
@@ -144,7 +145,41 @@ public class ServerClient {
 		logger.log(Level.SEVERE, "First result: " + results.get(0).getTitle());
 	}
 
-	
+	/**
+	 * Query the server for the Recipe with the given uri and return a ReturnCode based on the 
+	 * server response.
+	 * @param uri The uri of the Recipe for which we wish to search.
+	 * @return SUCCESS if recipe was found, NOT_FOUND if we received a 404,
+	 * ERROR if a problem occurred during the query.
+	 */
+	private ReturnCode checkForRecipe(long uri)
+	{
+		HttpResponse response = null;
+		int retcode = -1;
+		try {
+			HttpGet get = new HttpGet(test_server_string + uri);
+			get.addHeader("Accept","application/json");
+			response = httpclient.execute(get);
+			retcode = response.getStatusLine().getStatusCode();
+			logger.log(Level.INFO, "HttpGet server response: " + response.getStatusLine().toString());
+		} catch (Exception e) {
+			return ReturnCode.ERROR;
+		}
+
+		if (retcode == HttpStatus.SC_NOT_FOUND) {
+			logger.log(Level.SEVERE, "Recipe not on server. Response code: " + retcode);
+			return ReturnCode.NOT_FOUND;
+		}
+
+		if (retcode != HttpStatus.SC_OK) {
+			logger.log(Level.SEVERE, "Recipe to upload photo to could not be found.  Response code: " + retcode);
+			return ReturnCode.ERROR;
+		}
+
+		/* Else the recipe was found and we return success. */
+		return ReturnCode.SUCCESS;
+	}
+
 
 	/****************************************************************************************************************/
 	/***************************************<Upload Recipe>**********************************************************/
@@ -159,7 +194,8 @@ public class ServerClient {
 	 */
 	private class UploadRecipeTask implements Callable<ReturnCode> {
 
-		Recipe recipe;
+		private Recipe recipe;
+
 		public UploadRecipeTask(Recipe recipe)
 		{
 			this.recipe = recipe;
@@ -241,7 +277,7 @@ public class ServerClient {
 	/****************************************************************************************************************/
 	/**************************************<Search by Keywords>******************************************************/
 	/****************************************************************************************************************/
-	
+
 	/**
 	 * The task which implements the code necessary to query the server using keywords to the server --
 	 * it is implemented as a Callable object such that the executing thread can be cancelled 
@@ -250,7 +286,8 @@ public class ServerClient {
 	 */
 	private class SearchByKeywordsTask implements Callable<ReturnCode> {
 
-		String str;
+		private String str;
+
 		public SearchByKeywordsTask(String str)
 		{
 			this.str = str;
@@ -268,18 +305,18 @@ public class ServerClient {
 
 				HttpGet search_request = new HttpGet(test_server_string+"_search?q=" + 
 						java.net.URLEncoder.encode(str, "UTF-8"));
-				
+
 				search_request.setHeader("Accept", "application/json");
-				
+
 				response = httpclient.execute(search_request);
-				
+
 				String status = response.getStatusLine().toString();
 				logger.log(Level.INFO, "search response: " + status);
-				
+
 				String json = helper.responseToString(response);
 				search_results = helper.toRecipeList(json);
 				results = search_results;
-				
+
 			} catch (IllegalArgumentException iae) {
 
 				logger.log(Level.SEVERE, "HttpGet failed: " + iae.getMessage());
@@ -308,7 +345,7 @@ public class ServerClient {
 			return ReturnCode.SUCCESS;	
 		}
 	}
-	
+
 
 	/**
 	 * Performs a search of online recipes by keywords.
@@ -337,16 +374,15 @@ public class ServerClient {
 		executor.shutdownNow();
 		return ret;	
 	}
-	
+
 
 	/*************************************</Search by Keywords>****************************************************/
 
-	
+
 	/****************************************************************************************************************/
 	/**************************************<Search by Ingredients>***************************************************/
 	/****************************************************************************************************************/
-	
-	
+
 	/**
 	 * The task which implements the code necessary to query the server by a list of Ingredients --
 	 * it is implemented as a Callable object such that the executing thread can be cancelled 
@@ -354,10 +390,11 @@ public class ServerClient {
 	 * @author mbabic
 	 *
 	 */
-	private class SearchByIngredients implements Callable<ReturnCode> {
+	private class SearchByIngredientsTask implements Callable<ReturnCode> {
 
-		ArrayList<Ingredient> ingredients;
-		public SearchByIngredients(ArrayList<Ingredient> ingredients)
+		private ArrayList<Ingredient> ingredients;
+
+		public SearchByIngredientsTask(ArrayList<Ingredient> ingredients)
 		{
 			this.ingredients = ingredients;
 		}
@@ -417,7 +454,7 @@ public class ServerClient {
 			return ReturnCode.SUCCESS;
 		}
 	}
-	
+
 	/**
 	 * Converts the given list of ingredients to a string appropriate for use in a server query.
 	 * @param ingredients The list of ingredients to convert to a search appropriate string.
@@ -448,9 +485,9 @@ public class ServerClient {
 	 */
 	public ReturnCode searchByIngredients(ArrayList<Ingredient> ingredients)
 	{
-		
+
 		ExecutorService executor = Executors.newSingleThreadExecutor();
-		Future<ReturnCode> future = executor.submit(new SearchByIngredients(ingredients));
+		Future<ReturnCode> future = executor.submit(new SearchByIngredientsTask(ingredients));
 		ReturnCode ret = ReturnCode.ERROR;
 		try {
 			ret = future.get(TIMEOUT_PERIOD, TimeUnit.SECONDS);
@@ -467,44 +504,95 @@ public class ServerClient {
 	}
 
 
-	/*************************************</Search by Ingredients>****************************************************/
+	/*************************************</Search by Ingredients>***************************************************/
 
-	
-	
+
+	/****************************************************************************************************************/
+	/**************************************<Upload Photo>************************************************************/
+	/****************************************************************************************************************/
+
 	/**
-	 * Query the server for the Recipe with the given uri and return a ReturnCode based on the 
-	 * server response.
-	 * @param uri The uri of the Recipe for which we wish to search.
-	 * @return SUCCESS if recipe was found, NOT_FOUND if we received a 404,
-	 * ERROR if a problem occurred during the query.
+	 * The task which implements the code necessary to upload a photo to the Server --
+	 * it is implemented as a Callable object such that the executing thread can be cancelled 
+	 * should the operation be taking too long (ie. the network is down, spotty connection, etc.)
+	 * @author mbabic
+	 *
 	 */
-	private ReturnCode checkForRecipe(long uri)
-	{
-		HttpResponse response = null;
-		int retcode = -1;
-		try {
-			HttpGet get = new HttpGet(test_server_string + uri);
-			get.addHeader("Accept","application/json");
-			response = httpclient.execute(get);
-			retcode = response.getStatusLine().getStatusCode();
-			logger.log(Level.INFO, "HttpGet server response: " + response.getStatusLine().toString());
-		} catch (Exception e) {
-			return ReturnCode.ERROR;
+	private class UploadPhotoTask implements Callable<ReturnCode> {
+
+		private Photo photo;
+		private long uri;
+		public UploadPhotoTask(Photo photo, long uri)
+		{
+			this.photo = photo;
+			this.uri = uri;
 		}
 
-		if (retcode == HttpStatus.SC_NOT_FOUND) {
-			logger.log(Level.SEVERE, "Recipe not on server. Response code: " + retcode);
-			return ReturnCode.NOT_FOUND;
-		}
+		@Override
+		public ReturnCode call() {
+			int maxTries = 10;
+			int tries = 0;
 
-		if (retcode != HttpStatus.SC_OK) {
-			logger.log(Level.SEVERE, "Recipe to upload photo to could not be found.  Response code: " + retcode);
-			return ReturnCode.ERROR;
-		}
+			ReturnCode searchForRecipe = checkForRecipe(uri);
+			if (searchForRecipe != ReturnCode.SUCCESS) {
+				/* 
+				 * We couldn't find the recipe online or we encountered an error, so we cannot upload the recipe
+				 * at this time.
+				 */
+				return searchForRecipe;
+			}
 
-		/* Else the recipe was found and we return success. */
-		return ReturnCode.SUCCESS;
+
+			/* Else, the Recipe exists online and we try to upload the given photo to it. */
+			int retcode = HttpStatus.SC_INTERNAL_SERVER_ERROR;
+			HttpResponse response = null;
+			while (tries < maxTries && retcode == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+				tries ++;
+				try {
+
+					httpclient = getThreadSafeClient();
+					/* We first must convert the given Photo to a ServerPhoto. */
+					ServerPhoto serverPhoto = new ServerPhoto(photo);
+
+					/* Now we must construct a suitable JSON style string for the ServerPhoto. */
+					String sp_str = helper.serverPhotoToJSON(serverPhoto);
+					logger.log(Level.INFO, "serverPhotoToJson() result: " + sp_str);
+
+					HttpPost updateRequest = new HttpPost(test_server_string + uri + "/_update");
+					String query = 	"{\"script\":\"ctx._source.photos += xxx\", \"params\" : " +
+							"{ \"xxx\" : " + sp_str + "}}";
+					logger.log(Level.INFO, "stringQuery = " + query);
+
+					StringEntity stringentity = new StringEntity(query);
+
+					updateRequest.setHeader("Accept","application/json");
+					updateRequest.setEntity(stringentity);
+					response = httpclient.execute(updateRequest);
+					retcode = response.getStatusLine().getStatusCode();
+					logger.log(Level.SEVERE, "Upload request return code: " + response.getStatusLine().toString());
+
+					if (retcode == HttpStatus.SC_OK)
+						break;
+
+				} catch (ClientProtocolException cpe) {
+					logger.log(Level.SEVERE, "ClientProtocolException when executing HttpGet : " + cpe.getMessage());
+					cpe.printStackTrace();
+					return ReturnCode.ERROR;
+				} catch (IOException ioe) {
+					logger.log(Level.SEVERE, "IOException when executing HttpGet : " + ioe.getMessage());
+					ioe.printStackTrace();
+					return ReturnCode.ERROR;
+				}
+			}
+			if (tries < maxTries)
+				return ReturnCode.SUCCESS;
+			else
+				return ReturnCode.ERROR;
+
+		}
 	}
+
+
 
 
 
@@ -519,66 +607,87 @@ public class ServerClient {
 	 */
 	public ReturnCode uploadPhotoToRecipe(Photo photo, long uri)
 	{
-		int maxTries = 10;
-		int tries = 0;
-
-		ReturnCode searchForRecipe = checkForRecipe(uri);
-		if (searchForRecipe != ReturnCode.SUCCESS) {
-			/* 
-			 * We couldn't find the recipe online or we encountered an error, so we cannot upload the recipe
-			 * at this time.
-			 */
-			return searchForRecipe;
-		}
-
-
-		/* Else, the Recipe exists online and we try to upload the given photo to it. */
-		int retcode = HttpStatus.SC_INTERNAL_SERVER_ERROR;
-		HttpResponse response = null;
-		while (tries < maxTries && retcode == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
-			tries ++;
-			try {
-
-				httpclient = getThreadSafeClient();
-				/* We first must convert the given Photo to a ServerPhoto. */
-				ServerPhoto serverPhoto = new ServerPhoto(photo);
-
-				/* Now we must construct a suitable JSON style string for the ServerPhoto. */
-				String sp_str = helper.serverPhotoToJSON(serverPhoto);
-				logger.log(Level.INFO, "serverPhotoToJson() result: " + sp_str);
-
-				HttpPost updateRequest = new HttpPost(test_server_string + uri + "/_update");
-				String query = 	"{\"script\":\"ctx._source.photos += xxx\", \"params\" : " +
-						"{ \"xxx\" : " + sp_str + "}}";
-				logger.log(Level.INFO, "stringQuery = " + query);
-
-				StringEntity stringentity = new StringEntity(query);
-
-				updateRequest.setHeader("Accept","application/json");
-				updateRequest.setEntity(stringentity);
-				response = httpclient.execute(updateRequest);
-				retcode = response.getStatusLine().getStatusCode();
-				logger.log(Level.SEVERE, "Upload request return code: " + response.getStatusLine().toString());
-
-				if (retcode == HttpStatus.SC_OK)
-					break;
-
-			} catch (ClientProtocolException cpe) {
-				logger.log(Level.SEVERE, "ClientProtocolException when executing HttpGet : " + cpe.getMessage());
-				cpe.printStackTrace();
-				return ReturnCode.ERROR;
-			} catch (IOException ioe) {
-				logger.log(Level.SEVERE, "IOException when executing HttpGet : " + ioe.getMessage());
-				ioe.printStackTrace();
-				return ReturnCode.ERROR;
-			}
-		}
-		if (tries < maxTries)
-			return ReturnCode.SUCCESS;
-		else
+		ExecutorService executor = Executors.newSingleThreadExecutor();
+		Future<ReturnCode> future = executor.submit(new UploadPhotoTask(photo, uri));
+		ReturnCode ret = ReturnCode.ERROR;
+		try {
+			ret = future.get(TIMEOUT_PERIOD + UPLOAD_PHOTO_GRACE_PERIOD, TimeUnit.SECONDS);
+		} catch (TimeoutException te) {
+			logger.log(Level.SEVERE, "Upload photo operation timed out.");
+			return ReturnCode.BUSY;
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Exception during upload photo operation.");
 			return ReturnCode.ERROR;
+		}
+		/* Got here so the operation finished. */
+		executor.shutdownNow();
+		return ret;
+		
+//		int maxTries = 10;
+//		int tries = 0;
+//
+//		ReturnCode searchForRecipe = checkForRecipe(uri);
+//		if (searchForRecipe != ReturnCode.SUCCESS) {
+//			/* 
+//			 * We couldn't find the recipe online or we encountered an error, so we cannot upload the recipe
+//			 * at this time.
+//			 */
+//			return searchForRecipe;
+//		}
+//
+//
+//		/* Else, the Recipe exists online and we try to upload the given photo to it. */
+//		int retcode = HttpStatus.SC_INTERNAL_SERVER_ERROR;
+//		HttpResponse response = null;
+//		while (tries < maxTries && retcode == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+//			tries ++;
+//			try {
+//
+//				httpclient = getThreadSafeClient();
+//				/* We first must convert the given Photo to a ServerPhoto. */
+//				ServerPhoto serverPhoto = new ServerPhoto(photo);
+//
+//				/* Now we must construct a suitable JSON style string for the ServerPhoto. */
+//				String sp_str = helper.serverPhotoToJSON(serverPhoto);
+//				logger.log(Level.INFO, "serverPhotoToJson() result: " + sp_str);
+//
+//				HttpPost updateRequest = new HttpPost(test_server_string + uri + "/_update");
+//				String query = 	"{\"script\":\"ctx._source.photos += xxx\", \"params\" : " +
+//						"{ \"xxx\" : " + sp_str + "}}";
+//				logger.log(Level.INFO, "stringQuery = " + query);
+//
+//				StringEntity stringentity = new StringEntity(query);
+//
+//				updateRequest.setHeader("Accept","application/json");
+//				updateRequest.setEntity(stringentity);
+//				response = httpclient.execute(updateRequest);
+//				retcode = response.getStatusLine().getStatusCode();
+//				logger.log(Level.SEVERE, "Upload request return code: " + response.getStatusLine().toString());
+//
+//				if (retcode == HttpStatus.SC_OK)
+//					break;
+//
+//			} catch (ClientProtocolException cpe) {
+//				logger.log(Level.SEVERE, "ClientProtocolException when executing HttpGet : " + cpe.getMessage());
+//				cpe.printStackTrace();
+//				return ReturnCode.ERROR;
+//			} catch (IOException ioe) {
+//				logger.log(Level.SEVERE, "IOException when executing HttpGet : " + ioe.getMessage());
+//				ioe.printStackTrace();
+//				return ReturnCode.ERROR;
+//			}
+//		}
+//		if (tries < maxTries)
+//			return ReturnCode.SUCCESS;
+//		else
+//			return ReturnCode.ERROR;
 
 	}
+
+
+	/**************************************</Upload Photo>************************************************************/
+
+
 
 	/**
 	 * Retrieves the recipe associated with the given URI from the server;
