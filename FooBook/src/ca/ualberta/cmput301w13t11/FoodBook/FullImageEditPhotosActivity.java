@@ -1,7 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -10,13 +10,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -63,26 +60,34 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 		}
 		@Override
 		protected ReturnCode doInBackground(Photo... params) {
-			Photo photo = params[0];
-			ServerController SC=ServerController.getInstance(FullImageEditPhotosActivity.this);
-			ReturnCode ret = SC.uploadPhotoToRecipe(photo, uri);
-			return ret;
+			try {
+				Photo photo = params[0];
+				ServerController SC=ServerController.getInstance(FullImageEditPhotosActivity.this);
+				ReturnCode ret = SC.uploadPhotoToRecipe(photo, uri);
+				return ret;
+			} catch (Exception e) {
+				return ReturnCode.ERROR;
+			}
 		}
 
 		@Override
 		protected void onPostExecute(ReturnCode ret)
 		{
 			progressDialog.dismiss();
-			ServerClient sc = ServerClient.getInstance();
 			if (ret == ReturnCode.SUCCESS) {
 				Toast.makeText(getApplicationContext(), "Photo successfully uploaded!", Toast.LENGTH_LONG).show();
 
-			}
-			else if (ret == ReturnCode.NOT_FOUND) {
+			} else if (ret == ReturnCode.BUSY) {
+				
+				Toast.makeText(getApplicationContext(), "It looks like the server is busy or not responding. Aieee.", Toast.LENGTH_LONG).show();
+				
+			} else if (ret == ReturnCode.NOT_FOUND) {
+				
 				Toast.makeText(getApplicationContext(), "Sorry, we couldn't find this recipe online. :( \n Have you uploaded it yet?", Toast.LENGTH_LONG).show();
-			}
-			else if (ret == ReturnCode.ERROR) {
-				Toast.makeText(getApplicationContext(), "An error occurred.  No es bueno. :(", Toast.LENGTH_LONG).show();
+				
+			} else if (ret == ReturnCode.ERROR) {
+				
+				Toast.makeText(getApplicationContext(), "An error occurred.  Oy gevalt. \n :(", Toast.LENGTH_LONG).show();
 			}
 		}
 	}

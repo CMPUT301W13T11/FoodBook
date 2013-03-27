@@ -1,5 +1,8 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -55,15 +58,13 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		}
 		@Override
 		protected ReturnCode doInBackground(Recipe... recipes) {
-			Recipe recipe = recipes[0];
-			DbController DbC = DbController.getInstance(ViewRecipeActivity.this, ViewRecipeActivity.this);
-			ServerController SC=ServerController.getInstance(ViewRecipeActivity.this);
-			ServerClient sc = ServerClient.getInstance();
 			try {
-				ReturnCode retcode = SC.uploadRecipe(viewedRecipe);
+				Recipe recipe = recipes[0];
+				DbController DbC = DbController.getInstance(ViewRecipeActivity.this, ViewRecipeActivity.this);
+				ServerController SC=ServerController.getInstance(ViewRecipeActivity.this);
+				ReturnCode retcode = SC.uploadRecipe(recipe);
 				return retcode;
 			} catch (Exception e) {
-				e.printStackTrace();
 				return ReturnCode.ERROR;
 			}
 		}
@@ -83,12 +84,17 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 				LayoutInflater inflater = LayoutInflater.from(ViewRecipeActivity.this);
 				popUp = new PopupWindow(inflater.inflate(R.layout.popup_recipe_upload_success, null, false),300,130,true);
 				popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
-			}
-			else if (ret == ReturnCode.ALREADY_EXISTS) {
+			} else if (ret == ReturnCode.BUSY) {
+				
+				Toast.makeText(getApplicationContext(), "It looks like the server is busy or not responding. Aieee.", Toast.LENGTH_LONG).show();
+
+			} else if (ret == ReturnCode.ALREADY_EXISTS) {
+				
 				/* Temp toast, could eventually be its own popup if someone cares to do it. */
 				Toast.makeText(getApplicationContext(), "A recipe with this uri already exists. :S", Toast.LENGTH_LONG).show();
-			}
-			else if (ret == ReturnCode.ERROR) {
+				
+			} else if (ret == ReturnCode.ERROR) {
+				
 				/* Temp toast, could eventually be its own popup */
 				Toast.makeText(getApplicationContext(),
 						"An error occurred.  Sorry about that. :(", Toast.LENGTH_LONG).show();
@@ -160,22 +166,9 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		//String URI = intent.getStringExtra(MyRecipes.EXTRA_URI);
 		//long uri=Long.parseLong(URI);
 		intent.putExtra(EXTRA_URI, uri);
-		//SC.uploadRecipe(viewedRecipe);
+		
+		
 		new UploadRecipeTask().execute(viewedRecipe);
-		/*
-		ArrayList<Recipe> RecipeList= DbC.getUserRecipes();
-		
-		for(int index=0; index<RecipeList.size(); index++)
-		{
-			if(RecipeList.get(index).getUri()==uri)
-					{
-					SC.uploadRecipe(RecipeList.get(index));
-					index=RecipeList.size();
-					
-					}
-		}
-		*/
-		
 		    	
     }
 	public void OnOK(View v){

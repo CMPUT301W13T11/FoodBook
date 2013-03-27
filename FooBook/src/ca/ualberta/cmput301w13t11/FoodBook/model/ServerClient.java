@@ -1,14 +1,19 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
@@ -22,7 +27,6 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.HttpParams;
 
 import android.os.StrictMode;
-import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 /**
  * Communicates with the server to perform searches, upload recipes and upload photos to recipes.
  * Implements the singleton design pattern.
@@ -48,15 +52,16 @@ public class ServerClient {
 	private static ServerClient instance = null;
 	private static ResultsDbManager dbManager = null;
 	static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
+	static private final long TIMEOUT_PERIOD = 7;
 	static private String test_server_string = "http://cmput301.softwareprocess.es:8080/testing/cmput301w13t11/";
 	private static HttpClient httpclient = null;
 	private static ClientHelper helper = null;
 	private ArrayList<Recipe> results;
 	public static enum ReturnCode
 	{
-		SUCCESS, ALREADY_EXISTS,NO_RESULTS, NOT_FOUND, ERROR;
+		SUCCESS, ALREADY_EXISTS,NO_RESULTS, NOT_FOUND, ERROR, BUSY;
 	}
-
+	
 	/**
 	 * Empty constructor.
 	 */
@@ -107,53 +112,90 @@ public class ServerClient {
 		return false;
 	}
 
+	/**
+	 * The task which implements the code necessary to upload a Recipe to the server --
+	 * it is implemented as a Callable object such that the executing thread can be cancelled 
+	 * should the operation be taking too long (ie. the network is down, spotty connection, etc.)
+	 * @author mbabic
+	 *
+	 */
+	private class UploadRecipeTask implements Callable<ReturnCode> {
+		
+		Recipe recipe;
+		public UploadRecipeTask(Recipe recipe)
+		{
+			this.recipe = recipe;
+		}
+		
+		@Override
+		public ReturnCode call() {
+			ReturnCode checkForRecipe = checkForRecipe(recipe.getUri());
+			if (checkForRecipe == ReturnCode.SUCCESS) {
+				return ReturnCode.ALREADY_EXISTS;
+			}
+			
+			/* We are using the Recipe's URI as its _id on the server */
+			HttpResponse response = null;
+			HttpPost httpPost = new HttpPost(test_server_string+recipe.getUri());
+			StringEntity se = null;
 
+			se = helper.recipeToJSON(recipe);
+
+			httpPost.setHeader("Accept","application/json");
+			httpPost.setEntity(se);
+			try {
+				response = httpclient.execute(httpPost);
+			} catch (ClientProtocolException cpe) {
+				
+				logger.log(Level.SEVERE, cpe.getMessage());
+				cpe.printStackTrace();
+				return ReturnCode.ERROR;
+				
+			} catch (IOException ioe) {
+				
+				logger.log(Level.SEVERE, ioe.getMessage());
+				ioe.printStackTrace();
+				return ReturnCode.ERROR;
+				
+			} 
+
+			String status = response.getEntity().toString();
+			int retcode = response.getStatusLine().getStatusCode();
+			logger.log(Level.INFO, "upload request server response: " + response.getStatusLine().toString());
+
+			if (retcode == HttpStatus.SC_CREATED)
+				return ReturnCode.SUCCESS;
+			else
+				return ReturnCode.ALREADY_EXISTS;
+		}
+	}
+	
 	/**
 	 * Uploads the given recipe to the server.
 	 * @param recipe The recipe to be uploaded.
 	 * ReturnCode.ERROR if anything goes wrong, ReturnCode.ALREADY_EXISTS if a recipe
 	 * by that name already exists on the server (this will eventually be modified to check
 	 * against URI instead of Recipe title), ReturnCode.SUCCESS if the recipe was successfully
-	 * uploaded.
+	 * uploaded, or ReturnCode.BUSY if the network is not responding or the operation is 
+	 * taking too long.
 	 */
 	public ReturnCode uploadRecipe(Recipe recipe) throws IllegalStateException, IOException
 	{
-		
-		ReturnCode checkForRecipe = checkForRecipe(recipe.getUri());
-		if (checkForRecipe == ReturnCode.SUCCESS) {
-			return ReturnCode.ALREADY_EXISTS;
-		}
-		
-		/* We are using the Recipe's URI as its _id on the server */
-		HttpResponse response = null;
-		HttpPost httpPost = new HttpPost(test_server_string+recipe.getUri());
-		StringEntity se = null;
-
-		se = helper.recipeToJSON(recipe);
-
-		httpPost.setHeader("Accept","application/json");
-		httpPost.setEntity(se);
-
+		ExecutorService executor = Executors.newSingleThreadExecutor();
+		Future<ReturnCode> future = executor.submit(new UploadRecipeTask(recipe));
+		ReturnCode ret = ReturnCode.ERROR;
 		try {
-			response = httpclient.execute(httpPost);
-		} catch (ClientProtocolException cpe) {
-			logger.log(Level.SEVERE, cpe.getMessage());
-			cpe.printStackTrace();
-			return ReturnCode.ERROR;
-		} catch (IOException ioe) {
-			logger.log(Level.SEVERE, ioe.getMessage());
-			ioe.printStackTrace();
+			ret = future.get(TIMEOUT_PERIOD, TimeUnit.SECONDS);
+		} catch (TimeoutException te) {
+			logger.log(Level.SEVERE, "Upload Recipe operation timed out.");
+			return ReturnCode.BUSY;
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Exception during upload recipe operation.");
 			return ReturnCode.ERROR;
 		}
-
-		String status = response.getEntity().toString();
-		int retcode = response.getStatusLine().getStatusCode();
-		logger.log(Level.INFO, "upload request server response: " + response.getStatusLine().toString());
-
-		if (retcode == HttpStatus.SC_CREATED)
-			return ReturnCode.SUCCESS;
-		else
-			return ReturnCode.ALREADY_EXISTS;
+		/* Got here so the operation finished. */
+		executor.shutdownNow();
+		return ret;
 	}
 
 	/**
@@ -184,23 +226,29 @@ public class ServerClient {
 	{
 		ArrayList<Recipe> search_results = null;
 		HttpResponse response = null;
+		logger.log(Level.SEVERE, "Search string passed:" + str);
+
+		HttpGet search_request = new HttpGet(test_server_string+"_search?q=" + 
+				java.net.URLEncoder.encode(str, "UTF-8"));
+		search_request.setHeader("Accept", "application/json");
+
 		try {
-			logger.log(Level.SEVERE, "Search string passed:" + str);
-
-			HttpGet search_request = new HttpGet(test_server_string+"_search?q=" + 
-					java.net.URLEncoder.encode(str, "UTF-8"));
-			search_request.setHeader("Accept", "application/json");
-
 			response = httpclient.execute(search_request);
 			String status = response.getStatusLine().toString();
 			logger.log(Level.INFO, "search response: " + status);
+			
 		} catch (IllegalArgumentException iae) {
+			
 			logger.log(Level.SEVERE, "HttpGet failed: " + iae.getMessage());
 			return ReturnCode.ERROR;
+			
 		} catch (ClientProtocolException cpe) {
+			
 			logger.log(Level.SEVERE, cpe.getMessage());
 			return ReturnCode.ERROR;
+			
 		} catch (IOException ioe) {
+			
 			logger.log(Level.SEVERE, "execute failed" + ioe.getMessage());
 			return ReturnCode.ERROR;
 		}
