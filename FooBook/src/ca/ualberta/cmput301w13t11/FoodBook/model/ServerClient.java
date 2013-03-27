@@ -622,72 +622,10 @@ public class ServerClient {
 		/* Got here so the operation finished. */
 		executor.shutdownNow();
 		return ret;
-		
-//		int maxTries = 10;
-//		int tries = 0;
-//
-//		ReturnCode searchForRecipe = checkForRecipe(uri);
-//		if (searchForRecipe != ReturnCode.SUCCESS) {
-//			/* 
-//			 * We couldn't find the recipe online or we encountered an error, so we cannot upload the recipe
-//			 * at this time.
-//			 */
-//			return searchForRecipe;
-//		}
-//
-//
-//		/* Else, the Recipe exists online and we try to upload the given photo to it. */
-//		int retcode = HttpStatus.SC_INTERNAL_SERVER_ERROR;
-//		HttpResponse response = null;
-//		while (tries < maxTries && retcode == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
-//			tries ++;
-//			try {
-//
-//				httpclient = getThreadSafeClient();
-//				/* We first must convert the given Photo to a ServerPhoto. */
-//				ServerPhoto serverPhoto = new ServerPhoto(photo);
-//
-//				/* Now we must construct a suitable JSON style string for the ServerPhoto. */
-//				String sp_str = helper.serverPhotoToJSON(serverPhoto);
-//				logger.log(Level.INFO, "serverPhotoToJson() result: " + sp_str);
-//
-//				HttpPost updateRequest = new HttpPost(test_server_string + uri + "/_update");
-//				String query = 	"{\"script\":\"ctx._source.photos += xxx\", \"params\" : " +
-//						"{ \"xxx\" : " + sp_str + "}}";
-//				logger.log(Level.INFO, "stringQuery = " + query);
-//
-//				StringEntity stringentity = new StringEntity(query);
-//
-//				updateRequest.setHeader("Accept","application/json");
-//				updateRequest.setEntity(stringentity);
-//				response = httpclient.execute(updateRequest);
-//				retcode = response.getStatusLine().getStatusCode();
-//				logger.log(Level.SEVERE, "Upload request return code: " + response.getStatusLine().toString());
-//
-//				if (retcode == HttpStatus.SC_OK)
-//					break;
-//
-//			} catch (ClientProtocolException cpe) {
-//				logger.log(Level.SEVERE, "ClientProtocolException when executing HttpGet : " + cpe.getMessage());
-//				cpe.printStackTrace();
-//				return ReturnCode.ERROR;
-//			} catch (IOException ioe) {
-//				logger.log(Level.SEVERE, "IOException when executing HttpGet : " + ioe.getMessage());
-//				ioe.printStackTrace();
-//				return ReturnCode.ERROR;
-//			}
-//		}
-//		if (tries < maxTries)
-//			return ReturnCode.SUCCESS;
-//		else
-//			return ReturnCode.ERROR;
-
 	}
 
 
 	/**************************************</Upload Photo>************************************************************/
-
-
 
 	/**
 	 * Retrieves the recipe associated with the given URI from the server;
