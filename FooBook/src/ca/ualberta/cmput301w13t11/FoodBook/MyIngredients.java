@@ -79,7 +79,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		for(int i = 0; i<listView.getCount();++i){
 			if(array.get(i)){
 			Ingredient deletedIngredient = (Ingredient) listView.getItemAtPosition(i);
-			//DbC.deleteIngredient(deletedIngredient);
+			DbC.deleteIngredient(deletedIngredient);
 			TextView textview=(TextView) findViewById(R.id.textView1);
 			textview.setText(deletedIngredient.toString());
 			}

@@ -68,7 +68,7 @@ public class IngredientsDbManager extends DbManager {
      * @param ingred the ingredient to be deleted.
      */
     public void delete(Ingredient ingred) {
-      db.delete(tableName, "name = " + ingred.getName(), null);
+      db.delete(tableName, "name = '" + ingred.getName()+"'", null);
     }  
 	
 }

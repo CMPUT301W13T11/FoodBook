@@ -145,18 +145,18 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 
 		//first darken the screen
 
-//		//LayoutParams darkenParams = darkenScreen.getLayoutParams();
-//		darkenParams.height = 1000;
-//		darkenParams.width = 1000;
-//		darkenScreen.setLayoutParams(darkenParams);
-//		//make the popup
-//
-//		LinearLayout layout = new LinearLayout(this);
-//		LayoutInflater inflater = LayoutInflater.from(this);
-//		View popupLayout = inflater.inflate(R.layout.popup_delete_photo, null, false);
-//
-//		popUp = new PopupWindow(popupLayout, 380,200,true);
-//		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
+		//LayoutParams darkenParams = darkenScreen.getLayoutParams();
+		darkenParams.height = 1000;
+		darkenParams.width = 1000;
+		darkenScreen.setLayoutParams(darkenParams);
+		//make the popup
+
+		LinearLayout layout = new LinearLayout(this);
+		LayoutInflater inflater = LayoutInflater.from(this);
+		View popupLayout = inflater.inflate(R.layout.popup_delete_photo, null, false);
+
+		popUp = new PopupWindow(popupLayout, 380,200,true);
+		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
 		//Log.d("what's going on", Long.toString(viewedRecipe.getUri()));
 
