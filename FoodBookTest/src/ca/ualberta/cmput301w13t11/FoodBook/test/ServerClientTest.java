@@ -94,38 +94,38 @@ public class ServerClientTest extends AndroidTestCase {
 		assertTrue("uploadRecipe should return ALREADY_EXISTS", ret == ReturnCode.ALREADY_EXISTS);
 	}
 	
-//	/**
-//	 * Test to see if searchByIngredients will return a recipe known to have the ingredients
-//	 * beng passed to S
-//	 * WILL FAIL, NOT YET IMPLEMENTED.
-//	 */
-//	public void testSearchByIngredients()
-//	{
-//		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-//		ingredients.add(new Ingredient("test1", "xxx", 10));
-//		ingredients.add(new Ingredient("test2", "xxxx", 100));
-//		ingredients.add(new Ingredient("test3", "xxxxx", 1000));
-//
-//		ReturnCode ret = null;
-//		sc = ServerClient.getInstance();
-//		ResultsDbManager db = ResultsDbManager.getInstance(this.getContext());
-//		long uri = System.currentTimeMillis();
-//
-//		Recipe recipe = new Recipe(uri, new User("tester"), "fake title", "", ingredients);
-//		try { 
-//			ret = sc.uploadRecipe(recipe);
-//		} catch (IOException ioe) {
-//			fail("ioe");
-//		}
-//		assertTrue("uploadRecipe should return SUCCESS", ret == ReturnCode.SUCCESS);
-//		
-//		sc = ServerClient.getInstance();
-//
-//
-//		ReturnCode returnCode = sc.searchByIngredients(ingredients);
-//		assertTrue("Returns no_resuls.", returnCode == ReturnCode.SUCCESS);
-//		
-//	}
+	/**
+	 * Test to see if searchByIngredients will return a recipe known to have the ingredients
+	 * beng passed to S
+	 * WILL FAIL, NOT YET IMPLEMENTED.
+	 */
+	public void testSearchByIngredients()
+	{
+		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		ingredients.add(new Ingredient("test1", "xxx", 10));
+		ingredients.add(new Ingredient("test2", "xxxx", 100));
+		ingredients.add(new Ingredient("test3", "xxxxx", 1000));
+
+		ReturnCode ret = null;
+		sc = ServerClient.getInstance();
+		ResultsDbManager db = ResultsDbManager.getInstance(this.getContext());
+		long uri = System.currentTimeMillis();
+
+		Recipe recipe = new Recipe(uri, new User("tester"), "fake title", "", ingredients);
+		try { 
+			ret = sc.uploadRecipe(recipe);
+		} catch (IOException ioe) {
+			fail("ioe");
+		}
+		assertTrue("uploadRecipe should return SUCCESS", ret == ReturnCode.SUCCESS);
+		
+		sc = ServerClient.getInstance();
+
+
+		ReturnCode returnCode = sc.searchByIngredients(ingredients);
+		assertTrue("Returns no_resuls.", returnCode == ReturnCode.SUCCESS);
+		
+	}
 //	
 //	/**
 //	 * Test uploadPhotoToRecipe() by trying to add a Photo to a recipe known to exist on the server 

@@ -130,8 +130,24 @@ public class ServerClient {
 	}
 
 
+	public void writeResultsToDb()
+	{
+		dbManager = ResultsDbManager.getInstance();
+		if (dbManager == null)
+		{
+			logger.log(Level.SEVERE, "ResultsDbManager null!!!");
+		}
+		dbManager.storeRecipes(results);
+		DbManager dbm = DbManager.getInstance();
+		dbm.notifyViews();
+		logger.log(Level.SEVERE, "GOT RESULTS");
+		logger.log(Level.SEVERE, "First result: " + results.get(0).getTitle());
+	}
+
+	
+
 	/****************************************************************************************************************/
-	/***************************************<Upload Recipe Operation>************************************************/
+	/***************************************<Upload Recipe>**********************************************************/
 	/****************************************************************************************************************/
 
 	/**
@@ -220,10 +236,10 @@ public class ServerClient {
 		return ret;
 	}
 
-	/**************************************</Upload Recipe Operation>************************************************/
+	/**************************************</Upload Recipe>**********************************************************/
 
 	/****************************************************************************************************************/
-	/**************************************<Search by Keywords Operation>********************************************/
+	/**************************************<Search by Keywords>******************************************************/
 	/****************************************************************************************************************/
 	
 	/**
@@ -323,24 +339,84 @@ public class ServerClient {
 	}
 	
 
-	/*************************************</Search by Keywords Operation>********************************************/
+	/*************************************</Search by Keywords>****************************************************/
 
-	public void writeResultsToDb()
-	{
-		dbManager = ResultsDbManager.getInstance();
-		if (dbManager == null)
+	
+	/****************************************************************************************************************/
+	/**************************************<Search by Ingredients>***************************************************/
+	/****************************************************************************************************************/
+	
+	
+	/**
+	 * The task which implements the code necessary to query the server by a list of Ingredients --
+	 * it is implemented as a Callable object such that the executing thread can be cancelled 
+	 * should the operation be taking too long (ie. the network is down, spotty connection, etc.)
+	 * @author mbabic
+	 *
+	 */
+	private class SearchByIngredients implements Callable<ReturnCode> {
+
+		ArrayList<Ingredient> ingredients;
+		public SearchByIngredients(ArrayList<Ingredient> ingredients)
 		{
-			logger.log(Level.SEVERE, "ResultsDbManager null!!!");
+			this.ingredients = ingredients;
 		}
-		dbManager.storeRecipes(results);
-		DbManager dbm = DbManager.getInstance();
-		dbm.notifyViews();
-		logger.log(Level.SEVERE, "GOT RESULTS");
-		logger.log(Level.SEVERE, "First result: " + results.get(0).getTitle());
-	}
 
-	
-	
+		@Override
+		public ReturnCode call() {
+			ArrayList<Recipe> search_results = null;
+
+			String ingredients_str = ingredientsToString(ingredients);	
+
+			/* We next form the HTTP query string itself. */
+			HttpPost searchRequest = new HttpPost(test_server_string + "_search?pretty=1");
+			String query = "{\"query\" : {\"query_string\" : {\"default_field\" : \"ingredients.name\", \"query\" : \"" + ingredients_str + "\"}}}";
+			logger.log(Level.INFO, "query string = " + query);
+
+			try {
+				StringEntity str_entity = new StringEntity(query);
+				searchRequest.setHeader("Accept","application/json");
+				searchRequest.setEntity(str_entity);
+
+				HttpResponse response = httpclient.execute(searchRequest);
+				logger.log(Level.SEVERE, "Http response (searchByIngredients search attempt): " + response.getStatusLine().toString());
+				String response_str = helper.responseToString(response);
+
+				search_results = helper.toRecipeList(response_str);
+
+			} catch (UnsupportedEncodingException uee) {
+
+				logger.log(Level.SEVERE, "Failed to create StringEntity from query : " + uee.getMessage());
+				uee.printStackTrace();
+				return ReturnCode.ERROR;
+
+			} catch (ClientProtocolException cpe) {
+
+				logger.log(Level.SEVERE, "ClientProtocolException in execution of search request: " + cpe.getMessage());
+				cpe.printStackTrace();
+				return ReturnCode.ERROR;
+
+			} catch (IOException ioe) {
+
+				logger.log(Level.SEVERE, "IOException in execution of search request: " + ioe.getMessage());
+				ioe.printStackTrace();
+				return ReturnCode.ERROR;
+			}
+
+
+			/* 
+			 * If our search returned no results, we do not write anything to the Results Db
+			 * and we return the code no_results.
+			 */
+			if (search_results.isEmpty()) {
+				return ReturnCode.NO_RESULTS;
+			}
+
+			/* Else, our search returned results; we update "results" and return success code. */
+			results = search_results;
+			return ReturnCode.SUCCESS;
+		}
+	}
 	
 	/**
 	 * Converts the given list of ingredients to a string appropriate for use in a server query.
@@ -365,69 +441,36 @@ public class ServerClient {
 	}
 
 
-
-
 	/**
-	 * Search the server for recipes which are composed of ingredients 
+	 * Query the server for Recipes which contains at subset of the given ingredients list.
 	 * @param ingredients The list of ingredients by which to search.
-	 * @return An ArrayList of the Recipes found.
+	 * @return TODO
 	 */
 	public ReturnCode searchByIngredients(ArrayList<Ingredient> ingredients)
 	{
-		ArrayList<Recipe> search_results = null;
-
-		String ingredients_str = ingredientsToString(ingredients);	
-
-		/* We next form the HTTP query string itself. */
-		HttpPost searchRequest = new HttpPost(test_server_string + "_search?pretty=1");
-		String query = "{\"query\" : {\"query_string\" : {\"default_field\" : \"ingredients.name\", \"query\" : \"" + ingredients_str + "\"}}}";
-		logger.log(Level.INFO, "query string = " + query);
-
+		
+		ExecutorService executor = Executors.newSingleThreadExecutor();
+		Future<ReturnCode> future = executor.submit(new SearchByIngredients(ingredients));
+		ReturnCode ret = ReturnCode.ERROR;
 		try {
-			StringEntity str_entity = new StringEntity(query);
-			searchRequest.setHeader("Accept","application/json");
-			searchRequest.setEntity(str_entity);
-
-			HttpResponse response = httpclient.execute(searchRequest);
-			logger.log(Level.SEVERE, "Http response (searchByIngredients search attempt): " + response.getStatusLine().toString());
-			String response_str = helper.responseToString(response);
-
-			search_results = helper.toRecipeList(response_str);
-
-		} catch (UnsupportedEncodingException uee) {
-
-			logger.log(Level.SEVERE, "Failed to create StringEntity from query : " + uee.getMessage());
-			uee.printStackTrace();
-			return ReturnCode.ERROR;
-
-		} catch (ClientProtocolException cpe) {
-
-			logger.log(Level.SEVERE, "ClientProtocolException in execution of search request: " + cpe.getMessage());
-			cpe.printStackTrace();
-			return ReturnCode.ERROR;
-
-		} catch (IOException ioe) {
-
-			logger.log(Level.SEVERE, "IOException in execution of search request: " + ioe.getMessage());
-			ioe.printStackTrace();
+			ret = future.get(TIMEOUT_PERIOD, TimeUnit.SECONDS);
+		} catch (TimeoutException te) {
+			logger.log(Level.SEVERE, "Search by Ingredients operation timed out.");
+			return ReturnCode.BUSY;
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Exception during Search by Ingredients operation.");
 			return ReturnCode.ERROR;
 		}
-
-
-		/* 
-		 * If our search returned no results, we do not write anything to the Results Db
-		 * and we return the code no_results.
-		 */
-		if (search_results.isEmpty()) {
-			return ReturnCode.NO_RESULTS;
-		}
-
-		/* Else, our search returned results; we update "results" and return success code. */
-		results = search_results;
-		return ReturnCode.SUCCESS;
+		/* Got here so the operation finished. */
+		executor.shutdownNow();
+		return ret;
 	}
 
 
+	/*************************************</Search by Ingredients>****************************************************/
+
+	
+	
 	/**
 	 * Query the server for the Recipe with the given uri and return a ReturnCode based on the 
 	 * server response.
