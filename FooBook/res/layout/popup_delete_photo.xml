@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppBaseTheme"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:background="@color/grey"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context=".FullImageEditPhotos" >
+
+        <TextView
+            android:id="@+id/popup_msg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center_horizontal"
+            android:text="@string/are_you_sure_delete_photo"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal" >
+
+            <Button
+                android:id="@+id/cancel_button"
+                style="@style/OrangeButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:onClick= "OnCancel"
+                android:layout_weight="1"
+   
+                android:text="@string/cancel"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/ok_button"
+                style="@style/BlueButton"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:onClick="OnOK"
+                android:layout_weight="1"
+
+                android:text="@string/ok"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+</LinearLayout>
