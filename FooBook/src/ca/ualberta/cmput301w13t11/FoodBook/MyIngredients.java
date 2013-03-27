@@ -80,8 +80,6 @@ public class MyIngredients extends Activity implements FView<DbManager>
 			if(array.get(i)){
 			Ingredient deletedIngredient = (Ingredient) listView.getItemAtPosition(i);
 			DbC.deleteIngredient(deletedIngredient);
-			TextView textview=(TextView) findViewById(R.id.textView1);
-			textview.setText(deletedIngredient.toString());
 			}
 			
 		}
@@ -169,7 +167,6 @@ public class MyIngredients extends Activity implements FView<DbManager>
 	
 	public void OnOK(View v){
 		EditText editText = (EditText) popUpView.findViewById(R.id.editIngredientType);
-		//editText.getText();
 		String type=editText.getText().toString();
 
 		editText = (EditText) popUpView.findViewById(R.id.editIngredientUnit);
@@ -190,6 +187,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		Ingredient ingredient = new Ingredient(type, unit, amount);
 		DbController DbC = DbController.getInstance(this, this);
 		DbC.addIngredient(ingredient);
+		updateIngredients();
 	}
 
 }
