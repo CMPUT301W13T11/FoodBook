@@ -145,12 +145,12 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 
 		//first darken the screen
 
-		//LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 1000;
-		darkenParams.width = 1000;
-		darkenScreen.setLayoutParams(darkenParams);
-		//make the popup
-
+//		//LayoutParams darkenParams = darkenScreen.getLayoutParams();
+//		darkenParams.height = 1000;
+//		darkenParams.width = 1000;
+//		darkenScreen.setLayoutParams(darkenParams);
+//		//make the popup
+//
 //		LinearLayout layout = new LinearLayout(this);
 //		LayoutInflater inflater = LayoutInflater.from(this);
 //		View popupLayout = inflater.inflate(R.layout.popup_delete_photo, null, false);
@@ -166,27 +166,27 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 	}
 	public void OnOK(View View){
 
-//		//delete the recipe
-//
-//		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-//		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-//		darkenParams.height = 0;
-//		darkenParams.width = 0;
-//		darkenScreen.setLayoutParams(darkenParams);
-//		popUp.dismiss();
-//
-//		DbController DbC = DbController.getInstance(this, this);
-//		Photo photo = new Photo(id, imgPath);
-//
-//		Boolean success = DbC.deleteRecipePhoto(photo);
-//		if (success) {
-//			Toast.makeText(getApplicationContext(), "Image deleted with success",
-//					Toast.LENGTH_LONG).show();
-//		} else {
-//			Toast.makeText(getApplicationContext(),
-//					"Error during image deleting", Toast.LENGTH_LONG).show();
-//		} 
-//		FullImageEditPhotosActivity.this.finish();
+		//delete the recipe
+
+		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+		LayoutParams darkenParams = darkenScreen.getLayoutParams();
+		darkenParams.height = 0;
+		darkenParams.width = 0;
+		darkenScreen.setLayoutParams(darkenParams);
+		popUp.dismiss();
+
+		DbController DbC = DbController.getInstance(this, this);
+		Photo photo = new Photo(id, imgPath);
+
+		Boolean success = DbC.deleteRecipePhoto(photo);
+		if (success) {
+			Toast.makeText(getApplicationContext(), "Image deleted with success",
+					Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(getApplicationContext(),
+					"Error during image deleting", Toast.LENGTH_LONG).show();
+		} 
+		FullImageEditPhotosActivity.this.finish();
 	}
 
 
