@@ -134,7 +134,7 @@ public class DbController {
      */
     public boolean addPhotoToRecipe(Photo photo, Bitmap bitmap,long uri)
     {
-    	boolean status = db.insertRecipePhotos(photo, bitmap, uri);
+    	boolean status = recipesManager.insertRecipePhotos(photo, bitmap, uri);
     	db.notifyViews();
     	return status;
     }
