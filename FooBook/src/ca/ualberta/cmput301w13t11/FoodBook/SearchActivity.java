@@ -4,7 +4,6 @@ import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
-import ca.ualberta.cmput301w13t11.FoodBook.tasks.SearchByKeywordsTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
