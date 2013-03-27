@@ -81,8 +81,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:onClick="OnEditPhotos"
-                android:text="@string/edit_photos"
+                android:onClick="OnViewPhotos"
+                android:text="@string/view_photos"
                 android:textSize="18sp" />
 
             <Button

@@ -79,14 +79,14 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		updateList();
 	}
 
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.search_results, menu);
 		return true;
-	}
+	}*/
 	public void OnGotoMainMenu(View View)
     {
 		// responds to button Go Back to Main Menu
@@ -103,15 +103,7 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
     }
 	public void updateList()
 	{
-		ListView listView = (ListView) findViewById(R.id.mylist);
-		/*ServerController SC=ServerController.getInstance(this);
-		//SC.notify()*/
-		//DbManager DbM=DbManager.getInstance();
-		//DbM.getStoredRecipes();
-
-		Recipe testRecipe=Recipe.generateTestRecipe();
-		ArrayList <Recipe> test = new ArrayList<Recipe>();
-		
+		ListView listView = (ListView) findViewById(R.id.mylist);		
 		DbController DbC = DbController.getInstance(this, this);
 		
 		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getStoredRecipes());
@@ -123,9 +115,9 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{	long recipe_uri = (((Recipe) parent.getItemAtPosition(position)).getUri());
 				Intent intent = new Intent(SearchResultsActivity.this, ViewSearchResultActivity.class);
-				// Minor adjustment, passing uris as longs -Pablo
-				//String URI=Long.toString(recipe_uri);
-				intent.putExtra(EXTRA_URI, recipe_uri);
+				// Minor adjustment, passing uris as longs -Pablo Readjusted back
+				String URI=Long.toString(recipe_uri);
+				intent.putExtra(EXTRA_URI, URI);
 				startActivity(intent);
 			}});                                                                                 
 	}

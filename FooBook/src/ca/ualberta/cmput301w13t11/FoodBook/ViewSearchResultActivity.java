@@ -37,6 +37,7 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 		//long uri=Long.parseLong(URI);
 		uri = intent.getLongExtra(EXTRA_URI, 0);
 		viewedRecipe=null;
+
 		for(int index=0; index<DbC.getStoredRecipes().size(); index++)
 		{
 			if(DbC.getStoredRecipes().get(index).getUri()==uri)
@@ -51,8 +52,8 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 		instructions = (TextView) findViewById(R.id.editText3);
 		recipeName.setText(viewedRecipe.getTitle());
 		instructions.setText(viewedRecipe.getInstructions());	
-		
-		updateView();
+		//This method appeas to function fine if this method is commented out? For now I'll go with it -Thomas
+		//updateView();
 		
 	}
 protected void updateView(){

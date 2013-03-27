@@ -330,5 +330,15 @@ public class Recipe {
 	public void setUser(Collection user) {
 		this.user = user;
 	}
-
+	/**
+	 * Gives a text representation of the Recipe
+	 */
+	public String getTextVersion(){
+		String returnString =  "Author: "+author.getName()+"\nTitle: "+title+"\nIngredients:\n";
+		for(Ingredient I:ingredients){
+			returnString += I.toString()+"\n";
+		}
+		returnString = returnString +"Instructions: \n"+instructions+"\n";
+		return returnString;
+	}
 }

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
+import ca.ualberta.cmput301w13t11.FoodBook.model.EmailSender;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
@@ -138,16 +139,16 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
     	intent.putExtra(EXTRA_URI, uri);
 		startActivity(intent);
     }
-	public void OnEditPhotos (View View)
+	public void OnViewPhotos (View View)
     {
 		// responds to button Edit Photos
-    	Intent intent = new Intent(this, EditPhotos.class);
+    	Intent intent = new Intent(this, ViewPhotosActivity.class);
     	intent.putExtra(EXTRA_URI, uri);
 		startActivity(intent);
     }
 	public void OnEmailRecipe (View View)
     {
-		// responds to button Email Recipe
+		EmailSender.emailRecipe(this, viewedRecipe);
     	
     }
 	public void OnPublishRecipe (View View)
