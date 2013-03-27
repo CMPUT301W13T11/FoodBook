@@ -168,7 +168,7 @@ public class DbManager extends FModel<FView> {
     	values.put("recipeURI", recipeURI);
     	values.put("id", photo.getId());
     	values.put("path", photo.getPath());
-    	db.insert(photosTable, null, values);
+    	db.insert("RecipePhotos", null, values);
     	/* If we got here, everything was successful. */
     	return true;
     }
@@ -287,8 +287,8 @@ public class DbManager extends FModel<FView> {
     	int success = db.delete("RecipePhotos", "id = " + photo.getId(), null); 
     	//int success = db.delete("RecipePhotos", "id=?", new String[] {photo.getId()});
     	//db.rawQuery("Delete From RecipePhotos Where id = " + photo.getId(), null);
-    	
-    	logger.log(Level.SEVERE, "db.delete() statement returns: " + success);
+        logger.log(Level.SEVERE, "imgPath: " + photo.getPath() + " id : " + photo.getId());
+    	logger.log(Level.SEVERE, "db.delete() statement returns: ");
     	Boolean deleted = false;
     	
     		try{

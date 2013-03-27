@@ -1,5 +1,8 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -73,6 +76,9 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 			}
 		}
 	}
+	
+	static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	
@@ -85,7 +91,7 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
         id = bundle.getString(EXTRA_IMG_ID);
         imgPath = bundle.getString(EXTRA_IMG_PATH);
         uri = bundle.getLong(EXTRA_URI);
-        
+        logger.log(Level.SEVERE, "imgPath: " + imgPath + " id : " + id);
         this.updateView();
     }
     protected void updateView(){

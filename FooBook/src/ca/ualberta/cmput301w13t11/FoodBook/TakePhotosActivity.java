@@ -188,7 +188,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 			
 			progressDialog = ProgressDialog.show(TakePhotosActivity.this, "", "Saving...");
 			Photo photo = new Photo(timeStampId, imgPath);
-			
+			DbC = DbController.getInstance(this, this);
 			/* Attempt to save photo to device. */
 			if (DbC.addPhotoToRecipe(photo, bitmap, uri)) {
 				progressDialog.dismiss();

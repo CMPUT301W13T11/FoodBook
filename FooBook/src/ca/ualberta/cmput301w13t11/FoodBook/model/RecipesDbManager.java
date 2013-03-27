@@ -108,24 +108,24 @@ public class RecipesDbManager extends DbManager {
     	return (recipes_removed==1 && deleted_pictures==true && deleted_ingreds==true);
     }
 	
-    //method to delete photo -Pablo
-    public boolean removeRecipePhoto(Photo photo) {
-    	//String createStatement = 
-    	
-    	//String.format("Delete From RecipePhotos Where recipeUri = %S and filename = %S", uri, photo.getName()); 
-    	int success = db.delete(photosTable, "id = " + photo.getId(), null); 
-    	//Log.d("int", Integer.toString(r));
-    	Boolean deleted = false;
-    	
-    		try{
-		    	File file = new File(photo.getPath());
-		        deleted = file.delete();
-    		}
-    		catch(Exception e){
-    			e.printStackTrace();
-    		}  	
-    	return (success==1 && deleted==true);
-    }
+//    //method to delete photo -Pablo
+//    public boolean removeRecipePhoto(Photo photo) {
+//    	//String createStatement = 
+//    	
+//    	//String.format("Delete From RecipePhotos Where recipeUri = %S and filename = %S", uri, photo.getName()); 
+//    	int success = db.delete(photosTable, "id = " + photo.getId(), null); 
+//    	//Log.d("int", Integer.toString(r));
+//    	Boolean deleted = false;
+//    	
+//    		try{
+//		    	File file = new File(photo.getPath());
+//		        deleted = file.delete();
+//    		}
+//    		catch(Exception e){
+//    			e.printStackTrace();
+//    		}  	
+//    	return (success==1 && deleted==true);
+//    }
     
     //method to delete ingredients -Pablo
     public boolean removeRecipeIngredients(long uri) {
