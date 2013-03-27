@@ -8,6 +8,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
 
 public class MyIngredients extends Activity implements FView<DbManager>
 {
@@ -71,6 +73,19 @@ public class MyIngredients extends Activity implements FView<DbManager>
     }
 	public void OnRemoveIngredient(View View)
     {
+		DbController DbC = DbController.getInstance(this, this);
+		ListView listView = (ListView) findViewById(R.id.mylist);
+		SparseBooleanArray array = listView.getCheckedItemPositions();
+		for(int i = 0; i<listView.getCount();++i){
+			if(array.get(i)){
+			Ingredient deletedIngredient = (Ingredient) listView.getItemAtPosition(i);
+			//DbC.deleteIngredient(deletedIngredient);
+			TextView textview=(TextView) findViewById(R.id.textView1);
+			textview.setText(deletedIngredient.toString());
+			}
+			
+		}
+		updateIngredients();
 		//responds to button Modify ingredient
     }
 
@@ -78,21 +93,28 @@ public class MyIngredients extends Activity implements FView<DbManager>
 	public void updateIngredients()
 	{
 		//Gets the user's recipes
-		DbController DbC = DbController.getInstance(this, this);
+		final DbController DbC = DbController.getInstance(this, this);
 		ListView listView = (ListView) findViewById(R.id.mylist);
 			//Recipe testRecipe=Recipe.generateTestRecipe();
 			//ArrayList <Recipe> test = new ArrayList<Recipe>();
 			//test.add(testRecipe);
-
 			//Displays the user's recipes
-			ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getUserIngredients());
+			ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, DbC.getUserIngredients());
 			//Assigns the adapter
 			listView.setAdapter(adapter);
 			listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 			listView.setOnItemLongClickListener(new OnItemLongClickListener() {
+				
+				//Long click to edit an ingredient
 				@Override
 				public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
-				{	ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+				{	
+					
+					
+					
+					
+				//DbC.deleteIngredient(DbC.getUserIngredients().get(position));
+				ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
 				LayoutParams darkenParams = darkenScreen.getLayoutParams();
 				darkenParams.height = 1000;
 				darkenParams.width = 1000;
@@ -103,10 +125,25 @@ public class MyIngredients extends Activity implements FView<DbManager>
 				popUpView = inflater.inflate(R.layout.popup_edit_ingredient, null, false);
 				popUp = new PopupWindow(popUpView,300,500,true);
 				popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
+				
+				
+				EditText editText = (EditText) popUpView.findViewById(R.id.editIngredientType);
+				editText.setText(DbC.getUserIngredients().get(position).getName());
+			
+
+				editText = (EditText) popUpView.findViewById(R.id.editIngredientUnit);
+				editText.setText(DbC.getUserIngredients().get(position).getUnit());
+				
+
+				editText = (EditText) popUpView.findViewById(R.id.editIngredientAmount);
+				editText.setText(String.valueOf(DbC.getUserIngredients().get(position).getQuantity()));
+				
+				
 				return false;
 				}});
 		
 	}
+	
 	
 	public void update(DbManager db)
 	{
