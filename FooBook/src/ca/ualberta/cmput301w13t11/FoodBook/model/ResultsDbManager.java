@@ -32,7 +32,7 @@ public class ResultsDbManager extends DbManager {
 	    for (Recipe recipe : recipes) {
 	        insertRecipe(recipe, recipesTable);
 	    }
-	    super.notifyViews();
+	    notifyViews();
 	}
 	
 	/**
