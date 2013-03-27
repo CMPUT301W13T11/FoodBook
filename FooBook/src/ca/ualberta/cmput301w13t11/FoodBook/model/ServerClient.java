@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,9 +21,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.HttpParams;
 
-import com.google.gson.reflect.TypeToken;
-
 import android.os.StrictMode;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 /**
  * Communicates with the server to perform searches, upload recipes and upload photos to recipes.
  * Implements the singleton design pattern.
@@ -236,6 +234,8 @@ public class ServerClient {
 			logger.log(Level.SEVERE, "ResultsDbManager null!!!");
 		}
 		dbManager.storeRecipes(results);
+		DbManager dbm = DbManager.getInstance();
+		dbm.notifyViews();
 		logger.log(Level.SEVERE, "GOT RESULTS");
 		logger.log(Level.SEVERE, "First result: " + results.get(0).getTitle());
 	}

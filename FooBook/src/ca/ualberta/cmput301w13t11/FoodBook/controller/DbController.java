@@ -142,7 +142,7 @@ public class DbController {
      * @return Returns an ArrayList of Photos for a given recipe
      */
     public ArrayList<Photo> getRecipePhotos(long uri) {
-    	return db.getRecipePhotos(uri);
+    	return recipesManager.getRecipePhotos(uri);
     }
     
     public boolean deleteRecipePhoto(Photo photo)

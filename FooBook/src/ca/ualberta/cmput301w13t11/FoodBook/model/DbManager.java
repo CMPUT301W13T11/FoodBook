@@ -3,6 +3,8 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,7 +13,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
-import android.os.Environment;
 import android.util.Log;
 /**
  * Singleton class that manages the application's database.
@@ -271,6 +272,9 @@ public class DbManager extends FModel<FView> {
     	return cursorToPhotos(cursor);
     }
     
+    
+	static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
+
     /**
      * Removes the given photo from the local storage device.
      * @param photo The photo to be deleted.
@@ -280,11 +284,11 @@ public class DbManager extends FModel<FView> {
     	//String createStatement = 
     	
     	//String.format("Delete From RecipePhotos Where recipeUri = %S and filename = %S", uri, photo.getName()); 
-    	//int success = db.delete("RecipePhotos", "id = " + photo.getId(), null); 
+    	int success = db.delete("RecipePhotos", "id = " + photo.getId(), null); 
     	//int success = db.delete("RecipePhotos", "id=?", new String[] {photo.getId()});
-    	db.rawQuery("Delete From RecipePhotos Where id = " + photo.getId(), null);
+    	//db.rawQuery("Delete From RecipePhotos Where id = " + photo.getId(), null);
     	
-    	Log.d("int", "db.delete returned: " + Integer.toString(10));
+    	logger.log(Level.SEVERE, "db.delete() statement returns: " + success);
     	Boolean deleted = false;
     	
     		try{
@@ -294,7 +298,7 @@ public class DbManager extends FModel<FView> {
     		catch(Exception e){
     			e.printStackTrace();
     		}  	
-    	return (deleted==true);
+    	return (success == 1 && deleted == true);
     }
         
     /**
