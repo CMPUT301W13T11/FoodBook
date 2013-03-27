@@ -57,8 +57,12 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 			ServerClient sc = ServerClient.getInstance();
 			if (ret == ReturnCode.SUCCESS) {
 				sc.writeResultsToDb();
-			}
-			else if (ret == ReturnCode.NO_RESULTS) {
+			} else if (ret == ReturnCode.NO_RESULTS) {
+				
+				Toast.makeText(getApplicationContext(), "The server is responding to us. :( Here are your old results though!", Toast.LENGTH_LONG).show();
+				
+			} else if (ret == ReturnCode.NO_RESULTS) {
+				
 				Toast.makeText(getApplicationContext(), "Your search returned no results.\n We kept your old ones though. :)", Toast.LENGTH_LONG).show();
 			}
 			else if (ret == ReturnCode.ERROR) {

@@ -61,7 +61,7 @@ public class ServerClient {
 	{
 		SUCCESS, ALREADY_EXISTS,NO_RESULTS, NOT_FOUND, ERROR, BUSY;
 	}
-	
+
 	/**
 	 * Empty constructor.
 	 */
@@ -112,6 +112,28 @@ public class ServerClient {
 		return false;
 	}
 
+
+	/**
+	 * Gets a thread safe client - that is, a client which can be used in a multithreaded
+	 * program and protects against certain errors that exist even in single threaded programs.
+	 * @return A Object of type DefaultHttpClient which will
+	 */
+	public static DefaultHttpClient getThreadSafeClient()
+	{
+		DefaultHttpClient client = new DefaultHttpClient();
+		ClientConnectionManager manager = client.getConnectionManager();
+		HttpParams params = client.getParams();
+
+		client = new DefaultHttpClient(new ThreadSafeClientConnManager(params,
+				manager.getSchemeRegistry()), params);
+		return client;
+	}
+
+
+	/****************************************************************************************************************/
+	/***************************************<Upload Recipe Operation>************************************************/
+	/****************************************************************************************************************/
+
 	/**
 	 * The task which implements the code necessary to upload a Recipe to the server --
 	 * it is implemented as a Callable object such that the executing thread can be cancelled 
@@ -120,20 +142,20 @@ public class ServerClient {
 	 *
 	 */
 	private class UploadRecipeTask implements Callable<ReturnCode> {
-		
+
 		Recipe recipe;
 		public UploadRecipeTask(Recipe recipe)
 		{
 			this.recipe = recipe;
 		}
-		
+
 		@Override
 		public ReturnCode call() {
 			ReturnCode checkForRecipe = checkForRecipe(recipe.getUri());
 			if (checkForRecipe == ReturnCode.SUCCESS) {
 				return ReturnCode.ALREADY_EXISTS;
 			}
-			
+
 			/* We are using the Recipe's URI as its _id on the server */
 			HttpResponse response = null;
 			HttpPost httpPost = new HttpPost(test_server_string+recipe.getUri());
@@ -146,17 +168,17 @@ public class ServerClient {
 			try {
 				response = httpclient.execute(httpPost);
 			} catch (ClientProtocolException cpe) {
-				
+
 				logger.log(Level.SEVERE, cpe.getMessage());
 				cpe.printStackTrace();
 				return ReturnCode.ERROR;
-				
+
 			} catch (IOException ioe) {
-				
+
 				logger.log(Level.SEVERE, ioe.getMessage());
 				ioe.printStackTrace();
 				return ReturnCode.ERROR;
-				
+
 			} 
 
 			String status = response.getEntity().toString();
@@ -169,7 +191,7 @@ public class ServerClient {
 				return ReturnCode.ALREADY_EXISTS;
 		}
 	}
-	
+
 	/**
 	 * Uploads the given recipe to the server.
 	 * @param recipe The recipe to be uploaded.
@@ -198,21 +220,79 @@ public class ServerClient {
 		return ret;
 	}
 
-	/**
-	 * Gets a thread safe client - that is, a client which can be used in a multithreaded
-	 * program and protects against certain errors that exist even in single threaded programs.
-	 * @return A Object of type DefaultHttpClient which will
-	 */
-	public static DefaultHttpClient getThreadSafeClient()
-	{
-		DefaultHttpClient client = new DefaultHttpClient();
-		ClientConnectionManager manager = client.getConnectionManager();
-		HttpParams params = client.getParams();
+	/**************************************</Upload Recipe Operation>************************************************/
 
-		client = new DefaultHttpClient(new ThreadSafeClientConnManager(params,
-				manager.getSchemeRegistry()), params);
-		return client;
+	/****************************************************************************************************************/
+	/**************************************<Search by Keywords Operation>********************************************/
+	/****************************************************************************************************************/
+	
+	/**
+	 * The task which implements the code necessary to query the server using keywords to the server --
+	 * it is implemented as a Callable object such that the executing thread can be cancelled 
+	 * should the operation be taking too long (ie. the network is down, spotty connection, etc.)
+	 * @author mbabic
+	 */
+	private class SearchByKeywordsTask implements Callable<ReturnCode> {
+
+		String str;
+		public SearchByKeywordsTask(String str)
+		{
+			this.str = str;
+		}
+
+		@Override
+		public ReturnCode call() 
+		{
+			ArrayList<Recipe> search_results = new ArrayList<Recipe>();
+			HttpResponse response = null;
+			logger.log(Level.SEVERE, "Search string passed:" + str);
+
+
+			try {
+
+				HttpGet search_request = new HttpGet(test_server_string+"_search?q=" + 
+						java.net.URLEncoder.encode(str, "UTF-8"));
+				
+				search_request.setHeader("Accept", "application/json");
+				
+				response = httpclient.execute(search_request);
+				
+				String status = response.getStatusLine().toString();
+				logger.log(Level.INFO, "search response: " + status);
+				
+				String json = helper.responseToString(response);
+				search_results = helper.toRecipeList(json);
+				results = search_results;
+				
+			} catch (IllegalArgumentException iae) {
+
+				logger.log(Level.SEVERE, "HttpGet failed: " + iae.getMessage());
+				return ReturnCode.ERROR;
+
+			} catch (ClientProtocolException cpe) {
+
+				logger.log(Level.SEVERE, cpe.getMessage());
+				return ReturnCode.ERROR;
+
+			} catch (IOException ioe) {
+
+				logger.log(Level.SEVERE, "execute failed" + ioe.getMessage());
+				return ReturnCode.ERROR;
+			}
+
+			/* 
+			 * If no results were found, inform the caller by setting ReturnCode to 
+			 * NO_RESULTS -- do NOT attempt to clear/write these results to ServerDb.
+			 */
+			if (search_results.isEmpty()) {
+				logger.log(Level.SEVERE, "Search by keywords \"" + str + "\" yielded no results.");
+				return ReturnCode.NO_RESULTS;
+			}
+
+			return ReturnCode.SUCCESS;	
+		}
 	}
+	
 
 	/**
 	 * Performs a search of online recipes by keywords.
@@ -220,55 +300,30 @@ public class ServerClient {
 	 * @return ReturnCode.ERROR if anything goes wrong, ReturnCode.NO_RESULTS if
 	 * the search returned no results, ReturnCode.SUCCESS if the search was successful,
 	 * in which case the results are written to the database and the observing views
-	 * are notified.
+	 * are notified, ReturnCode.BUSY if the server was busy or the operation took
+	 * longer than TIME_PERIOD seconds.
 	 */
 	public ReturnCode searchByKeywords(String str) throws ClientProtocolException, IOException
 	{
-		ArrayList<Recipe> search_results = null;
-		HttpResponse response = null;
-		logger.log(Level.SEVERE, "Search string passed:" + str);
-
-		HttpGet search_request = new HttpGet(test_server_string+"_search?q=" + 
-				java.net.URLEncoder.encode(str, "UTF-8"));
-		search_request.setHeader("Accept", "application/json");
-
+		ExecutorService executor = Executors.newSingleThreadExecutor();
+		Future<ReturnCode> future = executor.submit(new SearchByKeywordsTask(str));
+		ReturnCode ret = ReturnCode.ERROR;
 		try {
-			response = httpclient.execute(search_request);
-			String status = response.getStatusLine().toString();
-			logger.log(Level.INFO, "search response: " + status);
-			
-		} catch (IllegalArgumentException iae) {
-			
-			logger.log(Level.SEVERE, "HttpGet failed: " + iae.getMessage());
-			return ReturnCode.ERROR;
-			
-		} catch (ClientProtocolException cpe) {
-			
-			logger.log(Level.SEVERE, cpe.getMessage());
-			return ReturnCode.ERROR;
-			
-		} catch (IOException ioe) {
-			
-			logger.log(Level.SEVERE, "execute failed" + ioe.getMessage());
+			ret = future.get(TIMEOUT_PERIOD, TimeUnit.SECONDS);
+		} catch (TimeoutException te) {
+			logger.log(Level.SEVERE, "Search by Keywords operation timed out.");
+			return ReturnCode.BUSY;
+		} catch (Exception e) {
+			logger.log(Level.SEVERE, "Exception during Search by Keywords operation.");
 			return ReturnCode.ERROR;
 		}
-
-		String json = helper.responseToString(response);
-		search_results = helper.toRecipeList(json);
-		results = search_results;
-		
-		
-		/* 
-		 * If no results were found, inform the caller by setting ReturnCode to 
-		 * NO_RESULTS -- do NOT attempt to clear/write these results to ServerDb.
-		 */
-		if (search_results.isEmpty()) {
-			logger.log(Level.SEVERE, "Search by keywords \"" + str + "\" yielded no results.");
-			return ReturnCode.NO_RESULTS;
-		}
-		
-		return ReturnCode.SUCCESS;		
+		/* Got here so the operation finished. */
+		executor.shutdownNow();
+		return ret;	
 	}
+	
+
+	/*************************************</Search by Keywords Operation>********************************************/
 
 	public void writeResultsToDb()
 	{
@@ -284,6 +339,8 @@ public class ServerClient {
 		logger.log(Level.SEVERE, "First result: " + results.get(0).getTitle());
 	}
 
+	
+	
 	
 	/**
 	 * Converts the given list of ingredients to a string appropriate for use in a server query.
@@ -306,10 +363,10 @@ public class ServerClient {
 		logger.log(Level.INFO, "ingredients_str = " + ingredients_str);
 		return ingredients_str;
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * Search the server for recipes which are composed of ingredients 
 	 * @param ingredients The list of ingredients by which to search.
@@ -325,7 +382,7 @@ public class ServerClient {
 		HttpPost searchRequest = new HttpPost(test_server_string + "_search?pretty=1");
 		String query = "{\"query\" : {\"query_string\" : {\"default_field\" : \"ingredients.name\", \"query\" : \"" + ingredients_str + "\"}}}";
 		logger.log(Level.INFO, "query string = " + query);
-		
+
 		try {
 			StringEntity str_entity = new StringEntity(query);
 			searchRequest.setHeader("Accept","application/json");
@@ -370,7 +427,7 @@ public class ServerClient {
 		return ReturnCode.SUCCESS;
 	}
 
-	
+
 	/**
 	 * Query the server for the Recipe with the given uri and return a ReturnCode based on the 
 	 * server response.
@@ -401,14 +458,14 @@ public class ServerClient {
 			logger.log(Level.SEVERE, "Recipe to upload photo to could not be found.  Response code: " + retcode);
 			return ReturnCode.ERROR;
 		}
-		
+
 		/* Else the recipe was found and we return success. */
 		return ReturnCode.SUCCESS;
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * Upload the given Photo to the appropriate Recipe.
 	 * @param (Photo) photo The photo to be added to the server-side version of the Recipe.
@@ -430,15 +487,15 @@ public class ServerClient {
 			 */
 			return searchForRecipe;
 		}
-		
-		
+
+
 		/* Else, the Recipe exists online and we try to upload the given photo to it. */
 		int retcode = HttpStatus.SC_INTERNAL_SERVER_ERROR;
 		HttpResponse response = null;
 		while (tries < maxTries && retcode == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
 			tries ++;
 			try {
-				
+
 				httpclient = getThreadSafeClient();
 				/* We first must convert the given Photo to a ServerPhoto. */
 				ServerPhoto serverPhoto = new ServerPhoto(photo);
@@ -459,7 +516,7 @@ public class ServerClient {
 				response = httpclient.execute(updateRequest);
 				retcode = response.getStatusLine().getStatusCode();
 				logger.log(Level.SEVERE, "Upload request return code: " + response.getStatusLine().toString());
-				
+
 				if (retcode == HttpStatus.SC_OK)
 					break;
 
