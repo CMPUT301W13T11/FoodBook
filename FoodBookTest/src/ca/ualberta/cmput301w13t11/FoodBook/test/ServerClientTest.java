@@ -126,83 +126,83 @@ public class ServerClientTest extends AndroidTestCase {
 		assertTrue("Returns no_resuls.", returnCode == ReturnCode.SUCCESS);
 		
 	}
-//	
-//	/**
-//	 * Test uploadPhotoToRecipe() by trying to add a Photo to a recipe known to exist on the server 
-//	 * and check against return code.
-//	 * WILL FAIL, NOT YET IMPLEMENTED
-//	 */
-//	public void testUploadPhotoToRecipe()
-//	{
-//		sc = ServerClient.getInstance();
-//
-//		Photo photo = new Photo("testname", new byte[10]);
-//		ReturnCode ret = sc.uploadPhotoToRecipe(photo, 1364241542351L);
-//
-//		assertTrue("return code != SUCCESS", ret == ReturnCode.SUCCESS);
-//	}
-//
-//	/**
-//	 * Test if client can connect to phony URL -- should return false.
-//	 */
-//	public void testHasConnectionFail()
-//	{
-//		sc = ServerClient.getInstance();
-//
-//		assertTrue(!sc.hasConnection("http://fakefakefake"));
-//	}
-//	
-//	/**
-//	 * Test hasConnection() with a known, good URL.
-//	 */
-//	public void testHasConnectionPass()
-//	{
-//		sc = ServerClient.getInstance();
-//
-//		assertTrue(sc.hasConnection("http://www.google.com"));
-//	}
-//
-//	
-//	/**
-//	 * Test searchByKeywords by seeing if passing it a keyword known to now relate to any uploaded recipe
-//	 * will cause it to return the code NO_RESULTS.
-//	 */
-//	public void testSearchByKeywordsFail()
-//	{
-//		ResultsDbManager db = ResultsDbManager.getInstance(this.getContext());
-//
-//		sc = ServerClient.getInstance();
-//
-//		try {
-//			ReturnCode result = sc.searchByKeywords("&&^367 78tqyfgylgaahslfauy7 iw");
-//			assertTrue(result == ReturnCode.NO_RESULTS);
-//		} catch (ClientProtocolException cpe) {
-//			fail("cpe");
-//		} catch (IOException ioe) {
-//			fail("ioe");
-//		}		
-//	}
-//	
-//	/**
-//	 * Test to see if a recipe known to exist on server will be found by
-//	 * searchByKeywords().
-//	 */
-//	public void testSearchByKeywordsPass()
-//	{
-//		DbManager db = DbManager.getInstance(this.getContext());
-//
-//		sc = ServerClient.getInstance();
-//		assertTrue("sc null", sc != null);
-//		try {
-//			assertTrue("sc null", sc != null);
-//
-//			ReturnCode result = sc.searchByKeywords("turdosandowich");
-//			assertTrue("Result is not success.", result == ReturnCode.SUCCESS);
-//		} catch (ClientProtocolException cpe) {
-//			fail("cpe");
-//		} catch (IOException ioe) {
-//			fail("ioe");
-//		}		
-//	}
+	
+	/**
+	 * Test uploadPhotoToRecipe() by trying to add a Photo to a recipe known to exist on the server 
+	 * and check against return code.
+	 * WILL FAIL, NOT YET IMPLEMENTED
+	 */
+	public void testUploadPhotoToRecipe()
+	{
+		sc = ServerClient.getInstance();
+
+		Photo photo = new Photo("testname", new byte[10]);
+		ReturnCode ret = sc.uploadPhotoToRecipe(photo, 1364241542351L);
+
+		assertTrue("return code != SUCCESS", ret == ReturnCode.SUCCESS);
+	}
+
+	/**
+	 * Test if client can connect to phony URL -- should return false.
+	 */
+	public void testHasConnectionFail()
+	{
+		sc = ServerClient.getInstance();
+
+		assertTrue(!sc.hasConnection("http://fakefakefake"));
+	}
+	
+	/**
+	 * Test hasConnection() with a known, good URL.
+	 */
+	public void testHasConnectionPass()
+	{
+		sc = ServerClient.getInstance();
+
+		assertTrue(sc.hasConnection("http://www.google.com"));
+	}
+
+	
+	/**
+	 * Test searchByKeywords by seeing if passing it a keyword known to now relate to any uploaded recipe
+	 * will cause it to return the code NO_RESULTS.
+	 */
+	public void testSearchByKeywordsFail()
+	{
+		ResultsDbManager db = ResultsDbManager.getInstance(this.getContext());
+
+		sc = ServerClient.getInstance();
+
+		try {
+			ReturnCode result = sc.searchByKeywords("&&^367 78tqyfgylgaahslfauy7 iw");
+			assertTrue(result == ReturnCode.NO_RESULTS);
+		} catch (ClientProtocolException cpe) {
+			fail("cpe");
+		} catch (IOException ioe) {
+			fail("ioe");
+		}		
+	}
+	
+	/**
+	 * Test to see if a recipe known to exist on server will be found by
+	 * searchByKeywords().
+	 */
+	public void testSearchByKeywordsPass()
+	{
+		DbManager db = DbManager.getInstance(this.getContext());
+
+		sc = ServerClient.getInstance();
+		assertTrue("sc null", sc != null);
+		try {
+			assertTrue("sc null", sc != null);
+
+			ReturnCode result = sc.searchByKeywords("turdosandowich");
+			assertTrue("Result is not success.", result == ReturnCode.SUCCESS);
+		} catch (ClientProtocolException cpe) {
+			fail("cpe");
+		} catch (IOException ioe) {
+			fail("ioe");
+		}		
+	}
 
 }
