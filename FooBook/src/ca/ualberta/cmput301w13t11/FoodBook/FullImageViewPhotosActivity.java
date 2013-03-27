@@ -1,22 +1,16 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
-import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
-import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
-import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
-import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
 public class FullImageViewPhotosActivity extends Activity implements FView<DbManager>{
 
@@ -24,8 +18,7 @@ public class FullImageViewPhotosActivity extends Activity implements FView<DbMan
 	static final String EXTRA_IMG_PATH = "extra_img_path";
 	static final String EXTRA_URI = "extra_uri";
 	private String imgPath = null;
-	private String id;
-	private Long uri;
+
 	private ImageView imageView = null;
 	private Bitmap bitmap = null;
 
@@ -44,9 +37,9 @@ public class FullImageViewPhotosActivity extends Activity implements FView<DbMan
         
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        //id = bundle.getString(EXTRA_IMG_ID);
-        imgPath = bundle.getString(EXTRA_IMG_PATH);
-        //uri = bundle.getLong(EXTRA_URI);
+
+		imgPath = bundle.getString(EXTRA_IMG_PATH);
+
         
         this.updateView();
     }

@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,8 +59,11 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 	        public void onItemClick(AdapterView<?> parent, View v,
 	                int position, long id) {
 	            Intent i = new Intent(ViewPhotosActivity.this, FullImageViewPhotosActivity.class);
-	            //Log.e("intent : ", ""+position);
-	            i.putExtra("EXTRA_IMG_PATH", photos.get(position).getPath());
+	            Bundle bundle = new Bundle();
+				bundle.putString(EXTRA_IMG_PATH, photos.get(position).getPath());
+				//Log.d("recipe", Long.toString(uri));
+				//Log.d("filename", photos.get(position).getName());
+				i.putExtras(bundle);
 	            startActivity(i);
 	        }
 	    });
