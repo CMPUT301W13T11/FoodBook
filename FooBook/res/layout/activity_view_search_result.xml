@@ -50,39 +50,23 @@
         android:text="@string/instructions"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <EditText
-        android:id="@+id/editText3"
+    <TextView
+        android:id="@+id/Instructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textMultiLine"
+        android:text = "instructions go here"
         android:lines="5" >
-    </EditText>
+    </TextView>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/view_photos"
-            style="@style/BlueButton"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:onClick="OnViewPhotos"
-            android:text="@string/view_photos"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/add_photos"
-            style="@style/BlueButton"
-            android:layout_width="140dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:onClick="OnAddPhotos"
-            android:text="@string/add_photos"
-            android:textSize="18sp" />
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/view_photos"
+        style="@style/BlueButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:onClick="OnViewPhotos"
+        android:text="@string/view_photos"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/download_recipe"

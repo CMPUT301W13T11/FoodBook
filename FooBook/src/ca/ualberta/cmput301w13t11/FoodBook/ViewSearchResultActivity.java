@@ -47,11 +47,12 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 					
 					}
 		}
-		
-		recipeName = (TextView) findViewById(R.id.textView2);
-		instructions = (TextView) findViewById(R.id.editText3);
-		recipeName.setText(viewedRecipe.getTitle());
-		instructions.setText(viewedRecipe.getInstructions());	
+		if(viewedRecipe!=null){
+			recipeName = (TextView) findViewById(R.id.textView2);
+			instructions = (TextView) findViewById(R.id.Instructions);
+			recipeName.setText(viewedRecipe.getTitle());
+			instructions.setText(viewedRecipe.getInstructions());	
+		}
 		//This method appeas to function fine if this method is commented out? For now I'll go with it -Thomas
 		//updateView();
 		
