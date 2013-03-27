@@ -7,8 +7,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
@@ -28,6 +36,8 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 	private Long uri;
 	private ImageView imageView = null;
 	private Bitmap bitmap = null;
+	private PopupWindow popUp;
+
 
 	/**
 	 * Performs an photo upload operation asynchronously (ie. not on the UI thread) and reports
@@ -37,12 +47,12 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 	private class UploadPhotoTask extends AsyncTask<Photo, Void, ReturnCode>{
 		private ProgressDialog progressDialog;
 		private long upload_uri;
-		
+
 		public UploadPhotoTask(long uri)
 		{
 			this.upload_uri = uri;
 		}
-		
+
 		@Override
 		protected void onPreExecute()
 		{
@@ -55,7 +65,7 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 			ReturnCode ret = SC.uploadPhotoToRecipe(photo, uri);
 			return ret;
 		}
-		
+
 		@Override
 		protected void onPostExecute(ReturnCode ret)
 		{
@@ -73,59 +83,98 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 			}
 		}
 	}
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-    	
-    	setContentView(R.layout.activity_full_image_edit_photos);
-    	imageView = (ImageView) findViewById(R.id.imageView1);
-        super.onCreate(savedInstanceState);
-        
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
-        id = bundle.getString(EXTRA_IMG_ID);
-        imgPath = bundle.getString(EXTRA_IMG_PATH);
-        uri = bundle.getLong(EXTRA_URI);
-        
-        this.updateView();
-    }
-    protected void updateView(){
-    	
-    	bitmap= BitmapFactory.decodeFile(imgPath);
-    	this.imageView.setImageBitmap(bitmap);
-    	
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	super.onActivityResult(requestCode, resultCode, data);
-    	  if (requestCode == 1) {
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
 
-    	     if(resultCode == RESULT_OK){      
-    	    	 imgPath = data.getStringExtra("imgPath");
-    	    	 this.updateView();
-    	     }
-    	     if (resultCode == RESULT_CANCELED) {    
-    	         //Write your code on no result return 
-    	     }
-    	  }
-    	}//onActivityResult
+		setContentView(R.layout.activity_full_image_edit_photos);
+		imageView = (ImageView) findViewById(R.id.imageView1);
+		super.onCreate(savedInstanceState);
 
-    public void OnUploadPhoto(View view)
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		id = bundle.getString(EXTRA_IMG_ID);
+		imgPath = bundle.getString(EXTRA_IMG_PATH);
+		uri = bundle.getLong(EXTRA_URI);
+
+		this.updateView();
+	}
+	protected void updateView(){
+		//Options options = new Options();
+		//options.inJustDecodeBounds = true;
+		//Log.d("retpath", imgPath);
+		bitmap= BitmapFactory.decodeFile(imgPath);
+		this.imageView.setImageBitmap(bitmap);
+
+	}
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == 1) {
+
+			if(resultCode == RESULT_OK){      
+				imgPath = data.getStringExtra("imgPath");
+				this.updateView();
+			}
+			if (resultCode == RESULT_CANCELED) {    
+				//Write your code on no result return 
+			}
+		}
+	}//onActivityResult
+
+	public void OnUploadPhoto(View view)
 	{
-    	new UploadPhotoTask(uri).execute(new Photo(id, imgPath, bitmap));
+		new UploadPhotoTask(uri).execute(new Photo(id, imgPath, bitmap));
 	}
 
-    public void OnGoBack(View View)
-    {
+	public void OnGoBack(View View)
+	{
 		// responds to button Go Back
 		// not sure if this is enough -Pablo 
-		 FullImageEditPhotosActivity.this.finish();
-    }
-    public void OnDeletePhoto(View View)
-    {
+		FullImageEditPhotosActivity.this.finish();
+	}
+	public void OnDeletePhoto(View View)
+	{
+
+		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+		LayoutParams darkenParams =darkenScreen.getLayoutParams();
+
+		// responds to button Delete Recipe
+
+		//first darken the screen
+
+		//LayoutParams darkenParams = darkenScreen.getLayoutParams();
+		darkenParams.height = 1000;
+		darkenParams.width = 1000;
+		darkenScreen.setLayoutParams(darkenParams);
+		//make the popup
+
+		LinearLayout layout = new LinearLayout(this);
+		LayoutInflater inflater = LayoutInflater.from(this);
+		View popupLayout = inflater.inflate(R.layout.popup_delete_photo, null, false);
+
+		popUp = new PopupWindow(popupLayout, 380,200,true);
+		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
+
+		//Log.d("what's going on", Long.toString(viewedRecipe.getUri()));
+
+
 		// responds to button Go Back
+
+	}
+	public void OnOK(View View){
+
+		//delete the recipe
+
+		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+		LayoutParams darkenParams = darkenScreen.getLayoutParams();
+		darkenParams.height = 0;
+		darkenParams.width = 0;
+		darkenScreen.setLayoutParams(darkenParams);
+		popUp.dismiss();
+
 		DbController DbC = DbController.getInstance(this, this);
 		Photo photo = new Photo(id, imgPath);
-		
+
 		Boolean success = DbC.deleteRecipePhoto(photo);
 		if (success) {
 			Toast.makeText(getApplicationContext(), "Image deleted with success",
@@ -135,7 +184,19 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 					"Error during image deleting", Toast.LENGTH_LONG).show();
 		} 
 		FullImageEditPhotosActivity.this.finish();
-    }
+	}
+
+
+	public void OnCancel(View View){
+
+		//remove the darkScreen
+		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+		LayoutParams darkenParams = darkenScreen.getLayoutParams();
+		darkenParams.height = 0;
+		darkenParams.width = 0;
+		darkenScreen.setLayoutParams(darkenParams);
+		popUp.dismiss();
+	}
 
 	@Override
 	public void update(DbManager db)
@@ -143,11 +204,11 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 
 		// TODO Auto-generated method stub
 		this.updateView();
-		
+
 	}
 	public void onDestroy()
 	{	super.onDestroy();
-		DbController DbC = DbController.getInstance(this, this);
-		DbC.deleteView(this);
+	DbController DbC = DbController.getInstance(this, this);
+	DbC.deleteView(this);
 	}
 }
