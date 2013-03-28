@@ -47,7 +47,8 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-			{	long recipe_uri = ((Recipe) parent.getItemAtPosition(position)).getUri();
+			{	
+				long recipe_uri = ((Recipe) parent.getItemAtPosition(position)).getUri();
 				Intent intent = new Intent(MyRecipes.this, ViewRecipeActivity.class);
 				//String testString=Long.toString(recipe_uri);
 				//intent.putExtra(EXTRA_URI, testString);

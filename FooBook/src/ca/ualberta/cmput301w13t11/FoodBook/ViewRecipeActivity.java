@@ -1,7 +1,6 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+import java.util.logging.Logger;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -24,8 +23,8 @@ import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.EmailSender;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
-import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 /**
  * Activity launched that presents to the user detailed information about a Recipe.
@@ -43,6 +42,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	private TextView recipeName;
 	private TextView instructions;
 	private ProgressDialog progressDialog;
+	static private final Logger logger = Logger.getLogger(ViewRecipeActivity.class.getName());
 
 	/**
 	 * Async task to upload a recipe -- launched when the PublishRecipe button is pressed.
@@ -128,9 +128,9 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		instructions.setText(viewedRecipe.getInstructions());
 		
 		
-		/*ListView listView = (ListView) findViewById(R.id.listView1);
-		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getUserRecipes());
-		listView.setAdapter(adapter);*/
+		ListView listView = (ListView) findViewById(R.id.listView1);
+		ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getRecipeIngredients(uri));
+		listView.setAdapter(adapter);
 
 	}
 
