@@ -121,19 +121,7 @@ public class DbController {
     {
     	recipesManager.updateRecipe(recipe);
     	db.notifyViews();
-    }
-
-    /**
-     * Associates the Ingredient argument correctly with the given Recipe in the database.
-     * @param ingredient The ingredient to add to the given Recipe.
-     * @param recipe The Recipe to which the ingredient is to be added.
-     */
-    public void addIngredientToRecipe(Ingredient ingredient, Recipe recipe)
-    {
-    	recipesManager.insertRecipeIngredients(ingredient, recipe.getUri());
-    	db.notifyViews();
-    }
-   
+    }   
     
     /* *****************************************************************
     USE THESE METHODS FOR RETRIEVING/SAVING/DELETING PHOTOS TO USER'S RECIPES
@@ -167,9 +155,9 @@ public class DbController {
     USE THESE METHODS FOR RETRIEVING/SAVING/DELETING INGREDIENTS TO USER'S RECIPES
    ********************************************************************* */
     /**
-     * Associates the Photo argument correctly with the given Recipe in the database.
-     * @param photo The photo to add to the given Recipe.
-     * @param recipe The Recipe to which the photo is to be added.
+     * Associates the Ingredient argument correctly with the given Recipe in the database.
+     * @param ingredient The ingredient to add to the given Recipe.
+     * @param recipe The Recipe to which the ingredient is to be added.
      */
     public boolean addIngredientToRecipe(Ingredient ingred, long uri)
     {
