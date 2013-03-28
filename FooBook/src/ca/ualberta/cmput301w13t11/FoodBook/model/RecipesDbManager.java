@@ -71,42 +71,42 @@ public class RecipesDbManager extends DbManager {
     ////added this to delete a recipe -Pablo
     // must include other methods to remove ingredients and other stuff from other tables
 
-    public boolean removeRecipe(Recipe recipe) {
-    	
-    	Long uri = recipe.getUri();
-    	
-    	int recipes_removed = 0;
-    	boolean deleted_pictures = true;
-    	boolean deleted_ingreds = true;
-    	try{
-    		//String s = Long.toString(recipe.getUri());
-    		//Log.d("uri in String", s);
-    		recipes_removed = db.delete("UserRecipes", "URI = " + recipe.getUri(), null);
-    		Log.d("we got past removing recipes", "OK");
-    		String s = Integer.toString(recipes_removed);
-    		Log.d("recipes", s);
-    		
-    		ArrayList<Photo> photos = getRecipePhotos(uri); 
-    		for (Photo p: photos){
-    			if (removeRecipePhoto(p)!=true){
-    				deleted_pictures=false;
-    			}
-    		}
-  
-    		Log.d("we got past removing photos", "OK");
-    		s = new Boolean(deleted_pictures).toString();
-    		Log.d("photos", s);
-    		//Do the same for ingredients
-  			deleted_ingreds = removeRecipeIngredients(uri);
-  			
-  			Log.d("we got past removing ingredients", "OK");
-    		s = new Boolean(deleted_ingreds).toString();
-    		Log.d("ingreds", s);
-    				    		
-    	}catch(Exception e){e.printStackTrace();};
-
-    	return (recipes_removed==1 && deleted_pictures==true && deleted_ingreds==true);
-    }
+//    public boolean removeRecipe(Recipe recipe) {
+//    	
+//    	Long uri = recipe.getUri();
+//    	
+//    	int recipes_removed = 0;
+//    	boolean deleted_pictures = true;
+//    	boolean deleted_ingreds = true;
+//    	try{
+//    		//String s = Long.toString(recipe.getUri());
+//    		//Log.d("uri in String", s);
+//    		recipes_removed = db.delete("UserRecipes", "URI = " + recipe.getUri(), null);
+//    		Log.d("we got past removing recipes", "OK");
+//    		String s = Integer.toString(recipes_removed);
+//    		Log.d("recipes", s);
+//    		
+//    		ArrayList<Photo> photos = getRecipePhotos(uri); 
+//    		for (Photo p: photos){
+//    			if (removeRecipePhoto(p)!=true){
+//    				deleted_pictures=false;
+//    			}
+//    		}
+//  
+//    		Log.d("we got past removing photos", "OK");
+//    		s = new Boolean(deleted_pictures).toString();
+//    		Log.d("photos", s);
+//    		//Do the same for ingredients
+//  			deleted_ingreds = removeRecipeIngredients(uri);
+//  			
+//  			Log.d("we got past removing ingredients", "OK");
+//    		s = new Boolean(deleted_ingreds).toString();
+//    		Log.d("ingreds", s);
+//    				    		
+//    	}catch(Exception e){e.printStackTrace();};
+//
+//    	return (recipes_removed==1 && deleted_pictures==true && deleted_ingreds==true);
+//    }
 	
 //    //method to delete photo -Pablo
 //    public boolean removeRecipePhoto(Photo photo) {
