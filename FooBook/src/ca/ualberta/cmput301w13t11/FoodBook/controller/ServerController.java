@@ -1,9 +1,11 @@
 package ca.ualberta.cmput301w13t11.FoodBook.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
@@ -68,6 +70,16 @@ public class ServerController {
 		} catch (IOException ioe) {
 			return ReturnCode.ERROR;
 		}
+	}
+	
+	public void updateResultsDb()
+	{
+		sc.writeResultsToDb();
+	}
+	
+	public ReturnCode searchByIngredients(ArrayList<Ingredient> ingredients)
+	{
+			return sc.searchByIngredients(ingredients);
 	}
 	
 	/**

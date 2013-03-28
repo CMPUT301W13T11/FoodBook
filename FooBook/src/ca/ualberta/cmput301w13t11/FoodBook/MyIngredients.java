@@ -6,6 +6,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
@@ -30,6 +31,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 	private ImageView darkenScreen;
 	private LayoutParams darkenParams;
 	private View popUpView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{

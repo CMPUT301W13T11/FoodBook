@@ -7,7 +7,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -18,6 +17,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
@@ -54,9 +54,51 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		protected void onPostExecute(ReturnCode ret)
 		{
 			progressDialog.dismiss();
-			ServerClient sc = ServerClient.getInstance();
+			ServerController sc = ServerController.getInstance(SearchResultsActivity.this);
 			if (ret == ReturnCode.SUCCESS) {
-				sc.writeResultsToDb();
+				sc.updateResultsDb();
+			} else if (ret == ReturnCode.NO_RESULTS) {
+				
+				Toast.makeText(getApplicationContext(), "The server is responding to us. :( Here are your old results though!", Toast.LENGTH_LONG).show();
+				
+			} else if (ret == ReturnCode.NO_RESULTS) {
+				
+				Toast.makeText(getApplicationContext(), "Your search returned no results.\n We kept your old ones though. :)", Toast.LENGTH_LONG).show();
+			}
+			else if (ret == ReturnCode.ERROR) {
+				Toast.makeText(getApplicationContext(), "An error occurred.  Me so sorry. :(", Toast.LENGTH_LONG).show();
+			}
+		}
+	}
+
+	/**
+	 * Performs a search by all ingredients asynchronously (ie. not on the UI thread) and reports
+	 * its results.  The process is started by calling "new SearchByKeywordsTask().execute(keyword)".
+	 * @author mbabic
+	 */
+	private class SearchByAllIngredientsTask extends AsyncTask<ArrayList<Ingredient>, Void, ReturnCode>{
+		private ProgressDialog progressDialog;
+		
+		@Override
+		protected void onPreExecute()
+		{
+			progressDialog = ProgressDialog.show(SearchResultsActivity.this, "", "Searching...");
+		}
+		@Override
+		protected ReturnCode doInBackground(ArrayList<Ingredient>... ingredients) {
+			ArrayList<Ingredient> ingredientsList = ingredients[0];
+			ServerController SC=ServerController.getInstance(SearchResultsActivity.this);
+			ReturnCode ret = SC.searchByIngredients(ingredientsList);
+			return ret;
+		}
+		
+		@Override
+		protected void onPostExecute(ReturnCode ret)
+		{
+			progressDialog.dismiss();
+			ServerController sc = ServerController.getInstance(SearchResultsActivity.this);
+			if (ret == ReturnCode.SUCCESS) {
+				sc.updateResultsDb();
 			} else if (ret == ReturnCode.NO_RESULTS) {
 				
 				Toast.makeText(getApplicationContext(), "The server is responding to us. :( Here are your old results though!", Toast.LENGTH_LONG).show();
@@ -72,6 +114,7 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 	}
 
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -79,6 +122,20 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_results);
 		Intent intent = getIntent();
+		Bundle extras = intent.getExtras();
+		String searchType = "";
+		
+		if (extras != null) {
+			searchType = extras.getString(FoodBookApplication.SEARCH_TYPE);
+			if (searchType.equals(FoodBookApplication.KEYWORDS_SEARCH)) {
+				new SearchByKeywordsTask().execute(extras.getString(SearchActivity.KEYWORD));
+			}
+			
+			if (searchType.equals(FoodBookApplication.ALL_INGREDIENTS_SEARCH)) {
+				
+				new SearchByAllIngredientsTask().execute();
+			}
+		}
 		new SearchByKeywordsTask().execute(intent.getStringExtra(SearchActivity.KEYWORD));
 		updateList();
 	}

@@ -50,6 +50,7 @@ public class SearchActivity extends Activity implements FView<DbManager>
 		String keyword=Keyword.toString();
     	Intent intent = new Intent(this, SearchResultsActivity.class);
     	intent.putExtra(KEYWORD, keyword);
+    	intent.putExtra(FoodBookApplication.SEARCH_TYPE, FoodBookApplication.KEYWORDS_SEARCH);
 		startActivity(intent);
     }
 
