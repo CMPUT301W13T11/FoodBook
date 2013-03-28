@@ -51,10 +51,21 @@ public class EditPhotos extends Activity implements FView<DbManager>
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_edit_photos);
-	
+		String extraUri = "";
 		Intent intent = getIntent();
-		String extraUri = intent.getStringExtra(AddRecipesActivity.EXTRA_URI);
-		uri = Long.parseLong(extraUri);
+		Bundle extras = intent.getExtras();
+		if (extras != null) {
+			String callingActivity = extras.getString("calling_activity");
+			if (callingActivity.equals("AddRecipesActivity")) {
+				extraUri = extras.getString(EXTRA_URI);
+			}
+			else
+				extraUri = extras.getString(EXTRA_URI);
+		}
+
+
+		//String extraUri = intent.getStringExtra(AddRecipesActivity.EXTRA_URI);
+		//uri = Long.parseLong(extraUri);
 		logger.log(Level.INFO, "Uri passed to EditPhotos: " + uri);
 		//Log.d("recipe", Long.toString(uri));
 
