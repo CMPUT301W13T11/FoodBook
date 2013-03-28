@@ -59,6 +59,11 @@ public class SearchActivity extends Activity implements FView<DbManager>
 	{
 		
 	}
+		
+	public void OnIngredientSearch (View View)
+    {
+		
+    }
 	/*public void onDestroy()
 	{	super.onDestroy();
 		DbController DbC = DbController.getInstance(this, this);

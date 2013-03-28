@@ -75,6 +75,7 @@
     <string name="p_unit">Unit (ex. ml, g, etc):</string>
      <string name="amount">Amount (numerical):</string>
     <string name="p_edit_ingredient">Edit ingredient:</string>
+     <string name="searchIngredients">Ready Recipes</string>
 
 
 </resources>
