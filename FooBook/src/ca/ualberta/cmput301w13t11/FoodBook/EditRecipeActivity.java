@@ -33,6 +33,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	private DbController DbC;
 	private ImageView darkenScreen;
 	private LayoutParams darkenParams;
+	private boolean deleted = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -126,18 +127,23 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		View popupLayout = inflater.inflate(R.layout.popup_delete_recipe, null, false);
 		Button ok_button = (Button) popupLayout.findViewById(R.id.ok_button);
 		OnClickListener ok_button_click_listener = new OnClickListener(){
-			public void onClick(View View){
+			/*public void onClick(View View){
 
 				//delete the recipe
-
-				Log.d("are we here", "are we here");
-				Boolean success = DbC.deleteRecipe(viewedRecipe);
+				DbController DbC = DbController.getInstance(EditRecipeActivity.this, EditRecipeActivity.this);
+				DbC.deleteView(EditRecipeActivity.this);
+				Intent intent = new Intent(EditRecipeActivity.this, MyRecipes.class);
+				//Log.d("are we here", "are we here");
+				Boolean success = true;// DbC.deleteRecipe(viewedRecipe);
+				DbC.deleteRecipe(viewedRecipe);
 				//ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
 				//LayoutParams darkenParams = darkenScreen.getLayoutParams();
 				darkenParams.height = 0;
 				darkenParams.width = 0;
 				darkenScreen.setLayoutParams(darkenParams);
 				popUp.dismiss();
+				
+				startActivity(intent);
 				
 				if (success) {
 					Toast.makeText(getApplicationContext(), "Everything deleted with success",
@@ -147,7 +153,25 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 							"Error during deleting", Toast.LENGTH_LONG).show();
 				} 
 			}
+		};*/
+			
+			public void onClick(View View){
+			
+				//delete the recipe
+				DbController DbC = DbController.getInstance(EditRecipeActivity.this, EditRecipeActivity.this);
+				//ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+				//LayoutParams darkenParams = darkenScreen.getLayoutParams();
+				darkenParams.height = 0;
+				darkenParams.width = 0;
+				darkenScreen.setLayoutParams(darkenParams);
+				popUp.dismiss();				
+				//DbC.deleteView(EditRecipeActivity.this);
+				deleted = true;
+				DbC.deleteRecipe(viewedRecipe);
+				finish();
+			}
 		};
+		
 		ok_button.setOnClickListener(ok_button_click_listener);
 		Button cancel_button = (Button) popupLayout.findViewById(R.id.cancel_button);
 		OnClickListener cancel_button_click_listener = new OnClickListener(){
@@ -174,8 +198,9 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	public void update(DbManager db)
 	{
 
-		// TODO Auto-generated method stub
-		this.updateView();
+		if (!deleted) {
+			this.updateView();
+		}
 	
 	}
 		

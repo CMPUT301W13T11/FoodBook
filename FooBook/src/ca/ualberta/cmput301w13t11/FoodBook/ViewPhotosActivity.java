@@ -32,6 +32,8 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 
 	static final String EXTRA_URI = "extra_uri";
 	static final String EXTRA_IMG_PATH = "extra_img_path";
+	public static String CALLER = "caller";
+	private boolean queryResultsDb = false;
 	private long uri;
 	private ArrayList<Photo> photos;
 
@@ -43,7 +45,16 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_photos);
+		String caller = "";
 		Intent intent = getIntent();
+		Bundle extras = intent.getExtras();
+		if (extras != null) {
+			
+			caller = extras.getString(CALLER);
+			if (caller.equals("ViewSearchResultActivity")) {
+				queryResultsDb = true;
+			}
+		}
 		uri = intent.getLongExtra(EXTRA_URI, 0);
 		this.updateView();
 
@@ -51,7 +62,10 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 	protected void updateView(){
 
 		DbController DbC = DbController.getInstance(this, this);
-		photos = DbC.getRecipePhotos(uri);
+		if (queryResultsDb)
+			photos = DbC.getStoredRecipePhotos(uri);
+		else
+			photos = DbC.getRecipePhotos(uri);
 		if (!photos.isEmpty()) {
 			gridview = (GridView) findViewById(R.id.gridView1);
 			gridview.setAdapter(new ImageAdapter(this));    

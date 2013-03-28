@@ -144,12 +144,14 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
     	//intent.putExtra(EXTRA_URI, URI);
     	intent.putExtra(EXTRA_URI, uri);
 		startActivity(intent);
+		finish();
     }
 	public void OnViewPhotos (View View)
     {
 		// responds to button Edit Photos
     	Intent intent = new Intent(this, ViewPhotosActivity.class);
     	intent.putExtra(EXTRA_URI, uri);
+    	intent.putExtra(ViewPhotosActivity.CALLER, "ViewRecipeActivity");
 		startActivity(intent);
     }
 	public void OnEmailRecipe (View View)

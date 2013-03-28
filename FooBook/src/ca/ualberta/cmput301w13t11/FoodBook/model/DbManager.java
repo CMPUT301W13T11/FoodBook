@@ -442,7 +442,7 @@ public class DbManager extends FModel<FView> {
     /**
      * Saves the given bitmap to the local device.
      * @param bitmap The bitmap to be saved.
-     * @param timeStampdId The name of the photo.
+     * @param photo .
      * @return True on success, false on failure.
      */
     private boolean savePhotoToDevice(Bitmap bitmap, Photo photo)

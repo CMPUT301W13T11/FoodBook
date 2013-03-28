@@ -106,7 +106,6 @@ public class DbController {
      */
     public boolean deleteRecipe(Recipe recipe)
     {	
-    	Log.d("are we here as well", "are we here as well");
     	boolean success = recipesManager.removeRecipe(recipe);
     	db.notifyViews();
     	return success;
