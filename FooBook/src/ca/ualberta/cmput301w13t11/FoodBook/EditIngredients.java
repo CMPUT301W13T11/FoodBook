@@ -60,7 +60,7 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		darkenParams = darkenScreen.getLayoutParams();
 		updateIngredients();
 	}
-
+	
 
 	public void OnGotoMainMenu(View View)
 	{
@@ -217,6 +217,7 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	{
 		DbController DbC = DbController.getInstance(this, this);
 		DbC.storeRecipeIngredients(RecipeIngredients, uri);
+		updateIngredients();
 		this.finish();
 	}
 	

@@ -125,6 +125,10 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	public void updateView(){
 		DbController DbC = DbController.getInstance(this, this);
 		viewedRecipe = DbC.getUserRecipe(uri);
+		if(viewedRecipe == null){
+			finish();
+			return;
+		}
 		recipeName.setText(viewedRecipe.getTitle());
 		instructions.setText(viewedRecipe.getInstructions());
 		
@@ -153,7 +157,6 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
     	//intent.putExtra(EXTRA_URI, URI);
     	intent.putExtra(EXTRA_URI, uri);
 		startActivity(intent);
-		finish();
     }
 	public void OnViewPhotos (View View)
     {

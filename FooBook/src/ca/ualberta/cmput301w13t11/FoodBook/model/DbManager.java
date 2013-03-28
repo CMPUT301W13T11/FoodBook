@@ -253,20 +253,24 @@ public class DbManager extends FModel<FView> {
    protected Recipe cursorToRecipe(Cursor cursor) {
  
        cursor.moveToFirst();
-
-       long uri = cursor.getLong(0);
-       User author = new User(cursor.getString(2));
-       String title = cursor.getString(1);
-       String instructions = cursor.getString(3);
-       ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
-       ArrayList<Photo> photos = getRecipePhotos(uri);
-       ArrayList<Photo> fullPhotos = getFullPhotos(photos);
-       Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, fullPhotos);
-
-       if (cursor.getCount()!=0) {
-    	   //print error message here
+       if (cursor.getCount()>=1) {
+	       long uri = cursor.getLong(0);
+	       User author = new User(cursor.getString(2));
+	       String title = cursor.getString(1);
+	       String instructions = cursor.getString(3);
+	       ArrayList<Ingredient> ingredients = getRecipeIngredients(uri);
+	       ArrayList<Photo> photos = getRecipePhotos(uri);
+	       ArrayList<Photo> fullPhotos = getFullPhotos(photos);
+	       Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, fullPhotos);
+	
+	       if (cursor.getCount()!=0) {
+	    	   //print error message here
+	       }
+	       return recipe;
        }
-       return recipe;
+       else{
+    	   return null;
+       }
    }
    // --- 
     

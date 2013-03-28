@@ -59,9 +59,19 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		updateView();
 	
 	}
+	@Override
+	protected void onStart()
+	{
+		super.onStart();
+		updateView();
+	}
 	protected void updateView(){
 		
 		viewedRecipe = DbC.getUserRecipe(uri);
+		if(viewedRecipe == null){
+			finish();
+			return;
+		}
 		recipeName.setText(viewedRecipe.getTitle());
 		instructions.setText(viewedRecipe.getInstructions());
 		
@@ -81,8 +91,8 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	public void OnGotoMyRecipes(View View)
     {
 		// responds to button Go Back to My Recipes
-		 Intent intent = new Intent(View.getContext(), MyRecipes.class);
-		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		 //Intent intent = new Intent(View.getContext(), MyRecipes.class);
+		 //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		 EditRecipeActivity.this.finish();
     }
 	
@@ -206,7 +216,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	@Override
 	public void update(DbManager db)
 	{
-
+		updateView();
 		if (!deleted) {
 			this.updateView();
 		}
