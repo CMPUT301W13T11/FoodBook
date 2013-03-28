@@ -55,7 +55,6 @@ public class Ingredient {
 	{
 		this.quantity = quantity;
 	}
-
     /**
      * Converts an Ingredient object to a ContentValues object to be stored in the database.
      * @param ingred The ingredient to be transformed.

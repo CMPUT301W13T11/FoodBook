@@ -359,9 +359,9 @@ public class DbManager extends FModel<FView> {
         ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            String name = cursor.getString(0);
-            String unit = cursor.getString(1);
-            float quantity = cursor.getFloat(2);
+            String name = cursor.getString(1);
+            String unit = cursor.getString(2);
+            float quantity = cursor.getFloat(3);
             Ingredient ingred = new Ingredient(name, unit, quantity);
             ingreds.add(ingred);
             cursor.moveToNext();
