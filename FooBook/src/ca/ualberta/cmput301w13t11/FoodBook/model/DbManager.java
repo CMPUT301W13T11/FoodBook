@@ -84,6 +84,10 @@ public class DbManager extends FModel<FView> {
     	return instance;
     }
     
+    // *********************************************
+    // INSERT RECIPE
+    // *********************************************
+    
 	/**
 	 * Inserts a recipe into the table.
 	 * @param recipe The Recipe to be stored.
@@ -104,6 +108,10 @@ public class DbManager extends FModel<FView> {
 	    
 	}
 	
+	// *********************************************
+	// UPDATE RECIPE
+	// *********************************************
+	
 	/**
 	 * Update the entry in the Db with the uri given the Recipe parameter with the values
 	 * given by the Recipe parameter.
@@ -112,8 +120,8 @@ public class DbManager extends FModel<FView> {
 	public void updateRecipe(Recipe recipe)
 	{
 		long uri = recipe.getUri();
-		updateRecipeTitle(uri, recipesTable, recipe.getTitle());
-		updateRecipeInstructions(uri, recipesTable, recipe.getInstructions());
+		updateRecipeTitle(uri, recipe.getTitle());
+		updateRecipeInstructions(uri, recipe.getInstructions());
 	}
 	
 	
@@ -125,12 +133,12 @@ public class DbManager extends FModel<FView> {
 	 * @param tableName The name of the table in which the Recipe resides.
 	 * @param newTitle The new title of the Recipe.
 	 */
-	private void updateRecipeTitle(long uri, String tableName, String newTitle)
+	private void updateRecipeTitle(long uri, String newTitle)
 	{
 		String filter = "URI=" + Long.toString(uri);
 		ContentValues args = new ContentValues();
 		args.put("title", newTitle);
-		db.update(tableName, args, filter, null);
+		db.update(recipesTable, args, filter, null);
 		notifyViews();
 		//db.rawQuery("UPDATE " + tableName + " SET title=" + newTitle + " WHERE URI=" + Long.toString(uri), null);
 	}
@@ -142,12 +150,12 @@ public class DbManager extends FModel<FView> {
 	 * @param tableName The name of the table in which the Recipe resides.
 	 * @param newInstructions The new instructions for the Recipe.
 	 */
-	private void updateRecipeInstructions(long uri, String tableName, String newInstructions)
+	private void updateRecipeInstructions(long uri, String newInstructions)
 	{
 		String filter = "URI=" + Long.toString(uri);
 		ContentValues args = new ContentValues();
 		args.put("instructions", newInstructions);
-		db.update(tableName, args, filter, null);
+		db.update(recipesTable, args, filter, null);
 		notifyViews();
 		//db.rawQuery("UPDATE " + tableName + " SET title=" + newTitle + " WHERE URI=" + Long.toString(uri), null);
 	}
