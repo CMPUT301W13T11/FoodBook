@@ -60,7 +60,7 @@ public class IngredientsDbManager extends DbManager {
      */
     public ArrayList<Ingredient> get() {
 	    Cursor cursor = db.rawQuery(getSQL, null);
-	    return cursorToIngredients(cursor);
+	    return cursorToMyIngredients(cursor);
     }
     
     /**
