@@ -201,6 +201,23 @@ public class DbController {
         db.notifyViews();
         return success;
     }
+
+    /* *****************************************************************
+    USE THESE METHODS FOR RETRIEVING PHOTOS/INGREDIENTS FROM SEARCH RESULTS RECIPES
+   ********************************************************************* */
+    /**
+     * @return Returns an ArrayList of Photos for a given recipe
+     */
+    public ArrayList<Photo> getStoredRecipePhotos(long uri) {
+        return resultsManager.getRecipePhotos(uri);
+    }
+    
+    /**
+     * @return Returns an ArrayList of Ingredients for a given recipe
+     */
+    public ArrayList<Ingredient> getStoredRecipeIngredients(long uri) {
+        return resultsManager.getRecipeIngredients(uri);
+    }
     
     /* *****************************************************************
          USE THESE METHODS FOR ADDING, EDITING, RETRIEVING, AND DELETING
