@@ -2,18 +2,17 @@ package ca.ualberta.cmput301w13t11.FoodBook;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -31,7 +30,8 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	static final String EXTRA_URI = "extra_uri";
 	private long uri;
 	private ImageView imageView;
-	
+	static private final Logger logger = Logger.getLogger(TakePhotosActivity.class.getName());
+
 	protected Bitmap bitmap;
 	private String imgPath = null;
 	private File file;
@@ -62,7 +62,10 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		setContentView(R.layout.activity_take_photos);
 		
 		Intent intent = getIntent();
+		//String extraUri = intent.getStringExtra(EditPhotos.EXTRA_URI);
+		//uri = Long.parseLong(extraUri);
 		uri = intent.getLongExtra(EXTRA_URI, 0);
+		logger.log(Level.INFO, "Uri passed to TakePhotosActivity: " + uri);
 		imageView = (ImageView)this.findViewById(R.id.imageView1);
 		DbC = DbController.getInstance(this, this);
 		

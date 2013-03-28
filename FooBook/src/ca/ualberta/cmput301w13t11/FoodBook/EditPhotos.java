@@ -1,6 +1,8 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -35,6 +37,8 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	static final String EXTRA_IMG_ID = "extra_img_id";
 	static final String EXTRA_IMG_PATH = "extra_img_path";
 	private long uri;
+	static private final Logger logger = Logger.getLogger(EditPhotos.class.getName());
+
 	private ArrayList<Photo> photos;
 	
 	private GridView gridview = null;
@@ -49,7 +53,9 @@ public class EditPhotos extends Activity implements FView<DbManager>
 		setContentView(R.layout.activity_edit_photos);
 	
 		Intent intent = getIntent();
-		uri = intent.getLongExtra(EXTRA_URI, 0);
+		String extraUri = intent.getStringExtra(AddRecipesActivity.EXTRA_URI);
+		uri = Long.parseLong(extraUri);
+		logger.log(Level.INFO, "Uri passed to EditPhotos: " + uri);
 		//Log.d("recipe", Long.toString(uri));
 
 		this.updateView();
@@ -183,10 +189,7 @@ public class EditPhotos extends Activity implements FView<DbManager>
 		//EditPhotos.this.finish();
 	}
 	
-	/**
-	 * I am changing this to upload a photo..
-	 * @param 
-	 */
+
 	public void OnTakePhoto(View view)
 	{
 		Intent intent = new Intent(this, TakePhotosActivity.class);

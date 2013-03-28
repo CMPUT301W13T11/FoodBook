@@ -125,7 +125,7 @@ public class DbManager extends FModel<FView> {
 	 * @param tableName The name of the table in which the Recipe resides.
 	 * @param newTitle The new title of the Recipe.
 	 */
-	public void updateRecipeTitle(long uri, String tableName, String newTitle)
+	private void updateRecipeTitle(long uri, String tableName, String newTitle)
 	{
 		String filter = "URI=" + Long.toString(uri);
 		ContentValues args = new ContentValues();
@@ -142,7 +142,7 @@ public class DbManager extends FModel<FView> {
 	 * @param tableName The name of the table in which the Recipe resides.
 	 * @param newInstructions The new instructions for the Recipe.
 	 */
-	public void updateRecipeInstructions(long uri, String tableName, String newInstructions)
+	private void updateRecipeInstructions(long uri, String tableName, String newInstructions)
 	{
 		String filter = "URI=" + Long.toString(uri);
 		ContentValues args = new ContentValues();
@@ -298,11 +298,11 @@ public class DbManager extends FModel<FView> {
     	//String createStatement = 
     	
     	//String.format("Delete From RecipePhotos Where recipeUri = %S and filename = %S", uri, photo.getName()); 
-    	int success = db.delete("RecipePhotos", "id = " + photo.getId(), null); 
+    	int success = db.delete(photosTable, "id = " + photo.getId(), null); 
     	//int success = db.delete("RecipePhotos", "id=?", new String[] {photo.getId()});
     	//db.rawQuery("Delete From RecipePhotos Where id = " + photo.getId(), null);
-        logger.log(Level.SEVERE, "imgPath: " + photo.getPath() + " id : " + photo.getId());
-    	logger.log(Level.SEVERE, "db.delete() statement returns: ");
+         //logger.log(Level.SEVERE, "imgPath: " + photo.getPath() + " id : " + photo.getId());
+    	//logger.log(Level.SEVERE, "db.delete() statement returns: ");
     	Boolean deleted = false;
     	
     		try{
@@ -324,7 +324,7 @@ public class DbManager extends FModel<FView> {
     public boolean removeRecipeIngredients(long uri) {
     	//String createStatement = 
     	
-    	int success = db.delete("RecipeIngredients", "recipeURI = " + uri, null); 
+    	int success = db.delete(ingredsTable, "recipeURI = " + uri, null); 
     	    	
     	return (success>=1);
     }
@@ -379,7 +379,7 @@ public class DbManager extends FModel<FView> {
      */
     public boolean removeRecipe(Recipe recipe) {
     	
-    	Long uri = recipe.getUri();
+    	long uri = recipe.getUri();
     	
     	int recipes_removed = 0;
     	boolean deleted_pictures = true;
@@ -387,7 +387,7 @@ public class DbManager extends FModel<FView> {
     	try{
     		//String s = Long.toString(recipe.getUri());
     		//Log.d("uri in String", s);
-    		recipes_removed = db.delete("UserRecipes", "URI = " + recipe.getUri(), null);
+    		recipes_removed = db.delete(recipesTable, "URI = " + recipe.getUri(), null);
     		//Log.d("we got past removing recipes", "OK");
     		//String s = Integer.toString(recipes_removed);
     		//Log.d("recipes", s);
