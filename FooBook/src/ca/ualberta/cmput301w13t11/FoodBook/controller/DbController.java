@@ -96,7 +96,7 @@ public class DbController {
      * @param recipe The recipe to add.
      */
     public void addRecipe(Recipe recipe) {
-    	recipesManager.insertRecipe(recipe, UserRecipes);
+    	recipesManager.insertRecipe(recipe);
     	db.notifyViews();
     }
 
