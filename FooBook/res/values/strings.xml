@@ -69,13 +69,13 @@
     <string name="upload_photo">Upload Photo</string>
 
     <string name="are_you_sure_delete_photo">Are you sure you want to delete the photo?</string>
-    <string name="ReadyRecipes">Ready Recipes</string>
+    <string name="ReadyRecipes">What can I make?</string>
     <string name="ingredient_type">Ingredient Type</string>
     <string name="p_add_ingredient">Add ingredient:</string>
     <string name="p_unit">Unit (ex. ml, g, etc):</string>
      <string name="amount">Amount (numerical):</string>
     <string name="p_edit_ingredient">Edit ingredient:</string>
-     <string name="searchIngredients">Ready Recipes</string>
+     <string name="searchIngredients">What can I make?</string>
 
 
 </resources>

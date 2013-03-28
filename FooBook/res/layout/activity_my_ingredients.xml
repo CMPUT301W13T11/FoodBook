@@ -38,6 +38,7 @@
         android:layout_below="@+id/mylist"
         android:onClick="OnIngredientSearch"
         android:layout_marginRight="5sp" 
+         android:textSize="15sp"
         android:text="@string/ReadyRecipes"
         android:layout_marginBottom="15sp" />
 
