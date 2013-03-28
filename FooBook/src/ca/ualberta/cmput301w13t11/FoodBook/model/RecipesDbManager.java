@@ -128,13 +128,13 @@ public class RecipesDbManager extends DbManager {
 //    }
     
     //method to delete ingredients -Pablo
-    public boolean removeRecipeIngredients(long uri) {
-    	//String createStatement = 
-    	
-    	int success = db.delete(ingredsTable, "recipeURI = " + uri, null); 
-    	    	
-    	return (success>=1);
-    }
+//    public boolean removeRecipeIngredients(long uri) {
+//    	//String createStatement = 
+//    	
+//    	int success = db.delete(ingredsTable, "recipeURI = " + uri, null); 
+//    	    	
+//    	return (success>=1);
+//    }
 	
 	//something's going here! Im bypassing this in dbController -pablo
 	/*
