@@ -29,7 +29,6 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 	static private final Logger logger = Logger.getLogger(AddRecipesActivity.class.getName());
 	private long mRecipeUri; /* timestamp the recipe on entry into the  */
 	public static String EXTRA_URI = "extra_uri"; /*passed with intent to newly launched "edit" acitivities */
-	public static String CALLING_ACTIVITY = "calling_activity";
 	private Recipe mRecipe; /* the recipe being created.  Saved on entry, we use the setters to set the fields when "press save" is hit */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -69,19 +68,9 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 	}
 	public void OnEditPhotos (View View)
 	{
-		/* Send the recipe URI to the new Activity */
-//		EditText keywords = (EditText) findViewById(R.id.editText1);
-//		Editable Keyword=keywords.getText();
-//		String keyword=Keyword.toString();
-//    	Intent intent = new Intent(this, SearchResultsActivity.class);
-//    	intent.putExtra(KEYWORD, keyword);
-		
-		
-		
 		String uri = Long.toString(mRecipeUri);
 		Intent intent = new Intent(this, EditPhotos.class);
-		intent.putExtra(CALLING_ACTIVITY, "AddRecipesActivity");
-		intent.putExtra(EXTRA_URI, uri);
+		intent.putExtra("extra_uri", uri);
 		logger.log(Level.INFO, "Uri passed FROM AddRecipesActivity: " + uri);
 		startActivity(intent);
 	}

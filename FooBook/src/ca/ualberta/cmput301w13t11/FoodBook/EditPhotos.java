@@ -55,19 +55,10 @@ public class EditPhotos extends Activity implements FView<DbManager>
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 		if (extras != null) {
-			String callingActivity = extras.getString("calling_activity");
-			if (callingActivity.equals("AddRecipesActivity")) {
-				extraUri = extras.getString(EXTRA_URI);
-			}
-			else
 				extraUri = extras.getString(EXTRA_URI);
 		}
-
-
-		//String extraUri = intent.getStringExtra(AddRecipesActivity.EXTRA_URI);
-		//uri = Long.parseLong(extraUri);
+		uri = Long.parseLong(extraUri);
 		logger.log(Level.INFO, "Uri passed to EditPhotos: " + uri);
-		//Log.d("recipe", Long.toString(uri));
 
 		this.updateView();
 	}

@@ -25,7 +25,6 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 public class EditRecipeActivity extends Activity implements FView<DbManager>
 {
 	static final String EXTRA_URI = "extra_uri";
-	public static String CALLING_ACTIVITY = "calling_activity";
 	PopupWindow popUp;
 	public long uri;
 	private Recipe viewedRecipe;
@@ -83,8 +82,8 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
     {
 		// responds to button OnPhotos
     	Intent intent = new Intent(this, EditPhotos.class);
-    	intent.putExtra(CALLING_ACTIVITY, "AddRecipesActivity");
-    	intent.putExtra(EXTRA_URI, uri);
+		String uri_str = Long.toString(uri);
+    	intent.putExtra("extra_uri", uri_str);
 		startActivity(intent);
     }
 	public void OnEditIngredients (View View)
