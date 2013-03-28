@@ -90,15 +90,13 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	}
 
 	public void OnRemoveIngredient(View View)
-	{
-		DbController DbC = DbController.getInstance(this, this);
-		ListView listView = (ListView) findViewById(R.id.mylist);
+	{	ListView listView = (ListView) findViewById(R.id.mylist);
 		SparseBooleanArray checkedPositions = listView.getCheckedItemPositions();
 
 		if (checkedPositions != null) {
 			int length = checkedPositions.size();
 			for (int i = 0; i < length; i++) {
-				DbC.deleteIngredient( (Ingredient) listView.getItemAtPosition(i));
+				RecipeIngredients.remove(i);
 			}
 		}
 		updateIngredients();
@@ -199,11 +197,11 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		RecipeIngredients.add(ingredient);
 		updateIngredients();
 	}
-	public void saveIngredients(View v)
+	public void OnSaveIngredients(View v)
 	{
 		DbController DbC = DbController.getInstance(this, this);
-		for(int index=0; index<RecipeIngredients.size();index++)
-		DbC.addIngredientToRecipe(RecipeIngredients.get(index), uri);
+		DbC.storeRecipeIngredients(RecipeIngredients, uri);
+		this.finish();
 	}
 	
 }
