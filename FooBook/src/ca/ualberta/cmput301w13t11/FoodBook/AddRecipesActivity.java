@@ -1,13 +1,18 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.text.Editable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +26,9 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 {
 
 	PopupWindow popUp;
+	static private final Logger logger = Logger.getLogger(AddRecipesActivity.class.getName());
 	private long mRecipeUri; /* timestamp the recipe on entry into the  */
+	public static String EXTRA_URI = "extra_uri"; /*passed with intent to newly launched "edit" acitivities */
 	private Recipe mRecipe; /* the recipe being created.  Saved on entry, we use the setters to set the fields when "press save" is hit */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -32,6 +39,7 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 		/* Initialize the recipe on entry. */
 		mRecipeUri = System.currentTimeMillis();
 		mRecipe = new Recipe(mRecipeUri);
+		mRecipe.setTitle(""); /* We set blank title */
 
 		/* Immediately write the Recipe to the Db -- will be deleted if need be at the appropriate time. */
 		DbController DbC = DbController.getInstance(this, this);
@@ -60,8 +68,17 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 	}
 	public void OnEditPhotos (View View)
 	{
-		// responds to button Edit Photos
+		/* Send the recipe URI to the new Activity */
+//		EditText keywords = (EditText) findViewById(R.id.editText1);
+//		Editable Keyword=keywords.getText();
+//		String keyword=Keyword.toString();
+//    	Intent intent = new Intent(this, SearchResultsActivity.class);
+//    	intent.putExtra(KEYWORD, keyword);
+		
+		String uri = Long.toString(mRecipeUri);
 		Intent intent = new Intent(this, EditPhotos.class);
+		intent.putExtra(EXTRA_URI, uri);
+		logger.log(Level.INFO, "Uri passed FROM AddRecipesActivity: " + uri);
 		startActivity(intent);
 	}
 	public void OnSaveChanges (View View)
