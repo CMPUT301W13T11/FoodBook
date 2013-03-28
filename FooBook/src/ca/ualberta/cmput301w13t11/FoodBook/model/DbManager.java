@@ -302,15 +302,9 @@ public class DbManager extends FModel<FView> {
      * @return true on success, false on failure
      */
     public boolean removeRecipePhoto(Photo photo) {
-    	//String createStatement = 
-    	
-    	//String.format("Delete From RecipePhotos Where recipeUri = %S and filename = %S", uri, photo.getName()); 
+   	
     	int success = db.delete(photosTable, "id = " + photo.getId(), null); 
-    	//int success = db.delete("RecipePhotos", "id=?", new String[] {photo.getId()});
-    	//db.rawQuery("Delete From RecipePhotos Where id = " + photo.getId(), null);
-         //logger.log(Level.SEVERE, "imgPath: " + photo.getPath() + " id : " + photo.getId());
-        //logger.log(Level.SEVERE, "imgPath: " + photo.getPath() + " id : " + photo.getId());
-    	//logger.log(Level.SEVERE, "db.delete() statement returns: ");
+ 
     	Boolean deleted = false;
     	
     		try{
@@ -349,6 +343,28 @@ public class DbManager extends FModel<FView> {
                 
         return (success>=1);
     }
+    
+    
+    /**
+     * Queries the ingredientsTable using the given cursor and converts to an ArrayList appropriately.
+     * @param cursor The cursor over which we will iterate to get the ingredients from.
+     * @return An ArrayList of ingredients.
+     */
+    protected ArrayList<Ingredient> cursorToMyIngredients(Cursor cursor) {
+    	ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+    	cursor.moveToFirst();
+    	while (!cursor.isAfterLast()) {
+    		String name = cursor.getString(0);
+    		String unit = cursor.getString(1);
+    		float quantity = cursor.getFloat(2);
+    		Ingredient ingredient = new Ingredient(name, unit, quantity);
+    		ingredients.add(ingredient);
+    		cursor.moveToNext();
+    	}
+    	return ingredients;
+    }
+    
+    
     
     /**
      * Given a cursor, convert it to an ArrayList of Ingredients.
@@ -406,13 +422,9 @@ public class DbManager extends FModel<FView> {
     	boolean deleted_pictures = true;
     	//boolean deleted_ingreds = true;
     	try{
-    		//String s = Long.toString(recipe.getUri());
-    		//Log.d("uri in String", s);
+
     		recipes_removed = db.delete(recipesTable, "URI = " + uri, null);
-    		//Log.d("we got past removing recipes", "OK");
-    		//String s = Integer.toString(recipes_removed);
-    		//Log.d("recipes", s);
-    		
+
     		ArrayList<Photo> photos = getRecipePhotos(uri); 
     		for (Photo p: photos){
     			if (removeRecipePhoto(p)!=true){
@@ -420,19 +432,9 @@ public class DbManager extends FModel<FView> {
     			}
     		}
   
-    		//Log.d("we got past removing photos", "OK");
-    		//s = new Boolean(deleted_pictures).toString();
-    		//Log.d("photos", s);
-    		//Do the same for ingredients
-    		// There might be none, so dont check -Pablo
-  			//deleted_ingreds = removeRecipeIngredients(uri);
     		removeRecipeIngredients(uri);
-  			
-  			//Log.d("we got past removing ingredients", "OK");
-    		//s = new Boolean(deleted_ingreds).toString();
-    		//Log.d("ingreds", s);
-    				    		
-    	}catch(Exception e){e.printStackTrace();};
+
+    	} catch(Exception e){e.printStackTrace();};
     	// No need to check if ingredients cleared
     	//return (recipes_removed==1 && deleted_pictures==true && deleted_ingreds==true);
     	return (recipes_removed==1 && deleted_pictures==true);
@@ -472,39 +474,7 @@ public class DbManager extends FModel<FView> {
 
     	return (success && worked);
     }
-    
-	/**
-	 * TODO: better documentation for this function
-	 * Returns a scaled down version of the image defined by filePath.
-	 * @param Where the photo can be found.
-	 * @return A scaled down version of the photo.
-	 */
-	public Bitmap decodeURI(String filePath){
-
-	    Options options = new Options();
-	    options.inJustDecodeBounds = true;
-	    BitmapFactory.decodeFile(filePath, options);
-
-	    // Only scale if we need to 
-	    // (16384 buffer for img processing)
-	    Boolean scaleByHeight = Math.abs(options.outHeight - 100) >= Math.abs(options.outWidth - 100);
-	    if(options.outHeight * options.outWidth * 2 >= 16384){
-	        // Load, scaling to smallest power of 2 that'll get it <= desired dimensions
-	        double sampleSize = scaleByHeight
-	            ? options.outHeight / 100
-	            : options.outWidth / 100;
-	        options.inSampleSize = 
-	            (int)Math.pow(2d, Math.floor(
-	            Math.log(sampleSize)/Math.log(2d)));
-	    }
-
-	    // Do the actual decoding
-	    options.inJustDecodeBounds = false;
-	    options.inTempStorage = new byte[512];  
-	    Bitmap output = BitmapFactory.decodeFile(filePath, options);
-
-	    return output;
-	}
+ 
 	
 	/**
 	 * Given the ArrayList of photos with only an id and a pathname, returns a list of photos
