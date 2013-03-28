@@ -110,11 +110,6 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		}
 	}
 	
-
-	private void handleSubsetIngredientsSearch(String result) {
-		//if (result.equals(MyIngredients.BUSY))
-	}
-	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -139,8 +134,7 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 			}
 			
 			else if (searchType.equals(FoodBookApplication.SUBSET_INGREDIENTS_SEARCH)) {
-				//String result = extras.getString(MyIngredients.SEARCH_RESULT);
-				//handleSubsetIngredientsSearch(result);
+				displayToastByResult(FoodBookApplication.SEARCH_RESULT);
 			}
 		}
 		updateList();

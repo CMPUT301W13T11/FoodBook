@@ -1,7 +1,6 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import android.app.Activity;
@@ -22,7 +21,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.Toast;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
@@ -34,15 +32,15 @@ public class MyIngredients extends Activity implements FView<DbManager>
 {
 	public static String NO_RESULTS = "no_results";
 	public static String SEARCH_TIMEOUT = "timeout";
-	
+
 	private PopupWindow popUp;
 	private ImageView darkenScreen;
 	private LayoutParams darkenParams;
 	private View popUpView;
 	static private final Logger logger = Logger.getLogger(MyIngredients.class.getName());
 
-	
-	
+
+
 	/**
 	 * Performs a search by all ingredients asynchronously (ie. not on the UI thread) and reports
 	 * its results.  The process is started by calling "new SearchByKeywordsTask().execute(keyword)".
@@ -50,7 +48,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 	 */
 	private class SearchByIngredientSubsetTask extends AsyncTask<ArrayList<Ingredient>, Void, ReturnCode>{ 
 		private ProgressDialog progressDialog;
-		
+
 		@Override
 		protected void onPreExecute()
 		{
@@ -63,20 +61,24 @@ public class MyIngredients extends Activity implements FView<DbManager>
 			ReturnCode ret = SC.searchByIngredients(ingredientsList);
 			return ret;
 		}
-		
+
 		@Override
 		protected void onPostExecute(ReturnCode ret)
 		{
 			progressDialog.dismiss();
-			
-			
 			ServerController sc = ServerController.getInstance(MyIngredients.this);
 			if (ret == ReturnCode.SUCCESS) {
 				sc.updateResultsDb();
 			}
+			
+			FoodBookApplication.setSearchResult(ret);
+			Intent intent = new Intent(MyIngredients.this, SearchResultsActivity.class);
+			intent.putExtra(FoodBookApplication.SEARCH_TYPE, FoodBookApplication.SUBSET_INGREDIENTS_SEARCH);
+			startActivity(intent);			
+			
 		}
 	}
-	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -121,7 +123,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		DbController DbC = DbController.getInstance(this, this);
 		ListView listView = (ListView) findViewById(R.id.mylist);
 		SparseBooleanArray checkedPositions = listView.getCheckedItemPositions();
-		
+
 		if (checkedPositions != null) {
 			int length = checkedPositions.size();
 			for (int i = 0; i < length; i++) {
@@ -188,9 +190,10 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		updateIngredients();
 	}
 	public void onDestroy()
-	{	super.onDestroy();
-	DbController DbC = DbController.getInstance(this, this);
-	DbC.deleteView(this);
+	{	
+		super.onDestroy();
+		DbController DbC = DbController.getInstance(this, this);
+		DbC.deleteView(this);
 	}
 
 
@@ -229,10 +232,20 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		DbC.addIngredient(ingredient);
 		updateIngredients();
 	}
-	
+
 	public void OnIngredientSearch(View View)
 	{
-	
+		ListView listView = (ListView) findViewById(R.id.mylist);
+		SparseBooleanArray checkedPositions = listView.getCheckedItemPositions();
+		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		
+		if (checkedPositions != null) {
+			int length = checkedPositions.size();
+			for (int i = 0; i < length; i++) {
+				ingredients.add( (Ingredient) listView.getItemAtPosition(i));
+			}
+		}
+		new SearchByIngredientSubsetTask().execute(ingredients);
 	}
 
 }
