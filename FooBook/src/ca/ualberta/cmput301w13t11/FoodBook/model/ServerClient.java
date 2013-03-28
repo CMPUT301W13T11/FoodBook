@@ -55,6 +55,7 @@ public class ServerClient {
 	static private final long TIMEOUT_PERIOD = 10;
 	static private final long UPLOAD_PHOTO_GRACE_PERIOD = 5;
 	static private String test_server_string = "http://cmput301.softwareprocess.es:8080/testing/cmput301w13t11/";
+	static private String serverString = "http://cmput301.softwareprocess.es:8080/CMPUT301W13T11/";
 	private static HttpClient httpclient = null;
 	private static ClientHelper helper = null;
 	private ArrayList<Recipe> results;
@@ -157,7 +158,7 @@ public class ServerClient {
 		HttpResponse response = null;
 		int retcode = -1;
 		try {
-			HttpGet get = new HttpGet(test_server_string + uri);
+			HttpGet get = new HttpGet(serverString + uri);
 			get.addHeader("Accept","application/json");
 			response = httpclient.execute(get);
 			retcode = response.getStatusLine().getStatusCode();
@@ -210,7 +211,7 @@ public class ServerClient {
 
 			/* We are using the Recipe's URI as its _id on the server */
 			HttpResponse response = null;
-			HttpPost httpPost = new HttpPost(test_server_string+recipe.getUri());
+			HttpPost httpPost = new HttpPost(serverString+recipe.getUri());
 			StringEntity se = null;
 
 			se = helper.recipeToJSON(recipe);
@@ -303,7 +304,7 @@ public class ServerClient {
 
 			try {
 
-				HttpGet search_request = new HttpGet(test_server_string+"_search?q=" + 
+				HttpGet search_request = new HttpGet(serverString+"_search?q=" + 
 						java.net.URLEncoder.encode(str, "UTF-8"));
 
 				search_request.setHeader("Accept", "application/json");
@@ -406,7 +407,7 @@ public class ServerClient {
 			String ingredients_str = ingredientsToString(ingredients);	
 
 			/* We next form the HTTP query string itself. */
-			HttpPost searchRequest = new HttpPost(test_server_string + "_search?pretty=1");
+			HttpPost searchRequest = new HttpPost(serverString + "_search?pretty=1");
 			String query = "{\"query\" : {\"query_string\" : {\"default_field\" : \"ingredients.name\", \"query\" : \"" + ingredients_str + "\"}}}";
 			logger.log(Level.INFO, "query string = " + query);
 
@@ -558,7 +559,7 @@ public class ServerClient {
 					String sp_str = helper.serverPhotoToJSON(serverPhoto);
 					logger.log(Level.INFO, "serverPhotoToJson() result: " + sp_str);
 
-					HttpPost updateRequest = new HttpPost(test_server_string + uri + "/_update");
+					HttpPost updateRequest = new HttpPost(serverString + uri + "/_update");
 					String query = 	"{\"script\":\"ctx._source.photos += xxx\", \"params\" : " +
 							"{ \"xxx\" : " + sp_str + "}}";
 					logger.log(Level.INFO, "stringQuery = " + query);
@@ -632,7 +633,7 @@ public class ServerClient {
 	private Recipe getRecipe(long uri)
 	{
 		try{
-			HttpGet getRequest = new HttpGet(test_server_string + Long.toString(uri));
+			HttpGet getRequest = new HttpGet(serverString + Long.toString(uri));
 			logger.log(Level.INFO, "getRequest : " + getRequest.toString());
 
 			getRequest.addHeader("Accept","application/json");
@@ -659,7 +660,7 @@ public class ServerClient {
 
 	public String getServerUrl()
 	{
-		return test_server_string;
+		return serverString;
 	}
 }
 
