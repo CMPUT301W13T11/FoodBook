@@ -37,11 +37,11 @@
         android:text="@string/ingredients"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ExpandableListView
+    <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="138dp">
-    </ExpandableListView>
+    </ListView>
 
     <TextView
         android:id="@+id/textView4"
