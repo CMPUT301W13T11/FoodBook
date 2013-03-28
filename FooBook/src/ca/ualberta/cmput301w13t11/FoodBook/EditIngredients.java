@@ -30,6 +30,7 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	public static String SEARCH_TIMEOUT = "timeout";
 
 	private PopupWindow popUp;
+	private PopupWindow popUpIncomplete;
 	private ImageView darkenScreen;
 	private LayoutParams darkenParams;
 	private View popUpView;
@@ -170,6 +171,10 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		darkenScreen.setLayoutParams(darkenParams);
 	}
 
+	//called by the second popup
+	public void OnOKIncomplete(View v){
+		popUpIncomplete.dismiss();
+	}
 	public void OnOK(View v){
 		EditText editText = (EditText) popUpView.findViewById(R.id.editIngredientType);
 		String type=editText.getText().toString();
@@ -179,7 +184,19 @@ public class EditIngredients extends Activity implements FView<DbManager>
 
 
 		editText = (EditText) popUpView.findViewById(R.id.editIngredientAmount);
-		float amount =Float.parseFloat(editText.getText().toString());
+		String quantity = editText.getText().toString();
+		
+		if( (quantity.trim().equals("")) || (unit.trim().equals("")) || (type.trim().equals("")) ){
+			//make the popup prompting user to enter in all fields
+			LinearLayout layout = new LinearLayout(EditIngredients.this);
+			LayoutInflater inflater = LayoutInflater.from(EditIngredients.this);
+			popUpIncomplete = new PopupWindow(
+					inflater.inflate(R.layout.popup_add_ingredient_incomplete,
+							null, false),300,200,true);
+			popUpIncomplete.showAtLocation(layout, Gravity.CENTER, 0, 0);
+			return;
+		}
+		float amount =Float.parseFloat(quantity);
 
 		popUp.dismiss();
 
