@@ -69,7 +69,7 @@
     <string name="upload_photo">Upload Photo</string>
 
     <string name="are_you_sure_delete_photo">Are you sure you want to delete the photo?</string>
-
+    <string name="ReadyRecipes">Ready Recipes</string>
     <string name="ingredient_type">Ingredient Type</string>
     <string name="p_add_ingredient">Add ingredient:</string>
     <string name="p_unit">Unit (ex. ml, g, etc):</string>
