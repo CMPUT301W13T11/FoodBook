@@ -89,10 +89,10 @@ public class DbManager extends FModel<FView> {
 	 * @param recipe The Recipe to be stored.
 	 * @param tableName The name of the table into which the recipe is to be stored.
 	 */
-	public void insertRecipe(Recipe recipe, String tableName) 
+	public void insertRecipe(Recipe recipe) 
 	{
 	    ContentValues values = recipe.toContentValues();
-	    db.insert(tableName, null, values);
+	    db.insert(recipesTable, null, values);
 	    for (Ingredient ingred : recipe.getIngredients()) {
 	        insertRecipeIngredients(ingred, recipe.getUri());
 	    }
