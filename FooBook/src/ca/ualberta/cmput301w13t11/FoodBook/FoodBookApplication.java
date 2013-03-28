@@ -38,9 +38,9 @@ public class FoodBookApplication extends Application {
 		private static String sdCardPath;
 
 
-		public void setSearchResult(ReturnCode ret)
+		public static void setSearchResult(ReturnCode ret)
 		{
-			this.SEARCH_RESULT = ret;
+			SEARCH_RESULT = ret;
 		}
 		
 		@Override
