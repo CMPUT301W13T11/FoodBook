@@ -1,6 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import android.app.Activity;
@@ -50,8 +51,10 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		setContentView(R.layout.activity_edit_ingredients);
 
 		Intent intent = getIntent();
-		uri = intent.getLongExtra(EXTRA_URI, 0);
+		String uri_str = intent.getStringExtra(EXTRA_URI);
+		uri = Long.parseLong(uri_str);
 		DbController DbC = DbController.getInstance(this, this);
+		logger.log(Level.INFO, "URI passed to EditIngredients: " + uri);
 		RecipeIngredients=DbC.getRecipeIngredients(uri);
 		darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
 		darkenParams = darkenScreen.getLayoutParams();
