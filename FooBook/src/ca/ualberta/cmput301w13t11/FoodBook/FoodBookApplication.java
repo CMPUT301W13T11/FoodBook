@@ -12,6 +12,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.IngredientsDbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.RecipesDbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ResultsDbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
 /**
  * Application class -- initiates all needed singletons as well as path variables needed by models and activity classes alike.
@@ -28,6 +29,7 @@ public class FoodBookApplication extends Application {
 		transient private static ServerClient gsc = null;
 		transient private static ServerController gscc = null;
 		transient private static DbController gdbc = null;
+		public static ReturnCode SEARCH_RESULT;
 		public static String SEARCH_TYPE = "search_type";
 		public static String KEYWORDS_SEARCH = "keywords";
 		public static String ALL_INGREDIENTS_SEARCH = "all_ingredients";
@@ -36,6 +38,11 @@ public class FoodBookApplication extends Application {
 		private static String sdCardPath;
 
 
+		public void setSearchResult(ReturnCode ret)
+		{
+			this.SEARCH_RESULT = ret;
+		}
+		
 		@Override
 		public void onCreate()
 		{

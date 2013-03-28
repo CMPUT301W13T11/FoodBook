@@ -25,8 +25,8 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 public class SearchResultsActivity extends Activity implements FView<DbManager>
 {
 
-	//protected static final String EXTRA_URI = null;
 	public static final String EXTRA_URI = "extra_uri";
+	private ProgressDialog progressDialog;
 
 
 	/**
@@ -35,8 +35,6 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 	 * @author mbabic
 	 */
 	private class SearchByKeywordsTask extends AsyncTask<String, Void, ReturnCode>{
-		private ProgressDialog progressDialog;
-
 		@Override
 		protected void onPreExecute()
 		{
@@ -57,17 +55,8 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 			ServerController sc = ServerController.getInstance(SearchResultsActivity.this);
 			if (ret == ReturnCode.SUCCESS) {
 				sc.updateResultsDb();
-			} else if (ret == ReturnCode.BUSY) {
-				
-				Toast.makeText(getApplicationContext(), "The server is responding to us. :( Here are your old results though!", Toast.LENGTH_LONG).show();
-				
-			} else if (ret == ReturnCode.NO_RESULTS) {
-				
-				Toast.makeText(getApplicationContext(), "Your search returned no results.\n We kept your old ones though. :)", Toast.LENGTH_LONG).show();
-			}
-			else if (ret == ReturnCode.ERROR) {
-				Toast.makeText(getApplicationContext(), "An error occurred.  Me so sorry. :(", Toast.LENGTH_LONG).show();
-			}
+			} else 
+				displayToastByResult(ret);
 		}
 	}
 
@@ -76,9 +65,7 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 	 * its results.  The process is started by calling "new SearchByKeywordsTask().execute(keyword)".
 	 * @author mbabic
 	 */
-	private class SearchByAllIngredientsTask extends AsyncTask<ArrayList<Ingredient>, Void, ReturnCode>{
-		private ProgressDialog progressDialog;
-		
+	private class SearchByAllIngredientsTask extends AsyncTask<ArrayList<Ingredient>, Void, ReturnCode>{		
 		@Override
 		protected void onPreExecute()
 		{
@@ -99,20 +86,34 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 			ServerController sc = ServerController.getInstance(SearchResultsActivity.this);
 			if (ret == ReturnCode.SUCCESS) {
 				sc.updateResultsDb();
-			} else if (ret == ReturnCode.NO_RESULTS) {
-				
-				Toast.makeText(getApplicationContext(), "The server is responding to us. :( Here are your old results though!", Toast.LENGTH_LONG).show();
-				
-			} else if (ret == ReturnCode.NO_RESULTS) {
-				
-				Toast.makeText(getApplicationContext(), "Your search returned no results.\n We kept your old ones though. :)", Toast.LENGTH_LONG).show();
-			}
-			else if (ret == ReturnCode.ERROR) {
-				Toast.makeText(getApplicationContext(), "An error occurred.  Me so sorry. :(", Toast.LENGTH_LONG).show();
-			}
+			} else 
+				displayToastByResult(ret);
 		}
 	}
 
+	/**
+	 * Displays a Toast message depending on the results of the search.
+	 * @param ret The ReturnCode returned by the search functionality.
+	 */
+	private void displayToastByResult(ReturnCode ret)
+	{
+		if (ret == ReturnCode.BUSY) {
+			Toast.makeText(getApplicationContext(), 
+					"The server isn't responding to us. :( Here are your old results though!", Toast.LENGTH_LONG).show();
+
+		} else if (ret == ReturnCode.NO_RESULTS) {
+			
+			Toast.makeText(getApplicationContext(), "Your search returned no results.\n We kept your old ones though. :)", Toast.LENGTH_LONG).show();
+		} else if (ret == ReturnCode.ERROR) {
+			
+			Toast.makeText(getApplicationContext(), "An error occurred.  Me so sorry. :(", Toast.LENGTH_LONG).show();
+		}
+	}
+	
+
+	private void handleSubsetIngredientsSearch(String result) {
+		//if (result.equals(MyIngredients.BUSY))
+	}
 	
 	
 	@Override
@@ -131,14 +132,20 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 				new SearchByKeywordsTask().execute(extras.getString(SearchActivity.KEYWORD));
 			}
 			
-			if (searchType.equals(FoodBookApplication.ALL_INGREDIENTS_SEARCH)) {
-				
-				new SearchByAllIngredientsTask().execute();
+			else if (searchType.equals(FoodBookApplication.ALL_INGREDIENTS_SEARCH)) {
+				DbController dbc = DbController.getInstance(this, this);
+				ArrayList<Ingredient> ingredients = dbc.getUserIngredients();
+				new SearchByAllIngredientsTask().execute(ingredients);
+			}
+			
+			else if (searchType.equals(FoodBookApplication.SUBSET_INGREDIENTS_SEARCH)) {
+				//String result = extras.getString(MyIngredients.SEARCH_RESULT);
+				//handleSubsetIngredientsSearch(result);
 			}
 		}
-		new SearchByKeywordsTask().execute(intent.getStringExtra(SearchActivity.KEYWORD));
 		updateList();
 	}
+
 
 	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu)

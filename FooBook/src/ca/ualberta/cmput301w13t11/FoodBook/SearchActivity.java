@@ -62,7 +62,9 @@ public class SearchActivity extends Activity implements FView<DbManager>
 		
 	public void OnIngredientSearch (View View)
     {
-		
+		Intent intent = new Intent(this, SearchResultsActivity.class);
+		intent.putExtra(FoodBookApplication.SEARCH_TYPE, FoodBookApplication.ALL_INGREDIENTS_SEARCH);
+		startActivity(intent);
     }
 	/*public void onDestroy()
 	{	super.onDestroy();
