@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;popup_add_recipe_incomplete.xml&apos; to &apos;popup_add_recipe_incomplete.xml&apos;&#x0D;&#x0A;- Original project: &apos;FooBook&apos;&#x0D;&#x0A;- Destination element: &apos;popup_add_recipe_incomplete.xml&apos;&#x0D;&#x0A;- Original element: &apos;popup_add_recipe_incomplete.xml&apos;" description="Copy file" element1="res/layout/popup_add_recipe_incomplete.xml" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1364502882295" target="/FooBook/res/layout/popup_add_recipe_incomplete.xml" units="0" version="1.0"/>
+</session>
