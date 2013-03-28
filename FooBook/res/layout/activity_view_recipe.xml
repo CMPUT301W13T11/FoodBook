@@ -1,7 +1,5 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-<FrameLayout
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
        android:layout_width="match_parent"
        android:layout_height="wrap_content" >
     <TableLayout
@@ -39,11 +37,18 @@
             android:text="@string/ingredients"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <ExpandableListView
+        <ListView
             android:id="@+id/listView1"
             android:layout_width="match_parent"
             android:layout_height="132dp" >
-        </ExpandableListView>
+        </ListView>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
         <TextView
             android:id="@+id/textView4"
@@ -122,6 +127,8 @@
                 android:textSize="18sp" />
 
         </LinearLayout>
+        </TableLayout>
+    </ScrollView>
     </TableLayout>
     <ImageView
        android:id="@+id/darkenScreen"
@@ -130,4 +137,4 @@
        android:contentDescription = "Popup Fade out"
        android:src="@drawable/trans_black" />
 </FrameLayout>
-</ScrollView>
+
