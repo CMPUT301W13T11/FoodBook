@@ -57,7 +57,7 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 			ServerController sc = ServerController.getInstance(SearchResultsActivity.this);
 			if (ret == ReturnCode.SUCCESS) {
 				sc.updateResultsDb();
-			} else if (ret == ReturnCode.NO_RESULTS) {
+			} else if (ret == ReturnCode.BUSY) {
 				
 				Toast.makeText(getApplicationContext(), "The server is responding to us. :( Here are your old results though!", Toast.LENGTH_LONG).show();
 				
