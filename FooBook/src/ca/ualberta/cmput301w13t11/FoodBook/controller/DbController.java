@@ -181,7 +181,7 @@ public class DbController {
     }
     
     /* *****************************************************************
-    USE THESE METHODS FOR RETRIEVING/SAVING RECIPES STORED FROM SEARCH
+    USE THESE METHODS FOR RETRIEVING/DELETING RECIPES STORED FROM SEARCH
    ********************************************************************* */
     
     /**
@@ -189,6 +189,17 @@ public class DbController {
      */
     public ArrayList<Recipe> getStoredRecipes() {
     	return resultsManager.getRecipes();
+    }
+
+    /**
+     * Deletes the given Recipe from the database.
+     * @param recipe The recipe to delete.
+     */
+    public boolean deleteStoredRecipe(Recipe recipe)
+    {   
+        boolean success = resultsManager.removeRecipe(recipe);
+        db.notifyViews();
+        return success;
     }
     
     /* *****************************************************************

@@ -28,6 +28,8 @@ public class ResultsDbManager extends DbManager {
 	 * @return should i return boolean for success?
 	 */
 	public void storeRecipes(ArrayList<Recipe> recipes) {
+	    db.delete(ingredsTable, null, null);
+	    db.delete(photosTable, null, null);
 	    db.delete(recipesTable, null, null);
 	    for (Recipe recipe : recipes) {
 	        insertRecipe(recipe);
