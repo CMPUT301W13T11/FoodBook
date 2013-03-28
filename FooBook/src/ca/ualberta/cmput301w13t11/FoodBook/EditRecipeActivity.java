@@ -33,6 +33,7 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	private DbController DbC;
 	private ImageView darkenScreen;
 	private LayoutParams darkenParams;
+	private boolean deleted = false;
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -158,8 +159,6 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 			
 				//delete the recipe
 				DbController DbC = DbController.getInstance(EditRecipeActivity.this, EditRecipeActivity.this);
-				
-				
 				//ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
 				//LayoutParams darkenParams = darkenScreen.getLayoutParams();
 				darkenParams.height = 0;
@@ -167,8 +166,9 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 				darkenScreen.setLayoutParams(darkenParams);
 				popUp.dismiss();				
 				//DbC.deleteView(EditRecipeActivity.this);
-				finish();
+				deleted = true;
 				DbC.deleteRecipe(viewedRecipe);
+				finish();
 			}
 		};
 		
@@ -198,8 +198,9 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	public void update(DbManager db)
 	{
 
-		// TODO Auto-generated method stub
-		this.updateView();
+		if (!deleted) {
+			this.updateView();
+		}
 	
 	}
 		
