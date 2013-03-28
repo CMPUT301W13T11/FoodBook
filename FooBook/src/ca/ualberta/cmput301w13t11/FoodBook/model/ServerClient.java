@@ -592,11 +592,6 @@ public class ServerClient {
 		}
 	}
 
-
-
-
-
-
 	/**
 	 * Upload the given Photo to the appropriate Recipe.
 	 * @param (Photo) photo The photo to be added to the server-side version of the Recipe.

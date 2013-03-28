@@ -158,7 +158,7 @@ public class DbControllerTests extends AndroidTestCase {
 		int flag = 0;
 		
 		Ingredient ingredient = new Ingredient("x", "x", 1);
-		dbc.addIngredientToRecipe(ingredient, recipe);
+		dbc.addIngredientToRecipe(ingredient, recipe.getUri());
 		for (Recipe r : dbc.getUserRecipes())
 		{
 			if (!r.getIngredients().isEmpty()) {
