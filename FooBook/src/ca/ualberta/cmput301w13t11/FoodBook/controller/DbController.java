@@ -136,7 +136,7 @@ public class DbController {
    
     
     /* *****************************************************************
-    USE THESE METHODS FOR RETRIEVING/SAVING/DELETING PHOTOS TO RECIPES
+    USE THESE METHODS FOR RETRIEVING/SAVING/DELETING PHOTOS TO USER'S RECIPES
    ********************************************************************* */
     /**
      * Associates the Photo argument correctly with the given Recipe in the database.
@@ -163,6 +163,35 @@ public class DbController {
     	return success;
     }
 
+    /* *****************************************************************
+    USE THESE METHODS FOR RETRIEVING/SAVING/DELETING INGREDIENTS TO USER'S RECIPES
+   ********************************************************************* */
+    /**
+     * Associates the Photo argument correctly with the given Recipe in the database.
+     * @param photo The photo to add to the given Recipe.
+     * @param recipe The Recipe to which the photo is to be added.
+     */
+    public boolean addIngredientToRecipe(Ingredient ingred, long uri)
+    {
+        boolean status = recipesManager.insertRecipeIngredients(ingred, uri);
+        db.notifyViews();
+        return status;
+    }
+    
+    /**
+     * @return Returns an ArrayList of Ingredients for a given recipe
+     */
+    public ArrayList<Ingredient> getRecipeIngredients(long uri) {
+        return recipesManager.getRecipeIngredients(uri);
+    }
+    
+    public boolean deleteRecipeIngredient(Ingredient ingred, Recipe recipe)
+    {
+        boolean success = recipesManager.removeRecipeIngredient(ingred.getName(), recipe.getUri());
+        db.notifyViews();
+        return success;
+    }
+    
     /* *****************************************************************
     USE THESE METHODS FOR RETRIEVING/SAVING RECIPES STORED FROM SEARCH
    ********************************************************************* */

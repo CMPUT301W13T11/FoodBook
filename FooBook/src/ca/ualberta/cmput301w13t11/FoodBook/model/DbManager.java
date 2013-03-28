@@ -85,28 +85,62 @@ public class DbManager extends FModel<FView> {
     }
     
     // *********************************************
-    // INSERT RECIPE
+    // INSERT RECIPES AND THEIR INGREDIENTS/PHOTOS
     // *********************************************
     
-	/**
-	 * Inserts a recipe into the table.
-	 * @param recipe The Recipe to be stored.
-	 * @param tableName The name of the table into which the recipe is to be stored.
-	 */
-	public void insertRecipe(Recipe recipe) 
-	{
-	    ContentValues values = recipe.toContentValues();
-	    db.insert(recipesTable, null, values);
-	    for (Ingredient ingred : recipe.getIngredients()) {
-	        insertRecipeIngredients(ingred, recipe.getUri());
-	    }
+    /**
+     * Inserts a recipe into the table.
+     * @param recipe The Recipe to be stored.
+     * @param tableName The name of the table into which the recipe is to be stored.
+     */
+    public void insertRecipe(Recipe recipe) 
+    {
+        ContentValues values = recipe.toContentValues();
+        db.insert(recipesTable, null, values);
+        for (Ingredient ingred : recipe.getIngredients()) {
+            insertRecipeIngredients(ingred, recipe.getUri());
+        }
 
-	
-	    for (Photo photo : recipe.getPhotos()) {
-	        insertRecipePhotos(photo, photo.getPhotoBitmap(), recipe.getUri());
-	    }
-	    
-	}
+        for (Photo photo : recipe.getPhotos()) {
+            insertRecipePhotos(photo, photo.getPhotoBitmap(), recipe.getUri());
+        }
+    }
+
+    /**
+     * Inserts the given Ingredient into the database such that it is associated with the
+     * recipe identified by recipeURI.
+     * @param ingred The ingredient to be 2 saves pics to inserted.
+     * @param recipeURI The URI of the Recipe with which to associate the Ingredient.
+     */
+    public boolean insertRecipeIngredients(Ingredient ingred, long recipeURI) {
+        ContentValues values = ingred.toContentValues();
+        values.put("recipeURI", recipeURI);
+        db.insert(ingredsTable, null, values);
+        return true;
+    }
+
+    /**
+     * Inserts the given Photo into the database such that it is associated with the
+     * recipe identified by recipeURI.
+     * @param photo The photo to be inserted.
+     * @param recipeURI The URI of the Recipe with which to associate the Photo.
+     */
+    public boolean insertRecipePhotos(Photo photo, Bitmap bitmap, long recipeURI) {
+        /* We first attempt to store the bitmap associated with the photo to the Db */
+        if (!savePhotoToDevice(bitmap, photo)) {
+            /* Saving failed, return false. */
+            return false;
+        }
+
+        /* Else, we can safely place the photo information into the database. */
+        ContentValues values = new ContentValues();
+        values.put("recipeURI", recipeURI);
+        values.put("id", photo.getId());
+        values.put("path", photo.getPath());
+        db.insert(photosTable, null, values);
+        /* If we got here, everything was successful. */
+        return true;
+    }
 	
 	// *********************************************
 	// UPDATE RECIPE
@@ -160,40 +194,6 @@ public class DbManager extends FModel<FView> {
 		//db.rawQuery("UPDATE " + tableName + " SET title=" + newTitle + " WHERE URI=" + Long.toString(uri), null);
 	}
     
-    /**
-     * Inserts the given Ingredient into the database such that it is associated with the
-     * recipe identified by recipeURI.
-     * @param ingred The ingredient to be 2 saves pics to inserted.
-     * @param recipeURI The URI of the Recipe with which to associate the Ingredient.
-     */
-    public void insertRecipeIngredients(Ingredient ingred, long recipeURI) {
-        ContentValues values = ingred.toContentValues();
-        values.put("recipeURI", recipeURI);
-        db.insert(ingredsTable, null, values);
-    }
-   
-    /**
-     * Inserts the given Photo into the database such that it is associated with the
-     * recipe identified by recipeURI.
-     * @param photo The photo to be inserted.
-     * @param recipeURI The URI of the Recipe with which to associate the Photo.
-     */
-    public boolean insertRecipePhotos(Photo photo, Bitmap bitmap, long recipeURI) {
-    	/* We first attempt to store the bitmap associated with the photo to the Db */
-    	if (!savePhotoToDevice(bitmap, photo)) {
-    		/* Saving failed, return false. */
-    		return false;
-    	}
-    	
-    	/* Else, we can safely place the photo information into the database. */
-    	ContentValues values = new ContentValues();
-    	values.put("recipeURI", recipeURI);
-    	values.put("id", photo.getId());
-    	values.put("path", photo.getPath());
-    	db.insert(photosTable, null, values);
-    	/* If we got here, everything was successful. */
-    	return true;
-    }
 
     /**
      * Returns an ArrayList of all the Recipes stored in the table.
@@ -277,7 +277,7 @@ public class DbManager extends FModel<FView> {
      * @param uri The URI of the recipe whose ingredients we are fetching.
      * @return An ArrayList of the Ingredients associated with the recipe.
      */
-    protected ArrayList<Ingredient> getRecipeIngredients(long uri) {
+    public ArrayList<Ingredient> getRecipeIngredients(long uri) {
     	Cursor cursor = db.rawQuery("Select * From " + ingredsTable + " Where recipeURI = " + uri, null);
     	return cursorToIngredients(cursor);
     }
@@ -336,6 +336,20 @@ public class DbManager extends FModel<FView> {
     	int success = db.delete(ingredsTable, "recipeURI = " + uri, null); 
     	    	
     	return (success>=1);
+    }
+    
+    /**
+     * Deletes the ingredient associated with the recipe specified by the uri (ie.
+     * removes it from the RecipeIngredients table).
+     * @param uri The uri of the recipe whose ingredients we would like to remove.
+     * @return true on success, false on failure
+     */
+    public boolean removeRecipeIngredient(String ingredName, long uri) {
+        //String createStatement = 
+        
+        int success = db.delete(ingredsTable, "recipeURI = " + uri + " and name = " + ingredName, null); 
+                
+        return (success>=1);
     }
     
     /**
