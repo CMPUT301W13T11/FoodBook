@@ -63,7 +63,10 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 	public void OnEditIngredients (View View)
 	{
 		// responds to button Edit Ingredients
+		String uri = Long.toString(mRecipeUri);
 		Intent intent = new Intent(this, EditIngredients.class);
+		intent.putExtra("extra_uri", uri);
+		logger.log(Level.INFO, "Uri passed FROM AddRecipesActivity: " + uri);
 		startActivity(intent);
 	}
 	public void OnEditPhotos (View View)
