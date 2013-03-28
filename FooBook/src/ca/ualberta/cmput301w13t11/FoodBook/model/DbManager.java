@@ -330,8 +330,7 @@ public class DbManager extends FModel<FView> {
      * @return true on success, false on failure
      */
     public boolean removeRecipeIngredients(long uri) {
-    	//String createStatement = 
-    	
+
     	int success = db.delete(ingredsTable, "recipeURI = " + uri, null); 
     	    	
     	return (success>=1);

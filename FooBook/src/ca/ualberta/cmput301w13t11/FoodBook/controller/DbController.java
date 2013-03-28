@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Log;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
@@ -163,6 +162,23 @@ public class DbController {
         boolean status = recipesManager.insertRecipeIngredients(ingred, uri);
         db.notifyViews();
         return status;
+    }
+    
+    public boolean storeRecipeIngredients(ArrayList<Ingredient> ingredients, long uri)
+    {
+    	boolean success = true;
+    	boolean temp = true;
+   		recipesManager.removeRecipeIngredients(uri);
+    	if (ingredients == null)
+    		return false;
+    	for (int i = 0; i < ingredients.size(); i++) {
+    		temp = recipesManager.insertRecipeIngredients(ingredients.get(i), uri);
+    		if (temp = false) {
+    			success = false;
+    			break;
+    		}
+    	}
+    	return success;
     }
     
     /**
