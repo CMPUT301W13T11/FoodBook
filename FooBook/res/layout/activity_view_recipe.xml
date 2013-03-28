@@ -42,14 +42,6 @@
             android:layout_width="match_parent"
             android:layout_height="132dp" >
         </ListView>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
@@ -57,14 +49,15 @@
             android:layout_weight="3.30"
             android:text="@string/instructions"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+        
 
-        <TextView
+         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:lines="6" />
-
+            android:maxLines="6"
+            android:scrollbars = "vertical" />
         <Button
             android:id="@+id/edit_recipe"
             style="@style/BlueButton"
@@ -127,8 +120,7 @@
                 android:textSize="18sp" />
 
         </LinearLayout>
-        </TableLayout>
-    </ScrollView>
+        
     </TableLayout>
     <ImageView
        android:id="@+id/darkenScreen"
