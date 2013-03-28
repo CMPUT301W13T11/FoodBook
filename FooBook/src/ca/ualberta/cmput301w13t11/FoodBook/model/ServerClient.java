@@ -625,45 +625,5 @@ public class ServerClient {
 
 
 	/**************************************</Upload Photo>************************************************************/
-
-	/**
-	 * Retrieves the recipe associated with the given URI from the server;
-	 * only called when we are guaranteed that such a Recipe exists, and 
-	 * thus performs no error checking.
-	 * @param (long) uri The URI of the recipe to be retrieved.
-	 * @return The Recipe with the given URI.
-	 */
-	private Recipe getRecipe(long uri)
-	{
-		try{
-			HttpGet getRequest = new HttpGet(serverString + Long.toString(uri));
-			logger.log(Level.INFO, "getRequest : " + getRequest.toString());
-
-			getRequest.addHeader("Accept","application/json");
-
-			HttpResponse response = httpclient.execute(getRequest);
-
-			String status = response.getStatusLine().toString();
-			System.out.println(status);
-
-			String response_str = helper.responseToString(response);
-			logger.log(Level.INFO, "Server response string: " + response_str);
-			return helper.responseStringToRecipe(response_str);
-
-		} catch (ClientProtocolException e) {
-
-			e.printStackTrace();
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public String getServerUrl()
-	{
-		return serverString;
-	}
 }
 
