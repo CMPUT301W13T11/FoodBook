@@ -35,9 +35,9 @@ public class DbManager extends FModel<FView> {
     
     // name of database file
     private String dbFileName= "RecipeApplicationDb";
-	public String recipesTable;// = "UserRecipes";
-	public String ingredsTable;// = "RecipeIngredients";
-	public String photosTable;// = "RecipePhotos";
+    public String recipesTable;// = "UserRecipes";
+    public String ingredsTable;// = "RecipeIngredients";
+    public String photosTable;// = "RecipePhotos";
     public String getSQL;
 
     /**
@@ -91,7 +91,6 @@ public class DbManager extends FModel<FView> {
     /**
      * Inserts a recipe into the table.
      * @param recipe The Recipe to be stored.
-     * @param tableName The name of the table into which the recipe is to be stored.
      */
     public void insertRecipe(Recipe recipe) 
     {

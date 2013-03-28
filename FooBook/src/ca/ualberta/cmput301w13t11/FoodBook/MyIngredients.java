@@ -115,10 +115,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		popUp = new PopupWindow(popUpView,300,500,true);
 		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
 	}
-	public void OnModifyIngredient(View View)
-	{
-		//responds to button Modify ingredient
-	}
+
 	public void OnRemoveIngredient(View View)
 	{
 		DbController DbC = DbController.getInstance(this, this);
@@ -231,6 +228,11 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		DbController DbC = DbController.getInstance(this, this);
 		DbC.addIngredient(ingredient);
 		updateIngredients();
+	}
+	
+	public void OnIngredientSearch(View View)
+	{
+	
 	}
 
 }
