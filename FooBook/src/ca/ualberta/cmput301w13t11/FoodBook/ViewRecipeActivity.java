@@ -151,6 +151,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		// responds to button Edit Photos
     	Intent intent = new Intent(this, ViewPhotosActivity.class);
     	intent.putExtra(EXTRA_URI, uri);
+    	intent.putExtra(ViewPhotosActivity.CALLER, "ViewRecipeActivity");
 		startActivity(intent);
     }
 	public void OnEmailRecipe (View View)
