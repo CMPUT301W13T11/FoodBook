@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.Gravity;
@@ -22,12 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
-import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
-import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
-import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
 public class EditIngredients extends Activity implements FView<DbManager>
 {
@@ -43,7 +38,6 @@ public class EditIngredients extends Activity implements FView<DbManager>
 
 	static final String EXTRA_URI = "extra_uri";
 	private long uri;
-	private Recipe viewedRecipe;
 	private ArrayList<Ingredient> RecipeIngredients;
 
 
@@ -90,15 +84,16 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	}
 
 	public void OnRemoveIngredient(View View)
-	{
-		DbController DbC = DbController.getInstance(this, this);
-		ListView listView = (ListView) findViewById(R.id.mylist);
+	{	ListView listView = (ListView) findViewById(R.id.mylist);
 		SparseBooleanArray checkedPositions = listView.getCheckedItemPositions();
-
+		int index =0;
 		if (checkedPositions != null) {
-			int length = checkedPositions.size();
-			for (int i = 0; i < length; i++) {
-				DbC.deleteIngredient( (Ingredient) listView.getItemAtPosition(i));
+			for (int i = 0; index < RecipeIngredients.size(); i++) {
+				if(checkedPositions.get(i))
+				{
+				RecipeIngredients.remove(index);
+				}
+				else index++;
 			}
 		}
 		updateIngredients();
@@ -107,8 +102,7 @@ public class EditIngredients extends Activity implements FView<DbManager>
 
 	public void updateIngredients()
 	{
-		//Gets the user's recipes
-		final DbController DbC = DbController.getInstance(this, this);
+		DbController.getInstance(this, this);
 		ListView listView = (ListView) findViewById(R.id.mylist);
 		//Displays the user's recipes
 		ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, RecipeIngredients);
@@ -199,11 +193,11 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		RecipeIngredients.add(ingredient);
 		updateIngredients();
 	}
-	public void saveIngredients(View v)
+	public void OnSaveIngredients(View v)
 	{
 		DbController DbC = DbController.getInstance(this, this);
-		for(int index=0; index<RecipeIngredients.size();index++)
-		DbC.addIngredientToRecipe(RecipeIngredients.get(index), uri);
+		DbC.storeRecipeIngredients(RecipeIngredients, uri);
+		this.finish();
 	}
 	
 }
