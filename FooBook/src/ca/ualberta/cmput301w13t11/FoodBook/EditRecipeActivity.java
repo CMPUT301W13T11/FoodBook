@@ -93,15 +93,18 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
     }
 	public void OnSaveChanges (View View)
 	{
-		/* Currently we talk directly to the Db -- eventually, this will go through a controller. */
-		DbManager db = DbManager.getInstance(this);
+		/* Defensive call to getInstance() */
+		DbC = DbController.getInstance(this, this);
 		
 		/* Get the updated fields. */
 		String newTitle = recipeName.getText().toString();
 		String newInstructions = instructions.getText().toString();
+		viewedRecipe.setTitle(newTitle);
+		viewedRecipe.setInstructions(newInstructions);
 		
-		db.updateRecipeTitle(uri, "UserRecipes", newTitle);
-		db.updateRecipeInstructions(uri, "UserRecipes", newInstructions);
+		/* Put the results in the Db */
+		DbC.updateRecipe(viewedRecipe);
+		
 
 	}
 	public void OnDeleteRecipe (View View)

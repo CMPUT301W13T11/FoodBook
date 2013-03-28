@@ -341,4 +341,8 @@ public class Recipe {
 		returnString = returnString +"Instructions: \n"+instructions+"\n";
 		return returnString;
 	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }

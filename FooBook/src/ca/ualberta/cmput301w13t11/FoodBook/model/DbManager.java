@@ -105,6 +105,20 @@ public class DbManager extends FModel<FView> {
 	}
 	
 	/**
+	 * Update the entry in the Db with the uri given the Recipe parameter with the values
+	 * given by the Recipe parameter.
+	 * @param recipe The updated recipe to be stored in the database.
+	 */
+	public void updateRecipe(Recipe recipe)
+	{
+		long uri = recipe.getUri();
+		updateRecipeTitle(uri, recipesTable, recipe.getTitle());
+		updateRecipeInstructions(uri, recipesTable, recipe.getInstructions());
+	}
+	
+	
+	
+	/**
 	 * Updates the title of the Recipe with the given URI.
 	 * TODO: consider making this a private part of an "update recipe function"
 	 * @param uri The URI of the Recipe to be updated.

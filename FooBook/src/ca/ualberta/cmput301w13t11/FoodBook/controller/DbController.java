@@ -111,6 +111,17 @@ public class DbController {
     	db.notifyViews();
     	return success;
     }
+    
+    /**
+     * Updates the Recipe with the new information passed by the Recipe parameter.
+     * CAUTION: does no error checking, may cause error in Recipe not already in Db, call with caution.
+     * @param recipe The Recipe to be updated.
+     */
+    public void updateRecipe(Recipe recipe)
+    {
+    	recipesManager.updateRecipe(recipe);
+    	db.notifyViews();
+    }
 
     /**
      * Associates the Ingredient argument correctly with the given Recipe in the database.
