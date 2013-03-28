@@ -21,7 +21,6 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 	private TextView recipeName;
 	private TextView instructions;
 
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -31,11 +30,8 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_search_result);
 		
+		String caller;
 		Intent intent = getIntent();
-		// Minor adj. passing uris as long -Pablo
-		//String URI = 
-		//		uri=Long.parseLong(URI);
-
 		String URI = intent.getStringExtra(EXTRA_URI);
 		uri=Long.parseLong(URI);
 		viewedRecipe=null;
@@ -82,6 +78,7 @@ protected void updateView(){
 		// responds to button View Photos
     	Intent intent = new Intent(this, ViewPhotosActivity.class);
     	intent.putExtra(EXTRA_URI, uri);
+    	intent.putExtra(ViewPhotosActivity.CALLER, "ViewSearchResultActivity");
 		startActivity(intent);
     }
 	public void OnAddPhotos (View View)
