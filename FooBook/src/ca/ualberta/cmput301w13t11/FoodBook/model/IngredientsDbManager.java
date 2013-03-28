@@ -69,6 +69,34 @@ public class IngredientsDbManager extends DbManager {
      */
     public void delete(Ingredient ingred) {
       db.delete(tableName, "name = '" + ingred.getName()+"'", null);
-    }  
-	
+    }
+    
+    // *********************************************
+    // UPDATE INGREDIENT
+    // *********************************************
+    
+    /**
+     * Update the entry in the Db with the uri given the Recipe parameter with the values
+     * given by the Recipe parameter.
+     * @param recipe The updated recipe to be stored in the database.
+     */
+    public void updateIngredient(Ingredient ingred, String oldName) {
+            updateField(oldName, "quantity", Float.toString(ingred.getQuantity()));
+            updateField(oldName, "unit", ingred.getUnit());
+            updateField(oldName, "name", ingred.getName());
+    }
+    
+    /**
+     * Updates the title of the Ingredient with the given name.
+     * TODO: consider making this a private part of an "update recipe function"
+     * @param uri The URI of the Recipe to be updated.
+     * @param tableName The name of the table in which the Recipe resides.
+     * @param newTitle The new title of the Recipe.
+     */
+    private void updateField(String name, String field, String value) {
+            String filter = "name = " + name;
+            ContentValues args = new ContentValues();
+            args.put(field, value);
+            db.update(tableName, args, filter, null);
+    }
 }

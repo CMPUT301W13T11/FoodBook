@@ -172,7 +172,7 @@ public class DbManager extends FModel<FView> {
 		ContentValues args = new ContentValues();
 		args.put("title", newTitle);
 		db.update(recipesTable, args, filter, null);
-		notifyViews();
+		//notifyViews();
 		//db.rawQuery("UPDATE " + tableName + " SET title=" + newTitle + " WHERE URI=" + Long.toString(uri), null);
 	}
 	
@@ -189,7 +189,7 @@ public class DbManager extends FModel<FView> {
 		ContentValues args = new ContentValues();
 		args.put("instructions", newInstructions);
 		db.update(recipesTable, args, filter, null);
-		notifyViews();
+		//notifyViews();
 		//db.rawQuery("UPDATE " + tableName + " SET title=" + newTitle + " WHERE URI=" + Long.toString(uri), null);
 	}
     

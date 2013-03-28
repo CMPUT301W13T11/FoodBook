@@ -247,4 +247,13 @@ public class DbController {
     	ingredsManager.delete(ingred);
     	db.notifyViews();
     }
+    
+    /**
+     * Updates the given Ingredient from the database.
+     * @param ingredient The Ingredient to delete.
+     */
+    public void updateIngredient(Ingredient ingred, String oldName) {
+        ingredsManager.updateIngredient(ingred, oldName);
+        db.notifyViews();
+    }
 }
