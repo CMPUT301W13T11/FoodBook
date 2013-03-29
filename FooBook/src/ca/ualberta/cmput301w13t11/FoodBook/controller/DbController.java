@@ -40,8 +40,8 @@ public class DbController {
     // singleton pattern implementation
     private static DbController instance = null;
         
-    /* 
-     * private constructor because we're using the singleton pattern.
+    /**
+     * Constructor - instantiates the managers with a context.
      */
     private DbController(Context context) {
     	db = DbManager.getInstance(context);
@@ -64,8 +64,8 @@ public class DbController {
     }
 
     /**
-     * delete view from model's array of views
-     * @return void
+     * Remove given view from the DbManagers list of observers.
+     * @param view The view to be removed.
      */
     public void deleteView(FView<DbManager> view) {
         db.deleteView(view);
@@ -135,13 +135,20 @@ public class DbController {
     	db.notifyViews();
     	return status;
     }
+    
+    
     /**
-     * @return Returns an ArrayList of Photos for a given recipe
+     * @return Returns an ArrayList of Photos for the recipe specified by URI.
      */
     public ArrayList<Photo> getRecipePhotos(long uri) {
     	return recipesManager.getRecipePhotos(uri);
     }
     
+    /**
+     * Deletes the given photo from the recipePhotos db.
+     * @param photo The photo to be deleted.
+     * @return True on success, False on failure.
+     */
     public boolean deleteRecipePhoto(Photo photo)
     {
     	boolean success = recipesManager.removeRecipePhoto(photo);
@@ -164,6 +171,14 @@ public class DbController {
         return status;
     }
     
+    
+    /**
+     * Replace the old ingredients associated with the Recipe specified by the URI parameters
+     * with the given list of ingredients.  Returns success/failure.
+     * @param ingredients The new list of ingredients with wish to be associated with the specified Recipe.
+     * @param uri The URI of the Recipe whose ingredients we wish to replace.
+     * @return true on success, false on failure
+     */
     public boolean storeRecipeIngredients(ArrayList<Ingredient> ingredients, long uri)
     {
     	boolean success = true;
@@ -182,12 +197,20 @@ public class DbController {
     }
     
     /**
-     * @return Returns an ArrayList of Ingredients for a given recipe
+     * @param uri The URI of the Recipe whose Ingredients we wish to retrieve.
+     * @return Returns an ArrayList of Ingredients for a given recipe.
      */
     public ArrayList<Ingredient> getRecipeIngredients(long uri) {
         return recipesManager.getRecipeIngredients(uri);
     }
     
+    
+    /**
+     * Delete the given ingredient from the Recipe specified by Recipe.
+     * @param ingred The ingredient to be deleted.
+     * @param recipe The Recipe from which we wish to delete the Recipe.
+     * @return true on success, false on failure
+     */
     public boolean deleteRecipeIngredient(Ingredient ingred, Recipe recipe)
     {
         boolean success = recipesManager.removeRecipeIngredient(ingred.getName(), recipe.getUri());
@@ -199,15 +222,16 @@ public class DbController {
     USE THESE METHODS FOR RETRIEVING/DELETING RECIPES STORED FROM SEARCH
    ********************************************************************* */
     
-    /**
-     * @return Returns an ArrayList containing all the Recipes stored from search
+    /** 
+     * Returns the recipes stores in the ResultsDb.
+     * @return Returns an ArrayList of Recipes which contains the Recipes in the ResultsDb.
      */
     public ArrayList<Recipe> getStoredRecipes() {
     	return resultsManager.getRecipes();
     }
 
     /**
-     * Deletes the given Recipe from the database.
+     * Deletes the given Recipe from the ResultsDb.
      * @param recipe The recipe to delete.
      */
     public boolean deleteStoredRecipe(Recipe recipe)
@@ -221,6 +245,8 @@ public class DbController {
     USE THESE METHODS FOR RETRIEVING PHOTOS/INGREDIENTS FROM SEARCH RESULTS RECIPES
    ********************************************************************* */
     /**
+     * Returns a list of the Photos from the recipe specified by the given Uri in the ResultsDb.
+     * @param The URI of the Recipe we wish to retrieve.
      * @return Returns an ArrayList of Photos for a given recipe
      */
     public ArrayList<Photo> getStoredRecipePhotos(long uri) {
@@ -228,7 +254,9 @@ public class DbController {
     }
     
     /**
-     * @return Returns an ArrayList of Ingredients for a given recipe
+     * Returns the Ingredients associated with the Recipe in the ResultsDb specified by the given URI.
+     * @param The URI of the recipe whose ingredients we wish to recieve.
+     * @return An ArrayList of the Ingredients associated with the specified Recipe in the Results Db.
      */
     public ArrayList<Ingredient> getStoredRecipeIngredients(long uri) {
         return resultsManager.getRecipeIngredients(uri);
@@ -239,8 +267,8 @@ public class DbController {
          THE USER'S PERSONAL INGREDIENTS
      ********************************************************************* */
     /**
-     * Adds the given Ingredient to the database.
-     * @param ingredient The Ingredient to add.
+     * Adds the given Ingredient to the IngredientsDb.
+     * @param ingredient The Ingredient to be stored.
      */
     public void addIngredient(Ingredient ingredient) {
     	ingredsManager.insert(ingredient);
@@ -248,15 +276,16 @@ public class DbController {
     }
 
     /**
-     * @return Returns an ArrayList containing all the Ingredients the user has stored on their device.
+     * Returns a list of the Ingredients currently store in the IngredientsDb.
+     * @return An ArrayList of the Ingredients in the IngredientsDb.
      */
     public ArrayList<Ingredient> getUserIngredients() {
     	return ingredsManager.get();
     }
 
     /**
-     * Deletes the given Ingredient from the database.
-     * @param ingredient The Ingredient to delete.
+     * Deletes the given Ingredient from the IngredientsDb.
+     * @param ingredient The Ingredient to be deleted.
      */
     public void deleteIngredient(Ingredient ingred) {
     	ingredsManager.delete(ingred);
@@ -264,8 +293,10 @@ public class DbController {
     }
     
     /**
-     * Updates the given Ingredient from the database.
-     * @param ingredient The Ingredient to delete.
+     * Updates the ingredient in the IngredientDb specified by oldName with the new information
+     * stored in the ingred parameter.
+     * @param ingred The new ingredient information to be stored in the IngredientsDb.
+     * @param oldName The name of the Ingredient whose information we wish to overwrite.
      */
     public void updateIngredient(Ingredient ingred, String oldName) {
         ingredsManager.updateIngredient(ingred, oldName);

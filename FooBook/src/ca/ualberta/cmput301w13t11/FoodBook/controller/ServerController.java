@@ -23,7 +23,7 @@ public class ServerController {
 	private static ServerController instance = null;
 	
 	/**
-	 * Construct -- simply need to get the instance of the ServerClient.
+	 * Constructor -- simply need to get the instance of the ServerClient.
 	 */
 	public ServerController()
 	{
@@ -47,6 +47,7 @@ public class ServerController {
 	
 	/**
 	 * Check if the application is connected to the server.
+	 * TODO: is this code dead?
 	 * @return true if connected, false otherwise
 	 */
 	public boolean hasConnection()
@@ -56,12 +57,12 @@ public class ServerController {
 	}
 	
 	/**
-	 * 
-	 * @param recipe
+	 * Upload the given Recipe to the server.
+	 * @param recipe The Recipe to be uploaded.
 	 * @return ReturnCode.ERROR if anything goes wrong, ReturnCode.ALREADY_EXISTS if a recipe
 	 * by that name already exists on the server (this will eventually be modified to check
 	 * against URI instead of Recipe title), ReturnCode.SUCCESS if the recipe was successfully
-	 * uploaded.
+	 * uploaded, ReturnCode.BUSY if the server does not respond within a fixed time.
 	 */
 	public ReturnCode uploadRecipe(Recipe recipe)
 	{
@@ -72,11 +73,23 @@ public class ServerController {
 		}
 	}
 	
+	/**
+	 * After performing a successful search, call this method to write the new results
+	 * to the ResultsDb.
+	 */
 	public void updateResultsDb()
 	{
 		sc.writeResultsToDb();
 	}
 	
+	/**
+	 * Performs a search using the passed list of Ingredients as the search terms --
+	 * will return recipes which contain a subset of the passed ingredients.
+	 * @param ingredients The ingredients which we would like to include in the search term.
+	 * @return NO_RESULTS on a search that yields no results, BUSY if the server does respond
+	 * in time, ERROR should something go wrong during the attempt to search, SUCCESS
+	 * on a successful search.
+	 */
 	public ReturnCode searchByIngredients(ArrayList<Ingredient> ingredients)
 	{
 			return sc.searchByIngredients(ingredients);
