@@ -6,9 +6,14 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.Editable;
-import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+
+/**
+ * Allows the user to search the online database for 
+ * @author Thomas Cline, Marko Babic and Pablo Jaramillo
+ *
+ */
 
 public class SearchActivity extends Activity implements FView<DbManager>
 {
@@ -22,14 +27,12 @@ public class SearchActivity extends Activity implements FView<DbManager>
 		setContentView(R.layout.activity_search);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_search, menu);
-		return true;
-	}
+	/**
+	 * Responds to the "Main Menu" button and returns the user to the main menu
+	 * @param The View that is calling the method
+	 *
+	 */
+	
 	public void OnGotoMainMenu(View View)
     {
 		// responds to button Main Menu
@@ -39,6 +42,11 @@ public class SearchActivity extends Activity implements FView<DbManager>
     }
 	/*
 	 * Sends the user input keywords to the server controller
+	 */
+	/**
+	 * Responds to the "Search" button, sends the contents of the edit text to the server controller
+	 * @param The View that is calling the method
+	 *
 	 */
 	
 	public void OnSearch (View View)
@@ -57,6 +65,12 @@ public class SearchActivity extends Activity implements FView<DbManager>
 	{
 		
 	}
+	/**
+	 * Responds to the "What can I make?" button and searches recipes that can be made with the user's current
+	 * ingredients in "My Ingredients"
+	 * @param The View that is calling the method
+	 *
+	 */
 		
 	public void OnIngredientSearch (View View)
     {

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -22,6 +21,11 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 
+/**
+ * Used to Edit a recipe that is locally saved in "My Recipes"
+ * @author Thomas Cline and Pablo Jaramillo
+ *
+ */
 
 public class EditRecipeActivity extends Activity implements FView<DbManager>
 {
@@ -63,6 +67,12 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		super.onStart();
 		updateView();
 	}
+	
+	/**
+	 * If the screen is returned to from an activity, ensures the activity displays the proper information
+	 *
+	 */
+	
 	protected void updateView(){
 		
 		viewedRecipe = DbC.getUserRecipe(uri);
@@ -76,23 +86,24 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		ListView listView = (ListView) findViewById(R.id.listView1);
 		ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getRecipeIngredients(uri));
 		listView.setAdapter(adapter);
-	}
+	}	
+	
+	/**
+	 * Responds to the button to the "Go back" button and returns the user to "My Recipes"
+	 * @param The View that is calling the method
+	 *
+	 */
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.edit_recipe, menu);
-		return true;
-	}
 	public void OnGotoMyRecipes(View View)
     {
 		// responds to button Go Back to My Recipes
-		 //Intent intent = new Intent(View.getContext(), MyRecipes.class);
-		 //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		 EditRecipeActivity.this.finish();
     }
+	/**
+	 * Responds to the button to the "Edit Photos" button and starts the EditPhoto activity
+	 * @param The View that is calling the method
+	 *
+	 */
 	
 	public void OnEditPhotos (View View)
     {
@@ -102,6 +113,13 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
     	intent.putExtra("extra_uri", uri_str);
 		startActivity(intent);
     }
+	
+	/**
+	 * Responds to the button to the "Edit Ingredients" button and starts the Edit Ingredients
+	 * activity sending the URI of the recipe.
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnEditIngredients (View View)
     {
 		// responds to button Ingredients
@@ -110,6 +128,13 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
     	intent.putExtra(EXTRA_URI, uri_str);
 		startActivity(intent);
     }
+	
+	/**
+	 * Responds to the button to the "Edit Recipe" button and starts the Edit Recipe Activity
+	 * activity sending the URI of the recipe.
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnSaveChanges (View View)
 	{
 		/* Defensive call to getInstance() */
@@ -124,15 +149,18 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		/* Put the results in the Db */
 		DbC.updateRecipe(viewedRecipe);
 		
-
+		/**
+		 * Responds to the button to the "Delete" button and deletes the current recipe
+		 * from the My Recipes list, returning the user to "My Recipes"
+		 * @param The View that is calling the method
+		 *
+		 */
 	}
 	public void OnDeleteRecipe (View View)
 	{
 		// responds to button Delete Recipe
 
 		//first darken the screen
-
-		//LayoutParams darkenParams = darkenScreen.getLayoutParams();
 		darkenParams.height = 1000;
 		darkenParams.width = 1000;
 		darkenScreen.setLayoutParams(darkenParams);
@@ -144,33 +172,6 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		View popupLayout = inflater.inflate(R.layout.popup_delete_recipe, null, false);
 		Button ok_button = (Button) popupLayout.findViewById(R.id.ok_button);
 		OnClickListener ok_button_click_listener = new OnClickListener(){
-			/*public void onClick(View View){
-
-				//delete the recipe
-				DbController DbC = DbController.getInstance(EditRecipeActivity.this, EditRecipeActivity.this);
-				DbC.deleteView(EditRecipeActivity.this);
-				Intent intent = new Intent(EditRecipeActivity.this, MyRecipes.class);
-				//Log.d("are we here", "are we here");
-				Boolean success = true;// DbC.deleteRecipe(viewedRecipe);
-				DbC.deleteRecipe(viewedRecipe);
-				//ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-				//LayoutParams darkenParams = darkenScreen.getLayoutParams();
-				darkenParams.height = 0;
-				darkenParams.width = 0;
-				darkenScreen.setLayoutParams(darkenParams);
-				popUp.dismiss();
-				
-				startActivity(intent);
-				
-				if (success) {
-					Toast.makeText(getApplicationContext(), "Everything deleted with success",
-							Toast.LENGTH_LONG).show();
-				} else {
-					Toast.makeText(getApplicationContext(),
-							"Error during deleting", Toast.LENGTH_LONG).show();
-				} 
-			}
-		};*/
 			
 			public void onClick(View View){
 			
@@ -221,6 +222,12 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 	
 	}
 		
+	/**
+	 * When the activity ends, ensures the view is destroyed so will not get an error
+	 * from displaying a deleted recipe
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void onDestroy()
 	{	super.onDestroy();
 		DbController DbC = DbController.getInstance(this, this);

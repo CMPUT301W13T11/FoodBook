@@ -21,6 +21,13 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
+
+/**
+ * Displays what the server has found for search results
+ * @author Thomas Cline, Marko Babic and Pablo Jaramillo
+ *
+ */
+
 public class SearchResultsActivity extends Activity implements FView<DbManager>
 {
 
@@ -140,7 +147,12 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		updateList();
 	}
 
-
+	/**
+	 * Responds to the "Main Menu" button. Returns the user to the main screen.
+	 * @param The View that is calling the method
+	 *
+	 */
+	
 	public void OnGotoMainMenu(View View)
     {
 		// responds to button Go Back to Main Menu
@@ -148,6 +160,11 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		 SearchResultsActivity.this.finish();
     }
+	/**
+	 * Responds to the "Search Again" button, and sends the user back to the SearchActivity
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnSearchAgain(View View)
     {
 		// responds to button Search Again
@@ -155,6 +172,12 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		 SearchResultsActivity.this.finish();
     }
+	
+	/**
+	 * If changes are made to the content of the search results, ensures the 
+	 * displayed list is kept up to date
+	 *
+	 */
 	public void updateList()
 	{
 		ListView listView = (ListView) findViewById(R.id.mylist);		
@@ -181,6 +204,9 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 	{
 		updateList();
 	}
+	/**
+	 *Deletes this view when finish(); is called
+	 */
 	public void onDestroy()
 	{	super.onDestroy();
 		DbController DbC = DbController.getInstance(this, this);

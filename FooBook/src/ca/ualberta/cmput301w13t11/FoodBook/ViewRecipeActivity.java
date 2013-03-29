@@ -30,7 +30,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 /**
  * Activity launched that presents to the user detailed information about a Recipe.
  * From here, the user may edit, e-mail or publish the recipe.
- * @author 
+ * @author Thomas Cline, Marko Babic, and Pablo Jaramillo
  *
  */
 public class ViewRecipeActivity extends Activity implements FView<DbManager>
@@ -116,13 +116,17 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		instructions = (TextView) findViewById(R.id.textView5);
 		
 		Intent intent = getIntent();
-		//String URI = intent.getStringExtra(ViewRecipeActivity.EXTRA_URI);
-		//long uri=Long.parseLong(URI);
 		uri = intent.getLongExtra(EXTRA_URI, 0);
-		//Log.d("recipeuri", Long.toString(uri));
 		instructions.setMovementMethod(new ScrollingMovementMethod());
 		this.updateView();
 	}
+	
+	/**
+	 * If a change is made to the currently viewed recipe, ensures there will not be an error with referencing a non-existent
+	 * recipe or out-dated information.
+	 *
+	 */
+	
 	public void updateView(){
 		DbController DbC = DbController.getInstance(this, this);
 		viewedRecipe = DbC.getUserRecipe(uri);
@@ -139,6 +143,12 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		listView.setAdapter(adapter);
 
 	}
+	
+	/**
+	 * Responds to the "Go back" button, and sends the user back to the "My Recipes" screen
+	 * @param The View that is calling the method
+	 *
+	 */
 
 	public void OnGotoMyRecipes(View View)
 	{
@@ -147,18 +157,26 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		 ViewRecipeActivity.this.finish();
     }
+	/**
+	 * Responds to the "Edit Recipe" button, and starts the EditRecipe activity which allows changes to be made to the local recipe
+	 * @param The View that is calling the method
+	 *
+	 */
 	
 	public void OnEditRecipe (View View)
-    {	
-		//Intent intent1 = getIntent();
-		//String URI = intent1.getStringExtra(MyRecipes.EXTRA_URI);
-		
-		// responds to button Edit Recipe
+    {	// responds to button Edit Recipe
     	Intent intent = new Intent(this, EditRecipeActivity.class);
     	//intent.putExtra(EXTRA_URI, URI);
     	intent.putExtra(EXTRA_URI, uri);
 		startActivity(intent);
     }
+	
+	/**
+	 * Responds to the "View Photo" button, and starts the ViewPhoto Activity, which allows further options with the recipe's photos
+	 * @param The View that is calling the method
+	 *
+	 */
+	
 	public void OnViewPhotos (View View)
     {
 		// responds to button Edit Photos
@@ -167,24 +185,42 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
     	intent.putExtra(ViewPhotosActivity.CALLER, "ViewRecipeActivity");
 		startActivity(intent);
     }
+	
+	/**
+	 * Responds to the "Email Recipe" button, prompts the send email activity to start, allowing the user to send
+	 * an email containing the recipe
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnEmailRecipe (View View)
     {
 		EmailSender.emailRecipe(this, viewedRecipe);
     	
     }
+	
+	/**
+	 * Responds to the "Publish Recipe" button. Sends the recipes to the server to be saved there
+	 * @param The View that is calling the method
+	 *
+	 */
+	
 	public void OnPublishRecipe (View View)
     {
 		DbController.getInstance(this, this);
 		ServerController.getInstance(this);
 		Intent intent = getIntent();
-		//String URI = intent.getStringExtra(MyRecipes.EXTRA_URI);
-		//long uri=Long.parseLong(URI);
 		intent.putExtra(EXTRA_URI, uri);
 		
 		
 		new UploadRecipeTask().execute(viewedRecipe);
 		    	
     }
+	/**
+	 * Responds to the "Ok" button in the pop-ups, and closes the pop-up
+	 * @param The View that is calling the method
+	 *
+	 */
+	
 	public void OnOK(View v){
 		popUp.dismiss();
 		//remove the darkScreen
@@ -199,7 +235,10 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	{
 		this.updateView();
 	}
-
+	/**
+	 *Deletes this view when finish(); is called
+	 */
+	
 	public void onDestroy()
 	{	super.onDestroy();
 		DbController DbC = DbController.getInstance(this, this);
