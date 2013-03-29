@@ -25,6 +25,12 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 
+/**
+ * Used to change or add ingredients in a recipe
+ * @author Thomas Cline and Pablo Jaramillo
+ *
+ */
+
 public class EditIngredients extends Activity implements FView<DbManager>
 {
 	public static String NO_RESULTS = "no_results";
@@ -33,7 +39,6 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	private PopupWindow popUp;
 	private PopupWindow popUpIncomplete;
 	private ImageView darkenScreen;
-	private LayoutParams darkenParams;
 	private View popUpView;
 	static private final Logger logger = Logger.getLogger(EditIngredients.class.getName());
 
@@ -57,10 +62,14 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		logger.log(Level.INFO, "URI passed to EditIngredients: " + uri);
 		RecipeIngredients=DbC.getRecipeIngredients(uri);
 		darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		darkenParams = darkenScreen.getLayoutParams();
+		darkenScreen.getLayoutParams();
 		updateIngredients();
 	}
-	
+	/**
+	 * Responds to the button to the "Main Menu" button and returns the user to the main menu
+	 * @param The View that is calling the method
+	 *
+	 */
 
 	public void OnGotoMainMenu(View View)
 	{
@@ -69,6 +78,12 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		EditIngredients.this.finish();
 	}
+	
+	/**
+	 * Responds to the "Add ingredient" button which prompts the user to add an ingredients in a pop-up 
+	 * @param The View that is calling the method
+	 *
+	 */
 
 	public void OnAddIngredient(View View)
 	{
@@ -86,7 +101,12 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		popUp = new PopupWindow(popUpView,300,500,true);
 		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
 	}
-
+	/**
+	 * Removes all the ingredients that have been checked by the user
+	 *  button which prompts the user to add an ingredients in a pop-up 
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnRemoveIngredient(View View)
 	{	ListView listView = (ListView) findViewById(R.id.mylist);
 		SparseBooleanArray checkedPositions = listView.getCheckedItemPositions();
@@ -103,6 +123,10 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		updateIngredients();
 	}
 
+	/**
+	 * populates the list with the ingredients from the recipe given through the URI
+	 *
+	 */
 
 	public void updateIngredients()
 	{
@@ -151,6 +175,9 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	}
 
 
+	/**
+	 * Called from the database manager, calls upDateIngredients method
+	 */
 	public void update(DbManager db)
 	{
 		updateIngredients();
@@ -163,6 +190,11 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	}
 
 
+	/**
+	 * Responds to the "Cancel" button on the pop-up, closing the pop-up without altering anything 
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnCancel(View v){
 		popUp.dismiss();
 
@@ -175,9 +207,19 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	}
 
 	//called by the second popup
+	/**
+	 * Responds to the "Ok" button in the incomplete popup
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnOKIncomplete(View v){
 		popUpIncomplete.dismiss();
 	}
+	/**
+	 * Responds to the "Ok" button in the pop-up, saving the changes the ingredients 
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnOK(View v){
 		EditText editText = (EditText) popUpView.findViewById(R.id.editIngredientType);
 		String type=editText.getText().toString();
@@ -213,6 +255,13 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		RecipeIngredients.add(ingredient);
 		updateIngredients();
 	}
+	
+	
+	/**
+	 * Responds to the "Save" button which saves the changes to the ingredients and closes the activity 
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnSaveIngredients(View v)
 	{
 		DbController DbC = DbController.getInstance(this, this);
