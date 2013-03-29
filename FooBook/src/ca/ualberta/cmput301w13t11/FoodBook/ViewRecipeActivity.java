@@ -43,6 +43,8 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	private TextView recipeName;
 	private TextView instructions;
 	private ProgressDialog progressDialog;
+	@SuppressWarnings("all")
+
 	static private final Logger logger = Logger.getLogger(ViewRecipeActivity.class.getName());
 
 	/**
@@ -63,7 +65,6 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		protected ReturnCode doInBackground(Recipe... recipes) {
 			try {
 				Recipe recipe = recipes[0];
-				DbController DbC = DbController.getInstance(ViewRecipeActivity.this, ViewRecipeActivity.this);
 				ServerController SC=ServerController.getInstance(ViewRecipeActivity.this);
 				ReturnCode retcode = SC.uploadRecipe(recipe);
 				return retcode;
@@ -85,7 +86,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 				//make the popup
 				LinearLayout layout = new LinearLayout(ViewRecipeActivity.this);
 				LayoutInflater inflater = LayoutInflater.from(ViewRecipeActivity.this);
-				popUp = new PopupWindow(inflater.inflate(R.layout.popup_recipe_upload_success, null, false),300,200,true);
+				popUp = new PopupWindow(inflater.inflate(R.layout.popup_recipe_upload_success, null, false),300,300,true);
 				popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
 			} else if (ret == ReturnCode.BUSY) {
 				
@@ -173,9 +174,8 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
     }
 	public void OnPublishRecipe (View View)
     {
-		// responds to button Publish Recipe
-		DbController DbC = DbController.getInstance(this, this);
-		ServerController SC=ServerController.getInstance(this);
+		DbController.getInstance(this, this);
+		ServerController.getInstance(this);
 		Intent intent = getIntent();
 		//String URI = intent.getStringExtra(MyRecipes.EXTRA_URI);
 		//long uri=Long.parseLong(URI);

@@ -35,8 +35,10 @@ public class MyIngredients extends Activity implements FView<DbManager>
 
 	private PopupWindow popUp;
 	private ImageView darkenScreen;
+	@SuppressWarnings("all")
 	private LayoutParams darkenParams;
 	private View popUpView;
+	@SuppressWarnings("all")
 	static private final Logger logger = Logger.getLogger(MyIngredients.class.getName());
 
 
@@ -242,6 +244,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		updateIngredients();
 	}
 
+	@SuppressWarnings("unchecked")
 	public void OnIngredientSearch(View View)
 	{
 		ListView listView = (ListView) findViewById(R.id.mylist);

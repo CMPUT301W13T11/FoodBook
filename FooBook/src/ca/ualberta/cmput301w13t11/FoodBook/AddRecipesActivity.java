@@ -138,7 +138,7 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 			//make the popup
 			LinearLayout layout = new LinearLayout(this);
 			LayoutInflater inflater = LayoutInflater.from(this);
-			popUp = new PopupWindow(inflater.inflate(R.layout.popup_add_recipe_incomplete, null, false),400,200,true);
+			popUp = new PopupWindow(inflater.inflate(R.layout.popup_add_recipe_incomplete, null, false),400,300,true);
 			popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
 			return;
 		}

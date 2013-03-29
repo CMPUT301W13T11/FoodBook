@@ -1,22 +1,17 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.os.Bundle;
-import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -94,6 +89,8 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 	 */
 
 	public class ImageAdapter extends BaseAdapter {
+		@SuppressWarnings("all")
+
 		private Context mContext;
 
 		public ImageAdapter(Context c) {
@@ -135,22 +132,7 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 			return v;
 		}
 	}
-	/*
-	@Override
-	protected void onStart() {
-	    // TODO Auto-generated method stub
-	    super.onStart();
-	    FlurryAgent.onStartSession(this, "LPJJF9WYENDWYXXTEUDM");
-	}
-	 */
-	// @Override
-	// protected void onStop() {
-	// TODO Auto-generated method stub
-	// super.onStop();
-	// FlurryAgent.onEndSession(this);
-
-	// }
-
+	
 	/**
 	 * This method is to scale down the image 
 	 */
