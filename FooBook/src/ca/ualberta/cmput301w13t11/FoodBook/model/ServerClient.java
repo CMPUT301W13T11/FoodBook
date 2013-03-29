@@ -159,7 +159,7 @@ public class ServerClient {
 		HttpResponse response = null;
 		int retcode = -1;
 		try {
-			HttpGet get = new HttpGet(test_server_string + uri);
+			HttpGet get = new HttpGet(serverString + uri);
 			get.addHeader("Accept","application/json");
 			response = httpclient.execute(get);
 			retcode = response.getStatusLine().getStatusCode();
@@ -308,7 +308,7 @@ public class ServerClient {
 
 			try {
 
-				HttpGet search_request = new HttpGet(test_server_string+"_search?q=" + 
+				HttpGet search_request = new HttpGet(serverString+"_search?q=" + 
 						java.net.URLEncoder.encode(str, "UTF-8"));
 
 				search_request.setHeader("Accept", "application/json");
@@ -411,7 +411,7 @@ public class ServerClient {
 			String ingredients_str = ingredientsToString(ingredients);	
 
 			/* We next form the HTTP query string itself. */
-			HttpPost searchRequest = new HttpPost(test_server_string + "_search?pretty=1");
+			HttpPost searchRequest = new HttpPost(serverString + "_search?pretty=1");
 			String query = "{\"query\" : {\"query_string\" : {\"default_field\" : \"ingredients.name\", \"query\" : \"" + ingredients_str + "\"}}}";
 			logger.log(Level.INFO, "query string = " + query);
 
@@ -563,7 +563,7 @@ public class ServerClient {
 					String sp_str = helper.serverPhotoToJSON(serverPhoto);
 					logger.log(Level.INFO, "serverPhotoToJson() result: " + sp_str);
 
-					HttpPost updateRequest = new HttpPost(test_server_string + uri + "/_update");
+					HttpPost updateRequest = new HttpPost(serverString + uri + "/_update");
 					String query = 	"{\"script\":\"ctx._source.photos += xxx\", \"params\" : " +
 							"{ \"xxx\" : " + sp_str + "}}";
 					logger.log(Level.INFO, "stringQuery = " + query);
