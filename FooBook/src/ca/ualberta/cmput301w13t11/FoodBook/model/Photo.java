@@ -5,10 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 /**
- * Needs to be implemented at some point.
- * Current proposal: store a Bitmap on local SD card which can then be encoded into a Base 64 string for online
- * publication).
- * @author Marko Tomislav Babic
+ * Class representing a photo in the program.
+ * @author mbabic
  *
  */
 public class Photo {
@@ -70,7 +68,6 @@ public class Photo {
 	 * we aren't storing/downloading/uploading huge files).
 	 * @param bitmap The Bitmap which encodes the photo information.
 	 */
-	
 	public Photo(String id, String path, Bitmap bitmap)
 	{
 		this.id = id;
@@ -87,6 +84,9 @@ public class Photo {
 		this.id = id;
 	}
 	
+	/**
+	 * @return The bit data for this photo.
+	 */
 	public byte[] getBitData()
 	{
 		return bit_data;
@@ -101,14 +101,25 @@ public class Photo {
 		return BitmapFactory.decodeByteArray(bit_data, 0, bit_data.length);
 	}
 	
+	/**
+	 * @return The Id for this photo.
+	 */
 	public String getId()
 	{
 		return id;
 	}
+	
+	/**
+	 * @return The Id for this photo.
+	 */
 	public String getPath() {
 		return path;
 	}
 	
+	/**
+	 * Set the path for this photo to be the given path.
+	 * @param The new path for this photo.
+	 */
 	public void setPath(String path)
 	{
 		this.path = path;

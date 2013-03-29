@@ -119,6 +119,14 @@ public class Recipe {
 		this.uri = System.currentTimeMillis();
 	}
 	
+	/**
+	 * Constructor.
+	 * @param author The author of the Recipe.
+	 * @param title The title of the Recipe.
+	 * @param instructions The set of instructions used to execute the Recipe.
+	 * @param ingredients The list of ingredients associated with this Recipe.
+	 * @param photos The list of photos associated with this Recipe.
+	 */
 	public Recipe(User author, String title, String instructions, ArrayList<Ingredient> ingredients,
 				ArrayList<Photo> photos)
 	{
@@ -177,6 +185,10 @@ public class Recipe {
 		return photos;
 	}
 
+	/**
+	 * Add the given Photo to this Recipes list of photos.
+	 * @param photo
+	 */
 	public void addPhoto(Photo photo)
 	{
 		photos.add(photo);
@@ -229,21 +241,7 @@ public class Recipe {
 		ingredients.add(new Ingredient("sdf", "sdf", (float) 1/4));
 		ingredients.add(new Ingredient("milk", "mL", (float) 5000));
 		ingredients.add(new Ingredient("veal", "the whole baby cow", (float) 1));
-		
-		/* Generate photos */
-		//String name1 = "test1";
-		//String name2 = "test2";
-		//byte[] byte_data1 = new byte[10];
-		//byte[] byte_data2 = new byte[10];
 
-		//Photo photo1 = new Photo(name1, byte_data1);
-		//Photo photo2 = new Photo(name2, byte_data2);
-		//ArrayList<Photo> photos = new ArrayList<Photo>();
-		//photos.add(photo1);
-		//photos.add(photo2);
-
-		/* Generate recipe. */
-		//Recipe ret = new Recipe(uri, user, title, instructions, ingredients, photos);
 		Recipe ret = new Recipe(uri, user, title, instructions, ingredients);
 		return ret;
 
@@ -258,80 +256,7 @@ public class Recipe {
 	}
 
 	/**
-	 * @uml.property  name="serverRecipe"
-	 * @uml.associationEnd  inverse="recipe:ca.ualberta.cmput301w13t11.FoodBook.model.ServerRecipe"
-	 * @uml.association  name="re-models"
-	 */
-	private ServerRecipe serverRecipe;
-
-	/**
-	 * Getter of the property <tt>serverRecipe</tt>
-	 * @return  Returns the serverRecipe.
-	 * @uml.property  name="serverRecipe"
-	 */
-	public ServerRecipe getServerRecipe() {
-		return serverRecipe;
-	}
-
-	/**
-	 * Setter of the property <tt>serverRecipe</tt>
-	 * @param serverRecipe  The serverRecipe to set.
-	 * @uml.property  name="serverRecipe"
-	 */
-	public void setServerRecipe(ServerRecipe serverRecipe) {
-		this.serverRecipe = serverRecipe;
-	}
-
-	/**
-	 * @uml.property  name="clientHelper"
-	 * @uml.associationEnd  inverse="recipe:ca.ualberta.cmput301w13t11.FoodBook.model.ClientHelper"
-	 * @uml.association  name="transforms"
-	 */
-	private ClientHelper clientHelper;
-
-	/**
-	 * Getter of the property <tt>clientHelper</tt>
-	 * @return  Returns the clientHelper.
-	 * @uml.property  name="clientHelper"
-	 */
-	public ClientHelper getClientHelper() {
-		return clientHelper;
-	}
-
-	/**
-	 * Setter of the property <tt>clientHelper</tt>
-	 * @param clientHelper  The clientHelper to set.
-	 * @uml.property  name="clientHelper"
-	 */
-	public void setClientHelper(ClientHelper clientHelper) {
-		this.clientHelper = clientHelper;
-	}
-
-	/**
-	 * @uml.property  name="user"
-	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="recipe:ca.ualberta.cmput301w13t11.FoodBook.model.User"
-	 */
-	private Collection<?> user;
-
-	/**
-	 * Getter of the property <tt>user</tt>
-	 * @return  Returns the user.
-	 * @uml.property  name="user"
-	 */
-	public Collection<?> getUser() {
-		return user;
-	}
-
-	/**
-	 * Setter of the property <tt>user</tt>
-	 * @param user  The user to set.
-	 * @uml.property  name="user"
-	 */
-	public void setUser(Collection<?> user) {
-		this.user = user;
-	}
-	/**
-	 * Gives a text representation of the Recipe
+	 * Gives a text representation of the Recipe.  To be used when we e-mail the Recipe.
 	 */
 	public String getTextVersion(){
 		String returnString =  "Author: "+author.getName()+"\nTitle: "+title+"\nIngredients:\n";
