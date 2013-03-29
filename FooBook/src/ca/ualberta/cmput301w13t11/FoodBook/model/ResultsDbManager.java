@@ -14,6 +14,10 @@ public class ResultsDbManager extends DbManager {
 	
 	private static ResultsDbManager instance = null;
 
+	/**
+	 * Constructor -- calls the DbManager constructor to execute SQL table creation statements if necessary.
+	 * @param context The context to be passed to the DbManager constructor.
+	 */
 	public ResultsDbManager(Context context)
 	{
 		super(context);
@@ -24,8 +28,8 @@ public class ResultsDbManager extends DbManager {
 	}
 
 	/**
-	 * store results from server.
-	 * @return should i return boolean for success?
+	 * Store the given list of Recipes to the ResultsDb -- overwrites the previous results with the new one.
+	 * @param The list of Recipes to be stored to the Results Db.
 	 */
 	public void storeRecipes(ArrayList<Recipe> recipes) {
 	    db.delete(ingredsTable, null, null);

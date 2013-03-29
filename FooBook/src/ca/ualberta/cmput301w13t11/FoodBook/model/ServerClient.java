@@ -131,6 +131,9 @@ public class ServerClient {
 	}
 
 
+	/**
+	 * Writes the results of the latest successful search to the ResultsDb.
+	 */
 	public void writeResultsToDb()
 	{
 		dbManager = ResultsDbManager.getInstance();
