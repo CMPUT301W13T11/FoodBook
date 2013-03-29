@@ -14,6 +14,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Activity that allows the user to view a recipe that was returned from a search result, and subsequently delete 
+ * the recipe from the search results or download that recipe
+ * @author Thomas Cline, Marko Babic, and Pablo Jaramillo
+ *
+ */
+
 public class ViewSearchResultActivity extends Activity implements FView<DbManager>
 {
 	public static final String EXTRA_URI = "extra_uri";
@@ -51,19 +58,18 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 			instructions = (TextView) findViewById(R.id.Instructions);
 			instructions.setText(viewedRecipe.getInstructions());
 			ListView listView = (ListView) findViewById(R.id.listView1);
-				//Recipe testRecipe=Recipe.generateTestRecipe();
-				//ArrayList <Recipe> test = new ArrayList<Recipe>();
-				//test.add(testRecipe);
 				//Displays the user's recipes
 				ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getStoredRecipeIngredients(uri));
 				//Assigns the adapter
 				listView.setAdapter(adapter);
 				instructions.setMovementMethod(new ScrollingMovementMethod());	
 		}
-		//This method appeas to function fine if this method is commented out? For now I'll go with it -Thomas
-		//updateView();
-		
 	}
+	
+	/**
+	 * If a change is made to the currently viewed recipe, ensures that the displayed recipe is kept up to date
+	 */
+
 protected void updateView(){
 		
 		DbController DbC = DbController.getInstance(this, this);
@@ -75,7 +81,12 @@ protected void updateView(){
 		listView.setAdapter(adapter);
 	}
 
-	
+/**
+ * Responds to the "Go back" button, and sends the user back to the Search Results screen
+ * @param The View that is calling the method
+ *
+ */
+
 	public void OnGobacktoSearchResults(View View)
     {
 		// responds to button Go Back to Search Results
@@ -84,6 +95,13 @@ protected void updateView(){
 		 ViewSearchResultActivity.this.finish();
     }
 	
+	/**
+	 * Responds to the "View Photos" button, and sends the user back to the view Photos Activity, allowing them to browse
+	 * photos of the recipe
+	 * @param The View that is calling the method
+	 *
+	 */
+
 	public void OnViewPhotos (View View)
     {
 		// responds to button View Photos
@@ -92,19 +110,21 @@ protected void updateView(){
     	intent.putExtra(ViewPhotosActivity.CALLER, "ViewSearchResultActivity");
 		startActivity(intent);
     }
-	public void OnAddPhotos (View View)
-    {
-		// responds to button Add Photos
-    	Intent intent = new Intent(this, EditPhotos.class);
-		startActivity(intent);
-    }
+	
+	/**
+	 * Responds to the "Download Recipe" button, and saves the currently viewed recipe into the users local
+	 * "My Recipes" cache
+	 * @param The View that is calling the method
+	 *
+	 */
+
+	
 	public void OnDownloadRecipe (View View)
     {
 		DbController DbC = DbController.getInstance(this, this);
 		
 		Intent intent = getIntent();
 		intent.getLongExtra(SearchResultsActivity.EXTRA_URI, 0);
-		//long uri = Long.parseLong(URI);
 		Recipe viewedRecipe=null;
 		for(int index=0; index<DbC.getStoredRecipes().size(); index++)
 		{
@@ -118,10 +138,16 @@ protected void updateView(){
 		
 		DbC.addRecipe(viewedRecipe);
 		finish();
-
-    	
     }
 
+	/**
+	 * Responds to the "Delete result" button, which sends the user back to the search results screen
+	 * and removes the current recipe from the listing
+	 * @param The View that is calling the method
+	 *
+	 */
+
+	
 	public void OnDeleteResult(View View)
     {	
 		DbController DbC = DbController.getInstance(this, this);
@@ -140,6 +166,10 @@ protected void updateView(){
 		
 	}
 
+	/**
+	 *Deletes this view when finish(); is called
+	 */
+	
 	public void onDestroy()
 	{	super.onDestroy();
 		DbController DbC = DbController.getInstance(this, this);

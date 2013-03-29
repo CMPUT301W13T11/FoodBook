@@ -28,6 +28,15 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
+
+/**
+ * Displays all of the local users ingredients in a list
+ * and gives the option to edit said ingredients
+ * @author Thomas Cline and Pablo Jaramillo
+ *
+ */
+
+
 public class MyIngredients extends Activity implements FView<DbManager>
 {
 	public static String NO_RESULTS = "no_results";
@@ -94,7 +103,12 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		updateIngredients();
 	}
 
-
+	/**
+	 * Responds to the "Main Menu" button, returning the user to the main screen
+	 * @param The View that is calling the method
+	 *
+	 */
+	
 	public void OnGotoMainMenu(View View)
 	{
 		// responds to button Main Menu
@@ -103,6 +117,11 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		MyIngredients.this.finish();
 	}
 
+	/**
+	 * Responds to the "Add ingredient" button which prompts the user to add an ingredient in a pop-up
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnAddIngredient(View View)
 	{
 		//responds to button Add ingredient
@@ -119,7 +138,14 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		popUp = new PopupWindow(popUpView,300,500,true);
 		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
 	}
-
+	/**
+	 * Responds to the "Remove" button which removes all
+	 * of the ingredients that the user has checked from 
+	 * the local "My ingredients" 
+	 * @param The View that is calling the method
+	 *
+	 */
+	
 	public void OnRemoveIngredient(View View)
 
 	{	
@@ -145,14 +171,17 @@ public class MyIngredients extends Activity implements FView<DbManager>
 	updateIngredients();
 }
 
+	
+	/**
+	 * If a change is made to "My ingredients" list the activity will update
+	 * to reflect the changes
+	 *
+	 */
 	public void updateIngredients()
 	{
 		//Gets the user's recipes
 		final DbController DbC = DbController.getInstance(this, this);
 		ListView listView = (ListView) findViewById(R.id.mylist);
-		//Recipe testRecipe=Recipe.generateTestRecipe();
-		//ArrayList <Recipe> test = new ArrayList<Recipe>();
-		//test.add(testRecipe);
 		//Displays the user's recipes
 		ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, DbC.getUserIngredients());
 		//Assigns the adapter
@@ -164,7 +193,6 @@ public class MyIngredients extends Activity implements FView<DbManager>
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
 			{	
-				//DbC.deleteIngredient(DbC.getUserIngredients().get(position));
 				ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
 				LayoutParams darkenParams = darkenScreen.getLayoutParams();
 				darkenParams.height = 1000;
@@ -195,11 +223,17 @@ public class MyIngredients extends Activity implements FView<DbManager>
 
 	}
 
+	/**
+	 *Allows the database manager to call the update to the views
+	 */
 
 	public void update(DbManager db)
 	{
 		updateIngredients();
 	}
+	/**
+	 *Deletes the view when ending the activity
+	 */
 	public void onDestroy()
 	{	
 		super.onDestroy();
@@ -208,6 +242,12 @@ public class MyIngredients extends Activity implements FView<DbManager>
 	}
 
 
+	/**
+	 * Responds to the "Cancel" button in the pop-up, which closes the pop-up without making any
+	 * changes 
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnCancel(View v){
 		popUp.dismiss();
 
@@ -218,6 +258,12 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		darkenParams.width = 0;
 		darkenScreen.setLayoutParams(darkenParams);
 	}
+	/**
+	 * Responds to the "Ok" button in the pop-up, which closes the pop-up and saves
+	 * the new ingredient added into "My Ingredients"
+	 * @param The View that is calling the method
+	 *
+	 */
 
 	public void OnOK(View v){
 		EditText editText = (EditText) popUpView.findViewById(R.id.editIngredientType);
@@ -244,6 +290,13 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		updateIngredients();
 	}
 
+	
+	/**
+	 * When the "What can I make?" button is presssed, searches for recipes that can be made with the ingredients that are
+	 * currently available 
+	 * @param The View that is calling the method
+	 *
+	 */
 	@SuppressWarnings("unchecked")
 	public void OnIngredientSearch(View View)
 	{

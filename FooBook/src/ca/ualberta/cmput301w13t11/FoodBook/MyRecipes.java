@@ -18,6 +18,14 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+
+/**
+ * Displays all of the local user's recipes in a list
+ * and gives additional options with the recipes
+ * @author Thomas Cline and Pablo Jaramillo
+ *
+ */
+
 public class MyRecipes extends Activity implements FView<DbManager>{
 
 	
@@ -31,15 +39,17 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 		updateList();
 		
 	}
+	
+	/**
+	 * If a change is made to the user recipes, this method is called to update the list that is displayed
+	 * to stay current
+	 */
 
 	public void updateList()
     {
 		//Gets the user's recipes
 	DbController DbC = DbController.getInstance(this, this);
 	ListView listView = (ListView) findViewById(R.id.mylist);
-		//Recipe testRecipe=Recipe.generateTestRecipe();
-		//ArrayList <Recipe> test = new ArrayList<Recipe>();
-		//test.add(testRecipe);
 		//Displays the user's recipes
 		ArrayAdapter<Recipe> adapter = new ArrayAdapter<Recipe>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getUserRecipes());
 		//Assigns the adapter
@@ -50,8 +60,6 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 			{	
 				long recipe_uri = ((Recipe) parent.getItemAtPosition(position)).getUri();
 				Intent intent = new Intent(MyRecipes.this, ViewRecipeActivity.class);
-				//String testString=Long.toString(recipe_uri);
-				//intent.putExtra(EXTRA_URI, testString);
 				intent.putExtra(EXTRA_URI, recipe_uri);
 				startActivity(intent);
 			}});
@@ -75,6 +83,11 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 		    search.addTextChangedListener(keyPressed);		
     }
 	
+	/**
+	 * Responds to the "Main Menu" button and returns the user to the main menu
+	 * @param The View that is calling the method
+	 *
+	 */
 	
 	public void OnGotoMainMenu(View View)
     {
@@ -84,6 +97,12 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 		 MyRecipes.this.finish();
     }
 	
+	/**
+	 * Responds to the "Add Recipe" button which starts the AddRecipesActivity adn allows the user to add recipes to the local
+	 *  "My Recipes Directory"
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnAddRecipe (View View)
     {
 		// responds to button Add Recipe
@@ -97,12 +116,22 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 		updateList();
 	}
 	
+	/**
+	 *Deletes this view when finish(); is called
+	 */
+	
 	public void onDestroy()
 	{	super.onDestroy();
 		DbController DbC = DbController.getInstance(this, this);
 		DbC.deleteView(this);
 	}
 	
+	/**
+	 * Compared the characters of the search dialogue with recipe names that are saved locally
+	 * and only displays recipes that match the search characters
+	 * @param The current input that the user has entered in the Search dialogue
+	 *
+	 */
 	public void updateListSearch(Editable search)
     {
 		//Gets the user's recipes
@@ -129,8 +158,6 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{	long recipe_uri = ((Recipe) parent.getItemAtPosition(position)).getUri();
 				Intent intent = new Intent(MyRecipes.this, ViewRecipeActivity.class);
-				//String testString=Long.toString(recipe_uri);
-				//intent.putExtra(EXTRA_URI, testString);
 				intent.putExtra(EXTRA_URI, recipe_uri);
 				startActivity(intent);
 			}});
