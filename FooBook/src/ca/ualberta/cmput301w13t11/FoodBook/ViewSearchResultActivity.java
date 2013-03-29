@@ -4,13 +4,17 @@ import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class ViewSearchResultActivity extends Activity implements FView<DbManager>
@@ -47,9 +51,18 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 		}
 		if(viewedRecipe!=null){
 			recipeName = (TextView) findViewById(R.id.textView2);
-			instructions = (TextView) findViewById(R.id.Instructions);
 			recipeName.setText(viewedRecipe.getTitle());
-			instructions.setText(viewedRecipe.getInstructions());	
+			instructions = (TextView) findViewById(R.id.Instructions);
+			instructions.setText(viewedRecipe.getInstructions());
+			ListView listView = (ListView) findViewById(R.id.listView1);
+				//Recipe testRecipe=Recipe.generateTestRecipe();
+				//ArrayList <Recipe> test = new ArrayList<Recipe>();
+				//test.add(testRecipe);
+				//Displays the user's recipes
+				ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getStoredRecipeIngredients(uri));
+				//Assigns the adapter
+				listView.setAdapter(adapter);
+				instructions.setMovementMethod(new ScrollingMovementMethod());	
 		}
 		//This method appeas to function fine if this method is commented out? For now I'll go with it -Thomas
 		//updateView();
@@ -111,6 +124,18 @@ protected void updateView(){
     	
     }
 
+	public void OnDeleteResult(View View)
+    {	
+		DbController DbC = DbController.getInstance(this, this);
+		DbC.deleteStoredRecipe(viewedRecipe);
+		// responds to button Go Back to Search Results
+		 Intent intent = new Intent(View.getContext(), SearchResultsActivity.class);
+		 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		 ViewSearchResultActivity.this.finish();
+		 
+    }
+	
+	
 	@Override
 	public void update(DbManager db)
 	{

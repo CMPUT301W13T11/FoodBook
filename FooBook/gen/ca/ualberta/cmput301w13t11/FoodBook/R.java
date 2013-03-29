@@ -47,7 +47,7 @@ public final class R {
     public static final class id {
         public static final int Button01=0x7f09000f;
         public static final int Instructions=0x7f090029;
-        public static final int action_settings=0x7f090034;
+        public static final int action_settings=0x7f090035;
         public static final int add_ingredient=0x7f090010;
         public static final int add_recipe_button=0x7f090022;
         public static final int cancel_button=0x7f090031;
@@ -55,6 +55,7 @@ public final class R {
         public static final int darkenScreen=0x7f09000d;
         public static final int delete_photo=0x7f090015;
         public static final int delete_recipe=0x7f09001a;
+        public static final int delete_search=0x7f09002d;
         public static final int download_recipe=0x7f09002b;
         public static final int editIngredientAmount=0x7f090030;
         public static final int editIngredientType=0x7f09002e;
@@ -75,13 +76,13 @@ public final class R {
         public static final int imageView2=0x7f090021;
         public static final int listView1=0x7f090019;
         public static final int menu_button=0x7f090012;
-        public static final int menu_settings=0x7f090033;
+        public static final int menu_settings=0x7f090034;
         public static final int my_ingredients=0x7f09001f;
         public static final int my_recipes_button=0x7f090020;
         public static final int mylist=0x7f09000e;
         public static final int ok_button=0x7f090032;
         public static final int popup_fadeout=0x7f090013;
-        public static final int popup_msg=0x7f09002d;
+        public static final int popup_msg=0x7f090033;
         public static final int publish_recipe=0x7f090028;
         public static final int remove_ingredient=0x7f090011;
         public static final int return_to_recipe=0x7f09001b;
@@ -159,6 +160,7 @@ public final class R {
         public static final int capture=0x7f050021;
         public static final int delete_photo=0x7f050023;
         public static final int delete_recipe=0x7f05002f;
+        public static final int delete_search=0x7f050049;
         public static final int download_recipe=0x7f050031;
         public static final int edit_ingredients=0x7f05001b;
         public static final int edit_photos=0x7f05002a;

@@ -1,3 +1,7 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/AppBaseTheme"
@@ -7,14 +11,6 @@
     android:background="@color/grey"
     android:orientation="vertical" 
     tools:context=".EditIngredients">
-
-    <TextView
-        android:id="@+id/popup_msg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/p_add_ingredient"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/textView1"
@@ -27,7 +23,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <requestFocus />
+        <requestFocus android:layout_width="wrap_content" />
+
     </EditText>
 
     <TextView
@@ -50,7 +47,8 @@
     <EditText
         android:id="@+id/editIngredientAmount"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:inputType = "number" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -79,3 +77,4 @@
     </LinearLayout>
 
 </LinearLayout> 
+</ScrollView>

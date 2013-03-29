@@ -76,6 +76,6 @@
      <string name="amount">Amount (numerical):</string>
     <string name="p_edit_ingredient">Edit ingredient:</string>
      <string name="searchIngredients">What can I make?</string>
-
+     <string name="delete_search">Delete from Results</string>
 
 </resources>

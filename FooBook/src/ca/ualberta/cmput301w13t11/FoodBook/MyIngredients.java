@@ -172,7 +172,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 				LinearLayout layout = new LinearLayout(MyIngredients.this);
 				LayoutInflater inflater = LayoutInflater.from(MyIngredients.this);
 				popUpView = inflater.inflate(R.layout.popup_edit_ingredient, null, false);
-				popUp = new PopupWindow(popUpView,300,500,true);
+				popUp = new PopupWindow(popUpView,popUpView.getWidth(),popUpView.getHeight(),true);
 				popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
 
