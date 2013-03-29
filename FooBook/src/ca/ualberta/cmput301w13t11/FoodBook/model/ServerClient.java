@@ -3,8 +3,6 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,6 +18,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -55,7 +54,7 @@ public class ServerClient {
 	static private final long TIMEOUT_PERIOD = 10;
 	static private final long UPLOAD_PHOTO_GRACE_PERIOD = 5;
 	static private String test_server_string = "http://cmput301.softwareprocess.es:8080/testing/cmput301w13t11/";
-	static private String serverString = "http://cmput301.softwareprocess.es:8080/CMPUT301W13T11/";
+	static private String serverString = "http://cmput301.softwareprocess.es:8080/cmput301w13t11/recipes/";
 	private static HttpClient httpclient = null;
 	private static ClientHelper helper = null;
 	private ArrayList<Recipe> results;
@@ -155,6 +154,8 @@ public class ServerClient {
 	 */
 	private ReturnCode checkForRecipe(long uri)
 	{
+		httpclient = getThreadSafeClient();
+
 		HttpResponse response = null;
 		int retcode = -1;
 		try {
@@ -211,7 +212,8 @@ public class ServerClient {
 
 			/* We are using the Recipe's URI as its _id on the server */
 			HttpResponse response = null;
-			HttpPost httpPost = new HttpPost(test_server_string+recipe.getUri());
+			
+			HttpPost httpPost = new HttpPost(serverString + recipe.getUri());
 			StringEntity se = null;
 
 			se = helper.recipeToJSON(recipe);
@@ -237,6 +239,8 @@ public class ServerClient {
 			String status = response.getEntity().toString();
 			int retcode = response.getStatusLine().getStatusCode();
 			logger.log(Level.INFO, "upload request server response: " + response.getStatusLine().toString());
+			logger.log(Level.INFO, "upload request server response: " + response.toString());
+
 
 			if (retcode == HttpStatus.SC_CREATED)
 				return ReturnCode.SUCCESS;
@@ -623,44 +627,5 @@ public class ServerClient {
 
 	/**************************************</Upload Photo>************************************************************/
 
-	/**
-	 * Retrieves the recipe associated with the given URI from the server;
-	 * only called when we are guaranteed that such a Recipe exists, and 
-	 * thus performs no error checking.
-	 * @param (long) uri The URI of the recipe to be retrieved.
-	 * @return The Recipe with the given URI.
-	 */
-	private Recipe getRecipe(long uri)
-	{
-		try{
-			HttpGet getRequest = new HttpGet(test_server_string + Long.toString(uri));
-			logger.log(Level.INFO, "getRequest : " + getRequest.toString());
-
-			getRequest.addHeader("Accept","application/json");
-
-			HttpResponse response = httpclient.execute(getRequest);
-
-			String status = response.getStatusLine().toString();
-			System.out.println(status);
-
-			String response_str = helper.responseToString(response);
-			logger.log(Level.INFO, "Server response string: " + response_str);
-			return helper.responseStringToRecipe(response_str);
-
-		} catch (ClientProtocolException e) {
-
-			e.printStackTrace();
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public String getServerUrl()
-	{
-		return test_server_string;
-	}
 }
 

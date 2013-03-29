@@ -32,13 +32,11 @@
         android:layout_marginTop="5dp"
         android:text="@string/ingredients"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
+
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
-        android:layout_height="62dp"
-        android:layout_weight="1.77" >
-
+        android:layout_height="138dp">
     </ListView>
 
     <TextView

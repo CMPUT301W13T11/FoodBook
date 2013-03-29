@@ -72,9 +72,11 @@ protected void updateView(){
 		
 		DbController DbC = DbController.getInstance(this, this);
 		
-		//viewedRecipe = DbC.getUserRecipe(uri);
 		recipeName.setText(viewedRecipe.getTitle());
 		instructions.setText(viewedRecipe.getInstructions());
+		ListView listView = (ListView) findViewById(R.id.listView1);
+		ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getStoredRecipeIngredients(uri));
+		listView.setAdapter(adapter);
 	}
 
 	
