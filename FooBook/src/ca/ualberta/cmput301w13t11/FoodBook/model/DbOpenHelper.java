@@ -15,8 +15,6 @@ import android.util.Log;
  */
 public class DbOpenHelper extends SQLiteOpenHelper {
 	
-    static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
-
     // create table SQL statements
     // storing recipes requires 3 tables: recipes, ingredients, photos
     private String createRecipesTable = "CREATE TABLE UserRecipes (URI text, title text, author text, instructions text)";

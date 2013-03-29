@@ -43,7 +43,6 @@ public class ClientHelper {
 	{
 	}
 	
-
 	/**
 	 * Converts the given recipe to a JSON object (this includes re-encoding photos).
 	 * @param recipe The recipe to be converted.
@@ -65,7 +64,7 @@ public class ClientHelper {
 	}
 	
 	/**
-	 * Transfomrs the given ServerPhoto to a JSON-style string suitable for uploading.
+	 * Transforms the given ServerPhoto to a JSON-style string suitable for uploading.
 	 * @param sp The ServerPhoto to be converted.
 	 * @return A JSON-style string representing the given ServerPhoto.
 	 */

@@ -39,6 +39,10 @@ public class DbManager extends FModel<FView> {
     public String ingredsTable;// = "RecipeIngredients";
     public String photosTable;// = "RecipePhotos";
     public String getSQL;
+    
+    /* Logger. */
+	static private final Logger logger = Logger.getLogger(DbManager.class.getName());
+
 
     /**
      * Protected constructor because we're using the singleton pattern.
@@ -57,7 +61,7 @@ public class DbManager extends FModel<FView> {
     }
     
     /**
-     * @return True if DbManager constructor has been called before, false if not
+     * @return True if DbManager constructor has been called before, false otherwise.
      */
     public static boolean getHasExecuted()
     {
@@ -161,7 +165,6 @@ public class DbManager extends FModel<FView> {
 	
 	/**
 	 * Updates the title of the Recipe with the given URI.
-	 * TODO: consider making this a private part of an "update recipe function"
 	 * @param uri The URI of the Recipe to be updated.
 	 * @param tableName The name of the table in which the Recipe resides.
 	 * @param newTitle The new title of the Recipe.
@@ -178,7 +181,6 @@ public class DbManager extends FModel<FView> {
 	
 	/**
 	 * Updates the instructions of he Recipe with the given URI.
-  	 * TODO: consider making this a private part of an "update recipe function"
 	 * @param uri The URI of the Recipe to be updated.
 	 * @param tableName The name of the table in which the Recipe resides.
 	 * @param newInstructions The new instructions for the Recipe.
@@ -298,7 +300,6 @@ public class DbManager extends FModel<FView> {
     }
     
     
-	static private final Logger logger = Logger.getLogger(ServerClient.class.getName());
 
     /**
      * Removes the given photo from the local storage device.
@@ -414,7 +415,6 @@ public class DbManager extends FModel<FView> {
 
     /**
      * Remove the given recipe from both local storage and the database.
-     * TODO: "must include other methods to remove ingredients and other stuff from other tables. -Pablo"
      * @param recipe The recipe to be deleted.
      * @return True on success, False on failure.
      */
@@ -483,10 +483,7 @@ public class DbManager extends FModel<FView> {
 	/**
 	 * Given the ArrayList of photos with only an id and a pathname, returns a list of photos
 	 * with a byte_array as well.
-	 * TODO: could be modded in the future such that it only modifies the given list of photos -- I'm not sure
-	 * how Java handles references/pointers and all that so I'll defer giving this real consideration until
-	 * other functionality is complete. --Marko
-	 * @param photos
+	 * @param photos A list of partial photos from which we wish to construct full photos.
 	 * @return An ArrayList of a photos with the corresponding byte_area representing the img data included.
 	 */
 	private ArrayList<Photo> getFullPhotos(ArrayList<Photo> photos)
