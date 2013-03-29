@@ -311,14 +311,14 @@ public class Recipe {
 	 * @uml.property  name="user"
 	 * @uml.associationEnd  multiplicity="(0 -1)" inverse="recipe:ca.ualberta.cmput301w13t11.FoodBook.model.User"
 	 */
-	private Collection user;
+	private Collection<?> user;
 
 	/**
 	 * Getter of the property <tt>user</tt>
 	 * @return  Returns the user.
 	 * @uml.property  name="user"
 	 */
-	public Collection getUser() {
+	public Collection<?> getUser() {
 		return user;
 	}
 
@@ -327,7 +327,7 @@ public class Recipe {
 	 * @param user  The user to set.
 	 * @uml.property  name="user"
 	 */
-	public void setUser(Collection user) {
+	public void setUser(Collection<?> user) {
 		this.user = user;
 	}
 	/**

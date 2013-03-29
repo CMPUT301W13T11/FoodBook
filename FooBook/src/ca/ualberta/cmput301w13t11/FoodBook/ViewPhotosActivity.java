@@ -31,6 +31,7 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 {
 
 	static final String EXTRA_URI = "extra_uri";
+	static final String EXTRA_IMG_ID = "extra_img_id";
 	static final String EXTRA_IMG_PATH = "extra_img_path";
 	public static String CALLER = "caller";
 	private boolean queryResultsDb = false;
@@ -72,9 +73,11 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 			gridview.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View v,
 						int position, long id) {
-					Intent i = new Intent(ViewPhotosActivity.this, FullImageViewPhotosActivity.class);
+					Intent i = new Intent(ViewPhotosActivity.this, FullImageEditPhotosActivity.class);
 					Bundle bundle = new Bundle();
+					bundle.putString(EXTRA_IMG_ID, photos.get(position).getId());
 					bundle.putString(EXTRA_IMG_PATH, photos.get(position).getPath());
+					bundle.putLong(EXTRA_URI, uri);
 					//Log.d("recipe", Long.toString(uri));
 					//Log.d("filename", photos.get(position).getName());
 					i.putExtras(bundle);
