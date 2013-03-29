@@ -16,6 +16,18 @@
         android:text="@string/image"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Button01"
+        android:layout_below="@+id/textView1"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/image"
+        android:numColumns="3" >
+
+    </ImageView>
+
     <Button
         android:id="@+id/menu_button"
         style="@style/OrangeButton"
@@ -23,24 +35,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginRight="18dp"
-        android:layout_marginTop="10dp"
         android:onClick="OnGoBack"
         android:text="@string/go_back"
         android:textSize="20sp" />
 
-    <ImageView
-        android:id="@+id/imageView1"
+    <Button
+        android:id="@+id/Button01"
+        style="@style/GreenButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/menu_button"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/image"
-        android:numColumns="3" >
-
-    </ImageView>
+        android:onClick="OnUploadPhoto"
+        android:text="@string/upload_photo"
+        android:textSize="20sp" />
 
 </RelativeLayout>

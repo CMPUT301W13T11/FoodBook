@@ -20,13 +20,14 @@
         android:layout_marginTop="22dp"
         android:text="@string/my_ingredients"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+
     <ListView
         android:id="@+id/mylist"
         android:layout_width="match_parent"
         android:layout_height="355dp"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1" >
+
     </ListView>
 
     <Button
@@ -41,19 +42,6 @@
          android:textSize="15sp"
         android:text="@string/ReadyRecipes"
         android:layout_marginBottom="15sp" />
-
-    <Button
-        
-        
-        android:id="@+id/menu_button"
-        style="@style/OrangeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/Button01"
-        android:onClick="OnGotoMainMenu"
-        android:text="@string/main_menu"
-        android:textSize="15sp" />
 
     <Button
         android:id="@+id/add_ingredient"
@@ -76,6 +64,18 @@
         android:layout_marginLeft="5sp" 
         android:onClick="OnRemoveIngredient"
         android:text="@string/remove"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/menu_button"
+        style="@style/OrangeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/add_ingredient"
+        android:layout_alignBottom="@+id/add_ingredient"
+        android:layout_alignLeft="@+id/Button01"
+        android:onClick="OnGotoMainMenu"
+        android:text="@string/main_menu"
         android:textSize="15sp" />
 
 </RelativeLayout>
