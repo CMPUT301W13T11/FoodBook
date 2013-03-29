@@ -21,13 +21,21 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
  */
 public class FoodBookApplication extends Application {
 	
+		@SuppressWarnings("all")
 		private static FoodBookApplication instance;
+		@SuppressWarnings("all")
 		transient private static DbManager gdb = null;
+		@SuppressWarnings("all")
 		transient private static ResultsDbManager gresultsdb = null;
+		@SuppressWarnings("all")
 		transient private static RecipesDbManager grecipesdb = null;
+		@SuppressWarnings("all")
 		transient private static IngredientsDbManager gingredientsdb = null;
+		@SuppressWarnings("all")
 		transient private static ServerClient gsc = null;
+		@SuppressWarnings("all")
 		transient private static ServerController gscc = null;
+		@SuppressWarnings("all")
 		transient private static DbController gdbc = null;
 		public static ReturnCode SEARCH_RESULT;
 		public static String SEARCH_TYPE = "search_type";

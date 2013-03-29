@@ -34,10 +34,12 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 
 	protected Bitmap bitmap;
 	private String imgPath = null;
+	@SuppressWarnings("all")
 	private File file;
 	private ProgressDialog progressDialog;
 	boolean success = false;
 	boolean worked = false;
+	@SuppressWarnings("all")
 	private FileOutputStream outStream;
 	private DbController DbC; 
 	
@@ -79,18 +81,6 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 			imageView.setImageBitmap(bitmap);
 		}
 	}
- /*
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.take_photos, menu);
-		return true;
-	}
-	*/
-	
-	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 	     if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {  
@@ -203,51 +193,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 						"Error during image saving", Toast.LENGTH_LONG).show();
 			}
 		}
-	}
-
-	// no progress bar
-//	public void OnSavePhotoNoProgBar (View View)
-//	{
-//		// responds to button Save Photo
-//		if (bitmap!=null){
-//
-//			     try
-//			     {
-//			    	 //if (SDCARD_INSTALLED){
-//			    	 if (Environment.MEDIA_MOUNTED.equals(state)) {
-//			    		 imgPath = Environment.getExternalStorageDirectory()+File.separator+timeStampId;
-//			    		 file = new File(imgPath);
-//			    	 }
-//			    	 else{
-//			    		 File dir = getDir(PICTURES_DIRECTORY, Context.MODE_PRIVATE);
-//			    		 file = new File(dir, timeStampId);
-//			    	 } 		
-//			    	 FileOutputStream outStream = new FileOutputStream(file);
-//			    	 worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
-//			    	 outStream.flush();
-//			    	 outStream.close();
-//			    	 success = true;
-//			    	 imgPath = file.getAbsolutePath();
-//			     } catch (Exception e) {
-//			    	 // TODO Auto-generated catch block
-//			    	 e.printStackTrace();
-//			     } 
-//	
-//			if (success && worked) {
-//
-//				Photo photo = new Photo(timeStampId, imgPath);
-//				DbC.addPhotoToRecipe(photo, uri);
-//				//Log.d("recipeuri", Long.toString(uri));
-//				//Log.d("image path", imgPath);
-//				Toast.makeText(getApplicationContext(), "Image saved with success",
-//						Toast.LENGTH_LONG).show();
-//			} else {
-//				Toast.makeText(getApplicationContext(),
-//						"Error during image saving", Toast.LENGTH_LONG).show();
-//			}
-//		}
-//	}
-	
+	}	
 
 	@Override
 	public void update(DbManager db)

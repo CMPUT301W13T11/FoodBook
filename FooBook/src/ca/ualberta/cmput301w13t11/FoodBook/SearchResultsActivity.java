@@ -19,7 +19,6 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
-import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
 public class SearchResultsActivity extends Activity implements FView<DbManager>
@@ -111,6 +110,7 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -141,14 +141,6 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 	}
 
 
-	/*@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.search_results, menu);
-		return true;
-	}*/
 	public void OnGotoMainMenu(View View)
     {
 		// responds to button Go Back to Main Menu

@@ -1,7 +1,6 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
-import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
@@ -10,10 +9,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.text.method.ScrollingMovementMethod;
-import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,7 +31,6 @@ public class ViewSearchResultActivity extends Activity implements FView<DbManage
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_search_result);
 		
-		String caller;
 		Intent intent = getIntent();
 		String URI = intent.getStringExtra(EXTRA_URI);
 		uri=Long.parseLong(URI);
@@ -107,7 +103,7 @@ protected void updateView(){
 		DbController DbC = DbController.getInstance(this, this);
 		
 		Intent intent = getIntent();
-		long URI = intent.getLongExtra(SearchResultsActivity.EXTRA_URI, 0);
+		intent.getLongExtra(SearchResultsActivity.EXTRA_URI, 0);
 		//long uri = Long.parseLong(URI);
 		Recipe viewedRecipe=null;
 		for(int index=0; index<DbC.getStoredRecipes().size(); index++)

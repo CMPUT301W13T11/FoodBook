@@ -5,13 +5,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +19,10 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
-import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
-import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
-import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
 public class EditPhotos extends Activity implements FView<DbManager>
 {
@@ -69,7 +63,7 @@ public class EditPhotos extends Activity implements FView<DbManager>
 		if (!photos.isEmpty()) {
 
 			gridview = (GridView) findViewById(R.id.gridView1);
-			gridview.setAdapter(new ImageAdapter(this));
+			gridview.setAdapter(new ImageAdapter());
 
 			gridview.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View v,
@@ -97,12 +91,12 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	 */
 
 	public class ImageAdapter extends BaseAdapter {
-	    private Context mContext;
+	  /*  private Context mContext;
 
 	    public ImageAdapter(Context c) {
 	        mContext = c;
 	    }
-
+*/
 	    public int getCount() {
 	        return photos.size();
 	    }
@@ -142,19 +136,9 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	
 	@Override
 	protected void onStart() {
-	    // TODO Auto-generated method stub
 	    super.onStart();
 	    updateView();
-	    //FlurryAgent.onStartSession(this, "LPJJF9WYENDWYXXTEUDM");
 	}
-	
-	// @Override
-	// protected void onStop() {
-	// TODO Auto-generated method stub
-	// super.onStop();
-	// FlurryAgent.onEndSession(this);
-
-	// }
 
 	/**
 	 * This method is to scale down the image 

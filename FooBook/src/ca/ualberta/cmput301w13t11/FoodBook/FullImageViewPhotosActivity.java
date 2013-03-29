@@ -28,7 +28,9 @@ public class FullImageViewPhotosActivity extends Activity implements FView<DbMan
 	static final String EXTRA_IMG_PATH = "extra_img_path";
 	static final String EXTRA_URI = "extra_uri";
 	private String imgPath = null;
+	@SuppressWarnings("all")
 	private String id;
+	@SuppressWarnings("all")
 	private Long uri;
 	private ImageView imageView = null;
 	private Bitmap bitmap = null;
@@ -38,6 +40,7 @@ public class FullImageViewPhotosActivity extends Activity implements FView<DbMan
 	 * its results.  The process is started by calling "new SearchByKeywordsTask(uri of recipe).execute(photo to be uploaded)".
 	 * @author mbabic
 	 */
+	@SuppressWarnings("all")
 	private class UploadPhotoTask extends AsyncTask<Photo, Void, ReturnCode>{
 		private ProgressDialog progressDialog;
 		private long upload_uri;

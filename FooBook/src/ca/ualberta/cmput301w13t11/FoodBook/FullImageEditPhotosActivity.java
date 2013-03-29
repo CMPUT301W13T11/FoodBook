@@ -1,8 +1,5 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -23,7 +20,6 @@ import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
-import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
 public class FullImageEditPhotosActivity extends Activity implements FView<DbManager>{
@@ -46,6 +42,7 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 	 */
 	private class UploadPhotoTask extends AsyncTask<Photo, Void, ReturnCode>{
 		private ProgressDialog progressDialog;
+		@SuppressWarnings("all")
 		private long upload_uri;
 
 		public UploadPhotoTask(long uri)

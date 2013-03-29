@@ -1,7 +1,5 @@
 package ca.ualberta.cmput301w13t11.FoodBook;
 
-import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
-import ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import android.os.Bundle;
@@ -66,10 +64,5 @@ public class SearchActivity extends Activity implements FView<DbManager>
 		intent.putExtra(FoodBookApplication.SEARCH_TYPE, FoodBookApplication.ALL_INGREDIENTS_SEARCH);
 		startActivity(intent);
     }
-	/*public void onDestroy()
-	{	super.onDestroy();
-		DbController DbC = DbController.getInstance(this, this);
-		DbC.deleteView(this);
-	}*/
 
 }
