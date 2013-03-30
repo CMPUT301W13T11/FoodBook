@@ -57,7 +57,7 @@ public class ClientHelperTests extends TestCase {
 	
 	@Test
 	/**
-	 * Give toRecipe a response with no JSON in it; the method should fail to extact any information.
+	 * Give toRecipe a response with no JSON in it; the method should fail to extract any information.
 	 */
 	public void testToRecipeEmptyReturn()
 	{
@@ -133,6 +133,11 @@ public class ClientHelperTests extends TestCase {
 			fail("IOEception");
 		}
 		fail("Should'nt get here.");
+	}
+	
+	public void testResponseStringToRecipe()
+	{
+		
 	}
 
 }

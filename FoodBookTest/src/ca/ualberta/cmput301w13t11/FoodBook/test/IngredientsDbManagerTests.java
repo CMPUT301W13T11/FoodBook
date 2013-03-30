@@ -138,9 +138,6 @@ public class IngredientsDbManagerTests extends AndroidTestCase {
 
 		String newUnit = Long.toString(System.currentTimeMillis());
 
-		//	private void updateField(String name, String field, String value) {
-
-
 		try {
 			/* Testing private member function, need to use reflection. */
 			Class[] args = new Class[3];
