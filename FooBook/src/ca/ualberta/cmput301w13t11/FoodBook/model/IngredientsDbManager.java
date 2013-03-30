@@ -118,4 +118,8 @@ public class IngredientsDbManager extends DbManager {
 		}
 		return ingredients;
 	}
+
+	public String getTableName() {
+		return this.tableName;
+	}
 }

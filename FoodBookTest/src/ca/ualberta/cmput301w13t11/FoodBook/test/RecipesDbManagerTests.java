@@ -190,7 +190,7 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 		dbm.insertRecipe(recipe);
 
 		DbManager dbManager = DbManager.getInstance(this.getContext());
-		/* This is a private method, so we must use reflection. */
+
 		try {
 			/* Testing private member function, need to use reflection. */
 			Class[] args = new Class[2];

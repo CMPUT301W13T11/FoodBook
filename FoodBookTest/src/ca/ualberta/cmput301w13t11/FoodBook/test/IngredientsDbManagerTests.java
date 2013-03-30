@@ -4,7 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import android.database.Cursor;
 import android.test.AndroidTestCase;
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.IngredientsDbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
@@ -245,8 +247,52 @@ public class IngredientsDbManagerTests extends AndroidTestCase {
 		assertTrue("Should not have been able to find old ingredient in the database.", i >= ingredients.size());
 	}
 
+	/**
+	 * Test the functionality of cursorToMyIngredients()
+	 * Query the database to receive and cursor and ensure that a known recipe is correctly present
+	 * in the returned cursor.
+	 */
 	public void testCursorToMyIngredients()
 	{
+		idb = IngredientsDbManager.getInstance(this.getContext());
+		if (idb == null) {
+			fail("failed to get instance of IngredientsDbManager");
+		}
+		String name = Long.toString(System.currentTimeMillis());
+		Ingredient ingredient = new Ingredient(name, "test unit", (float) 100);
+		idb.insert(ingredient);
+		
+		DbManager dbm = DbManager.getInstance(this.getContext());
+		Cursor cursor = DbManager.getDb().rawQuery("SELECT * FROM " + idb.getTableName(), null);
+		
+		try {
+			/* Testing private member function, need to use reflection. */
+			Class[] args = new Class[1];
+			args[0] = Cursor.class;
+			Method method = idb.getClass().getDeclaredMethod("cursorToMyIngredients", args);
+			method.setAccessible(true);
+			ArrayList<Ingredient> ingredients = (ArrayList<Ingredient>) method.invoke(idb, cursor);
 
+			/* attempt to find known to exist ingredient in returned array*/
+			int i = 0;
+			for (i = 0; i < ingredients.size(); i++) {
+				if (ingredients.get(i).getName().equals(name)) {
+					break;
+				}
+			}
+
+			/*Ensure equality of remaining fields. */
+			assertTrue("Units should be the same.", ingredients.get(i).getUnit().equals(ingredient.getUnit()));
+			assertTrue("Quantities should be the same.", ingredients.get(i).getQuantity() == ingredient.getQuantity());
+			
+		} catch (NoSuchMethodException nsme) {
+			fail("NoSuchMethodException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException");
+		}
 	}
 }
