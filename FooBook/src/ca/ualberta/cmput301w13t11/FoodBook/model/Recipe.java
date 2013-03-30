@@ -262,9 +262,6 @@ public class Recipe {
 		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
 		ingredients.add(new Ingredient("egg", "whole", (float) 1/2));
 		ingredients.add(new Ingredient("butter", "tbsp", (float) 4));
-		ingredients.add(new Ingredient("sdf", "sdf", (float) 1/4));
-		ingredients.add(new Ingredient("milk", "mL", (float) 5000));
-		ingredients.add(new Ingredient("veal", "the whole baby cow", (float) 1));
 
 		Recipe ret = new Recipe(uri, user, title, instructions, ingredients);
 		return ret;

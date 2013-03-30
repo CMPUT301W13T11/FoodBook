@@ -191,7 +191,10 @@ public class DbManager extends FModel<FView> {
 		db.update(recipesTable, args, filter, null);
 	}
     
-
+	/* 
+	 * Retrieve Recipes \
+	 */
+	
     /**
      * Returns an ArrayList of all the Recipes stored in the table.
 	 * @return An ArrayList of all the Recipes stored in the table.
@@ -211,14 +214,14 @@ public class DbManager extends FModel<FView> {
 	    return cursorToRecipe(cursor);
 	}
 	
-	/**
-	 * Returns Recipe stored in the table, given recipe's uri
-	 * @return ARecipes stored in the table.
-	 */
-	public Recipe getRecipe() {
-	    Cursor cursor = db.rawQuery(getSQL, null);
-	    return cursorToRecipe(cursor);
-	}
+//	/**
+//	 * Returns Recipe stored in the table, given recipe's uri
+//	 * @return ARecipes stored in the table.
+//	 */
+//	public Recipe getRecipe() {
+//	    Cursor cursor = db.rawQuery(getSQL, null);
+//	    return cursorToRecipe(cursor);
+//	}
     
     /**
      * Given a cursor, convert it to an ArrayList of Recipes.
@@ -418,7 +421,7 @@ public class DbManager extends FModel<FView> {
     	
     	int recipes_removed = 0;
     	boolean deleted_pictures = true;
-    	//boolean deleted_ingreds = true;
+
     	try{
 
     		recipes_removed = db.delete(recipesTable, "URI = " + uri, null);
@@ -433,8 +436,7 @@ public class DbManager extends FModel<FView> {
     		removeRecipeIngredients(uri);
 
     	} catch(Exception e){e.printStackTrace();};
-    	// No need to check if ingredients cleared
-    	//return (recipes_removed==1 && deleted_pictures==true && deleted_ingreds==true);
+
     	return (recipes_removed==1 && deleted_pictures==true);
     }
     
@@ -476,7 +478,7 @@ public class DbManager extends FModel<FView> {
 	
 	/**
 	 * Given the ArrayList of photos with only an id and a pathname, returns a list of photos
-	 * with a byte_array as well.
+	 * with a byte_array as well by fetching the information from the SdCard.
 	 * @param photos A list of partial photos from which we wish to construct full photos.
 	 * @return An ArrayList of a photos with the corresponding byte_area representing the img data included.
 	 */
