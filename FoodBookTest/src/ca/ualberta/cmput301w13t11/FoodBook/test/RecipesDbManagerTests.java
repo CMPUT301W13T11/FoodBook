@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.os.Environment;
 import android.test.AndroidTestCase;
 import android.util.Log;
@@ -506,9 +508,58 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 		assertTrue("insertRecipePhotos() should return true.", ret == true);	
 	}
 
-	
+	/**
+	 * Tests the functionality of the cursorToPhotos() method.
+	 * We test to ensure that a the known result of a database query is correctly transformed into
+	 * a photo object with the correct, known parameters.
+	 */
 	public void testCursorToPhotos()
 	{
+		Recipe recipe = Recipe.generateRandomTestRecipe();
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
+			fail("failed to get an instance of RecipesDbManager");
+		}
+		dbm.insertRecipe(recipe);
+		Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
+		String name = Long.toString(System.currentTimeMillis());
+		String path = sdCardPath + name;
+		Photo newPhoto = new Photo(name, path);
+		boolean ret = dbm.insertRecipePhotos(newPhoto, bitmap, recipe.getUri());
+		assertTrue("We failed to insert a photo, so the results of this test are invalid.", ret == true);
+		
+		
+		DbManager dbManager = DbManager.getInstance(this.getContext());
+    	Cursor cursor = dbm.getDb().rawQuery("Select * From " + dbm.photosTable + " Where recipeURI = " + recipe.getUri(), null);
+    	
+		try {
+
+			/* Testing private member function, need to use reflection. */
+			Class[] args = new Class[1];
+			args[0] = Cursor.class;
+			Method method = dbManager.getClass().getDeclaredMethod("cursorToPhotos", args);
+			method.setAccessible(true);
+			ArrayList<Photo> photos = (ArrayList<Photo>) method.invoke(dbm, cursor);
+
+			/* Attempt to find the photo we stored in the returned array list */
+			int i;
+			for (i = 0; i < photos.size(); i++) {
+				if (photos.get(i).getId().equals(name))
+					break;
+			}
+
+			assertTrue("The photo we inserted should be in the returned ArrayList.", i < photos.size());
+			assertTrue("The returned path should be the same as the one stored.", photos.get(i).getPath().equals(path));
+		} catch (NoSuchMethodException nsme) {
+			fail("NoSuchMethodException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException");
+		}
+
 	}
 	
 	
@@ -548,7 +599,127 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 		assertTrue("The returned path should be the same as the one stored.", photos.get(i).getPath().equals(path));
 	}
 
+	
+	/**
+	 * Test the functionality of the savePhotoToDevice() method.
+	 * Ensure that the bit information of a photo object can be correctly stored to the device.
+	 */
+	public void testSavePhotoToDevice()
+	{
+		Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
+		assertTrue("test bitmap should not be null -- BogoPicgen failure", bitmap != null);
+		String name = Long.toString(System.currentTimeMillis());
+		String path = sdCardPath + name;
+		Photo newPhoto = new Photo(name, path);
+		DbManager dbManager = DbManager.getInstance(this.getContext());
 
+		try {
+
+			/* Testing private member function, need to use reflection. */
+			Class[] args = new Class[2];
+			args[0] = Bitmap.class;
+			args[1] = Photo.class;
+			Method method = dbManager.getClass().getDeclaredMethod("savePhotoToDevice", args);
+			method.setAccessible(true);
+			boolean ret = (Boolean) method.invoke(dbm, bitmap, newPhoto);
+			
+			assertTrue("savePhotoToDevice() should return true.", ret == true);			
+			
+		} catch (NoSuchMethodException nsme) {
+			fail("NoSuchMethodException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException");
+		}
+		
+		/* Now we test to see that the file can be retrieved. */
+	    Options options = new Options();
+	    options.inJustDecodeBounds = false;
+		Bitmap retBitmap = BitmapFactory.decodeFile(path, options);
+		assertTrue("returned Bitmap should not be null", retBitmap != null);
+		
+	}
+	
+	/**
+	 * Test the functionality of the getFullPhotos() method.
+	 * Ensure that expected photo objects are returned with non-null bitmap (where applicable).
+	 */
+	public void testGetFullPhotos()
+	{
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
+			fail("failed to get an instance of RecipesDbManager");
+		}
+		
+		Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
+		assertTrue("Generated bitmap should be non-null -- BogoPicGen failure.", bitmap != null);
+		String name = Long.toString(System.currentTimeMillis());
+		String path = sdCardPath + name;
+		Photo newPhoto = new Photo(name, path);		
+		ArrayList<Photo> arg = new ArrayList<Photo>();
+		arg.add(newPhoto);
+		
+		/* save bitmap to device */
+    	File file = null; 					/* the image file itself */
+    	boolean success = false;			/* set to true on successful write of image file to device storage*/
+    	boolean worked = false;			/* set to true on successful compression of given bitmap*/
+    	FileOutputStream outStream = null;	/* the file write stream */
+    	
+    	try {
+
+    		file = new File(path);
+			outStream = new FileOutputStream(file);
+			
+			worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
+			outStream.flush();
+			outStream.close();
+			success = true;
+			path = file.getAbsolutePath();
+
+		} catch (Exception ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+			Log.d("Failed to save image.", "Failed to save image.");
+			fail("Exception during bitmap save.");
+		} 
+
+    	assertTrue("Should be able to save bitmap to device.", success && worked);
+		
+		DbManager dbManager = DbManager.getInstance(this.getContext());
+		
+		try {
+
+			/* Testing private member function, need to use reflection. */
+			
+			Method method = dbManager.getClass().getDeclaredMethod("getFullPhotos", ArrayList.class);
+			method.setAccessible(true);
+			ArrayList<Photo> photos = (ArrayList<Photo>) method.invoke(dbm, arg);
+			
+			/* Attempt to find the photo we stored in the returned array list */
+			int i;
+			for (i = 0; i < photos.size(); i++) {
+				if (photos.get(i).getId().equals(name))
+					break;
+			}
+
+			assertTrue("The photo we inserted should be in the returned ArrayList.", i < photos.size());
+			assertTrue("The returned path should be the same as the one stored.", photos.get(i).getPath().equals(path));
+			assertTrue("The photo object returned should have non-null bitmap.", photos.get(i).getPhotoBitmap() != null);
+			
+		} catch (NoSuchMethodException nsme) {
+			fail("NoSuchMethodException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException");
+		}
+	}
+	
 	/**
 	 * Test the functionality of the removeRecipePhoto() method.
 	 * We attempt to remove a photo we know to exist on the phone and ensure that when we retrieve
