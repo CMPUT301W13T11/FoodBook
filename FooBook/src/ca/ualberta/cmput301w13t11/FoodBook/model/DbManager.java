@@ -112,7 +112,7 @@ public class DbManager extends FModel<FView> {
     /**
      * Inserts the given Ingredient into the database such that it is associated with the
      * recipe identified by recipeURI.
-     * @param ingred The ingredient to be 2 saves pics to inserted.
+     * @param ingred The ingredient to be inserted.
      * @param recipeURI The URI of the Recipe with which to associate the Ingredient.
      */
     public boolean insertRecipeIngredients(Ingredient ingred, long recipeURI) {
@@ -129,18 +129,22 @@ public class DbManager extends FModel<FView> {
      * @param recipeURI The URI of the Recipe with which to associate the Photo.
      */
     public boolean insertRecipePhotos(Photo photo, Bitmap bitmap, long recipeURI) {
+    	
         /* We first attempt to store the bitmap associated with the photo to the Db */
+    	
         if (!savePhotoToDevice(bitmap, photo)) {
             /* Saving failed, return false. */
             return false;
         }
 
         /* Else, we can safely place the photo information into the database. */
+        
         ContentValues values = new ContentValues();
         values.put("recipeURI", recipeURI);
         values.put("id", photo.getId());
         values.put("path", photo.getPath());
         db.insert(photosTable, null, values);
+        
         /* If we got here, everything was successful. */
         return true;
     }
@@ -150,7 +154,7 @@ public class DbManager extends FModel<FView> {
 	// *********************************************
 	
 	/**
-	 * Update the entry in the Db with the uri given the Recipe parameter with the values
+	 * Update the entry in the Db with the URI given by the Recipe parameter with the values
 	 * given by the Recipe parameter.
 	 * @param recipe The updated recipe to be stored in the database.
 	 */
@@ -175,8 +179,6 @@ public class DbManager extends FModel<FView> {
 		ContentValues args = new ContentValues();
 		args.put("title", newTitle);
 		db.update(recipesTable, args, filter, null);
-		//notifyViews();
-		//db.rawQuery("UPDATE " + tableName + " SET title=" + newTitle + " WHERE URI=" + Long.toString(uri), null);
 	}
 	
 	/**
@@ -191,8 +193,6 @@ public class DbManager extends FModel<FView> {
 		ContentValues args = new ContentValues();
 		args.put("instructions", newInstructions);
 		db.update(recipesTable, args, filter, null);
-		//notifyViews();
-		//db.rawQuery("UPDATE " + tableName + " SET title=" + newTitle + " WHERE URI=" + Long.toString(uri), null);
 	}
     
 
@@ -319,7 +319,7 @@ public class DbManager extends FModel<FView> {
     		catch(Exception e){
     			e.printStackTrace();
     		}  	
-    	return (success == 1 && deleted == true);
+    	return (success >= 1 && deleted == true);
     }
         
     /**
@@ -342,10 +342,8 @@ public class DbManager extends FModel<FView> {
      * @return true on success, false on failure
      */
     public boolean removeRecipeIngredient(String ingredName, long uri) {
-        //String createStatement = 
-        
+    	
         int success = db.delete(ingredsTable, "recipeURI = " + uri + " and name = " + ingredName, null); 
-                
         return (success>=1);
     }
     
