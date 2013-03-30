@@ -481,7 +481,7 @@ public class DbManager extends FModel<FView> {
 	 * Given the ArrayList of photos with only an id and a pathname, returns a list of photos
 	 * with a byte_array as well by fetching the information from the SdCard.
 	 * @param photos A list of partial photos from which we wish to construct full photos.
-	 * @return An ArrayList of a photos with the corresponding byte_area representing the img data included.
+	 * @return An ArrayList of a photos with the byte_array representing the image data included.
 	 */
 	private ArrayList<Photo> getFullPhotos(ArrayList<Photo> photos)
 	{

@@ -1,5 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook.test;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -7,7 +9,9 @@ import java.util.ArrayList;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.os.Environment;
 import android.test.AndroidTestCase;
+import android.util.Log;
 import ca.ualberta.cmput301w13t11.FoodBook.BogoPicGen;
 import ca.ualberta.cmput301w13t11.FoodBook.FoodBookApplication;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
@@ -20,10 +24,12 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 
 public class RecipesDbManagerTests extends AndroidTestCase {
 
+	private static String sdCardPath = Environment.getExternalStorageDirectory()+File.separator;
 	private static RecipesDbManager dbm = null;
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		sdCardPath = Environment.getExternalStorageDirectory()+File.separator;
 	}	
 
 
@@ -79,32 +85,6 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 
 
 	/**
-	 * Test the functionality of the insertRecipePhotos() method.
-	 * We simply check to see that a photo can be added to a recipe -- known to exist in the database-- without error.
-	 */
-	public void testInsertRecipePhotos()
-	{
-		Recipe recipe = Recipe.generateRandomTestRecipe();
-		dbm = RecipesDbManager.getInstance(this.getContext());
-		if (dbm == null) {
-			fail("failed to get an instance of RecipesDbManager");
-		}
-		dbm.insertRecipe(recipe);
-
-		/* Now we attempt to insert photo into the recipe we know exists in the Db. */
-
-		Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
-		String path = FoodBookApplication.getApplicationInstance().getSdCardPath();
-		String name = Long.toString(System.currentTimeMillis());
-		Photo newPhoto = new Photo(name, path);		
-
-		boolean ret = dbm.insertRecipePhotos(newPhoto, bitmap, recipe.getUri());
-
-
-		assertTrue("insertRecipePhotos() should return true.", ret == true);	
-	}
-
-	/**
 	 * Test the functionality of removeRecipe().
 	 * Ensure that when attempting to remove a recipe known to exist in the Db that the method returns true.
 	 */
@@ -155,36 +135,6 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 		assertTrue(true);
 	}
 
-
-
-	/**
-	 * Test the functionality of the getRecipe() method.
-	 * Ensure that a recipe of known parameters which exists in the database is returned correctly.
-	 */
-	public void testGetRecipe1()
-	{
-		Recipe recipe = Recipe.generateRandomTestRecipe();
-		dbm = RecipesDbManager.getInstance(this.getContext());
-		if (dbm == null) {
-			fail("failed to get an instance of RecipesDbManager");
-		}
-		dbm.insertRecipe(recipe);
-
-		Recipe ret = dbm.getRecipe(recipe.getUri());
-		assertTrue("Returned recipe title should be \"test\".", ret.getTitle().equals(recipe.getTitle()));
-		assertTrue("Return recipe user name shoud be \"tester\"", ret.getAuthor().getName().equals(recipe.getAuthor().getName()));
-
-		/* Test that all ingredients are returned in order with correct fields. */
-
-		for (Ingredient retIngredient : ret.getIngredients()) {
-			for (Ingredient recipeIngredient : recipe.getIngredients()) {
-				assertTrue("Names should be the same.", retIngredient.getName().equals(retIngredient.getName()));
-				assertTrue("Units should be the same.", retIngredient.getUnit().equals(retIngredient.getUnit()));
-				assertTrue("Quantities should be the same.", retIngredient.getQuantity() == retIngredient.getQuantity());
-
-			}
-		}
-	}
 
 
 	/**
@@ -528,5 +478,133 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 			assertTrue("Units should be the same.", retTemp.getUnit().equals(recipeTemp.getUnit()));
 			assertTrue("Quantities should be the same.", retTemp.getQuantity() == recipeTemp.getQuantity());	
 		}
+	}
+
+	/**
+	 * Test the functionality of the insertRecipePhotos() method.
+	 * We simply check to see that a photo can be added to a recipe -- known to exist in the database-- without error.
+	 */
+	public void testInsertRecipePhotos()
+	{
+		Recipe recipe = Recipe.generateRandomTestRecipe();
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
+			fail("failed to get an instance of RecipesDbManager");
+		}
+		dbm.insertRecipe(recipe);
+
+		/* Now we attempt to insert photo into the recipe we know exists in the Db. */
+
+		Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
+		String name = Long.toString(System.currentTimeMillis());
+		String path = sdCardPath + name;
+		Photo newPhoto = new Photo(name, path);		
+
+		boolean ret = dbm.insertRecipePhotos(newPhoto, bitmap, recipe.getUri());
+
+
+		assertTrue("insertRecipePhotos() should return true.", ret == true);	
+	}
+
+	
+	public void testCursorToPhotos()
+	{
+	}
+	
+	
+	/**
+	 * Test the functionality of the getRecipePhotos() method.
+	 * We attempt to retrieve a photo from a Recipe which we know to exist in the database and ensure
+	 * that the path and name and correctly fetched and returned.
+	 */
+	public void testGetRecipesPhotos()
+	{
+		Recipe recipe = Recipe.generateRandomTestRecipe();
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
+			fail("failed to get an instance of RecipesDbManager");
+		}
+		dbm.insertRecipe(recipe);
+		Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
+		String name = Long.toString(System.currentTimeMillis());
+		String path = sdCardPath + name;
+		Photo newPhoto = new Photo(name, path);		
+
+		boolean ret = dbm.insertRecipePhotos(newPhoto, bitmap, recipe.getUri());
+		assertTrue("We failed to insert a photo, so the results of this test are invalid.", ret == true);
+
+		ArrayList<Photo> photos = dbm.getRecipePhotos(recipe.getUri());
+
+		/* Attempt to find the photo we stored in the returned array list */
+		int i;
+		for (i = 0; i < photos.size(); i++) {
+			if (photos.get(i).getId().equals(name))
+				break;
+		}
+
+		assertTrue("The photo we inserted should be in the returned ArrayList.", i < photos.size());
+
+		/* Else, we found the photo in the list and need to further ensure that the path is the same. */
+		assertTrue("The returned path should be the same as the one stored.", photos.get(i).getPath().equals(path));
+	}
+
+
+	/**
+	 * Test the functionality of the removeRecipePhoto() method.
+	 * We attempt to remove a photo we know to exist on the phone and ensure that when we retrieve
+	 * the Recipe's photos the photo we deleted is not among them.  We also test to make sure that
+	 * the photo file is deleted from device storage.
+	 */
+	public void testRemoveRecipePhoto()
+	{
+		Recipe recipe = Recipe.generateRandomTestRecipe();
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
+			fail("failed to get an instance of RecipesDbManager");
+		}
+		dbm.insertRecipe(recipe);
+		Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
+		String name = Long.toString(System.currentTimeMillis());
+		String path = sdCardPath + name;
+		Photo newPhoto = new Photo(name, path);		
+
+		boolean ret = dbm.insertRecipePhotos(newPhoto, bitmap, recipe.getUri());
+		assertTrue("We failed to insert a photo, so the results of this test are invalid.", ret == true);
+
+		ArrayList<Photo> photos = dbm.getRecipePhotos(recipe.getUri());
+
+		/* Attempt to find the photo we stored in the returned array list */
+		int i;
+		for (i = 0; i < photos.size(); i++) {
+			if (photos.get(i).getId().equals(name))
+				break;
+		}
+
+		assertTrue("The photo we inserted should be in the returned ArrayList.", i < photos.size());
+
+		/* We got here, we know the photo was correctly inserted.  We now attempt to remove it and ensure it has been deleted. */
+		ret = dbm.removeRecipePhoto(newPhoto);
+		assertTrue("removeRecipePhoto should return true", ret == true);
+
+		photos = dbm.getRecipePhotos(recipe.getUri());
+
+		for (i = 0; i < photos.size(); i++) {
+			if (photos.get(i).getId().equals(name))
+				break;
+		}
+
+		assertTrue("The photo we deleted should not be in the returned ArrayList.", i >= photos.size());
+		
+		boolean deleted = true;
+		try{
+	    	File file = new File(path);
+	        deleted = file.delete();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		assertTrue("file.delete() method should return false", deleted == false);
+
 	}
 }
