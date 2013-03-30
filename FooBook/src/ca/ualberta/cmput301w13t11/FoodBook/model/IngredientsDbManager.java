@@ -99,4 +99,23 @@ public class IngredientsDbManager extends DbManager {
             args.put(field, value);
             db.update(tableName, args, filter, null);
     }
+    
+    /**
+     * Converts the cursor, retrieved by querying the MyIngredientsTable, and converts it to an ArrayList of ingredients.
+     * @param cursor The cursor over which we will iterate to get the ingredients from.
+     * @return An ArrayList of ingredients.
+     */
+    private ArrayList<Ingredient> cursorToMyIngredients(Cursor cursor) {
+    	ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+    	cursor.moveToFirst();
+    	while (!cursor.isAfterLast()) {
+    		String name = cursor.getString(0);
+    		String unit = cursor.getString(1);
+    		float quantity = cursor.getFloat(2);
+    		Ingredient ingredient = new Ingredient(name, unit, quantity);
+    		ingredients.add(ingredient);
+    		cursor.moveToNext();
+    	}
+    	return ingredients;
+    }
 }

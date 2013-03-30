@@ -64,6 +64,14 @@ public class DbManager extends FModel<FView> {
     }
     
     /**
+     * @return SQLiteDatabase attribute
+     */
+    public static SQLiteDatabase getDb()
+    {
+    	return db;
+    }
+    
+    /**
      * Get instance of the singleton DbManager.
      * @return The instance of the class.
      */
@@ -287,7 +295,6 @@ public class DbManager extends FModel<FView> {
     
     /**
      * Gets all the Photos associated with the recipe identified by its URI.
-     * NOTE: "changed to public so that we can retrieve just photos for galleries" - Pablo
      * @param uri The URI of the recipe whose photos we are fetching.
      * @return An ArrayList of the Photos associated with the recipe.
      */
@@ -349,27 +356,6 @@ public class DbManager extends FModel<FView> {
 //        int success = db.delete(ingredsTable, "recipeURI = " + uri + " and name = " + ingredName, null); 
 //        return (success>=1);
 //    }
-    
-    
-    /**
-     * Queries the ingredientsTable using the given cursor and converts to an ArrayList appropriately.
-     * @param cursor The cursor over which we will iterate to get the ingredients from.
-     * @return An ArrayList of ingredients.
-     */
-    protected ArrayList<Ingredient> cursorToMyIngredients(Cursor cursor) {
-    	ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
-    	cursor.moveToFirst();
-    	while (!cursor.isAfterLast()) {
-    		String name = cursor.getString(0);
-    		String unit = cursor.getString(1);
-    		float quantity = cursor.getFloat(2);
-    		Ingredient ingredient = new Ingredient(name, unit, quantity);
-    		ingredients.add(ingredient);
-    		cursor.moveToNext();
-    	}
-    	return ingredients;
-    }
-    
     
     
     /**

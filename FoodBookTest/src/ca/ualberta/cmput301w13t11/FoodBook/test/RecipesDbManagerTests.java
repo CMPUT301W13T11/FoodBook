@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.test.AndroidTestCase;
 import ca.ualberta.cmput301w13t11.FoodBook.BogoPicGen;
@@ -18,7 +20,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 
 public class RecipesDbManagerTests extends AndroidTestCase {
 
-	private static RecipesDbManager db = null;
+	private static RecipesDbManager dbm = null;
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -30,8 +32,8 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	 */
 	public void testGetInstance()
 	{
-		db = RecipesDbManager.getInstance(this.getContext());
-		assertTrue("getInstance should not return null.", db != null);
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		assertTrue("getInstance should not return null.", dbm != null);
 		assertTrue("getInstance w/o args should not return null now.", ResultsDbManager.getInstance() != null);
 	}
 
@@ -43,12 +45,12 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	public void testInsertRecipe()
 	{
 		Recipe recipe = Recipe.generateRandomTestRecipe();
-		db = RecipesDbManager.getInstance(this.getContext());
-		if (db == null) {
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager.");
 		}
 
-		db.insertRecipe(recipe);
+		dbm.insertRecipe(recipe);
 
 		/* We arrived here without error, we'll consider this a pass. */
 		assertTrue(true);
@@ -61,15 +63,15 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	public void testInsertRecipeIngredients()
 	{
 		Recipe recipe = Recipe.generateRandomTestRecipe();
-		db = RecipesDbManager.getInstance(this.getContext());
-		if (db == null) {
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager");
 		}
-		db.insertRecipe(recipe);
+		dbm.insertRecipe(recipe);
 
 		/* Now we attempt to insert another ingredient into the recipe we know exists in the Db. */
 		Ingredient newIngredient = new Ingredient("this", "is a test", 100);
-		boolean ret = db.insertRecipeIngredients(newIngredient, recipe.getUri());
+		boolean ret = dbm.insertRecipeIngredients(newIngredient, recipe.getUri());
 
 
 		assertTrue("insertRecipeIngredients() should return true.", ret == true);
@@ -83,11 +85,11 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	public void testInsertRecipePhotos()
 	{
 		Recipe recipe = Recipe.generateRandomTestRecipe();
-		db = RecipesDbManager.getInstance(this.getContext());
-		if (db == null) {
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager");
 		}
-		db.insertRecipe(recipe);
+		dbm.insertRecipe(recipe);
 
 		/* Now we attempt to insert photo into the recipe we know exists in the Db. */
 
@@ -96,7 +98,7 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 		String name = Long.toString(System.currentTimeMillis());
 		Photo newPhoto = new Photo(name, path);		
 
-		boolean ret = db.insertRecipePhotos(newPhoto, bitmap, recipe.getUri());
+		boolean ret = dbm.insertRecipePhotos(newPhoto, bitmap, recipe.getUri());
 
 
 		assertTrue("insertRecipePhotos() should return true.", ret == true);	
@@ -109,12 +111,12 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	public void testRemoveRecipe1()
 	{
 		Recipe recipe = Recipe.generateRandomTestRecipe();
-		db = RecipesDbManager.getInstance(this.getContext());
-		if (db == null) {
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager");
 		}
-		db.insertRecipe(recipe);
-		boolean ret = db.removeRecipe(recipe);
+		dbm.insertRecipe(recipe);
+		boolean ret = dbm.removeRecipe(recipe);
 		assertTrue("removeRecipe() should return true", ret == true);
 
 	}
@@ -125,12 +127,12 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	 */
 	public void testRemoveRecipe2()
 	{
-		db = RecipesDbManager.getInstance(this.getContext());
-		if (db == null) {
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager");
 		}
 		Recipe recipe = new Recipe(0, new User(""), "", "", new ArrayList<Ingredient>(), new ArrayList<Photo>());
-		boolean ret = db.removeRecipe(recipe);
+		boolean ret = dbm.removeRecipe(recipe);
 		assertTrue("removeRecipe() should return false", ret == false);
 
 	}
@@ -142,12 +144,12 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	public void testRemoveRecipeIngredients1()
 	{
 		Recipe recipe = Recipe.generateRandomTestRecipe();
-		db = RecipesDbManager.getInstance(this.getContext());
-		if (db == null) {
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager");
 		}
-		db.insertRecipe(recipe);
-		db.removeRecipeIngredients(recipe.getUri());
+		dbm.insertRecipe(recipe);
+		dbm.removeRecipeIngredients(recipe.getUri());
 
 		/* Got here without error, we will consider this a pass. */
 		assertTrue(true);
@@ -162,13 +164,13 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	public void testGetRecipe1()
 	{
 		Recipe recipe = Recipe.generateRandomTestRecipe();
-		db = RecipesDbManager.getInstance(this.getContext());
-		if (db == null) {
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager");
 		}
-		db.insertRecipe(recipe);
+		dbm.insertRecipe(recipe);
 
-		Recipe ret = db.getRecipe(recipe.getUri());
+		Recipe ret = dbm.getRecipe(recipe.getUri());
 		assertTrue("Returned recipe title should be \"test\".", ret.getTitle().equals(recipe.getTitle()));
 		assertTrue("Return recipe user name shoud be \"tester\"", ret.getAuthor().getName().equals(recipe.getAuthor().getName()));
 
@@ -192,13 +194,13 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	public void testRemoveRecipeIngredients2()
 	{
 		Recipe recipe = Recipe.generateRandomTestRecipe();
-		db = RecipesDbManager.getInstance(this.getContext());
-		if (db == null) {
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager");
 		}
-		db.insertRecipe(recipe);
-		db.removeRecipeIngredients(recipe.getUri());
-		Recipe ret = db.getRecipe(recipe.getUri());
+		dbm.insertRecipe(recipe);
+		dbm.removeRecipeIngredients(recipe.getUri());
+		Recipe ret = dbm.getRecipe(recipe.getUri());
 
 		assertTrue("Upon retrieval, recipe should now have no ingredients.", ret.getIngredients().isEmpty());
 	}
@@ -210,13 +212,13 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	public void testGetRecipes()
 	{
 		Recipe recipe = Recipe.generateRandomTestRecipe();
-		db = RecipesDbManager.getInstance(this.getContext());
-		if (db == null) {
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager");
 		}
-		db.insertRecipe(recipe);
+		dbm.insertRecipe(recipe);
 
-		ArrayList<Recipe> recipes = db.getRecipes();
+		ArrayList<Recipe> recipes = dbm.getRecipes();
 
 		assertTrue("Returned list should not be empty.", !recipes.isEmpty());
 	}
@@ -229,24 +231,24 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	public void testUpdateRecipeTitle()
 	{
 		Recipe recipe = Recipe.generateRandomTestRecipe();
-		db = RecipesDbManager.getInstance(this.getContext());
-		if (db == null) {
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager");
 		}
-		db.insertRecipe(recipe);
+		dbm.insertRecipe(recipe);
 
-		DbManager dbm = DbManager.getInstance(this.getContext());
+		DbManager dbManager = DbManager.getInstance(this.getContext());
 		/* This is a private method, so we must use reflection. */
 		try {
 			/* Testing private member function, need to use reflection. */
 			Class[] args = new Class[2];
 			args[0] = long.class;
 			args[1] = String.class;
-			Method method = dbm.getClass().getDeclaredMethod("updateRecipeTitle", args);
+			Method method = dbManager.getClass().getDeclaredMethod("updateRecipeTitle", args);
 			method.setAccessible(true);
-			method.invoke(db, recipe.getUri(),"new");
+			method.invoke(dbm, recipe.getUri(),"new");
 			
-			Recipe ret = db.getRecipe(recipe.getUri());
+			Recipe ret = dbm.getRecipe(recipe.getUri());
 			assertTrue("Recipe's title should now be \"new\"", ret.getTitle().equals("new"));
 		} catch (NoSuchMethodException nsme) {
 			fail("NoSuchMethodException");
@@ -268,24 +270,24 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	public void testUpdateRecipeInstructions()
 	{
 		Recipe recipe = Recipe.generateRandomTestRecipe();
-		db = RecipesDbManager.getInstance(this.getContext());
-		if (db == null) {
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager");
 		}
-		db.insertRecipe(recipe);
+		dbm.insertRecipe(recipe);
 
-		DbManager dbm = DbManager.getInstance(this.getContext());
+		DbManager dbManager = DbManager.getInstance(this.getContext());
 		/* This is a private method, so we must use reflection. */
 		try {
 			/* Testing private member function, need to use reflection. */
 			Class[] args = new Class[2];
 			args[0] = long.class;
 			args[1] = String.class;
-			Method method = dbm.getClass().getDeclaredMethod("updateRecipeInstructions", args);
+			Method method = dbManager.getClass().getDeclaredMethod("updateRecipeInstructions", args);
 			method.setAccessible(true);
-			method.invoke(db, recipe.getUri(),"new instructions");
+			method.invoke(dbm, recipe.getUri(),"new instructions");
 			
-			Recipe ret = db.getRecipe(recipe.getUri());
+			Recipe ret = dbm.getRecipe(recipe.getUri());
 			assertTrue("Recipe's title should now be \"new instructions\"", ret.getInstructions().equals("new instructions"));
 		} catch (NoSuchMethodException nsme) {
 			fail("NoSuchMethodException");
@@ -306,20 +308,68 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	public void testUpdateRecipe()
 	{
 		Recipe recipe = Recipe.generateRandomTestRecipe();
-		db = RecipesDbManager.getInstance(this.getContext());
-		if (db == null) {
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager");
 		}
-		db.insertRecipe(recipe);
+		dbm.insertRecipe(recipe);
 		
 		/* Now change the parameters */
 		recipe.setTitle("new");
 		recipe.setInstructions("new instructions");
-		db.updateRecipe(recipe);
+		dbm.updateRecipe(recipe);
 		
-		Recipe ret = db.getRecipe(recipe.getUri());
+		Recipe ret = dbm.getRecipe(recipe.getUri());
 		assertTrue("Recipe's title should now be \"new\"", ret.getTitle().equals("new"));
 		assertTrue("Recipe's title should now be \"new instructions\"", ret.getInstructions().equals("new instructions"));
 
+	}
+	
+	/**
+	 * Test the functionality of cursor to ingredients.
+	 * Ensure that 
+	 */
+	public void testCursorToIngredients()
+	{
+	    //protected ArrayList<Ingredient> cursorToIngredients(Cursor cursor) {
+		Recipe recipe = Recipe.generateRandomTestRecipe();
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
+			fail("failed to get an instance of RecipesDbManager");
+		}
+		dbm.insertRecipe(recipe);
+		
+    	Cursor cursor = RecipesDbManager.getDb().rawQuery("Select * From " + dbm.ingredsTable + " Where recipeURI = " + recipe.getUri(), null);
+    	
+		DbManager dbManager = DbManager.getInstance(this.getContext());
+		/* This is a private method, so we must use reflection. */
+		try {
+			/* Testing private member function, need to use reflection. */
+			Class[] args = new Class[1];
+			args[0] = Cursor.class;
+			Method method = dbManager.getClass().getDeclaredMethod("cursorToIngredients", args);
+			method.setAccessible(true);
+			ArrayList<Ingredient> ret = (ArrayList<Ingredient>) method.invoke(dbm, cursor);
+			
+			for (int i = 0; i < ret.size(); i++) {
+				assertTrue("Names should be equal.", ret.get(i).getName().equals(recipe.getIngredients().get(i).getName()));
+				assertTrue("Units should be equal.", ret.get(i).getUnit().equals(recipe.getIngredients().get(i).getUnit()));
+				assertTrue("Quantities should be equal.", ret.get(i).getQuantity() == recipe.getIngredients().get(i).getQuantity());
+			}
+	
+		} catch (NoSuchMethodException nsme) {
+			fail("NoSuchMethodException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException");
+		}
+	}
+	
+	public void testGetRecipeIngredients()
+	{
+		
 	}
 }

@@ -7,8 +7,8 @@ import java.util.Collection;
 import android.content.ContentValues;
 
 /**
- * Class which models a recipe. (TODO: better description)
- * @author 
+ * Class which models a recipe.
+ * @author The FoodBook team
  *
  */
 public class Recipe {

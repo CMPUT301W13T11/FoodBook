@@ -66,8 +66,8 @@ public class DbManagerTests extends AndroidTestCase {
 		} catch (InvocationTargetException e) {
 			fail("InvocationTargetException");
 		}
-		
 	}
+	
 	
 	/**
 	 * Test RecipeToMap() for error in ContentValues creation.
