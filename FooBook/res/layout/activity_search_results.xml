@@ -24,7 +24,8 @@
         android:layout_below="@+id/textView1" >
 
     </ListView>
-
+
+
     <Button
         android:id="@+id/menu_button"
         style="@style/OrangeButton"
@@ -37,7 +38,10 @@
         android:onClick="OnGotoMainMenu"
         android:text="@string/main_menu"
         android:textSize="20sp" />
-
+
+
+
+
     <Button
         android:id="@+id/search_again"
         style="@style/GreenButton"

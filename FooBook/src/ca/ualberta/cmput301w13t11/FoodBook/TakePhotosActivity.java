@@ -198,10 +198,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	@Override
 	public void update(DbManager db)
 	{
-
-		// TODO Auto-generated method stub
-		updateView();
-		
+		updateView();	
 	}
 	public void onDestroy()
 	{	super.onDestroy();

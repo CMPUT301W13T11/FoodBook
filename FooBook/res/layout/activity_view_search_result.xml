@@ -49,9 +49,9 @@
     <TextView
         android:id="@+id/Instructions"
         android:layout_width="wrap_content"
-        android:layout_height="121dp"
-        android:scrollbars = "vertical"
-        android:lines="5" >
+        android:layout_height="63dp"
+        android:lines="5"
+        android:scrollbars="vertical" >
         
     </TextView>
 
