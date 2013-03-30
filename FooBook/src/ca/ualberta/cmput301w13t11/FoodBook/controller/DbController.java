@@ -205,18 +205,18 @@ public class DbController {
     }
     
     
-    /**
-     * Delete the given ingredient from the Recipe specified by Recipe.
-     * @param ingred The ingredient to be deleted.
-     * @param recipe The Recipe from which we wish to delete the Recipe.
-     * @return true on success, false on failure
-     */
-    public boolean deleteRecipeIngredient(Ingredient ingred, Recipe recipe)
-    {
-        boolean success = recipesManager.removeRecipeIngredient(ingred.getName(), recipe.getUri());
-        db.notifyViews();
-        return success;
-    }
+//    /**
+//     * Delete the given ingredient from the Recipe specified by Recipe.
+//     * @param ingred The ingredient to be deleted.
+//     * @param recipe The Recipe from which we wish to delete the Recipe.
+//     * @return true on success, false on failure
+//     */
+//    public boolean deleteRecipeIngredient(Ingredient ingred, Recipe recipe)
+//    {
+//        boolean success = recipesManager.removeRecipeIngredient(ingred.getName(), recipe.getUri());
+//        db.notifyViews();
+//        return success;
+//    }
     
     /* *****************************************************************
     USE THESE METHODS FOR RETRIEVING/DELETING RECIPES STORED FROM SEARCH

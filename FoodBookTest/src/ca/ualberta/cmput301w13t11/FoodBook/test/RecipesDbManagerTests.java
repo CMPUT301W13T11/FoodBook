@@ -105,7 +105,7 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	
 	/**
 	 * Test the functionality of removeRecipe().
-	 * Insure that when attempting to remove a recipe known to exist in the Db that the method returns true.
+	 * Ensure that when attempting to remove a recipe known to exist in the Db that the method returns true.
 	 */
 	public void testRemoveRecipe1()
 	{
@@ -122,7 +122,7 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	
 	/**
 	 * Test the functionality of removeRecipe()
- 	 * Insure that when attempting to remove a recipe known to not exist in the Db that the method returns false.
+ 	 * Ensure that when attempting to remove a recipe known to not exist in the Db that the method returns false.
 	 */
 	public void testRemoveRecipe2()
 	{
@@ -137,8 +137,28 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 	}
 	
 	/**
+	 * Test the functionality of removeRecipeIngredient()
+	 * Ensure that the no errors occur when attempting to remove ingredients from a recipe known to have ingredients.
+	 */
+	public void testRemoveRecipeIngredients1()
+	{
+		Recipe recipe = Recipe.generateRandomTestRecipe();
+		db = RecipesDbManager.getInstance(this.getContext());
+		if (db == null) {
+			fail("failed to get an instance of RecipesDbManager");
+		}
+		db.insertRecipe(recipe);
+		db.removeRecipeIngredients(recipe.getUri());
+
+		/* Got here without error, we will consider this a pass. */
+		assertTrue(true);
+	}
+	
+
+	
+	/**
 	 * Test the functionality of the getRecipe() method.
-	 * Insure that a recipe of known parameters which exists in the database is returned correctly.
+	 * Ensure that a recipe of known parameters which exists in the database is returned correctly.
 	 */
 	public void testGetRecipe1()
 	{
@@ -165,6 +185,25 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 		}
 	}
 	
+	
+	/**
+	 * Test the functionality of removeRecipeIngredient()
+	 * Ensure that all ingredients are actually removed from a recipe.
+	 */
+	public void testRemoveRecipeIngredients2()
+	{
+		Recipe recipe = Recipe.generateRandomTestRecipe();
+		db = RecipesDbManager.getInstance(this.getContext());
+		if (db == null) {
+			fail("failed to get an instance of RecipesDbManager");
+		}
+		db.insertRecipe(recipe);
+		db.removeRecipeIngredients(recipe.getUri());
+		Recipe ret = db.getRecipe(recipe.getUri());
+
+		assertTrue("Upon retrieval, recipe should now have no ingredients.", ret.getIngredients().isEmpty());
+	}
+	
 	/**
 	 * Test the functionality of the getRecipes() function.
 	 * We simply ensure that the returned list is not empty when we know there exists a recipe in the database.
@@ -182,6 +221,8 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 		
 		assertTrue("Returned list should not be empty.", !recipes.isEmpty());
 	}
+	
+	
 	
 	
 //	/**

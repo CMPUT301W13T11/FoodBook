@@ -3,13 +3,12 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
@@ -328,23 +327,28 @@ public class DbManager extends FModel<FView> {
      * @return true on success, false on failure
      */
     public boolean removeRecipeIngredients(long uri) {
-
-    	int success = db.delete(ingredsTable, "recipeURI = " + uri, null); 
+    	
+    	int success = 0;
+    	try {
+    		success = db.delete(ingredsTable, "recipeURI = " + uri, null); 
+    	} catch (SQLiteException sqle) {
+    		sqle.printStackTrace();
+    	}
     	    	
     	return (success>=1);
     }
     
-    /**
-     * Deletes the ingredient associated with the recipe specified by the uri (ie.
-     * removes it from the RecipeIngredients table).
-     * @param uri The uri of the recipe whose ingredients we would like to remove.
-     * @return true on success, false on failure
-     */
-    public boolean removeRecipeIngredient(String ingredName, long uri) {
-    	
-        int success = db.delete(ingredsTable, "recipeURI = " + uri + " and name = " + ingredName, null); 
-        return (success>=1);
-    }
+//    /**
+//     * Deletes the ingredient associated with the recipe specified by the uri (ie.
+//     * removes it from the RecipeIngredients table).
+//     * @param uri The uri of the recipe whose ingredients we would like to remove.
+//     * @return true on success, false on failure
+//     */
+//    public boolean removeRecipeIngredient(String ingredName, long uri) {
+//    	
+//        int success = db.delete(ingredsTable, "recipeURI = " + uri + " and name = " + ingredName, null); 
+//        return (success>=1);
+//    }
     
     
     /**
