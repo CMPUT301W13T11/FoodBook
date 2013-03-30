@@ -40,10 +40,6 @@ public class DbManager extends FModel<FView> {
     public String photosTable;// = "RecipePhotos";
     public String getSQL;
     
-    /* Logger. */
-	static private final Logger logger = Logger.getLogger(DbManager.class.getName());
-
-
     /**
      * Protected constructor because we're using the singleton pattern.
      */

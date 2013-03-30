@@ -1,11 +1,6 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.content.Context;
-import android.database.Cursor;
-import android.util.Log;
 
 /**
  * Implements the functionality required to manage the table of Recipes for the application.
@@ -19,10 +14,6 @@ import android.util.Log;
 public class RecipesDbManager extends DbManager {
 	
 	private static RecipesDbManager instance = null;
-	//recipesTable = "UserRecipes";
-	//public String ingredsTable = "RecipeIngredients";
-	//public String photosTable = "RecipePhotos";
-	//public String getSQL = "SELECT * FROM " + recipesTable;
 
 	public RecipesDbManager(Context context)
 	{
