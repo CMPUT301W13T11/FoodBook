@@ -778,4 +778,97 @@ public class ResultsDbManagerTests extends AndroidTestCase {
 		assertTrue("file.delete() method should return false", deleted == false);
 
 	}
+	
+	/**
+	 * Test the functionality of the storeRecipsMethod()
+	 * Ensure that an array list of recipes is correctly stored in the results database by attempting to store/retrieve
+	 * known recipe objects.
+	 * CAUTION: partially dependent on the correct functioning of getRecipes() -- make sure is tests have passed before
+	 * evaluating the results of this test.
+	 */
+	public void testStoreRecipes()
+	{
+		dbm = ResultsDbManager.getInstance(this.getContext());
+		if (dbm == null) {
+			fail("failed to get an instance of ResultsDbManager");
+		}
+		
+		/* Create photo arrays. */
+		String name1 = Long.toString(System.currentTimeMillis());
+		String path1 = sdCardPath + name1;
+		Photo newPhoto1 = new Photo(name1, path1);
+		
+		ArrayList<Photo> p1 = new ArrayList<Photo>();
+		p1.add(newPhoto1);
+
+		
+		String name2 = Long.toString(System.currentTimeMillis());
+		String path2 = sdCardPath + name2;
+		Photo newPhoto2 = new Photo(name2, path2);
+		
+		String name3 = Long.toString(System.currentTimeMillis());
+		String path3 = sdCardPath + name3;
+		Photo newPhoto3 = new Photo(name3, path3);
+		
+		ArrayList<Photo> p2 = new ArrayList<Photo>();
+		p2.add(newPhoto2);
+		p2.add(newPhoto3);
+		
+
+		/* Create ingredient arrays. */
+		ArrayList<Ingredient> i1 = new ArrayList<Ingredient>();
+		ArrayList<Ingredient> i2 = new ArrayList<Ingredient>();
+		i1.add(new Ingredient("egg", "whole", (float) 1/2));
+		i2.add(new Ingredient("butter", "tbsp", (float) 4));
+		
+		
+		Recipe r1 = new Recipe(1, new User("user1"), "title1", "instructions1", i1, p1);
+		Recipe r2 = new Recipe(2, new User("user2"), "title2", "instructions2", i2, p2);
+		
+		ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+		recipes.add(r1);
+		recipes.add(r2);
+		
+		dbm.storeRecipes(recipes);
+		
+		ArrayList<Recipe> ret = dbm.getRecipes();
+		
+		assertTrue("Results table should have same number of elements as test recipe array.", ret.size() == recipes.size());
+		
+		/* Check for equality amongst results and recipes created above. */
+		
+		Recipe t1 = null;
+		Recipe t2 = null;
+		Ingredient it1 = null;
+		Ingredient it2 = null;
+		Photo ip1 = null;
+		Photo ip2= null;
+		for (int i = 0; i < ret.size(); i++) {
+			t1 = ret.get(i);
+			t2 = recipes.get(i);
+			
+			assertTrue("Titles should be the same.", t1.getTitle().equals(t2.getTitle()));
+			assertTrue("Author names should be the same.", t1.getAuthor().getName().equals(t2.getAuthor().getName()));
+			assertTrue("Instructions should be the same.", t1.getInstructions().equals(t2.getInstructions()));
+			
+			/* Check equality of ingredient arrays. */
+			for (int j = 0; j < t1.getIngredients().size(); j++) {
+				it1 = t1.getIngredients().get(j);
+				it2 = t2.getIngredients().get(j);
+				assertTrue("Names should be the same.", it1.getName().equals(it2.getName()));
+				assertTrue("Units should be the same.", it1.getUnit().equals(it2.getUnit()));
+				assertTrue("Quantities shoul be the same.", it1.getQuantity() == it2.getQuantity());
+			}
+			
+			/* Check equality of photo arrays. */
+			for (int j = 0; j < t1.getPhotos().size(); j++) {
+				it1 = t1.getIngredients().get(j);
+				it2 = t2.getIngredients().get(j);
+				assertTrue("Ids should be the same.", ip1.getId().equals(ip2.getId()));
+				assertTrue("Paths should be the same.", ip1.getPath().equals(ip2.getPath()));
+			}
+			
+		}
+		
+	}
 }

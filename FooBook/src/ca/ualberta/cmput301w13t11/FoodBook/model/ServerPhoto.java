@@ -56,6 +56,7 @@ public class ServerPhoto {
 		}
 	
 		Log.d("ServerPhoto.toPhoto()", "imgPath = " + imgPath);
+		Log.d("ServerPhoto.toPhoto()", "id to stoe = " + sp.getId());
 		if (sp.encoded_bitmap != null) {
 			byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);
 			return new Photo(sp.getId(), imgPath, data);
