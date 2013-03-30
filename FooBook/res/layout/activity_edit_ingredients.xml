@@ -27,56 +27,59 @@
         android:id="@+id/mylist"
         android:layout_width="match_parent"
         android:layout_height="355dp"
+        android:layout_above="@+id/Button01"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/textView1" >
+
     </ListView>
-
-    <Button
-        android:id="@+id/Button01"
-        style="@style/GreenButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_below="@+id/mylist"
-        android:onClick="OnSaveIngredients"
-        android:layout_marginRight="5sp" 
-        android:text="@string/save_changes"
-        android:layout_marginBottom="15sp" 
-         android:textSize="15sp"/>
-
-    <Button
-        android:id="@+id/add_ingredient"
-        style="@style/GreenButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/Button01"
-        android:onClick="OnAddIngredient"
-        android:text="@string/add_ingredient"
-        android:textSize="15sp" />
 
     <Button
         android:id="@+id/remove_ingredient"
         style="@style/BlueButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/Button01"
-        android:layout_marginLeft="5sp" 
+        android:layout_centerHorizontal="true"
         android:onClick="OnRemoveIngredient"
+        android:layout_marginBottom="10dp"
         android:text="@string/remove"
         android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/Button01"
+        style="@style/GreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/menu_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="15dp"
+        android:onClick="OnSaveIngredients"
+        android:text="@string/save_changes"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/menu_button"
         style="@style/OrangeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/remove_ingredient"
-        android:layout_alignBottom="@+id/remove_ingredient"
-        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="14dp"
         android:onClick="OnGotoMainMenu"
         android:text="@string/main_menu"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/add_ingredient"
+        style="@style/GreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/remove_ingredient"
+        android:layout_alignBottom="@+id/remove_ingredient"
+        android:layout_alignParentRight="true"
+        android:onClick="OnAddIngredient"
+        android:text="@string/add_ingredient"
         android:textSize="15sp" />
 
 </RelativeLayout>

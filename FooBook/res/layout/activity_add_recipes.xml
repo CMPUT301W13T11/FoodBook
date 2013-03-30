@@ -1,7 +1,5 @@
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
 <FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
        android:layout_width="match_parent"
        android:layout_height="wrap_content" >
     <TableLayout
@@ -55,20 +53,6 @@
         </EditText>
 
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/ingredients"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <ExpandableListView
-            android:id="@+id/expandableListView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ExpandableListView>
-
-        <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -79,7 +63,7 @@
         <EditText
             android:id="@+id/editText3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="90dp"
             android:ems="10"
             android:inputType="textMultiLine"
             android:lines="5" />
@@ -140,4 +124,3 @@
        android:contentDescription = "Popup Fade out"
        android:src="@drawable/trans_black" />
 </FrameLayout>
-</ScrollView>

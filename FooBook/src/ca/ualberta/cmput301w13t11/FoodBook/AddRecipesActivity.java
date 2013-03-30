@@ -23,6 +23,8 @@ import android.widget.PopupWindow;
  * @author Thomas Cline and Pablo Jaramillo
  *
  */
+
+
 public class AddRecipesActivity extends Activity implements FView<DbManager>
 {
 
@@ -31,7 +33,7 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 	private long mRecipeUri; /* timestamp the recipe on entry into the  */
 	public static String EXTRA_URI = "extra_uri"; /*passed with intent to newly launched "edit" acitivities */
 	private Recipe mRecipe; /* the recipe being created.  Saved on entry, we use the setters to set the fields when "press save" is hit */
-	
+	private boolean saved=false;
 	
 	
 	@Override
@@ -148,11 +150,8 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 		mRecipe.setAuthor(author);
 		mRecipe.setTitle(Title);
 		mRecipe.setInstructions(Instructions);
-
+		saved=true;
 		DbC.updateRecipe(mRecipe);
-		//Recipe newRecipe=new Recipe(author, Title, Instructions);
-		//			db.updateRecipeTitle(uri, "UserRecipes", newTitle);
-		//			db.updateRecipeInstructions(uri, "UserRecipes", newInstructions)			
 		finish();
 	}
 
@@ -183,13 +182,18 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 	
 	public void onDestroy()
 	{	super.onDestroy();
+	if(!saved)
+	{DbController DbC = DbController.getInstance(this, this);
+	DbC.deleteRecipe(mRecipe);	
+	}
 	DbController DbC = DbController.getInstance(this, this);
 	DbC.deleteView(this);
 	}
 
+	
 	@Override
 	public void update(DbManager model)
-	{		
+	{	
 	}
 
 }
