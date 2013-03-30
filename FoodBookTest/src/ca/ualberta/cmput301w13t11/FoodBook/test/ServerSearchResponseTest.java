@@ -5,13 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 import junit.framework.TestCase;
 
 import org.junit.Test;
 
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerRecipe;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerResponse;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerSearchResponse;
 
 import com.google.gson.Gson;
@@ -56,7 +56,7 @@ public class ServerSearchResponseTest extends TestCase{
 	 */
 	public void testGetHits()
 	{
-		ServerSearchResponse search_response;
+		ServerSearchResponse<ServerResponse> search_response;
 		String json = getJsonServerSearchResponse();
 		if (json.equals(""))
 			fail("getJsonServerSearchResponse failed");
@@ -77,7 +77,7 @@ public class ServerSearchResponseTest extends TestCase{
 	 * results with known content.
 	 */
 	public void testGetSources() {
-		ServerSearchResponse search_response;
+		ServerSearchResponse<ServerResponse> search_response;
 		String json = getJsonServerSearchResponse();
 		if (json.equals(""))
 			fail("getJsonServerSearchResponse failed");

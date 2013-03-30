@@ -53,8 +53,9 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 		@Override
 		protected void onPreExecute()
 		{
-			progressDialog = ProgressDialog.show(FullImageEditPhotosActivity.this, "", "Uploading...");
-		}
+			progressDialog = new ProgressDialog(FullImageEditPhotosActivity.this);
+			progressDialog.setCancelable(true);
+			progressDialog.setMessage("Uploading...");				}
 		@Override
 		protected ReturnCode doInBackground(Photo... params) {
 			try {

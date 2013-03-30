@@ -63,7 +63,9 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		@Override
 		protected void onPreExecute()
 		{
-			progressDialog = ProgressDialog.show(MyIngredients.this, "", "Searching...");
+			progressDialog = new ProgressDialog(MyIngredients.this);
+			progressDialog.setCancelable(true);
+			progressDialog.setMessage("Searching...");		
 		}
 		@Override
 		protected ReturnCode doInBackground(ArrayList<Ingredient>... ingredients) {

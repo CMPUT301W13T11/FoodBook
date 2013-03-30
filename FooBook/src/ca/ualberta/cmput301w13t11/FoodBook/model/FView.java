@@ -2,7 +2,7 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 
 /**
- * Generic View interface -- has only the update() method which depends on the Model M this
+ * Generic View interface -- has only the update() method which is dependent upon the Model M this
  * View is observing.
  * @author mbabic
  *

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
@@ -43,6 +44,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	private TextView recipeName;
 	private TextView instructions;
 	private ProgressDialog progressDialog;
+	private ProgressBar progressBar;
 	@SuppressWarnings("all")
 
 	static private final Logger logger = Logger.getLogger(ViewRecipeActivity.class.getName());
@@ -57,7 +59,9 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		@Override
 		protected void onPreExecute()
 		{
-			progressDialog = ProgressDialog.show(ViewRecipeActivity.this, "", "Uploading Recipe...");
+			progressDialog = new ProgressDialog(ViewRecipeActivity.this);
+			progressDialog.setCancelable(true);
+			progressDialog.setMessage("Uploading Recipe...");
 
 
 		}
@@ -112,9 +116,10 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_view_recipe);
 		
+		/* Set up progress bar */		
+		
 		recipeName = (TextView) findViewById(R.id.textView2);
 		instructions = (TextView) findViewById(R.id.textView5);
-		
 		Intent intent = getIntent();
 		uri = intent.getLongExtra(EXTRA_URI, 0);
 		instructions.setMovementMethod(new ScrollingMovementMethod());

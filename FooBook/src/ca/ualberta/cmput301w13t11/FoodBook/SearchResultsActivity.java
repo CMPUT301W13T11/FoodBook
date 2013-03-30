@@ -44,7 +44,9 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		@Override
 		protected void onPreExecute()
 		{
-			progressDialog = ProgressDialog.show(SearchResultsActivity.this, "", "Searching...");
+			progressDialog = new ProgressDialog(SearchResultsActivity.this);
+			progressDialog.setCancelable(true);
+			progressDialog.setMessage("Searching...");		
 		}
 		@Override
 		protected ReturnCode doInBackground(String... keywords) {
@@ -75,7 +77,9 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		@Override
 		protected void onPreExecute()
 		{
-			progressDialog = ProgressDialog.show(SearchResultsActivity.this, "", "Searching...");
+			progressDialog = new ProgressDialog(SearchResultsActivity.this);
+			progressDialog.setCancelable(true);
+			progressDialog.setMessage("Searching...");				
 		}
 		@Override
 		protected ReturnCode doInBackground(ArrayList<Ingredient>... ingredients) {
