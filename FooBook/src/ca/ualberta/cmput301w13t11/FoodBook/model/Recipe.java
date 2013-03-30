@@ -1,8 +1,6 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
-import java.util.Collection;
 
 import android.content.ContentValues;
 
@@ -72,10 +70,6 @@ public class Recipe {
 		this.setInstructions("");
 		this.ingredients = new ArrayList<Ingredient>();
 		this.photos = new ArrayList<Photo>();
-		/* TODO: find a good hashing function in order to assign to each recipe a unique URI
-		* such that duplicates cannot be misinterpreted for one another on the server. */
-		
-		// at the moment, we will just get the current time in milliseconds and use that as the uri
 		this.uri = System.currentTimeMillis();
 
 	}
@@ -92,9 +86,6 @@ public class Recipe {
 		this.setInstructions(instructions);
 		this.ingredients = new ArrayList<Ingredient>();
 		this.photos = new ArrayList<Photo>();
-		/* TODO: find a good hashing function in order to assign to each recipe a unique URI
-		* such that duplicates cannot be misinterpreted for one another on the server. */
-		// at the moment, we will just get the current time in milliseconds and use that as the uri
 		this.uri = System.currentTimeMillis();
 		
 	}
@@ -113,9 +104,6 @@ public class Recipe {
 		this.ingredients = ingredients;
 		this.photos = new ArrayList<Photo>();
 
-		/* TODO: find a good hashing function in order to assign to each recipe a unique URI
-		* such that duplicates cannot be misinterpreted for one another on the server. */
-		// at the moment, we will just get the current time in milliseconds and use that as the uri
 		this.uri = System.currentTimeMillis();
 	}
 	
@@ -136,9 +124,6 @@ public class Recipe {
 		this.ingredients = ingredients;
 		this.photos = photos;
 
-		/* TODO: find a good hashing function in order to assign to each recipe a unique URI
-		* such that duplicates cannot be misinterpreted for one another on the server. */
-		// at the moment, we will just get the current time in milliseconds and use that as the uri
 		this.uri = System.currentTimeMillis();
 	}
 

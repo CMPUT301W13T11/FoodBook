@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
@@ -44,9 +43,8 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	private TextView recipeName;
 	private TextView instructions;
 	private ProgressDialog progressDialog;
-	private ProgressBar progressBar;
+	
 	@SuppressWarnings("all")
-
 	static private final Logger logger = Logger.getLogger(ViewRecipeActivity.class.getName());
 
 	/**

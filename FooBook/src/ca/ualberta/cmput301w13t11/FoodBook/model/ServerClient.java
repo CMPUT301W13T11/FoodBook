@@ -58,6 +58,12 @@ public class ServerClient {
 	private static HttpClient httpclient = null;
 	private static ClientHelper helper = null;
 	private ArrayList<Recipe> results;
+	
+	
+	/**
+	 * Return codes possible for a networking task.
+	 * @author mbabic
+	 */
 	public static enum ReturnCode
 	{
 		SUCCESS, ALREADY_EXISTS,NO_RESULTS, NOT_FOUND, ERROR, BUSY;
