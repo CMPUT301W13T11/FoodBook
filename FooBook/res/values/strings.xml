@@ -74,7 +74,7 @@
     <string name="p_add_ingredient">Add ingredient:</string>
     <string name="p_unit">Unit (ex. ml, g, etc):</string>
      <string name="amount">Amount (numerical):</string>
-    <string name="p_edit_ingredient">Edit ingredient:</string>
+    <string name="p_edit_ingredient">Edit</string>
      <string name="searchIngredients">What can I make?</string>
      <string name="delete_search">Delete from Results</string>
 

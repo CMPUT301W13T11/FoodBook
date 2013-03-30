@@ -195,7 +195,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
 			{	
-				ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+				/*ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
 				LayoutParams darkenParams = darkenScreen.getLayoutParams();
 				darkenParams.height = 1000;
 				darkenParams.width = 1000;
@@ -206,7 +206,20 @@ public class MyIngredients extends Activity implements FView<DbManager>
 				popUpView = inflater.inflate(R.layout.popup_edit_ingredient, null, false);
 				popUp = new PopupWindow(popUpView,popUpView.getWidth(),popUpView.getHeight(),true);
 				popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
+*/
+				
+				ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
+				LayoutParams darkenParams = darkenScreen.getLayoutParams();
+				darkenParams.height = 1000;
+				darkenParams.width = 1000;
+				darkenScreen.setLayoutParams(darkenParams);
+				//make the popup
+				LinearLayout layout = new LinearLayout(MyIngredients.this);
+				LayoutInflater inflater = LayoutInflater.from(MyIngredients.this);
+				popUpView = inflater.inflate(R.layout.popup_add_ingredient, null, false);
+				popUp = new PopupWindow(popUpView,300,500,true);
+				popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
+				
 
 				EditText editText = (EditText) popUpView.findViewById(R.id.editIngredientType);
 				editText.setText(DbC.getUserIngredients().get(position).getName());
@@ -218,7 +231,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 
 				editText = (EditText) popUpView.findViewById(R.id.editIngredientAmount);
 				editText.setText(String.valueOf(DbC.getUserIngredients().get(position).getQuantity()));
-
+				DbC.deleteIngredient(DbC.getUserIngredients().get(position));
 
 				return false;
 			}});
