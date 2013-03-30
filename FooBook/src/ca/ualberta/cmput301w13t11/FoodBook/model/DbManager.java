@@ -72,6 +72,14 @@ public class DbManager extends FModel<FView> {
     }
     
     /**
+     * @return getSQL string attribute
+     */
+    public String getGetSQL()
+    {
+    	return getSQL;
+    }
+    
+    /**
      * Get instance of the singleton DbManager.
      * @return The instance of the class.
      */

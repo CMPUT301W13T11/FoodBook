@@ -389,4 +389,144 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 			assertTrue("Quantities should be equal.", ret.get(i).getQuantity() == recipe.getIngredients().get(i).getQuantity());
 		}
 	}
+
+	/**
+	 * Test the functionality of cursorToRecipes()
+	 * Perform a raw SQL query of the database and ensure that a known Recipe is among the results
+	 * and has been completely and correctly converted using the cursor (does not ensure Photos are 
+	 * correctly returned, this will have to be done by visual inspection).
+	 */
+	public void testCursorToRecipes()
+	{
+		Recipe recipe = Recipe.generateRandomTestRecipe();
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
+			fail("failed to get an instance of RecipesDbManager");
+		}
+		dbm.insertRecipe(recipe);
+
+		DbManager dbManager = DbManager.getInstance(this.getContext());
+		Cursor cursor = RecipesDbManager.getDb().rawQuery(dbm.getGetSQL(), null);
+
+		/* This is a private method, so we must use reflection. */
+		try {
+			/* Testing private member function, need to use reflection. */
+			Class[] args = new Class[1];
+			args[0] = Cursor.class;
+			Method method = dbManager.getClass().getDeclaredMethod("cursorToRecipes", args);
+			method.setAccessible(true);
+			ArrayList<Recipe> ret = (ArrayList<Recipe>) method.invoke(dbm, cursor);
+
+			int i = 0;
+			for (i = 0; i < ret.size(); i++) {
+				if(recipe.getUri() == ret.get(i).getUri()) {
+					break;
+				}
+			}
+			assertTrue("We should find the recipe we inserted at the start of the test in the database.", i < ret.size());
+
+			/* If we get here, we found the recipe and need to ensure all fields are as expected */
+			assertTrue("Titles should be the same.", ret.get(i).getTitle().equals(recipe.getTitle()));
+			assertTrue("Instructions should be the same.", ret.get(i).getInstructions().equals(recipe.getInstructions()));
+
+			Ingredient retTemp, recipeTemp;
+			for (int j = 0; j < ret.get(i).getIngredients().size(); j++) {
+				retTemp = ret.get(i).getIngredients().get(j);
+				recipeTemp = recipe.getIngredients().get(j);
+				assertTrue("Names should be the same.", retTemp.getName().equals(recipeTemp.getName()));
+				assertTrue("Units should be the same.", retTemp.getUnit().equals(recipeTemp.getUnit()));
+				assertTrue("Quantities should be the same.", retTemp.getQuantity() == recipeTemp.getQuantity());
+			}
+
+		} catch (NoSuchMethodException nsme) {
+			fail("NoSuchMethodException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException");
+		}
+	}
+
+	/**
+	 * Test the functionality of cursorToRecipe()
+	 * Perform a raw SQL query of the database and ensure that the recipe known to be returned
+	 * has been completely and correctly converted using the cursor (does not ensure Photos are 
+	 * correctly returned, this will have to be done by visual inspection).
+	 */
+	public void testCursorToRecipe()
+	{
+		Recipe recipe = Recipe.generateRandomTestRecipe();
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
+			fail("failed to get an instance of RecipesDbManager");
+		}
+		dbm.insertRecipe(recipe);
+
+		DbManager dbManager = DbManager.getInstance(this.getContext());
+		Cursor cursor = RecipesDbManager.getDb().rawQuery("Select * From " + dbm.recipesTable + " Where URI = " + recipe.getUri(), null);
+
+
+		/* This is a private method, so we must use reflection. */
+
+		try {
+
+			/* Testing private member function, need to use reflection. */
+			Class[] args = new Class[1];
+			args[0] = Cursor.class;
+			Method method = dbManager.getClass().getDeclaredMethod("cursorToRecipe", args);
+			method.setAccessible(true);
+			Recipe ret = (Recipe) method.invoke(dbm, cursor);
+
+			assertTrue("Titles should be the same.", ret.getTitle().equals(recipe.getTitle()));
+			assertTrue("Instructions should be the same.", ret.getInstructions().equals(recipe.getInstructions()));
+
+			Ingredient retTemp, recipeTemp;
+			for (int j = 0; j < ret.getIngredients().size(); j++) {
+				retTemp = ret.getIngredients().get(j);
+				recipeTemp = recipe.getIngredients().get(j);
+				assertTrue("Names should be the same.", retTemp.getName().equals(recipeTemp.getName()));
+				assertTrue("Units should be the same.", retTemp.getUnit().equals(recipeTemp.getUnit()));
+				assertTrue("Quantities should be the same.", retTemp.getQuantity() == recipeTemp.getQuantity());
+			}
+
+		} catch (NoSuchMethodException nsme) {
+			fail("NoSuchMethodException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException");
+		}
+	}
+
+	/**
+	 * Test the functionality of the getRecipe() function.
+	 * Attempt to retrieve a recipe we know to exist in the database and ensure its fields are as expected.
+	 */
+	public void testGetRecipe()
+	{
+		Recipe recipe = Recipe.generateRandomTestRecipe();
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
+			fail("failed to get an instance of RecipesDbManager");
+		}
+		dbm.insertRecipe(recipe);
+
+		Recipe ret = dbm.getRecipe(recipe.getUri());
+
+		assertTrue("Titles should be the same.", ret.getTitle().equals(recipe.getTitle()));
+		assertTrue("Instructions should be the same.", ret.getInstructions().equals(recipe.getInstructions()));
+
+		Ingredient retTemp, recipeTemp;
+		for (int j = 0; j < ret.getIngredients().size(); j++) {
+			retTemp = ret.getIngredients().get(j);
+			recipeTemp = recipe.getIngredients().get(j);
+			assertTrue("Names should be the same.", retTemp.getName().equals(recipeTemp.getName()));
+			assertTrue("Units should be the same.", retTemp.getUnit().equals(recipeTemp.getUnit()));
+			assertTrue("Quantities should be the same.", retTemp.getQuantity() == recipeTemp.getQuantity());	
+		}
+	}
 }
