@@ -247,7 +247,7 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 			Method method = dbManager.getClass().getDeclaredMethod("updateRecipeTitle", args);
 			method.setAccessible(true);
 			method.invoke(dbm, recipe.getUri(),"new");
-			
+
 			Recipe ret = dbm.getRecipe(recipe.getUri());
 			assertTrue("Recipe's title should now be \"new\"", ret.getTitle().equals("new"));
 		} catch (NoSuchMethodException nsme) {
@@ -261,7 +261,7 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 		}
 
 	}
-	
+
 	/**
 	 * Test the functionality of the updateRecipeInstructions function.
 	 * Ensure that after calling the method on a recipe known to exist in the database the
@@ -286,7 +286,7 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 			Method method = dbManager.getClass().getDeclaredMethod("updateRecipeInstructions", args);
 			method.setAccessible(true);
 			method.invoke(dbm, recipe.getUri(),"new instructions");
-			
+
 			Recipe ret = dbm.getRecipe(recipe.getUri());
 			assertTrue("Recipe's title should now be \"new instructions\"", ret.getInstructions().equals("new instructions"));
 		} catch (NoSuchMethodException nsme) {
@@ -313,34 +313,34 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 			fail("failed to get an instance of RecipesDbManager");
 		}
 		dbm.insertRecipe(recipe);
-		
+
 		/* Now change the parameters */
 		recipe.setTitle("new");
 		recipe.setInstructions("new instructions");
 		dbm.updateRecipe(recipe);
-		
+
 		Recipe ret = dbm.getRecipe(recipe.getUri());
 		assertTrue("Recipe's title should now be \"new\"", ret.getTitle().equals("new"));
 		assertTrue("Recipe's title should now be \"new instructions\"", ret.getInstructions().equals("new instructions"));
 
 	}
-	
+
 	/**
 	 * Test the functionality of cursor to ingredients.
 	 * Ensure that 
 	 */
 	public void testCursorToIngredients()
 	{
-	    //protected ArrayList<Ingredient> cursorToIngredients(Cursor cursor) {
+		//protected ArrayList<Ingredient> cursorToIngredients(Cursor cursor) {
 		Recipe recipe = Recipe.generateRandomTestRecipe();
 		dbm = RecipesDbManager.getInstance(this.getContext());
 		if (dbm == null) {
 			fail("failed to get an instance of RecipesDbManager");
 		}
 		dbm.insertRecipe(recipe);
-		
-    	Cursor cursor = RecipesDbManager.getDb().rawQuery("Select * From " + dbm.ingredsTable + " Where recipeURI = " + recipe.getUri(), null);
-    	
+
+		Cursor cursor = RecipesDbManager.getDb().rawQuery("Select * From " + dbm.ingredsTable + " Where recipeURI = " + recipe.getUri(), null);
+
 		DbManager dbManager = DbManager.getInstance(this.getContext());
 		/* This is a private method, so we must use reflection. */
 		try {
@@ -350,13 +350,13 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 			Method method = dbManager.getClass().getDeclaredMethod("cursorToIngredients", args);
 			method.setAccessible(true);
 			ArrayList<Ingredient> ret = (ArrayList<Ingredient>) method.invoke(dbm, cursor);
-			
+
 			for (int i = 0; i < ret.size(); i++) {
 				assertTrue("Names should be equal.", ret.get(i).getName().equals(recipe.getIngredients().get(i).getName()));
 				assertTrue("Units should be equal.", ret.get(i).getUnit().equals(recipe.getIngredients().get(i).getUnit()));
 				assertTrue("Quantities should be equal.", ret.get(i).getQuantity() == recipe.getIngredients().get(i).getQuantity());
 			}
-	
+
 		} catch (NoSuchMethodException nsme) {
 			fail("NoSuchMethodException");
 		} catch (IllegalArgumentException e) {
@@ -367,9 +367,26 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 			fail("InvocationTargetException");
 		}
 	}
-	
+
+	/**
+	 * Test the functionality of getRecipeIngredients()
+	 * We ensure that when querying for the ingredients of a recipe known to exist in the database with a known
+	 * set of ingredients that the correct ingredients are returned to us.
+	 */
 	public void testGetRecipeIngredients()
 	{
-		
+		Recipe recipe = Recipe.generateRandomTestRecipe();
+		dbm = RecipesDbManager.getInstance(this.getContext());
+		if (dbm == null) {
+			fail("failed to get an instance of RecipesDbManager");
+		}
+		dbm.insertRecipe(recipe);
+
+		ArrayList<Ingredient> ret = dbm.getRecipeIngredients(recipe.getUri());
+		for (int i = 0; i < ret.size(); i++) {
+			assertTrue("Names should be equal.", ret.get(i).getName().equals(recipe.getIngredients().get(i).getName()));
+			assertTrue("Units should be equal.", ret.get(i).getUnit().equals(recipe.getIngredients().get(i).getUnit()));
+			assertTrue("Quantities should be equal.", ret.get(i).getQuantity() == recipe.getIngredients().get(i).getQuantity());
+		}
 	}
 }

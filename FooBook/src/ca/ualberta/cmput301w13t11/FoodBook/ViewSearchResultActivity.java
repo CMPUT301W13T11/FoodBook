@@ -123,20 +123,21 @@ protected void updateView(){
     {
 		DbController DbC = DbController.getInstance(this, this);
 		
-		Intent intent = getIntent();
-		intent.getLongExtra(SearchResultsActivity.EXTRA_URI, 0);
-		Recipe viewedRecipe=null;
-		for(int index=0; index<DbC.getStoredRecipes().size(); index++)
-		{
-			if(DbC.getStoredRecipes().get(index).getUri()==uri)
-					{
-					viewedRecipe=DbC.getStoredRecipes().get(index);
-					index=DbC.getStoredRecipes().size();
-					
-					}
-		}
-		
-		DbC.addRecipe(viewedRecipe);
+//		Intent intent = getIntent();
+//		intent.getLongExtra(SearchResultsActivity.EXTRA_URI, 0);
+//		Recipe viewedRecipe=null;
+//		for(int index=0; index<DbC.getStoredRecipes().size(); index++)
+//		{
+//			if(DbC.getStoredRecipes().get(index).getUri()==uri)
+//					{
+//					viewedRecipe=DbC.getStoredRecipes().get(index);
+//					index=DbC.getStoredRecipes().size();
+//					
+//					}
+//		}
+//		
+		if (viewedRecipe != null)
+			DbC.addRecipe(viewedRecipe);
 		finish();
     }
 
@@ -146,8 +147,6 @@ protected void updateView(){
 	 * @param The View that is calling the method
 	 *
 	 */
-
-	
 	public void OnDeleteResult(View View)
     {	
 		DbController DbC = DbController.getInstance(this, this);

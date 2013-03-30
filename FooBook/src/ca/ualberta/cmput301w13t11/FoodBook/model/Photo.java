@@ -98,7 +98,9 @@ public class Photo {
 	 */
 	public Bitmap getPhotoBitmap()
 	{
-		return BitmapFactory.decodeByteArray(bit_data, 0, bit_data.length);
+		if (bit_data != null)
+			return BitmapFactory.decodeByteArray(bit_data, 0, bit_data.length);
+		return null;
 	}
 	
 	/**

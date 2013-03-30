@@ -107,8 +107,13 @@ public class DbManager extends FModel<FView> {
             insertRecipeIngredients(ingred, recipe.getUri());
         }
 
-        for (Photo photo : recipe.getPhotos()) {
-            insertRecipePhotos(photo, photo.getPhotoBitmap(), recipe.getUri());
+        Bitmap temp = null;
+        ArrayList<Photo> photos = recipe.getPhotos();
+        ArrayList<Photo> fullPhotos = getFullPhotos(photos);
+        for (Photo photo : fullPhotos) {
+        	temp = photo.getPhotoBitmap();
+        	if (temp != null)
+        		insertRecipePhotos(photo, temp, recipe.getUri());
         }
     }
 
@@ -384,19 +389,17 @@ public class DbManager extends FModel<FView> {
      */
     protected ArrayList<Photo> cursorToPhotos(Cursor cursor) {
         ArrayList<Photo> photos = new ArrayList<Photo>();
-        ArrayList<Photo> fullPhotos = new ArrayList<Photo>();
+        //ArrayList<Photo> fullPhotos = new ArrayList<Photo>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             String id = cursor.getString(1);
             String path = cursor.getString(2);
             Photo photo = new Photo(id, path);
-            //Log.d("DbManager fetched: photo id", id);
-            //Log.d("DbManager fetched: photo path", path);
             photos.add(photo);
             cursor.moveToNext();
         }
-        fullPhotos = getFullPhotos(photos);
-        return fullPhotos;
+        //fullPhotos = getFullPhotos(photos);
+        return photos;
     }
 
 
