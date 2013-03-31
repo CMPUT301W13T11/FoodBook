@@ -22,18 +22,27 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 
+
+/**
+ * This class only shows the recipe's pictures in a gallery. Capturing or deleting is not allowed.
+ * Images are enlarged by clicking on them (starts FullImageViewPhotosActivity.java). 
+ * @author jaramill
+ * 
+ * ! We have to make the upload button work you guys, or delete the button. -Pablo
+ *
+ */
 public class ViewPhotosActivity extends Activity implements FView<DbManager>
 {
-
-	static final String EXTRA_URI = "extra_uri";
-	static final String EXTRA_IMG_ID = "extra_img_id";
-	static final String EXTRA_IMG_PATH = "extra_img_path";
+	//intent 'handshakes'
+	static final String EXTRA_URI = "extra_uri";				//recipe uri, incoming
+	static final String EXTRA_IMG_ID = "extra_img_id";		//image id (timestamp), incoming
+	static final String EXTRA_IMG_PATH = "extra_img_path";	//image path, incoming
 	public static String CALLER = "caller";
 	private boolean queryResultsDb = false;
-	private long uri;
+	private long uri = 0; 							// photos (no bitmap data in them)	
 	private ArrayList<Photo> photos;
 
-	private GridView gridview = null;
+	private GridView gridview = null;					//3 x ? gridview for photo icons
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -55,6 +64,11 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 		this.updateView();
 
 	}
+	
+	/**
+	 * This method updates the gallery images. 
+	 * It is called on creation of the activity and by the update method (called by the database manager).
+	 */
 	protected void updateView(){
 
 		DbController DbC = DbController.getInstance(this, this);
@@ -84,10 +98,9 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 
 
 	/**
-	 * This class loads the image gallery in grid view.
-	 *
+	 * This class helps produce a gallery (grid view) of small images which can be clicked and enlarged.
+	 * The BaseAdapter class is extended accordingly.
 	 */
-
 	public class ImageAdapter extends BaseAdapter {
 		@SuppressWarnings("all")
 
@@ -113,28 +126,26 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 		public View getView(int position, View convertView, ViewGroup parent) {
 			View v = convertView;
 			LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			 //galchild -gallery child-is layout with a a 100x100 dp image view
 			v = vi.inflate(R.layout.galchild, null);
 
 			try {
 				ImageView imageView = (ImageView) v.findViewById(R.id.imageView1);
 				imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 				imageView.setPadding(8, 8, 8, 8);
-				//Bitmap bmp = decodeURI(mUrls[position].getPath());
 				Bitmap bmp = decodeURI(photos.get(position).getPath());
-				//BitmapFactory.decodeFile(mUrls[position].getPath());
 				imageView.setImageBitmap(bmp);
-				//bmp.
-				//TextView txtName = (TextView) v.findViewById(R.id.TextView01);
-				//txtName.setText(mNames[position]);
 			} catch (Exception e) {
-
+				e.printStackTrace();
 			}
 			return v;
 		}
 	}
 	
 	/**
-	 * This method is to scale down the image 
+	 *  This method retrieves a bitmap image  stored in a compressed format.
+	 * @param filePath- complete path where the actual compressed image (jpg, pgn, etc) is stored 
+	 * @return a possibly scaled down bitmap image 
 	 */
 	public Bitmap decodeURI(String filePath){
 
@@ -162,13 +173,19 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 
 		return output;
 	}
+	/**
+	 *  Returns the user to the previous screen, called on pressing the Go Back button.
+	 * @param View - The view calling this method.
+	 */
 	public void OnGoBack(View View)
 	{
 		// responds to button Go Back
 		ViewPhotosActivity.this.finish();
 	}
-
-
+	
+	/**
+	 *  Called by the database manager to update views, part of MVC
+	 */
 	@Override
 	public void update(DbManager db)
 	{

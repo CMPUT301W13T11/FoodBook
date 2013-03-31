@@ -18,28 +18,59 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
 /**
- * 
+ * This class is used to view enlarged pictures/images after clicking on them in the view gallery (activity ViewPhotosActivity).
+ * Deletion or capturing is not allowed.
  * @author Marko Babic and Pablo Jaramillo
  *
  */
 public class FullImageViewPhotosActivity extends Activity implements FView<DbManager>{
 
-	static final String EXTRA_IMG_ID = "extra_img_id";
-	static final String EXTRA_IMG_PATH = "extra_img_path";
-	static final String EXTRA_URI = "extra_uri";
-	private String imgPath = null;
+	//intent 'handshakes'
+	static final String EXTRA_IMG_ID = "extra_img_id";		//image id, incoming
+	static final String EXTRA_IMG_PATH = "extra_img_path";	//image path, incoming
+	static final String EXTRA_URI = "extra_uri";				//recipe uri, incoming
+	
+	private String imgPath = null;				//image path
 	@SuppressWarnings("all")
 	private String id;
 	@SuppressWarnings("all")
-	private Long uri;
-	private ImageView imageView = null;
-	private Bitmap bitmap = null;
+	private long uri;								//recipe uri, changed Long to long (? causing bug)
+	private ImageView imageView = null;			//image container
+	private Bitmap bitmap = null;					//bitmap being displayed
 
 	/**
 	 * Performs an photo upload operation asynchronously (ie. not on the UI thread) and reports
 	 * its results.  The process is started by calling "new SearchByKeywordsTask(uri of recipe).execute(photo to be uploaded)".
 	 * @author mbabic
 	 */
+	
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+    	
+    	setContentView(R.layout.activity_full_image_view_photos);
+    	imageView = (ImageView) findViewById(R.id.imageView1);
+        super.onCreate(savedInstanceState);
+        
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		id = bundle.getString(EXTRA_IMG_ID);
+		imgPath = bundle.getString(EXTRA_IMG_PATH);
+		uri = bundle.getLong(EXTRA_URI); 
+        this.updateView();
+    }
+    
+    /**
+	 * Update method called by onCreate as well as the update method (called by the database manager).
+	 * a bitmap is obtained from the image path (imgPath) and is placed as a large image in the current layout.
+	 */
+    protected void updateView(){
+    	
+    	bitmap= BitmapFactory.decodeFile(imgPath);
+    	this.imageView.setImageBitmap(bitmap);
+    	
+    }
+    
 	@SuppressWarnings("all")
 	private class UploadPhotoTask extends AsyncTask<Photo, Void, ReturnCode>{
 		private ProgressDialog progressDialog;
@@ -90,32 +121,10 @@ public class FullImageViewPhotosActivity extends Activity implements FView<DbMan
 		}
 	}
 
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-    	
-    	setContentView(R.layout.activity_full_image_view_photos);
-    	imageView = (ImageView) findViewById(R.id.imageView1);
-        super.onCreate(savedInstanceState);
-        
-		Intent intent = getIntent();
-		Bundle bundle = intent.getExtras();
-		id = bundle.getString(EXTRA_IMG_ID);
-		imgPath = bundle.getString(EXTRA_IMG_PATH);
-		uri = bundle.getLong(EXTRA_URI);
-
-
-        
-        this.updateView();
-    }
-    protected void updateView(){
-    	
-    	bitmap= BitmapFactory.decodeFile(imgPath);
-    	this.imageView.setImageBitmap(bitmap);
-    	
-    }
-    
-
+	/**
+	 * This method takes the user back to the previous activity.
+	 * @param View - The view calling the method.
+	 */
     public void OnGoBack(View View)
     {
 		// responds to button Go Back
@@ -131,11 +140,12 @@ public class FullImageViewPhotosActivity extends Activity implements FView<DbMan
     {
 		//new UploadPhotoTask(uri).execute(new Photo(id, imgPath, bitmap));
     }
-    
+	/**
+	 *  Called by the database manager to update views, part of MVC
+	 */
 	@Override
 	public void update(DbManager db)
 	{
-
 		// TODO Auto-generated method stub
 		this.updateView();
 		

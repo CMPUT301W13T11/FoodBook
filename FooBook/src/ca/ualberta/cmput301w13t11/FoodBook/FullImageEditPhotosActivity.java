@@ -22,18 +22,51 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
 
+/**
+ * This class is used to view enlarged pictures/images after clicking on them in the edit gallery (activity EditPhotos).
+ *Images can be deleted or uploaded to the recipe server.
+ * @author Pablo Jaramillo and Marko Babic
+ * 
+ */
 public class FullImageEditPhotosActivity extends Activity implements FView<DbManager>{
 
-	static final String EXTRA_IMG_ID = "extra_img_id";
-	static final String EXTRA_IMG_PATH = "extra_img_path";
-	static final String EXTRA_URI = "extra_uri";
-	private String imgPath = null;
-	private String id;
-	private Long uri;
-	private ImageView imageView = null;
-	private Bitmap bitmap = null;
+	//intent 'handshakes'
+	static final String EXTRA_IMG_ID = "extra_img_id";		//image id (timestamp), incoming
+	static final String EXTRA_IMG_PATH = "extra_img_path";	//image path, incoming
+	static final String EXTRA_URI = "extra_uri";				//recipe uri, incoming, outgoing to 
+	
+	private String imgPath = null;		//image path
+	private String id = null;				//image id (timestamp)
+	private long uri = 0;					//recipe uri, changed Long to long (? causing bug)
+	private ImageView imageView = null;	//image container
+	private Bitmap bitmap = null;			//bitmap being displayed
 	private PopupWindow popUp;
 
+	//
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		setContentView(R.layout.activity_full_image_edit_photos);
+		imageView = (ImageView) findViewById(R.id.imageView1);
+		super.onCreate(savedInstanceState);
+
+		Intent intent = getIntent();
+		Bundle bundle = intent.getExtras();
+		id = bundle.getString(EXTRA_IMG_ID);
+		imgPath = bundle.getString(EXTRA_IMG_PATH);
+		uri = bundle.getLong(EXTRA_URI);
+
+		this.updateView();
+	}
+	/**
+	 * Update method called by onCreate as well as the update method (called by the database manager).
+	 * a bitmap is obtained from the image path (imgPath) and is placed as a large image in the current layout.
+	 */
+	protected void updateView(){
+		
+		bitmap= BitmapFactory.decodeFile(imgPath);
+		this.imageView.setImageBitmap(bitmap);
+
+	}
 
 	/**
 	 * Performs an photo upload operation asynchronously (ie. not on the UI thread) and reports
@@ -89,29 +122,9 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 			}
 		}
 	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		setContentView(R.layout.activity_full_image_edit_photos);
-		imageView = (ImageView) findViewById(R.id.imageView1);
-		super.onCreate(savedInstanceState);
-
-		Intent intent = getIntent();
-		Bundle bundle = intent.getExtras();
-		id = bundle.getString(EXTRA_IMG_ID);
-		imgPath = bundle.getString(EXTRA_IMG_PATH);
-		uri = bundle.getLong(EXTRA_URI);
-
-		this.updateView();
-	}
-	protected void updateView(){
-		//Options options = new Options();
-		//options.inJustDecodeBounds = true;
-		//Log.d("retpath", imgPath);
-		bitmap= BitmapFactory.decodeFile(imgPath);
-		this.imageView.setImageBitmap(bitmap);
-
-	}
+	/**
+	 * This method was used for debugging but is no longer neeeded.
+	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
@@ -127,60 +140,67 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 		}
 	}//onActivityResult
 
+	/**
+	 * This method loads the current photo onto the server.
+	 * @param view - The view which called this method.
+	 */
 	public void OnUploadPhoto(View view)
 	{
 		new UploadPhotoTask(uri).execute(new Photo(id, imgPath, bitmap));
 	}
-
+	
+	/**
+	 * This method takes the user back to the previous activity.
+	 * @param View - The view calling the method.
+	 */
 	public void OnGoBack(View View)
 	{
 		// responds to button Go Back
 		// not sure if this is enough -Pablo 
 		FullImageEditPhotosActivity.this.finish();
 	}
+	/**
+	 * This method is called in response to hitting the delete (photo) button.
+	 * It generates a popup for confirmation.
+	 * @param View - The view calling the method. 
+	 */
 	public void OnDeletePhoto(View View)
 	{
-
+		// responds to button Delete Recipe
 		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
 		LayoutParams darkenParams =darkenScreen.getLayoutParams();
 
-		// responds to button Delete Recipe
-
 		//first darken the screen
-
 		//LayoutParams darkenParams = darkenScreen.getLayoutParams();
 		darkenParams.height = 1000;
 		darkenParams.width = 1000;
 		darkenScreen.setLayoutParams(darkenParams);
 		//make the popup
-
 		LinearLayout layout = new LinearLayout(this);
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View popupLayout = inflater.inflate(R.layout.popup_delete_photo, null, false);
-
 		popUp = new PopupWindow(popupLayout, 380,200,true);
 		popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
 
-		//Log.d("what's going on", Long.toString(viewedRecipe.getUri()));
-
-
-		// responds to button Go Back
-
 	}
+	/**
+	 * This method deletes the photo viewed from the recipe. 
+	 * Called by the image popup OK button.
+	 * A message is displayed depending on whether the delete was successful.
+	 * @param View - The view calling the method. 
+	 */
 	public void OnOK(View View){
-
-		//delete the recipe
-
+		//remove the dark screen and popup
 		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
 		LayoutParams darkenParams = darkenScreen.getLayoutParams();
 		darkenParams.height = 0;
 		darkenParams.width = 0;
 		darkenScreen.setLayoutParams(darkenParams);
 		popUp.dismiss();
-
+		//ready controller, wrap id and image path in photo object
 		DbController DbC = DbController.getInstance(this, this);
 		Photo photo = new Photo(id, imgPath);
-
+		// call controller's delete Photo method 
 		Boolean success = DbC.deleteRecipePhoto(photo);
 		if (success) {
 			Toast.makeText(getApplicationContext(), "Image deleted with success",
@@ -188,11 +208,15 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 		} else {
 			Toast.makeText(getApplicationContext(),
 					"Error during image deleting", Toast.LENGTH_LONG).show();
-		} 
+		}
+		//exit
 		FullImageEditPhotosActivity.this.finish();
 	}
-
-
+	
+	/**
+	 * Removes the popup, picture not deleted.
+	 * @param View - The view calling the method.
+	 */
 	public void OnCancel(View View){
 
 		//remove the darkScreen
@@ -203,11 +227,12 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 		darkenScreen.setLayoutParams(darkenParams);
 		popUp.dismiss();
 	}
-
+	/**
+	 *  Called by the database manager to update views, part of MVC
+	 */
 	@Override
 	public void update(DbManager db)
 	{
-
 		// TODO Auto-generated method stub
 		this.updateView();
 

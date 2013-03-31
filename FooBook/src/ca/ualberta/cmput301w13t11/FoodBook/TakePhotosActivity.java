@@ -10,6 +10,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -21,6 +22,10 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 /**
+ * This class allows the user to take (capture) pictures and save them onto a recipe.
+ * When an SD card is not installed, BogoPicGen is called to generate 640x480 images.
+ * BogoPicGen images are stored in main memory in directory 'Pictures'
+ * @author jaramill
  *
  */
 public class TakePhotosActivity extends Activity implements FView<DbManager>
@@ -32,10 +37,10 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	private ImageView imageView;
 	static private final Logger logger = Logger.getLogger(TakePhotosActivity.class.getName());
 
-	protected Bitmap bitmap;
+	protected Bitmap bitmap = null;
 	private String imgPath = null;
 	@SuppressWarnings("all")
-	private File file;
+	private File file = null;
 	private ProgressDialog progressDialog;
 	boolean success = false;
 	boolean worked = false;
@@ -43,14 +48,6 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 	private FileOutputStream outStream;
 	private DbController DbC; 
 	
-	//Here's where you choose external or internal image storage  
-    //Change to 1 save pictures to the SD card, 
-    //Change to 0 to save to local folder 'Pictures' and use BogoPicGen
-	//Note that if an actual SD card is not installed, the capturing reverts to local save and BogoPicGen
-	
-    //protected static boolean SDCARD_INSTALLED = true;
-	
-	//Automatically done with this
 	
 	public String state = Environment.getExternalStorageState();
     
@@ -106,9 +103,8 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		}
     }
 	// Weird bug here
-	public void OnCapturePB(View View)
+	public void OnCaptureProgressBar(View View)
     {
-	
 		// responds to button Capture
 		//if (SDCARD_INSTALLED){
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
@@ -117,38 +113,30 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		}
 		else{
 			//If sd card not installed on vm, use BogoPicGen 
-			progressDialog = ProgressDialog.show(TakePhotosActivity.this, "", "Making BogoPic...");
+			//progressDialog = ProgressDialog.show(TakePhotosActivity.this, "", "Making BogoPic...");
 
-			new Thread() 
-			{
-				public void run() 
-				{
-					try{
-						bitmap = BogoPicGen.generateBitmap(640, 480);
-					}
-					catch (Exception ex)
-					{
-						ex.printStackTrace();
-					}
-					try
-					{
-						sleep(1500);
-						
-					}catch (InterruptedException e)
-					{
-						Log.e("tag",e.getMessage());
-					}
-					// dismiss the progressdialog   
-					progressDialog.dismiss();
-				}
-			}.start();
-			if (bitmap==null){ Log.d("what", "what");};
-			updateView();
+			new DownloadImageTask().execute();
+			progressDialog.dismiss();
 		}
     }
+
+	private class DownloadImageTask extends AsyncTask<Void, Void, Bitmap> {
+		/** The system calls this to perform work in a worker thread and
+		 * delivers it the parameters given to AsyncTask.execute() */
+		protected Bitmap doInBackground(Void...voids) {
+			return BogoPicGen.generateBitmap(640, 480);
+		}
+		
+
+		/** The system calls this to perform work in the UI thread and delivers
+		 * the result from doInBackground() */
+		protected void onPostExecute(Bitmap result) {
+			//xif (bitmap==null){ Log.d("what", "what");};
+			imageView.setImageBitmap(bitmap);    	
+		}		
+	}
 	public void OnCapture(View View)
-    {
-	
+    {	
 		// responds to button Capture
 		//if (SDCARD_INSTALLED){
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
@@ -177,6 +165,7 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 			else {
 				File dir = getDir(PICTURES_DIRECTORY, Context.MODE_PRIVATE);
 				file = new File(dir, timeStampId);
+				imgPath = file.getAbsolutePath();
 			}
 			
 			progressDialog = ProgressDialog.show(TakePhotosActivity.this, "", "Saving...");

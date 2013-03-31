@@ -24,19 +24,26 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 
+/**
+ * This class shows the recipe's pictures in a gallery and allows capturing of new pictures as well as deleting of stored pictures 
+ * (after pictures have been enlarged in new activity). 
+ * @author jaramill
+ *
+ */
+
 public class EditPhotos extends Activity implements FView<DbManager>
 {
-
-	static final String EXTRA_URI = "extra_uri";
-	static final String EXTRA_IMG_ID = "extra_img_id";
-	static final String EXTRA_IMG_PATH = "extra_img_path";
-	private long uri;
+	//intent 'handshakes'
+	static final String EXTRA_URI = "extra_uri";				//recipe uri, incoming, outgoing 
+	static final String EXTRA_IMG_ID = "extra_img_id";		//image id, outgoing
+	static final String EXTRA_IMG_PATH = "extra_img_path";	//image path, outgoing
+	
+	private long uri = 0;					//recipe's uri
 	static private final Logger logger = Logger.getLogger(EditPhotos.class.getName());
 
-	private ArrayList<Photo> photos;
+	private ArrayList<Photo> photos;		// photos (no bitmap data in them)	
 	
-	private GridView gridview = null;
-
+	private GridView gridview = null;		//3 x ? gridview for photo icons
 
 	
 	@Override
@@ -47,6 +54,7 @@ public class EditPhotos extends Activity implements FView<DbManager>
 		setContentView(R.layout.activity_edit_photos);
 		String extraUri = "";
 		Intent intent = getIntent();
+		// Bundle contains the recipe's uri
 		Bundle extras = intent.getExtras();
 		if (extras != null) {
 				extraUri = extras.getString(EXTRA_URI);
@@ -56,6 +64,10 @@ public class EditPhotos extends Activity implements FView<DbManager>
 
 		this.updateView();
 	}
+	/**
+	 * This method updates the gallery images. 
+	 * It is called on creation of the activity and by the update method (called by the database manager).
+	 */
 	protected void updateView(){	
 
 		DbController DbC = DbController.getInstance(this, this);
@@ -69,12 +81,11 @@ public class EditPhotos extends Activity implements FView<DbManager>
 				public void onItemClick(AdapterView<?> parent, View v,
 						int position, long id) {
 					Intent i = new Intent(EditPhotos.this, FullImageEditPhotosActivity.class);
+					//wrap recipe uri, image id (timestamp), and path in a bundle
 					Bundle bundle = new Bundle();
 					bundle.putString(EXTRA_IMG_ID, photos.get(position).getId());
 					bundle.putString(EXTRA_IMG_PATH, photos.get(position).getPath());
 					bundle.putLong(EXTRA_URI, uri);
-					//Log.d("recipe", Long.toString(uri));
-					//Log.d("filename", photos.get(position).getName());
 					i.putExtras(bundle);
 					startActivity(i);
 				}
@@ -86,18 +97,18 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	}
 
 	/**
-	 * This class loads the image gallery in grid view.
-	 *
+	 * This class helps produce a gallery (grid view) of small images which can be clicked and enlarged.
+	 * The BaseAdapter class is extended accordingly.
 	 */
 
 	public class ImageAdapter extends BaseAdapter {
-	  /*  private Context mContext;
+		/*  private Context mContext;
 
 	    public ImageAdapter(Context c) {
 	        mContext = c;
 	    }
-*/
-	    public int getCount() {
+		 */
+		public int getCount() {
 	        return photos.size();
 	    }
 
@@ -113,22 +124,16 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	    public View getView(int position, View convertView, ViewGroup parent) {
 	        View v = convertView;
 	        LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	        //galchild -gallery child-is layout with a a 100x100 dp image view
 	        v = vi.inflate(R.layout.galchild, null);
-
 	        try {
-
 	            ImageView imageView = (ImageView) v.findViewById(R.id.imageView1);
 	            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 	            imageView.setPadding(8, 8, 8, 8);
-	            //Bitmap bmp = decodeURI(mUrls[position].getPath());
 	            Bitmap bmp = decodeURI(photos.get(position).getPath());
-	            //BitmapFactory.decodeFile(mUrls[position].getPath());
 	            imageView.setImageBitmap(bmp);
-	            //bmp.
-	            //TextView txtName = (TextView) v.findViewById(R.id.TextView01);
-	            //txtName.setText(mNames[position]);
 	        } catch (Exception e) {
-
+	        	e.printStackTrace();
 	        }
 	        return v;
 	    }
@@ -141,7 +146,9 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	}
 
 	/**
-	 * This method is to scale down the image 
+	 *  This method retrieves a bitmap image  stored in a compressed format.
+	 * @param filePath- complete path where the actual compressed image (jpg, pgn, etc) is stored 
+	 * @return a possibly scaled down bitmap image 
 	 */
 	public Bitmap decodeURI(String filePath){
 
@@ -169,19 +176,33 @@ public class EditPhotos extends Activity implements FView<DbManager>
 
 	    return output;
 	}
+	/**
+	 * This method does not work here. The delete button has been grayed out in this view.
+	 * Delete is allowed when the image is clicked on and enlarged.
+	 * See FullImageEditPhotosActivity.java. 
+	 * @param view - The view calling the method.
+	 */
 	public void OnDeletePhoto(View view)
 	{
-		
 		//EditPhotos.this.finish();
 	}
-	
+	/**
+	 * This method is called by the Capture (Photo) button. 
+	 * It starts a new activity in which pictures can be taken.  
+	 * @param view - The view calling this method.
+	 */
 
 	public void OnTakePhoto(View view)
 	{
 		Intent intent = new Intent(this, TakePhotosActivity.class);
+		//Send recipe uri in intent.
 		intent.putExtra(EXTRA_URI, uri);
         startActivity(intent);
 	}
+	/**
+	 *  Returns the user to the previous screen, called on pressing the Go Back button.
+	 * @param View - The view calling this method.
+	 */
 	public void OnGoBack(View View)
     {
 		// responds to button Go Back
@@ -189,7 +210,9 @@ public class EditPhotos extends Activity implements FView<DbManager>
 		 EditPhotos.this.finish();
     }
 	
-
+	/**
+	 *  Called by the database manager to update views, part of MVC
+	 */
 	@Override
 	public void update(DbManager db)
 	{
