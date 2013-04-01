@@ -43,6 +43,9 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	static private final Logger logger = Logger.getLogger(EditIngredients.class.getName());
 	private int pos;
 	private boolean delete=false;
+	
+	/* Flag used to decide if we should autosave the changes for the user or not. */
+	private boolean cancelled = false;
 
 	static final String EXTRA_URI = "extra_uri";
 	private long uri;
@@ -75,6 +78,7 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	public void OnGotoMainMenu(View View)
 	{
 		// responds to button Main Menu
+		cancelled = true;
 		Intent intent = new Intent(View.getContext(), MainScreen.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		EditIngredients.this.finish();
@@ -274,6 +278,17 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		DbC.storeRecipeIngredients(RecipeIngredients, uri);
 		updateIngredients();
 		this.finish();
+	}
+	
+	@Override
+	public void onStop()
+	{
+		/* If the user has not explicitly told us to dismiss their changes, we save their changes for them. */
+		if (!cancelled) {
+			DbController DbC = DbController.getInstance(this, this);
+			DbC.storeRecipeIngredients(RecipeIngredients, uri);
+		}
+		super.onStop();
 	}
 	
 }
