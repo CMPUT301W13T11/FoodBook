@@ -63,7 +63,7 @@
             android:layout_weight="1"
             android:onClick="OnCancel"
             android:text="@string/cancel"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
         <Button
             android:id="@+id/ok_button"
             style="@style/BlueButton"

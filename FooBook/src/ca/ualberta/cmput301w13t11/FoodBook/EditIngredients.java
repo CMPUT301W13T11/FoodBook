@@ -41,7 +41,8 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	private ImageView darkenScreen;
 	private View popUpView;
 	static private final Logger logger = Logger.getLogger(EditIngredients.class.getName());
-
+	private int pos;
+	private boolean delete=false;
 
 	static final String EXTRA_URI = "extra_uri";
 	private long uri;
@@ -167,8 +168,8 @@ public class EditIngredients extends Activity implements FView<DbManager>
 
 				editText = (EditText) popUpView.findViewById(R.id.editIngredientAmount);
 				editText.setText(String.valueOf(RecipeIngredients.get(position).getQuantity()));
-				RecipeIngredients.remove(position);
-
+				pos=position;
+				delete=true;
 				return false;
 			}});
 
@@ -221,6 +222,11 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	 *
 	 */
 	public void OnOK(View v){
+		if(delete)
+		{	RecipeIngredients.remove(pos);
+			delete=false;
+		}
+		
 		EditText editText = (EditText) popUpView.findViewById(R.id.editIngredientType);
 		String type=editText.getText().toString();
 
