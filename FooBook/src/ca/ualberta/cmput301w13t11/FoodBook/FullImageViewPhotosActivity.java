@@ -68,11 +68,11 @@ public class FullImageViewPhotosActivity extends Activity implements FView<DbMan
     	
     	bitmap= BitmapFactory.decodeFile(imgPath);
     	this.imageView.setImageBitmap(bitmap);
-    	
     }
     
 	@SuppressWarnings("all")
-	private class UploadPhotoTask extends AsyncTask<Photo, Void, ReturnCode>{
+	private class UploadPhotoTask extends AsyncTask<Photo, Void, ReturnCode> {
+		
 		private ProgressDialog progressDialog;
 		private long upload_uri;
 

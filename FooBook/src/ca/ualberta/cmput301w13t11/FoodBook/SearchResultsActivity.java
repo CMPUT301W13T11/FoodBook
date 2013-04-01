@@ -60,9 +60,9 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		protected void onPostExecute(ReturnCode ret)
 		{
 			progressDialog.dismiss();
-			ServerController sc = ServerController.getInstance(SearchResultsActivity.this);
+			DbController dbc = DbController.getInstance(SearchResultsActivity.this, SearchResultsActivity.this);
 			if (ret == ReturnCode.SUCCESS) {
-				sc.updateResultsDb();
+				dbc.updateResultsDb();
 			} else 
 				displayToastByResult(ret);
 		}
@@ -93,9 +93,9 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		protected void onPostExecute(ReturnCode ret)
 		{
 			progressDialog.dismiss();
-			ServerController sc = ServerController.getInstance(SearchResultsActivity.this);
+			DbController dbc = DbController.getInstance(SearchResultsActivity.this, SearchResultsActivity.this);
 			if (ret == ReturnCode.SUCCESS) {
-				sc.updateResultsDb();
+				dbc.updateResultsDb();
 			} else 
 				displayToastByResult(ret);
 		}

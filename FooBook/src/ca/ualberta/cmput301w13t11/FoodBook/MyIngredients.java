@@ -81,9 +81,9 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		protected void onPostExecute(ReturnCode ret)
 		{
 			progressDialog.dismiss();
-			ServerController sc = ServerController.getInstance(MyIngredients.this);
+			DbController dbc = DbController.getInstance(MyIngredients.this, MyIngredients.this);
 			if (ret == ReturnCode.SUCCESS) {
-				sc.updateResultsDb();
+				dbc.updateResultsDb();
 			}
 			
 			FoodBookApplication.setSearchResult(ret);

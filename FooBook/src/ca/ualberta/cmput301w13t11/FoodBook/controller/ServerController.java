@@ -73,14 +73,6 @@ public class ServerController {
 		}
 	}
 	
-	/**
-	 * After performing a successful search, call this method to write the new results
-	 * to the ResultsDb.
-	 */
-	public void updateResultsDb()
-	{
-		sc.writeResultsToDb();
-	}
 	
 	/**
 	 * Performs a search using the passed list of Ingredients as the search terms --

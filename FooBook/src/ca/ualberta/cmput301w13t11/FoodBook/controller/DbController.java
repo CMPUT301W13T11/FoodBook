@@ -12,6 +12,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.RecipesDbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ResultsDbManager;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
 
 /**
  * Controller for the DbManager.
@@ -221,6 +222,17 @@ public class DbController {
     /* *****************************************************************
     USE THESE METHODS FOR RETRIEVING/DELETING RECIPES STORED FROM SEARCH
    ********************************************************************* */
+    
+	/**
+	 * After performing a successful search, call this method to write the new results
+	 * to the ResultsDb.
+	 */
+	public void updateResultsDb()
+	{
+		ServerClient sc = ServerClient.getInstance();
+		sc.writeResultsToDb();
+        db.notifyViews();
+	}
     
     /** 
      * Returns the recipes stores in the ResultsDb.
