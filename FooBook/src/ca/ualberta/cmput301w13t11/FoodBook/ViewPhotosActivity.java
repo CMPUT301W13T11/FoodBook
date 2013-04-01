@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,6 +62,7 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 			}
 		}
 		uri = intent.getLongExtra(EXTRA_URI, 0);
+		Log.d("ViewPhotosActivity in onCreate()", "uri passed to activity = " + uri);
 		this.updateView();
 
 	}
@@ -76,6 +78,10 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 			photos = DbC.getStoredRecipePhotos(uri);
 		else
 			photos = DbC.getRecipePhotos(uri);
+		if (photos.isEmpty()) {
+			Log.d("ViewPhotosActivity updateView():", "photos is empty");
+		}
+		
 		if (!photos.isEmpty()) {
 			gridview = (GridView) findViewById(R.id.gridView1);
 			gridview.setAdapter(new ImageAdapter(this));    

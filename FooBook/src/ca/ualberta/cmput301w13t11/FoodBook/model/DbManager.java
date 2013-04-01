@@ -118,12 +118,14 @@ public class DbManager extends FModel<FView> {
         Bitmap temp = null;
         ArrayList<Photo> photos = recipe.getPhotos();
         ArrayList<Photo> fullPhotos = getFullPhotos(photos);
-        for (Photo photo : fullPhotos) {
-        	temp = photo.getPhotoBitmap();
-        	if (temp != null)
-        		insertRecipePhotos(photo, temp, recipe.getUri());
+        for (int i = 0; i < photos.size(); i++) {
+        	temp = photos.get(i).getPhotoBitmap();
+        	if (temp == null)
+        		temp = fullPhotos.get(i).getPhotoBitmap();
+        		insertRecipePhotos(photos.get(i), temp, recipe.getUri());
         }
     }
+    
 
     /**
      * Inserts the given Ingredient into the database such that it is associated with the

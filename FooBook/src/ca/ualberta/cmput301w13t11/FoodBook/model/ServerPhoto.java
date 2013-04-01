@@ -1,8 +1,8 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import java.io.File;
+import java.util.Random;
 
-import android.content.Context;
 import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
@@ -42,8 +42,12 @@ public class ServerPhoto {
 	 */
 	public static Photo toPhoto(ServerPhoto sp)
 	{
+		Random r = new Random();
+		int x = r.nextInt(1000);
 		String imgPath = null;
 		File file = null;
+		String newId = Long.toString(System.currentTimeMillis()) + Long.toString((System.currentTimeMillis() + x) % 1000);
+
 		
 		/* We now need to obtains the Sd Card from the device. */
 		FoodBookApplication app = FoodBookApplication.getApplicationInstance();
@@ -51,15 +55,15 @@ public class ServerPhoto {
 		
 		/* We first get the save path on this device. */
 		if (Environment.MEDIA_MOUNTED.equals(state)) {
-			imgPath = app.getSdCardPath() + sp.getId();
+			imgPath = app.getSdCardPath() + newId;
 			file = new File(imgPath);
 		}
 	
 		Log.d("ServerPhoto.toPhoto()", "imgPath = " + imgPath);
-		Log.d("ServerPhoto.toPhoto()", "id to stoe = " + sp.getId());
+		Log.d("ServerPhoto.toPhoto()", "id to store = " + newId);
 		if (sp.encoded_bitmap != null) {
 			byte[] data = Base64.decode(sp.encoded_bitmap, Base64.DEFAULT);
-			return new Photo(sp.getId(), imgPath, data);
+			return new Photo(newId, imgPath, data);
 		}
 		return new Photo(sp.getId(), imgPath);
 	}

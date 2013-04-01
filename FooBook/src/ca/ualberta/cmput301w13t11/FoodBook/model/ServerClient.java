@@ -142,6 +142,9 @@ public class ServerClient {
 	 */
 	public void writeResultsToDb()
 	{
+		if (results.get(0).getPhotos().isEmpty()) {
+			logger.log(Level.SEVERE, "Result's 0 photos are null!");
+		}
 		dbManager = ResultsDbManager.getInstance();
 		if (dbManager == null)
 		{
@@ -310,6 +313,7 @@ public class ServerClient {
 		@Override
 		public ReturnCode call() 
 		{
+			httpclient = getThreadSafeClient();
 			ArrayList<Recipe> search_results = new ArrayList<Recipe>();
 			HttpResponse response = null;
 			logger.log(Level.SEVERE, "Search string passed:" + str);
@@ -573,8 +577,8 @@ public class ServerClient {
 					logger.log(Level.INFO, "serverPhotoToJson() result: " + sp_str);
 
 					HttpPost updateRequest = new HttpPost(serverString + uri + "/_update");
-					String query = 	"{\"script\":\"ctx._source.photos += xxx\", \"params\" : " +
-							"{ \"xxx\" : " + sp_str + "}}";
+					String query = 	"{\"script\":\"ctx._source.photos += photo\", \"params\" : " +
+							"{ \"photo\" : " + sp_str + "}}";
 					logger.log(Level.INFO, "stringQuery = " + query);
 
 					StringEntity stringentity = new StringEntity(query);
