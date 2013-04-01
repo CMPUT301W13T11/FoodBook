@@ -58,22 +58,7 @@ public class Recipe {
 		this.photos = new ArrayList<Photo>();
 	}
 	
-	/**
-	 * Constructor.
-	 * @param title The title of the recipe.
-	 * @param author The author of the recipe.
-	 */
-	public Recipe(User author, String title)
-	{
-		this.setAuthor(author);
-		this.title = title;
-		this.setInstructions("");
-		this.ingredients = new ArrayList<Ingredient>();
-		this.photos = new ArrayList<Photo>();
-		this.uri = System.currentTimeMillis();
 
-	}
-	
 	/**
 	 * Constructor.
 	 * @param title The title of the recipe.
@@ -89,44 +74,6 @@ public class Recipe {
 		this.uri = System.currentTimeMillis();
 		
 	}
-	
-	/**
-	 *  Constructor.
-	 * @param title The title of the recipe.
-	 * @param instructions The set of instructions used to execute the recipe.
-	 * @param ingredients The list of ingredients associated with this recipe.
-	 */
-	public Recipe(User author, String title, String instructions, ArrayList<Ingredient> ingredients)
-	{
-		this.setAuthor(author);
-		this.title = title;
-		this.setInstructions(instructions);
-		this.ingredients = ingredients;
-		this.photos = new ArrayList<Photo>();
-
-		this.uri = System.currentTimeMillis();
-	}
-	
-	/**
-	 * Constructor.
-	 * @param author The author of the Recipe.
-	 * @param title The title of the Recipe.
-	 * @param instructions The set of instructions used to execute the Recipe.
-	 * @param ingredients The list of ingredients associated with this Recipe.
-	 * @param photos The list of photos associated with this Recipe.
-	 */
-	public Recipe(User author, String title, String instructions, ArrayList<Ingredient> ingredients,
-				ArrayList<Photo> photos)
-	{
-		this.setAuthor(author);
-		this.title = title;
-		this.setInstructions(instructions);
-		this.ingredients = ingredients;
-		this.photos = photos;
-
-		this.uri = System.currentTimeMillis();
-	}
-
 	
 	/**
 	 * Returns title of recipe - method of this name needed to populate ListViews.
@@ -172,26 +119,11 @@ public class Recipe {
 
 	/**
 	 * Add the given Photo to this Recipes list of photos.
-	 * @param photo
+	 * @param photo The Photo to be added.
 	 */
 	public void addPhoto(Photo photo)
 	{
 		photos.add(photo);
-	}
-	
-	/**
-	 * Delete the given photo from this recipe's photos attribute (if it exists).
-	 * @param Photo the Photo to be removed from the photos list.
-	 */
-	public void deletePhoto(Photo photo)
-	{
-		for(int i = 0; i < photos.size(); i++) {
-			Photo p = photos.get(i);
-			if (p.getId().equals(photo.getId()))
-			{
-				photos.remove(p);
-			}
-		}
 	}
 	
     /**

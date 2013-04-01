@@ -56,6 +56,17 @@ public class DbControllerTests extends AndroidTestCase {
 	}
 	
 	/**
+	 * Test the functionality of the updateResultsDb() method by simiply ensuring it can be called
+	 * without error.
+	 */
+	public void testupdateResultsDb()
+	{
+		MockView view = new MockView(1);
+		dbc = DbController.getInstance(this.getContext(), view);
+		dbc.updateResultsDb();
+	}
+	
+	/**
 	 * Test getUserRecipes() -- attempt to get recipes from database without error using 
 	 * the controller's functionality.
 	 */

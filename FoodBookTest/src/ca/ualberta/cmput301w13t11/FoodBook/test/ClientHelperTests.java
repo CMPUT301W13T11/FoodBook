@@ -46,8 +46,7 @@ public class ClientHelperTests extends TestCase {
 		ingredients.add(new Ingredient("turd sandwich", "cup", (float).5));
 		
 		/* Create test recipe. */
-		Recipe test_recipe = new Recipe(new User("Tester"), "Nothing you'd want to eat.",
-										"Don't cook this.",ingredients);
+		Recipe test_recipe = new Recipe(10001010L, new User("Tester"), "Nothing you'd want to eat.", "Don't cook this.", ingredients);
 		
 		StringEntity ret = helper.recipeToJSON(test_recipe);
 		

@@ -48,17 +48,6 @@ public class ServerControllerTest extends AndroidTestCase {
 		DbManager temp = DbManager.getInstance(this.getContext());
 
 	}
-
-	/**
-	 * Test the functionality of the updateResultsDb() method by simiply ensuring it can be called
-	 * without error.
-	 */
-	public void testupdateResultsDb()
-	{
-		MockView view = new MockView(1);
-		sc = ServerController.getInstance(view);
-		sc.updateResultsDb();
-	}
 	
 	/**
 	 * Test the getInstance method of ServerClient.
@@ -82,7 +71,7 @@ public class ServerControllerTest extends AndroidTestCase {
 		sc = ServerController.getInstance(view);
 		String title = Long.toString(System.currentTimeMillis());
 
-		Recipe recipe = new Recipe(new User("tester"), title);
+		Recipe recipe = new Recipe(10101 ,new User("tester"), title, "", new ArrayList<Ingredient>());
 		try { 
 			ret = sc.uploadRecipe(recipe);
 		} catch (Exception ioe) {

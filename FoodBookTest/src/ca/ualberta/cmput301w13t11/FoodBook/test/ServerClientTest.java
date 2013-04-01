@@ -39,9 +39,6 @@ public class ServerClientTest extends AndroidTestCase {
 	public void testGetInstance()
 	{
 		sc = ServerClient.getInstance();
-		// for no reason
-		ClientHelper whatever = new ClientHelper();
-		whatever.recipeToJSON(new Recipe(new User(""), ""));
 		assertTrue("getInstance() failure", sc != null);
 	}
 	
@@ -120,7 +117,7 @@ public class ServerClientTest extends AndroidTestCase {
 		sc = ServerClient.getInstance();
 		String title = Long.toString(System.currentTimeMillis());
 
-		Recipe recipe = new Recipe(new User("tester"), title);
+		Recipe recipe = new Recipe(new User("tester"), title, "");
 		try { 
 			ret = sc.uploadRecipe(recipe);
 		} catch (IOException ioe) {
