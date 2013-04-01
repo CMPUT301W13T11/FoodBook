@@ -1,6 +1,8 @@
 package ca.ualberta.cmput301w13t11.FoodBook.test;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
@@ -54,6 +56,61 @@ public class ServerClientTest extends AndroidTestCase {
 	}
 	
 	/**
+	 * Test the functionality of the checkForRecipe() function.
+	 * We ensure that a Recipe known to exist on the server is correctly found.
+	 */
+	public void testCheckForRecipe1()
+	{
+		sc = ServerClient.getInstance();
+		//assertTrue("Should be able to find recipe with uri 1364851229133", )
+		try {
+			Class[] args = new Class[1];
+			args[0] = long.class;
+			Method method = sc.getClass().getDeclaredMethod("checkForRecipe", args);
+			method.setAccessible(true);
+			ReturnCode ret = (ReturnCode) method.invoke(sc, 1364851229133L);
+			assertTrue("Should be able to find recipe with uri 1364851229133", ret == ReturnCode.SUCCESS);
+			
+		} catch (NoSuchMethodException nsme) {
+			fail("NoSuchMethodException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException");
+		}
+
+	}
+	
+	/**
+	 * Test the functionality of the checkForRecipe() function.
+	 * We ensure that a Recipe known to not exist on the server is correctly not found.
+	 */
+	public void testCheckForRecipe2()
+	{
+		sc = ServerClient.getInstance();
+		try {
+			Class[] args = new Class[1];
+			args[0] = long.class;
+			Method method = sc.getClass().getDeclaredMethod("checkForRecipe", args);
+			method.setAccessible(true);
+			ReturnCode ret = (ReturnCode) method.invoke(sc, 123456L);
+			assertTrue("Should not be able to find recipe with uri 123456", ret == ReturnCode.NOT_FOUND);
+			
+		} catch (NoSuchMethodException nsme) {
+			fail("NoSuchMethodException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException");
+		}
+
+	}
+	
+	/**
 	 * Test uploading a novel recipe to the server, ensure return code
 	 * is SUCCESS.
 	 */
@@ -71,6 +128,38 @@ public class ServerClientTest extends AndroidTestCase {
 		}
 
 		assertTrue("uploadRecipe should return SUCCESS", ret == ReturnCode.SUCCESS);
+	}
+	
+	/**
+	 * Test the functionality of the ingredientsToString() method by ensuring
+	 * that it returns the expected string when passed a known list of recipes.
+	 */
+	public void testIngredientsToString()
+	{
+		sc = ServerClient.getInstance();
+		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
+		ingredients.add(new Ingredient("test1", "x", (float) 10));
+		ingredients.add(new Ingredient("test2", "x", (float) 10));
+		ingredients.add(new Ingredient("test3", "x", (float) 10));
+
+		try {
+			Class[] args = new Class[1];
+			args[0] = ArrayList.class;
+			Method method = sc.getClass().getDeclaredMethod("ingredientsToString", args);
+			method.setAccessible(true);
+			String ret = (String) method.invoke(sc, ingredients);
+			String expectedRet = "test1 OR test2 OR test3";
+			assertTrue("Returned string should match expected string.", ret.equals(expectedRet));
+			
+		} catch (NoSuchMethodException nsme) {
+			fail("NoSuchMethodException");
+		} catch (IllegalArgumentException e) {
+			fail("IllegalArgumentException");
+		} catch (IllegalAccessException e) {
+			fail("IllegalAccessException");
+		} catch (InvocationTargetException e) {
+			fail("InvocationTargetException");
+		}
 	}
 	
 	/**

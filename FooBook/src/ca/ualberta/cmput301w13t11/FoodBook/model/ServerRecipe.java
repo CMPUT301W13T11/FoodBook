@@ -58,17 +58,26 @@ public class ServerRecipe{
 	}
 
 
+	/**
+	 * @return ArrayList of photos associated with this ServerRecipe.
+	 */
 	public ArrayList<ServerPhoto> getPhotos()
 	{
 		return photos;
 	}
 	
-	
+	/**
+	 * @return The Author of this ServerRecipe (a User object).
+	 */
 	public User getAuthor() {
 		return author;
 	}
 
 
+	/**
+	 * Set the author attribute to the given author arg.
+	 * @param author The setter.
+	 */
 	public void setAuthor(User author) {
 		this.author = author;
 	}
@@ -107,7 +116,7 @@ public class ServerRecipe{
 
 
 	/**
-	 * @return the ingredients
+	 * @return the ingredients associated with the ServerRecipe
 	 */
 	public ArrayList<Ingredient> getIngredients() {
 		return ingredients;
@@ -123,7 +132,7 @@ public class ServerRecipe{
 
 
 	/**
-	 * @return the uri
+	 * @return the uri of the ServerRecipe
 	 */
 	public long getUri() {
 		return uri;
@@ -131,7 +140,7 @@ public class ServerRecipe{
 
 
 	/**
-	 * @param uri the uri to set
+	 * @param uri The new URI of the ServerRecipe.
 	 */
 	public void setUri(long uri) {
 		this.uri = uri;
