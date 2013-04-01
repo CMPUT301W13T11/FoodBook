@@ -298,8 +298,8 @@ public class DbController {
      * @param ingred The new ingredient information to be stored in the IngredientsDb.
      * @param oldName The name of the Ingredient whose information we wish to overwrite.
      */
-    public void updateIngredient(Ingredient ingred, String oldName) {
-        ingredsManager.updateIngredient(ingred, oldName);
+    public void updateIngredient(Ingredient ingred, Ingredient oldIngred) {
+        ingredsManager.updateIngredient(ingred, oldIngred);
         db.notifyViews();
     }
 }
