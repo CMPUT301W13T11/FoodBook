@@ -80,11 +80,11 @@ public class IngredientsDbManager extends DbManager {
 	 * given by the Recipe parameter.
 	 * @param recipe The updated recipe to be stored in the database.
 	 */
-	public void updateIngredient(Ingredient ingred, String oldName) {
-		updateField(oldName, "quantity", Float.toString(ingred.getQuantity()));
-		updateField(oldName, "unit", ingred.getUnit());
-		updateField(oldName, "name", ingred.getName());
-	}
+//	public void updateIngredient(Ingredient ingred, Ingredient oldIngred) {
+//		updateField(oldIngred, "quantity", Float.toString(ingred.getQuantity()));
+//		updateField(oldIngred, "unit", ingred.getUnit());
+//		updateField(oldIngred, "name", ingred.getName());
+//	}
 
 	/**
 	 * Updates the title of the Ingredient with the given name.
@@ -93,10 +93,14 @@ public class IngredientsDbManager extends DbManager {
 	 * @param tableName The name of the table in which the Recipe resides.
 	 * @param newTitle The new title of the Recipe.
 	 */
-	private void updateField(String name, String field, String value) {
-		String filter = "name='" + name + "'";
+	public void updateIngredient(Ingredient ingred, Ingredient oldIngred) {
+		String filter = "name='" + oldIngred.getName() 
+		        + "' and unit='" + oldIngred.getUnit()
+		        + "' and quantity='" + oldIngred.getQuantity() + "'";
 		ContentValues args = new ContentValues();
-		args.put(field, value);
+		args.put("name", ingred.getName());
+		args.put("unit", ingred.getUnit());
+		args.put("quantity", ingred.getQuantity());
 		db.update(tableName, args, filter, null);
 	}
 

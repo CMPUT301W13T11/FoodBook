@@ -50,8 +50,8 @@ public class MyIngredients extends Activity implements FView<DbManager>
 	@SuppressWarnings("all")
 	static private final Logger logger = Logger.getLogger(MyIngredients.class.getName());
 
-	private Ingredient deletedIngredient;
-	private boolean delete=false;
+	private Ingredient updatedIngredient;
+	private boolean update=false;
 
 
 	/**
@@ -234,8 +234,8 @@ public class MyIngredients extends Activity implements FView<DbManager>
 				editText = (EditText) popUpView.findViewById(R.id.editIngredientAmount);
 				editText.setText(String.valueOf(DbC.getUserIngredients().get(position).getQuantity()));
 				
-				deletedIngredient=DbC.getUserIngredients().get(position);
-				delete=true;
+				updatedIngredient=DbC.getUserIngredients().get(position);
+				update=true;
 				
 
 				return false;
@@ -287,11 +287,6 @@ public class MyIngredients extends Activity implements FView<DbManager>
 
 	public void OnOK(View v){
 		DbController DbC = DbController.getInstance(this, this);
-		if(delete)
-		{	DbC.deleteIngredient(deletedIngredient);
-			delete=false;
-		}
-		
 		
 		EditText editText = (EditText) popUpView.findViewById(R.id.editIngredientType);
 		String type=editText.getText().toString();
@@ -313,7 +308,12 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		darkenScreen.setLayoutParams(darkenParams);
 		Ingredient ingredient = new Ingredient(type, unit, amount);
 		
-		DbC.addIngredient(ingredient);
+		if (update) {
+		    DbC.updateIngredient(ingredient, updatedIngredient);
+		    update = false;
+		} else {
+		    DbC.addIngredient(ingredient);
+		}
 		updateIngredients();
 	}
 
