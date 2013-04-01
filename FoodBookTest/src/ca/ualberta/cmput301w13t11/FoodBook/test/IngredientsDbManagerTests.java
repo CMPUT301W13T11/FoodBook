@@ -120,76 +120,77 @@ public class IngredientsDbManagerTests extends AndroidTestCase {
 		}
 	}
 
-	/**
-	 * Test the functionality of the updateField() method.
-	 * Ensure that after calling the method an ingredient known to be unique in the database and with
-	 * known initial fields values is successfully stored with the new user-specified field value, while
-	 * also ensuring that the the old version of the ingredient is no longer in the database..
-	 */
-	public void testUpdateField()
-	{
-		idb = IngredientsDbManager.getInstance(this.getContext());
-		if (idb == null) {
-			fail("failed to get instance of IngredientsDbManager");
-		}
-		String name = Long.toString(System.currentTimeMillis());
-		Ingredient ingredient = new Ingredient(name, "test unit", (float) 100);
-		idb.insert(ingredient);
-
-		String newUnit = Long.toString(System.currentTimeMillis());
-
-		try {
-			/* Testing private member function, need to use reflection. */
-			Class[] args = new Class[3];
-			args[0] = String.class;
-			args[1] = String.class;
-			args[2] = String.class;
-			Method method = idb.getClass().getDeclaredMethod("updateField", args);
-			method.setAccessible(true);
-			method.invoke(idb, name, "unit", newUnit);
-
-			ArrayList<Ingredient> ingredients = idb.get();
-
-			/* attempt to find ingredient in returned array*/
-			int i = 0;
-			for (i = 0; i < ingredients.size(); i++) {
-				if (ingredients.get(i).getUnit().equals(newUnit)) {
-					break;
-				}
-			}
-			assertTrue("Should be able to find new ingredient in database.", i < ingredients.size());
-
-			/* Ensure equality of the other fields. */
-			assertTrue("Names should be the same.", ingredients.get(i).getName().equals(ingredient.getName()));
-			assertTrue("Quantities should be the same.", ingredients.get(i).getQuantity() == ingredient.getQuantity());
-
-			/* Now ensure that old ingredient cannot be found. */
-			for (i = 0; i < ingredients.size(); i++) {
-				if (ingredients.get(i).getName().equals(name)) {
-					if (ingredients.get(i).getUnit().equals("test unit")) {
-						if (ingredients.get(i).getQuantity() == 100) {
-							break;
-						}
-					}
-				}
-
-			}
-
-			assertTrue("Should not have been able to find old ingredient in the database.", i >= ingredients.size());
-
-
-		} catch (NoSuchMethodException nsme) {
-			fail("NoSuchMethodException");
-		} catch (IllegalArgumentException e) {
-			fail("IllegalArgumentException");
-		} catch (IllegalAccessException e) {
-			fail("IllegalAccessException");
-		} catch (InvocationTargetException e) {
-			fail("InvocationTargetException");
-		}
-
-
-	}
+	// THIS METHOD IS CURRENTLY DEPRECATED BUT MAY BE REVIVED IN THE FUTURE
+//	/**
+//	 * Test the functionality of the updateField() method.
+//	 * Ensure that after calling the method an ingredient known to be unique in the database and with
+//	 * known initial fields values is successfully stored with the new user-specified field value, while
+//	 * also ensuring that the the old version of the ingredient is no longer in the database..
+//	 */
+//	public void testUpdateField()
+//	{
+//		idb = IngredientsDbManager.getInstance(this.getContext());
+//		if (idb == null) {
+//			fail("failed to get instance of IngredientsDbManager");
+//		}
+//		String name = Long.toString(System.currentTimeMillis());
+//		Ingredient ingredient = new Ingredient(name, "test unit", (float) 100);
+//		idb.insert(ingredient);
+//
+//		String newUnit = Long.toString(System.currentTimeMillis());
+//
+//		try {
+//			/* Testing private member function, need to use reflection. */
+//			Class[] args = new Class[3];
+//			args[0] = String.class;
+//			args[1] = String.class;
+//			args[2] = String.class;
+//			Method method = idb.getClass().getDeclaredMethod("updateField", args);
+//			method.setAccessible(true);
+//			method.invoke(idb, name, "unit", newUnit);
+//
+//			ArrayList<Ingredient> ingredients = idb.get();
+//
+//			/* attempt to find ingredient in returned array*/
+//			int i = 0;
+//			for (i = 0; i < ingredients.size(); i++) {
+//				if (ingredients.get(i).getUnit().equals(newUnit)) {
+//					break;
+//				}
+//			}
+//			assertTrue("Should be able to find new ingredient in database.", i < ingredients.size());
+//
+//			/* Ensure equality of the other fields. */
+//			assertTrue("Names should be the same.", ingredients.get(i).getName().equals(ingredient.getName()));
+//			assertTrue("Quantities should be the same.", ingredients.get(i).getQuantity() == ingredient.getQuantity());
+//
+//			/* Now ensure that old ingredient cannot be found. */
+//			for (i = 0; i < ingredients.size(); i++) {
+//				if (ingredients.get(i).getName().equals(name)) {
+//					if (ingredients.get(i).getUnit().equals("test unit")) {
+//						if (ingredients.get(i).getQuantity() == 100) {
+//							break;
+//						}
+//					}
+//				}
+//
+//			}
+//
+//			assertTrue("Should not have been able to find old ingredient in the database.", i >= ingredients.size());
+//
+//
+//		} catch (NoSuchMethodException nsme) {
+//			fail("NoSuchMethodException");
+//		} catch (IllegalArgumentException e) {
+//			fail("IllegalArgumentException");
+//		} catch (IllegalAccessException e) {
+//			fail("IllegalAccessException");
+//		} catch (InvocationTargetException e) {
+//			fail("InvocationTargetException");
+//		}
+//
+//
+//	}
 
 	/**
 	 * Test the functionality of the updateIngredient() method.
@@ -205,6 +206,7 @@ public class IngredientsDbManagerTests extends AndroidTestCase {
 		}
 		String name = Long.toString(System.currentTimeMillis());
 		Ingredient ingredient = new Ingredient(name, "test unit", (float) 100);
+		Ingredient oldIngredient = new Ingredient(name, "test unit", (float) 100);
 		idb.insert(ingredient);
 
 		String newName = Long.toString(System.currentTimeMillis());
@@ -212,7 +214,7 @@ public class IngredientsDbManagerTests extends AndroidTestCase {
 		ingredient.setUnit("not test unit");
 		ingredient.setQuantity(99);
 
-		idb.updateIngredient(ingredient, name);
+		idb.updateIngredient(ingredient, oldIngredient);
 		ArrayList<Ingredient> ingredients = idb.get();
 
 		/* attempt to find ingredient in returned array*/
