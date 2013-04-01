@@ -42,7 +42,8 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	private View popUpView;
 	static private final Logger logger = Logger.getLogger(EditIngredients.class.getName());
 	private int pos;
-	private boolean delete=false;
+	private boolean update=false;
+	private Ingredient changedIngred;
 	
 	/* Flag used to decide if we should autosave the changes for the user or not. */
 	private boolean cancelled = false;
@@ -173,7 +174,7 @@ public class EditIngredients extends Activity implements FView<DbManager>
 				editText = (EditText) popUpView.findViewById(R.id.editIngredientAmount);
 				editText.setText(String.valueOf(RecipeIngredients.get(position).getQuantity()));
 				pos=position;
-				delete=true;
+				update=true;
 				return false;
 			}});
 
@@ -226,10 +227,6 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	 *
 	 */
 	public void OnOK(View v){
-		if(delete)
-		{	RecipeIngredients.remove(pos);
-			delete=false;
-		}
 		
 		EditText editText = (EditText) popUpView.findViewById(R.id.editIngredientType);
 		String type=editText.getText().toString();
@@ -261,8 +258,17 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		darkenParams.height = 0;
 		darkenParams.width = 0;
 		darkenScreen.setLayoutParams(darkenParams);
-		Ingredient ingredient = new Ingredient(type, unit, amount);
-		RecipeIngredients.add(ingredient);
+		
+		if(update) {       
+		    changedIngred = RecipeIngredients.get(pos);
+		    changedIngred.setName(type);
+		    changedIngred.setUnit(unit);
+		    changedIngred.setQuantity(amount);
+		    update=false;
+		} else {
+		    Ingredient ingredient = new Ingredient(type, unit, amount);
+		    RecipeIngredients.add(ingredient);
+		}
 		updateIngredients();
 	}
 	
