@@ -1,10 +1,18 @@
 package ca.ualberta.cmput301w13t11.FoodBook.test;
 
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 import android.content.ContentValues;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
+import android.os.Environment;
 import android.test.AndroidTestCase;
+import ca.ualberta.cmput301w13t11.FoodBook.BogoPicGen;
+import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
@@ -250,6 +258,30 @@ public class RecipeTest extends AndroidTestCase {
 				test.getAuthor().getName().equals( (String) ret.get("author")));
 		assertTrue("Returned ContentValues key \"instructions\" should have same value as test recipe's instructions.",
 				test.getInstructions().equals( (String) ret.get("instructions")));
+	}
+	
+	/**
+	 * Test the functionality of the savePhotoToDevice() method.
+	 * Ensure that the bit information of a photo object can be correctly stored to the device.
+	 */
+	public void testSavePhotoToDevice()
+	{
+		Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
+		assertTrue("test bitmap should not be null -- BogoPicgen failure", bitmap != null);
+		String name = Long.toString(System.currentTimeMillis());
+		String sdCardPath = Environment.getExternalStorageDirectory()+File.separator;
+		String path = sdCardPath + name;
+		Photo newPhoto = new Photo(name, path);
+
+		boolean ret = newPhoto.saveToDevice(bitmap);
+		assertTrue("saveToDevice() should return true.", ret == true);			
+		
+		/* Now we test to see that the file can be retrieved. */
+	    Options options = new Options();
+	    options.inJustDecodeBounds = false;
+		Bitmap retBitmap = BitmapFactory.decodeFile(path, options);
+		assertTrue("returned Bitmap should not be null", retBitmap != null);
+		
 	}
 
 }

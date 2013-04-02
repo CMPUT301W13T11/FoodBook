@@ -103,21 +103,6 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 
 	}
 
-	/**
-	 * Test the functionality of removeRecipe()
-	 * Ensure that when attempting to remove a recipe known to not exist in the Db that the method returns false.
-	 */
-	public void testRemoveRecipe2()
-	{
-		dbm = RecipesDbManager.getInstance(this.getContext());
-		if (dbm == null) {
-			fail("failed to get an instance of RecipesDbManager");
-		}
-		Recipe recipe = new Recipe(0, new User(""), "", "", new ArrayList<Ingredient>(), new ArrayList<Photo>());
-		boolean ret = dbm.removeRecipe(recipe);
-		assertTrue("removeRecipe() should return false", ret == false);
-
-	}
 
 	/**
 	 * Test the functionality of removeRecipeIngredient()
@@ -522,28 +507,6 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 		assertTrue("The returned path should be the same as the one stored.", photos.get(i).getPath().equals(path));
 	}
 
-
-	/**
-	 * Test the functionality of Photo's saveToDevice() method.
-	 * Ensure that the bit information of a photo object can be correctly stored to the device.
-	 */
-	public void testSavePhotoToDevice()
-	{
-		Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
-		assertTrue("test bitmap should not be null -- BogoPicgen failure", bitmap != null);
-		String name = Long.toString(System.currentTimeMillis());
-		String path = sdCardPath + name;
-		Photo newPhoto = new Photo(name, path);
-		boolean ret = newPhoto.saveToDevice(bitmap);
-		assertTrue("saveToDevice() should return true.", ret == true);			
-
-		/* Now we test to see that the file can be retrieved. */
-		Options options = new Options();
-		options.inJustDecodeBounds = false;
-		Bitmap retBitmap = BitmapFactory.decodeFile(path, options);
-		assertTrue("returned Bitmap should not be null", retBitmap != null);
-
-	}
 
 	/**
 	 * Test the functionality of the getFullPhotos() method.

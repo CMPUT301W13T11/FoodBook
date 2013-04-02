@@ -104,22 +104,6 @@ public class ResultsDbManagerTests extends AndroidTestCase {
 	}
 
 	/**
-	 * Test the functionality of removeRecipe()
-	 * Ensure that when attempting to remove a recipe known to not exist in the Db that the method returns false.
-	 */
-	public void testRemoveRecipe2()
-	{
-		dbm = ResultsDbManager.getInstance(this.getContext());
-		if (dbm == null) {
-			fail("failed to get an instance of ResultsDbManager");
-		}
-		Recipe recipe = new Recipe(0, new User(""), "", "", new ArrayList<Ingredient>(), new ArrayList<Photo>());
-		boolean ret = dbm.removeRecipe(recipe);
-		assertTrue("removeRecipe() should return false", ret == false);
-
-	}
-
-	/**
 	 * Test the functionality of removeRecipeIngredient()
 	 * Ensure that the no errors occur when attempting to remove ingredients from a recipe known to have ingredients.
 	 */
@@ -173,83 +157,6 @@ public class ResultsDbManagerTests extends AndroidTestCase {
 		ArrayList<Recipe> recipes = dbm.getRecipes();
 
 		assertTrue("Returned list should not be empty.", !recipes.isEmpty());
-	}
-
-	/**
-	 * Test the functionality of the updateRecipeTitle function.
-	 * Ensure that after calling the method on a recipe known to exist in the database the
-	 * updated title is retrieved.
-	 */
-	public void testUpdateRecipeTitle()
-	{
-		Recipe recipe = Recipe.generateRandomTestRecipe();
-		dbm = ResultsDbManager.getInstance(this.getContext());
-		if (dbm == null) {
-			fail("failed to get an instance of ResultsDbManager");
-		}
-		dbm.insertRecipe(recipe);
-
-		DbManager dbManager = DbManager.getInstance(this.getContext());
-		/* This is a private method, so we must use reflection. */
-		try {
-			/* Testing private member function, need to use reflection. */
-			Class[] args = new Class[2];
-			args[0] = long.class;
-			args[1] = String.class;
-			Method method = dbManager.getClass().getDeclaredMethod("updateRecipeTitle", args);
-			method.setAccessible(true);
-			method.invoke(dbm, recipe.getUri(),"new");
-
-			Recipe ret = dbm.getRecipe(recipe.getUri());
-			assertTrue("Recipe's title should now be \"new\"", ret.getTitle().equals("new"));
-		} catch (NoSuchMethodException nsme) {
-			fail("NoSuchMethodException");
-		} catch (IllegalArgumentException e) {
-			fail("IllegalArgumentException");
-		} catch (IllegalAccessException e) {
-			fail("IllegalAccessException");
-		} catch (InvocationTargetException e) {
-			fail("InvocationTargetException");
-		}
-
-	}
-
-	/**
-	 * Test the functionality of the updateRecipeInstructions function.
-	 * Ensure that after calling the method on a recipe known to exist in the database the
-	 * updated instructions are retrieved.
-	 */
-	public void testUpdateRecipeInstructions()
-	{
-		Recipe recipe = Recipe.generateRandomTestRecipe();
-		dbm = ResultsDbManager.getInstance(this.getContext());
-		if (dbm == null) {
-			fail("failed to get an instance of ResultsDbManager");
-		}
-		dbm.insertRecipe(recipe);
-
-		DbManager dbManager = DbManager.getInstance(this.getContext());
-		/* This is a private method, so we must use reflection. */
-		try {
-			/* Testing private member function, need to use reflection. */
-			Class[] args = new Class[2];
-			args[0] = long.class;
-			args[1] = String.class;
-			Method method = dbManager.getClass().getDeclaredMethod("updateRecipeInstructions", args);
-			method.setAccessible(true);
-			method.invoke(dbm, recipe.getUri(),"new instructions");
-
-			Recipe ret = dbm.getRecipe(recipe.getUri());
-			assertTrue("Recipe's title should now be \"new instructions\"", ret.getInstructions().equals("new instructions"));
-		} catch (NoSuchMethodException nsme) {
-			fail("NoSuchMethodException");
-		} catch (IllegalArgumentException e) {
-			fail("IllegalArgumentException");
-		} catch (IllegalAccessException e) {
-			fail("IllegalAccessException");
-		} catch (InvocationTargetException e) {
-			fail("InvocationTargetException");
-		}
 	}
 
 	/**
@@ -599,49 +506,7 @@ public class ResultsDbManagerTests extends AndroidTestCase {
 		assertTrue("The returned path should be the same as the one stored.", photos.get(i).getPath().equals(path));
 	}
 
-	
-	/**
-	 * Test the functionality of the savePhotoToDevice() method.
-	 * Ensure that the bit information of a photo object can be correctly stored to the device.
-	 */
-	public void testSavePhotoToDevice()
-	{
-		Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
-		assertTrue("test bitmap should not be null -- BogoPicgen failure", bitmap != null);
-		String name = Long.toString(System.currentTimeMillis());
-		String path = sdCardPath + name;
-		Photo newPhoto = new Photo(name, path);
-		DbManager dbManager = DbManager.getInstance(this.getContext());
 
-		try {
-
-			/* Testing private member function, need to use reflection. */
-			Class[] args = new Class[2];
-			args[0] = Bitmap.class;
-			args[1] = Photo.class;
-			Method method = dbManager.getClass().getDeclaredMethod("savePhotoToDevice", args);
-			method.setAccessible(true);
-			boolean ret = (Boolean) method.invoke(dbm, bitmap, newPhoto);
-			
-			assertTrue("savePhotoToDevice() should return true.", ret == true);			
-			
-		} catch (NoSuchMethodException nsme) {
-			fail("NoSuchMethodException");
-		} catch (IllegalArgumentException e) {
-			fail("IllegalArgumentException");
-		} catch (IllegalAccessException e) {
-			fail("IllegalAccessException");
-		} catch (InvocationTargetException e) {
-			fail("InvocationTargetException");
-		}
-		
-		/* Now we test to see that the file can be retrieved. */
-	    Options options = new Options();
-	    options.inJustDecodeBounds = false;
-		Bitmap retBitmap = BitmapFactory.decodeFile(path, options);
-		assertTrue("returned Bitmap should not be null", retBitmap != null);
-		
-	}
 	
 	/**
 	 * Test the functionality of the getFullPhotos() method.
@@ -680,7 +545,6 @@ public class ResultsDbManagerTests extends AndroidTestCase {
 			path = file.getAbsolutePath();
 
 		} catch (Exception ex) {
-			// TODO Auto-generated catch block
 			ex.printStackTrace();
 			Log.d("Failed to save image.", "Failed to save image.");
 			fail("Exception during bitmap save.");
