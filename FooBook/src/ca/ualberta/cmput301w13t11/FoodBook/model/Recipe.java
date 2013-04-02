@@ -1,9 +1,9 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import android.content.ContentValues;
-import java.util.Collection;
 
 /**
  * Class which models a recipe.
@@ -198,7 +198,9 @@ public class Recipe {
 		User user = new User("tester");
 		String title = "test";
 		String instructions = "test instructions";
-		long uri = System.currentTimeMillis();
+		Random r = new Random();
+		int x = r.nextInt(1000);
+		long uri = System.currentTimeMillis() + x;
 		
 		/* Generate ingredient list. */
 		ArrayList<Ingredient> ingredients = new ArrayList<Ingredient>();
