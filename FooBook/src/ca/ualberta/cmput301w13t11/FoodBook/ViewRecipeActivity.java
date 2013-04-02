@@ -12,7 +12,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -142,7 +141,8 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		
 		
 		ListView listView = (ListView) findViewById(R.id.listView1);
-		ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getRecipeIngredients(uri));
+		MySimpleArrayAdapter adapter= new MySimpleArrayAdapter(this, DbC.getRecipeIngredients(uri));
+		//ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getRecipeIngredients(uri));
 		listView.setAdapter(adapter);
 
 	}

@@ -84,7 +84,8 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		instructions.setText(viewedRecipe.getInstructions());
 		
 		ListView listView = (ListView) findViewById(R.id.listView1);
-		ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getRecipeIngredients(uri));
+		MySimpleArrayAdapter adapter = new MySimpleArrayAdapter(this, DbC.getRecipeIngredients(uri));
+		//ArrayAdapter<Ingredient> adapter = new ArrayAdapter<Ingredient>(this, android.R.layout.simple_list_item_1, android.R.id.text1, DbC.getRecipeIngredients(uri));
 		listView.setAdapter(adapter);
 	}	
 	
