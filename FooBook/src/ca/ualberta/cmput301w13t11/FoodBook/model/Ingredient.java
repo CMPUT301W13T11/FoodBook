@@ -1,6 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import android.content.ContentValues;
+import java.util.Collection;
 
 /**
  * Class which models an ingredient (as part of a recipe, or in the User's MyIngredients Db).
@@ -74,4 +75,5 @@ public class Ingredient {
     public String toString(){
     	return name + " " + quantity + " " + unit ;
     }
+
 }

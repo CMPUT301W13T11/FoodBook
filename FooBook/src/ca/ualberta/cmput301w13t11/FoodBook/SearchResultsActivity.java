@@ -216,5 +216,54 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		DbController DbC = DbController.getInstance(this, this);
 		DbC.deleteView(this);
 	}
+	/**
+	 * @uml.property  name="viewSearchResultActivity"
+	 * @uml.associationEnd  inverse="searchResultsActivity:ca.ualberta.cmput301w13t11.FoodBook.ViewSearchResultActivity"
+	 * @uml.association  name="accessed from"
+	 */
+	private ViewSearchResultActivity viewSearchResultActivity;
+	/**
+	 * Getter of the property <tt>viewSearchResultActivity</tt>
+	 * @return  Returns the viewSearchResultActivity.
+	 * @uml.property  name="viewSearchResultActivity"
+	 */
+	public ViewSearchResultActivity getViewSearchResultActivity() {
+		return viewSearchResultActivity;
+	}
+
+
+	/**
+	 * Setter of the property <tt>viewSearchResultActivity</tt>
+	 * @param viewSearchResultActivity  The viewSearchResultActivity to set.
+	 * @uml.property  name="viewSearchResultActivity"
+	 */
+	public void setViewSearchResultActivity(
+			ViewSearchResultActivity viewSearchResultActivity) {
+				this.viewSearchResultActivity = viewSearchResultActivity;
+			}
+	/**
+	 * @uml.property  name="serverController"
+	 * @uml.associationEnd  inverse="searchResultsActivity:ca.ualberta.cmput301w13t11.FoodBook.controller.ServerController"
+	 * @uml.association  name="sends search requests to"
+	 */
+	private ServerController serverController;
+	/**
+	 * Getter of the property <tt>serverController</tt>
+	 * @return  Returns the serverController.
+	 * @uml.property  name="serverController"
+	 */
+	public ServerController getServerController() {
+		return serverController;
+	}
+
+
+	/**
+	 * Setter of the property <tt>serverController</tt>
+	 * @param serverController  The serverController to set.
+	 * @uml.property  name="serverController"
+	 */
+	public void setServerController(ServerController serverController) {
+		this.serverController = serverController;
+	}
 
 }

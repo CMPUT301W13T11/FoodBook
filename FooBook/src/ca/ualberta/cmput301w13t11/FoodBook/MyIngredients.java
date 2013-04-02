@@ -339,5 +339,4 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		}
 		new SearchByIngredientSubsetTask().execute(ingredients);
 	}
-
 }

@@ -637,6 +637,31 @@ public class ServerClient {
 		return ret;
 	}
 
+	/**
+	 * @uml.property  name="resultsDbManager"
+	 * @uml.associationEnd  inverse="serverClient:ca.ualberta.cmput301w13t11.FoodBook.model.ResultsDbManager"
+	 * @uml.association  name="writes results for"
+	 */
+	private ResultsDbManager resultsDbManager;
+
+	/**
+	 * Getter of the property <tt>resultsDbManager</tt>
+	 * @return  Returns the resultsDbManager.
+	 * @uml.property  name="resultsDbManager"
+	 */
+	public ResultsDbManager getResultsDbManager() {
+		return resultsDbManager;
+	}
+
+	/**
+	 * Setter of the property <tt>resultsDbManager</tt>
+	 * @param resultsDbManager  The resultsDbManager to set.
+	 * @uml.property  name="resultsDbManager"
+	 */
+	public void setResultsDbManager(ResultsDbManager resultsDbManager) {
+		this.resultsDbManager = resultsDbManager;
+	}
+
 
 	/**************************************</Upload Photo>************************************************************/
 

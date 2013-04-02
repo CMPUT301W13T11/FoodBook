@@ -1,6 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * A recipe class that can be written directly to the server -- ie. rather

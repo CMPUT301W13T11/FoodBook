@@ -162,4 +162,29 @@ public class MyRecipes extends Activity implements FView<DbManager>{
 				startActivity(intent);
 			}});
     }
+
+	/**
+	 * @uml.property  name="viewRecipeActivity"
+	 * @uml.associationEnd  inverse="myRecipes:ca.ualberta.cmput301w13t11.FoodBook.ViewRecipeActivity"
+	 * @uml.association  name="accessed from"
+	 */
+	private ViewRecipeActivity viewRecipeActivity;
+
+	/**
+	 * Getter of the property <tt>viewRecipeActivity</tt>
+	 * @return  Returns the viewRecipeActivity.
+	 * @uml.property  name="viewRecipeActivity"
+	 */
+	public ViewRecipeActivity getViewRecipeActivity() {
+		return viewRecipeActivity;
+	}
+
+	/**
+	 * Setter of the property <tt>viewRecipeActivity</tt>
+	 * @param viewRecipeActivity  The viewRecipeActivity to set.
+	 * @uml.property  name="viewRecipeActivity"
+	 */
+	public void setViewRecipeActivity(ViewRecipeActivity viewRecipeActivity) {
+		this.viewRecipeActivity = viewRecipeActivity;
+	}
 }

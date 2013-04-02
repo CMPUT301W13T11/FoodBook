@@ -14,6 +14,7 @@ import org.apache.http.entity.StringEntity;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import java.util.Collection;
 
 /**
  *  Helper class -- responsible for transforming HTTP response into Java Objects
@@ -120,6 +121,31 @@ public class ClientHelper {
 		}
 		return search_results;
 		
+	}
+
+	/** 
+	 * @uml.property name="serverRecipe"
+	 * @uml.associationEnd multiplicity="(0 -1)" aggregation="shared" inverse="clientHelper:ca.ualberta.cmput301w13t11.FoodBook.model.ServerRecipe"
+	 * @uml.association name="creates from Recipes"
+	 */
+	private Collection serverRecipe;
+
+	/** 
+	 * Getter of the property <tt>serverRecipe</tt>
+	 * @return  Returns the serverRecipe.
+	 * @uml.property  name="serverRecipe"
+	 */
+	public Collection getServerRecipe() {
+		return serverRecipe;
+	}
+
+	/** 
+	 * Setter of the property <tt>serverRecipe</tt>
+	 * @param serverRecipe  The serverRecipe to set.
+	 * @uml.property  name="serverRecipe"
+	 */
+	public void setServerRecipe(Collection serverRecipe) {
+		this.serverRecipe = serverRecipe;
 	}
 
 }

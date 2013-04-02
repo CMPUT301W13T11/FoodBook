@@ -63,5 +63,4 @@ public class ResultsDbManager extends DbManager {
 		return instance;
 	}
 	
-	
 }

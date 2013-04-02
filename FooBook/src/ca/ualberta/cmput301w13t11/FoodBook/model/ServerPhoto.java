@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import ca.ualberta.cmput301w13t11.FoodBook.FoodBookApplication;
+import java.util.Collection;
 
 
 /**
@@ -83,5 +84,6 @@ public class ServerPhoto {
 	public String getEncodedBitmap() {
 		return encoded_bitmap;
 	}
+
 }
 

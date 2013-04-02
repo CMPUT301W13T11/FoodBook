@@ -194,4 +194,28 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		DbController DbC = DbController.getInstance(this, this);
 		DbC.deleteView(this);
 	}
+	/**
+	 * @uml.property  name="editPhotos"
+	 * @uml.associationEnd  inverse="takePhotosActivity:ca.ualberta.cmput301w13t11.FoodBook.EditPhotos"
+	 * @uml.association  name="accessed from"
+	 */
+	private EditPhotos editPhotos;
+
+
+	/**
+	 * Getter of the property <tt>editPhotos</tt>
+	 * @return  Returns the editPhotos.
+	 * @uml.property  name="editPhotos"
+	 */
+	public EditPhotos getEditPhotos() {
+		return editPhotos;
+	}
+	/**
+	 * Setter of the property <tt>editPhotos</tt>
+	 * @param editPhotos  The editPhotos to set.
+	 * @uml.property  name="editPhotos"
+	 */
+	public void setEditPhotos(EditPhotos editPhotos) {
+		this.editPhotos = editPhotos;
+	}
 }

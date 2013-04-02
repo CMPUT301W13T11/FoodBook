@@ -3,6 +3,7 @@ package ca.ualberta.cmput301w13t11.FoodBook.model;
 import java.util.ArrayList;
 
 import android.content.ContentValues;
+import java.util.Collection;
 
 /**
  * Class which models a recipe.
@@ -208,4 +209,6 @@ public class Recipe {
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+
 }

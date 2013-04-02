@@ -174,4 +174,5 @@ protected void updateView(){
 		DbController DbC = DbController.getInstance(this, this);
 		DbC.deleteView(this);
 	}
+
 }

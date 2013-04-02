@@ -226,5 +226,4 @@ public class EditPhotos extends Activity implements FView<DbManager>
 	DbController DbC = DbController.getInstance(this, this);
 	DbC.deleteView(this);
 	}
-
 }

@@ -206,4 +206,5 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 	DbC.deleteView(this);
 	}
 
+
 }

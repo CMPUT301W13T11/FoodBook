@@ -233,5 +233,4 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		DbController DbC = DbController.getInstance(this, this);
 		DbC.deleteView(this);
 	}
-
 }

@@ -10,6 +10,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
+import ca.ualberta.cmput301w13t11.FoodBook.SearchResultsActivity;
 
 /**
  * Controller for UI objects that wish to utilize the application's online

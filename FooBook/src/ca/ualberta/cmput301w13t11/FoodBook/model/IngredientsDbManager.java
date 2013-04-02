@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 /**
  * Implements the functionality required to manage the Ingredients database, which
  * is the User maintained database of ingredients meant to reflect the contents of their
@@ -126,4 +127,6 @@ public class IngredientsDbManager extends DbManager {
 	public String getTableName() {
 		return this.tableName;
 	}
+
+
 }
