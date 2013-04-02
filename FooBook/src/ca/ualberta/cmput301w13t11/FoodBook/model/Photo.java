@@ -1,6 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 import java.io.ByteArrayOutputStream;
 
+import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
@@ -139,4 +140,11 @@ public class Photo {
 		this.path = path;
 	}
 
+	public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put("id", id);
+        values.put("path", path);
+        return values;
+	}
+	
 }

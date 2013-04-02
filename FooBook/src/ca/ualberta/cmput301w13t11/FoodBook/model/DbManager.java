@@ -34,9 +34,10 @@ public class DbManager extends FModel<FView> {
     
     // name of database file
     private String dbFileName= "RecipeApplicationDb";
-    public String recipesTable;// = "UserRecipes";
-    public String ingredsTable;// = "RecipeIngredients";
-    public String photosTable;// = "RecipePhotos";
+    // implemented by subclasses
+    public String recipesTable;
+    public String ingredsTable;
+    public String photosTable;
     public String getSQL;
     
     /**
@@ -58,24 +59,21 @@ public class DbManager extends FModel<FView> {
     /**
      * @return True if DbManager constructor has been called before, false otherwise.
      */
-    public static boolean getHasExecuted()
-    {
+    public static boolean getHasExecuted() {
     	return has_executed;
     }
     
     /**
      * @return SQLiteDatabase attribute
      */
-    public static SQLiteDatabase getDb()
-    {
+    public static SQLiteDatabase getDb() {
     	return db;
     }
     
     /**
      * @return getSQL string attribute
      */
-    public String getGetSQL()
-    {
+    public String getGetSQL() {
     	return getSQL;
     }
     
@@ -107,14 +105,15 @@ public class DbManager extends FModel<FView> {
      * Inserts a recipe into the table.
      * @param recipe The Recipe to be stored.
      */
-    public void insertRecipe(Recipe recipe) 
-    {
+    public void insertRecipe(Recipe recipe) {
+    	// insert recipe into database
         ContentValues values = recipe.toContentValues();
         db.insert(recipesTable, null, values);
+        // insert the recipe's ingredients into database
         for (Ingredient ingred : recipe.getIngredients()) {
             insertRecipeIngredients(ingred, recipe.getUri());
         }
-
+        // insert the recipe's photos into database
         Bitmap temp = null;
         ArrayList<Photo> photos = recipe.getPhotos();
         ArrayList<Photo> fullPhotos = getFullPhotos(photos);
@@ -125,7 +124,6 @@ public class DbManager extends FModel<FView> {
         		insertRecipePhotos(photos.get(i), temp, recipe.getUri());
         }
     }
-    
 
     /**
      * Inserts the given Ingredient into the database such that it is associated with the
@@ -147,23 +145,15 @@ public class DbManager extends FModel<FView> {
      * @param recipeURI The URI of the Recipe with which to associate the Photo.
      */
     public boolean insertRecipePhotos(Photo photo, Bitmap bitmap, long recipeURI) {
-    	
-        /* We first attempt to store the bitmap associated with the photo to the Db */
-    	
+        // We first attempt to store the bitmap associated with the photo to disk
         if (!savePhotoToDevice(bitmap, photo)) {
             /* Saving failed, return false. */
             return false;
         }
-
-        /* Else, we can safely place the photo information into the database. */
-        
-        ContentValues values = new ContentValues();
+        // Now we can put the photo information into the database
+        ContentValues values = photo.toContentValues();
         values.put("recipeURI", recipeURI);
-        values.put("id", photo.getId());
-        values.put("path", photo.getPath());
         db.insert(photosTable, null, values);
-        
-        /* If we got here, everything was successful. */
         return true;
     }
 	
@@ -176,46 +166,17 @@ public class DbManager extends FModel<FView> {
 	 * given by the Recipe parameter.
 	 * @param recipe The updated recipe to be stored in the database.
 	 */
-	public void updateRecipe(Recipe recipe)
-	{
-		long uri = recipe.getUri();
-		updateRecipeTitle(uri, recipe.getTitle());
-		updateRecipeInstructions(uri, recipe.getInstructions());
-	}
-	
-	
-	
-	/**
-	 * Updates the title of the Recipe with the given URI.
-	 * @param uri The URI of the Recipe to be updated.
-	 * @param tableName The name of the table in which the Recipe resides.
-	 * @param newTitle The new title of the Recipe.
-	 */
-	private void updateRecipeTitle(long uri, String newTitle)
-	{
-		String filter = "URI=" + Long.toString(uri);
+	public void updateRecipe(Recipe recipe) {
+		String filter = "URI=" + Long.toString(recipe.getUri());
 		ContentValues args = new ContentValues();
-		args.put("title", newTitle);
-		db.update(recipesTable, args, filter, null);
-	}
-	
-	/**
-	 * Updates the instructions of he Recipe with the given URI.
-	 * @param uri The URI of the Recipe to be updated.
-	 * @param tableName The name of the table in which the Recipe resides.
-	 * @param newInstructions The new instructions for the Recipe.
-	 */
-	private void updateRecipeInstructions(long uri, String newInstructions)
-	{
-		String filter = "URI=" + Long.toString(uri);
-		ContentValues args = new ContentValues();
-		args.put("instructions", newInstructions);
+		args.put("title", recipe.getTitle());
+		args.put("instructions", recipe.getInstructions());
 		db.update(recipesTable, args, filter, null);
 	}
     
-	/* 
-	 * Retrieve Recipes \
-	 */
+	// *********************************************
+	// RETRIEVE RECIPES AND THEIR INGREDIENTS/PHOTOS
+	// *********************************************
 	
     /**
      * Returns an ArrayList of all the Recipes stored in the table.
@@ -235,15 +196,99 @@ public class DbManager extends FModel<FView> {
 	    Cursor cursor = db.rawQuery(query, null);
 	    return cursorToRecipe(cursor);
 	}
+    
+    /**
+     * Gets all the Ingredients associated with the recipe identified by its URI.
+     * @param uri The URI of the recipe whose ingredients we are fetching.
+     * @return An ArrayList of the Ingredients associated with the recipe.
+     */
+    public ArrayList<Ingredient> getRecipeIngredients(long uri) {
+    	Cursor cursor = db.rawQuery("Select * From " + ingredsTable + " Where recipeURI = " + uri, null);
+    	return cursorToIngredients(cursor);
+    }
+    
+    /**
+     * Gets all the Photos associated with the recipe identified by its URI.
+     * @param uri The URI of the recipe whose photos we are fetching.
+     * @return An ArrayList of the Photos associated with the recipe.
+     */
+    public ArrayList<Photo> getRecipePhotos(long uri) {
+    	Cursor cursor = db.rawQuery("Select * From " + photosTable + " Where recipeURI = " + uri, null);
+    	return cursorToPhotos(cursor);
+    }
 	
-//	/**
-//	 * Returns Recipe stored in the table, given recipe's uri
-//	 * @return ARecipes stored in the table.
-//	 */
-//	public Recipe getRecipe() {
-//	    Cursor cursor = db.rawQuery(getSQL, null);
-//	    return cursorToRecipe(cursor);
-//	}
+	// *********************************************
+	// DELETE RECIPES AND THEIR INGREDIENTS/PHOTOS
+	// *********************************************
+    
+    /**
+     * Remove the given recipe from both local storage and the database.
+     * @param recipe The recipe to be deleted.
+     * @return True on success, False on failure.
+     */
+    public boolean removeRecipe(Recipe recipe) {
+    	long uri = recipe.getUri();
+    	int recipes_removed = 0;
+    	boolean deleted_pictures = true;
+
+    	try{
+    		recipes_removed = db.delete(recipesTable, "URI = " + uri, null);
+    		ArrayList<Photo> photos = getRecipePhotos(uri); 
+    		for (Photo p: photos){
+    			if (removeRecipePhoto(p)!=true){
+    				deleted_pictures=false;
+    			}
+    		}
+  
+    		removeRecipeIngredients(uri);
+
+    	} catch(Exception e){e.printStackTrace();};
+
+    	return (recipes_removed==1 && deleted_pictures==true);
+    }
+    
+    /**
+     * Removes the given photo from the local storage device.
+     * @param photo The photo to be deleted.
+     * @return true on success, false on failure
+     */
+    public boolean removeRecipePhoto(Photo photo) {
+   	
+    	int success = db.delete(photosTable, "id = " + photo.getId(), null); 
+ 
+    	Boolean deleted = false;
+    	
+    		try{
+		    	File file = new File(photo.getPath());
+		        deleted = file.delete();
+    		}
+    		catch(Exception e){
+    			e.printStackTrace();
+    		}  	
+    	return (success >= 1 && deleted == true);
+    }
+        
+    /**
+     * Deletes the ingredients associated with the recipe specified by the uri (ie.
+     * removes them from the RecipeIngredients table).
+     * @param uri The uri of the recipe whose ingredients we would like to remove.
+     * @return true on success, false on failure
+     */
+    public boolean removeRecipeIngredients(long uri) {
+    	
+    	int success = 0;
+    	try {
+    		success = db.delete(ingredsTable, "recipeURI = " + uri, null); 
+    	} catch (SQLiteException sqle) {
+    		sqle.printStackTrace();
+    	}
+    	    	
+    	return (success>=1);
+    }
+    
+	// *********************************************
+	// CONVERTING BETWEEN SQL CURSOR AND APPLICATION OBJECTS
+	// *********************************************
     
     /**
      * Given a cursor, convert it to an ArrayList of Recipes.
@@ -295,83 +340,6 @@ public class DbManager extends FModel<FView> {
     	   return null;
        }
    }
-   // --- 
-    
-    
-    /**
-     * Gets all the Ingredients associated with the recipe identified by its URI.
-     * @param uri The URI of the recipe whose ingredients we are fetching.
-     * @return An ArrayList of the Ingredients associated with the recipe.
-     */
-    public ArrayList<Ingredient> getRecipeIngredients(long uri) {
-    	Cursor cursor = db.rawQuery("Select * From " + ingredsTable + " Where recipeURI = " + uri, null);
-    	return cursorToIngredients(cursor);
-    }
-    
-    /**
-     * Gets all the Photos associated with the recipe identified by its URI.
-     * @param uri The URI of the recipe whose photos we are fetching.
-     * @return An ArrayList of the Photos associated with the recipe.
-     */
-    public ArrayList<Photo> getRecipePhotos(long uri) 
-    {
-    	Cursor cursor = db.rawQuery("Select * From " + photosTable + " Where recipeURI = " + uri, null);
-    	return cursorToPhotos(cursor);
-    }
-    
-    
-
-    /**
-     * Removes the given photo from the local storage device.
-     * @param photo The photo to be deleted.
-     * @return true on success, false on failure
-     */
-    public boolean removeRecipePhoto(Photo photo) {
-   	
-    	int success = db.delete(photosTable, "id = " + photo.getId(), null); 
- 
-    	Boolean deleted = false;
-    	
-    		try{
-		    	File file = new File(photo.getPath());
-		        deleted = file.delete();
-    		}
-    		catch(Exception e){
-    			e.printStackTrace();
-    		}  	
-    	return (success >= 1 && deleted == true);
-    }
-        
-    /**
-     * Deletes the ingredients associated with the recipe specified by the uri (ie.
-     * removes them from the RecipeIngredients table).
-     * @param uri The uri of the recipe whose ingredients we would like to remove.
-     * @return true on success, false on failure
-     */
-    public boolean removeRecipeIngredients(long uri) {
-    	
-    	int success = 0;
-    	try {
-    		success = db.delete(ingredsTable, "recipeURI = " + uri, null); 
-    	} catch (SQLiteException sqle) {
-    		sqle.printStackTrace();
-    	}
-    	    	
-    	return (success>=1);
-    }
-    
-//    /**
-//     * Deletes the ingredient associated with the recipe specified by the uri (ie.
-//     * removes it from the RecipeIngredients table).
-//     * @param uri The uri of the recipe whose ingredients we would like to remove.
-//     * @return true on success, false on failure
-//     */
-//    public boolean removeRecipeIngredient(String ingredName, long uri) {
-//    	
-//        int success = db.delete(ingredsTable, "recipeURI = " + uri + " and name = " + ingredName, null); 
-//        return (success>=1);
-//    }
-    
     
     /**
      * Given a cursor, convert it to an ArrayList of Ingredients.
@@ -399,7 +367,6 @@ public class DbManager extends FModel<FView> {
      */
     protected ArrayList<Photo> cursorToPhotos(Cursor cursor) {
         ArrayList<Photo> photos = new ArrayList<Photo>();
-        //ArrayList<Photo> fullPhotos = new ArrayList<Photo>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             String id = cursor.getString(1);
@@ -408,40 +375,12 @@ public class DbManager extends FModel<FView> {
             photos.add(photo);
             cursor.moveToNext();
         }
-        //fullPhotos = getFullPhotos(photos);
         return photos;
     }
 
-
-    /**
-     * Remove the given recipe from both local storage and the database.
-     * @param recipe The recipe to be deleted.
-     * @return True on success, False on failure.
-     */
-    public boolean removeRecipe(Recipe recipe) {
-    	
-    	long uri = recipe.getUri();
-    	
-    	int recipes_removed = 0;
-    	boolean deleted_pictures = true;
-
-    	try{
-
-    		recipes_removed = db.delete(recipesTable, "URI = " + uri, null);
-
-    		ArrayList<Photo> photos = getRecipePhotos(uri); 
-    		for (Photo p: photos){
-    			if (removeRecipePhoto(p)!=true){
-    				deleted_pictures=false;
-    			}
-    		}
-  
-    		removeRecipeIngredients(uri);
-
-    	} catch(Exception e){e.printStackTrace();};
-
-    	return (recipes_removed==1 && deleted_pictures==true);
-    }
+	// *********************************************
+	// SAVING/RETRIEVING PHOTOS FROM DISK
+	// *********************************************
     
     /**
      * Saves the given bitmap to the local device.
