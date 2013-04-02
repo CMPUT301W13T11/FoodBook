@@ -1,15 +1,10 @@
 package ca.ualberta.cmput301w13t11.FoodBook.test;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.Type;
-
-import junit.framework.TestCase;
 
 import org.junit.Test;
 
+import android.test.AndroidTestCase;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerRecipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerResponse;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ServerSearchResponse;
@@ -23,48 +18,31 @@ import com.google.gson.reflect.TypeToken;
  * @author mbabic
  *
  */
-public class ServerSearchResponseTest extends TestCase{
+public class ServerSearchResponseTest extends AndroidTestCase{
 
 	private Gson gson = new Gson();
-	
-	private String getJsonServerSearchResponse()
+	protected void setUp() throws Exception
 	{
-		String out, json = "";
-
-		/* Extract the JSON string from the test file. */
-		try {
-			FileReader file = new FileReader("docs/JSONServerResponse.txt");
-			BufferedReader br = new BufferedReader(file);
-			
-			while ((out = br.readLine()) != null) {
-				json += out;
-			}
-
-			return json;
-		} catch (FileNotFoundException fnfe) {
-			fail("file not found");
-		} catch (IOException ioe) {
-			fail("IOException");
-		}
-		return "";
+		super.setUp();
+		
 	}
 	
-	@Test
 	/**
 	 * Tests the getHits() method by passing a valid server search query response with a known number of results
 	 * with known content.
 	 */
 	public void testGetHits()
 	{
-		ServerSearchResponse<ServerResponse> search_response;
-		String json = getJsonServerSearchResponse();
-		if (json.equals(""))
-			fail("getJsonServerSearchResponse failed");
+		ServerSearchResponse<ServerResponse<ServerRecipe>> search_response;
+		String json = "{\"took\":5,\"timed_out\":false,\"_shards\":{\"total\":5,\"successful\":5,\"failed\":0},\"hits\""
+				+ ":{\"total\":1,\"max_score\":1.5397208,\"hits\":[{\"_index\":\"testing\",\"_type\":\"cmput301w13t11\",\"_id\"" +
+				":\"test\",\"_score\":1.5397208, \"_source\" : {\"author\":{\"name\":\"tester\"},\"title\":\"test\",\"instructions\"" +
+				":\"\",\"ingredients\":[],\"photos\":[],\"uri\":0}}]}}";;
 		
 		Type serverSearchResponseType = new TypeToken<ServerSearchResponse<ServerRecipe>>(){}.getType();
 		try {
 			search_response = gson.fromJson(json, serverSearchResponseType);
-			assertTrue("search_results should not be empty.", !search_response.getHits().isEmpty());
+			assertTrue("search_results should have", !search_response.getHits().isEmpty());
 		} catch (JsonSyntaxException jse) {
 			fail("JsonSyntaxException");
 		}
@@ -77,8 +55,11 @@ public class ServerSearchResponseTest extends TestCase{
 	 * results with known content.
 	 */
 	public void testGetSources() {
-		ServerSearchResponse<ServerResponse> search_response;
-		String json = getJsonServerSearchResponse();
+		ServerSearchResponse<ServerResponse<ServerRecipe>> search_response;
+		String json = "{\"took\":5,\"timed_out\":false,\"_shards\":{\"total\":5,\"successful\":5,\"failed\":0},\"hits\""
+				+ ":{\"total\":1,\"max_score\":1.5397208,\"hits\":[{\"_index\":\"testing\",\"_type\":\"cmput301w13t11\",\"_id\"" +
+				":\"test\",\"_score\":1.5397208, \"_source\" : {\"author\":{\"name\":\"tester\"},\"title\":\"test\",\"instructions\"" +
+				":\"\",\"ingredients\":[],\"photos\":[],\"uri\":0}}]}}";;
 		if (json.equals(""))
 			fail("getJsonServerSearchResponse failed");
 		
@@ -86,8 +67,6 @@ public class ServerSearchResponseTest extends TestCase{
 		try {
 			search_response = gson.fromJson(json, serverSearchResponseType);
 			assertTrue("search_results should not be empty.", !search_response.getSources().isEmpty());
-			//assertTrue("search_results[0] should have author name \"tester\"",
-			//		search_response.getSources().get(0).getAuthor().getName().equals("tester"));
 		} catch (JsonSyntaxException jse) {
 			fail("JsonSyntaxException");
 		}	}
