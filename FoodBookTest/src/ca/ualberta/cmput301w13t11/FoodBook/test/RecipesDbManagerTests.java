@@ -524,7 +524,7 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 
 	
 	/**
-	 * Test the functionality of the savePhotoToDevice() method.
+	 * Test the functionality of Photo's saveToDevice() method.
 	 * Ensure that the bit information of a photo object can be correctly stored to the device.
 	 */
 	public void testSavePhotoToDevice()
@@ -534,19 +534,19 @@ public class RecipesDbManagerTests extends AndroidTestCase {
 		String name = Long.toString(System.currentTimeMillis());
 		String path = sdCardPath + name;
 		Photo newPhoto = new Photo(name, path);
-		DbManager dbManager = DbManager.getInstance(this.getContext());
+		//DbManager dbManager = DbManager.getInstance(this.getContext());
 
 		try {
 
 			/* Testing private member function, need to use reflection. */
-			Class[] args = new Class[2];
-			args[0] = Bitmap.class;
-			args[1] = Photo.class;
-			Method method = dbManager.getClass().getDeclaredMethod("savePhotoToDevice", args);
-			method.setAccessible(true);
-			boolean ret = (Boolean) method.invoke(dbm, bitmap, newPhoto);
-			
-			assertTrue("savePhotoToDevice() should return true.", ret == true);			
+			//Class[] args = new Class[2];
+			//args[0] = Bitmap.class;
+			//args[1] = Photo.class;
+			//Method method = dbManager.getClass().getDeclaredMethod("savePhotoToDevice", args);
+			//method.setAccessible(true);
+			//boolean ret = (Boolean) method.invoke(dbm, bitmap, newPhoto);
+			boolean ret = newPhoto.saveToDevice(bitmap);
+			assertTrue("saveToDevice() should return true.", ret == true);			
 			
 		} catch (NoSuchMethodException nsme) {
 			fail("NoSuchMethodException");

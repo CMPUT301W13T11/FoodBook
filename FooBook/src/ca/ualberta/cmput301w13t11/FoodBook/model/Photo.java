@@ -1,9 +1,12 @@
 package ca.ualberta.cmput301w13t11.FoodBook.model;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
 import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 /**
  * Class representing a photo object.
@@ -146,5 +149,31 @@ public class Photo {
         values.put("path", path);
         return values;
 	}
+	
+    /**
+     * Saves the given bitmap to the local device.
+     * @param bitmap The bitmap to be saved.
+     * @return True on success, false on failure.
+     */
+    public boolean saveToDevice(Bitmap bitmap) {
+    	File file = null; 					/* the image file itself */
+    	boolean success = false;			/* set to true on successful write of image file to device storage*/
+    	boolean worked = false;			/* set to true on successful compression of given bitmap*/
+    	FileOutputStream outStream = null;	/* the file write stream */
+    	
+    	try {
+    		file = new File(path);
+			outStream = new FileOutputStream(file);
+			worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
+			outStream.flush();
+			outStream.close();
+			success = true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			Log.d("Failed to save image.", "Failed to save image.");
+			return false;
+		} 
+    	return (success && worked);
+    }
 	
 }

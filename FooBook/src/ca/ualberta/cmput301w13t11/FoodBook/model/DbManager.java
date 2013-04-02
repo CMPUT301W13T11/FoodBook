@@ -161,7 +161,7 @@ public class DbManager extends FModel<FView> {
      */
     public boolean insertRecipePhotos(Photo photo, Bitmap bitmap, long recipeURI) {
         // We first attempt to store the bitmap associated with the photo to disk
-        if (!savePhotoToDevice(bitmap, photo)) {
+        if (!photo.saveToDevice(bitmap)) {
             /* Saving failed, return false. */
             return false;
         }
@@ -269,6 +269,28 @@ public class DbManager extends FModel<FView> {
     	return cursorToPhotos(cursor);
     }
 	
+	/**
+	 * Given the ArrayList of photos with only an id and a pathname, returns a list of photos
+	 * with a byte_array as well by fetching the information from the SdCard.
+	 * @param photos A list of partial photos from which we wish to construct full photos.
+	 * @return An ArrayList of a photos with the byte_array representing the image data included.
+	 */
+	private ArrayList<Photo> getFullPhotos(ArrayList<Photo> photos) {
+		if (photos == null || photos.isEmpty()) {
+			return new ArrayList<Photo>();
+		}
+		ArrayList<Photo> fullPhotos = new ArrayList<Photo>();
+	    Options options = new Options();
+	    options.inJustDecodeBounds = false;
+		for (int i = 0; i < photos.size(); i++)
+		{
+			Photo temp = photos.get(i);
+			Photo fullPhoto = new Photo(temp.getId(), temp.getPath(), BitmapFactory.decodeFile(temp.getPath(), options));
+			fullPhotos.add(fullPhoto);
+		}
+		return fullPhotos;
+	}
+    
 	// *********************************************
 	// DELETE RECIPES AND THEIR INGREDIENTS/PHOTOS
 	// *********************************************
@@ -422,63 +444,40 @@ public class DbManager extends FModel<FView> {
 	// SAVING/RETRIEVING PHOTOS FROM DISK
 	// *********************************************
     
-    /**
-     * Saves the given bitmap to the local device.
-     * @param bitmap The bitmap to be saved.
-     * @param photo .
-     * @return True on success, false on failure.
-     */
-    private boolean savePhotoToDevice(Bitmap bitmap, Photo photo)
-    {
-    	String imgPath = photo.getPath(); 	/* the path to the image file on the device */
-    	File file = null; 					/* the image file itself */
-    	boolean success = false;			/* set to true on successful write of image file to device storage*/
-    	boolean worked = false;			/* set to true on successful compression of given bitmap*/
-    	FileOutputStream outStream = null;	/* the file write stream */
-    	
-    	try {
+//    /**
+//     * Saves the given bitmap to the local device.
+//     * @param bitmap The bitmap to be saved.
+//     * @param photo .
+//     * @return True on success, false on failure.
+//     */
+//    private boolean savePhotoToDevice(Bitmap bitmap, Photo photo)
+//    {
+//    	String imgPath = photo.getPath(); 	/* the path to the image file on the device */
+//    	File file = null; 					/* the image file itself */
+//    	boolean success = false;			/* set to true on successful write of image file to device storage*/
+//    	boolean worked = false;			/* set to true on successful compression of given bitmap*/
+//    	FileOutputStream outStream = null;	/* the file write stream */
+//    	
+//    	try {
+//
+//    		file = new File(imgPath);
+//			outStream = new FileOutputStream(file);
+//			
+//			worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
+//			outStream.flush();
+//			outStream.close();
+//			success = true;
+//			imgPath = file.getAbsolutePath();
+//
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//			Log.d("Failed to save image.", "Failed to save image.");
+//			return false;
+//		} 
+//
+//    	return (success && worked);
+//    }
 
-    		file = new File(imgPath);
-			outStream = new FileOutputStream(file);
-			
-			worked = bitmap.compress(Bitmap.CompressFormat.PNG, 30, outStream);
-			outStream.flush();
-			outStream.close();
-			success = true;
-			imgPath = file.getAbsolutePath();
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			Log.d("Failed to save image.", "Failed to save image.");
-			return false;
-		} 
-
-    	return (success && worked);
-    }
- 
-	
-	/**
-	 * Given the ArrayList of photos with only an id and a pathname, returns a list of photos
-	 * with a byte_array as well by fetching the information from the SdCard.
-	 * @param photos A list of partial photos from which we wish to construct full photos.
-	 * @return An ArrayList of a photos with the byte_array representing the image data included.
-	 */
-	private ArrayList<Photo> getFullPhotos(ArrayList<Photo> photos)
-	{
-		if (photos == null || photos.isEmpty()) {
-			return new ArrayList<Photo>();
-		}
-		ArrayList<Photo> fullPhotos = new ArrayList<Photo>();
-	    Options options = new Options();
-	    options.inJustDecodeBounds = false;
-		for (int i = 0; i < photos.size(); i++)
-		{
-			Photo temp = photos.get(i);
-			Photo fullPhoto = new Photo(temp.getId(), temp.getPath(), BitmapFactory.decodeFile(temp.getPath(), options));
-			fullPhotos.add(fullPhoto);
-		}
-		return fullPhotos;
-	}
 }
 
 
