@@ -88,7 +88,7 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 			gridview.setOnItemClickListener(new OnItemClickListener() {
 				public void onItemClick(AdapterView<?> parent, View v,
 						int position, long id) {
-					Intent i = new Intent(ViewPhotosActivity.this, FullImageEditPhotosActivity.class);
+					Intent i = new Intent(ViewPhotosActivity.this, FullImageViewPhotosActivity.class);
 					Bundle bundle = new Bundle();
 					bundle.putString(EXTRA_IMG_ID, photos.get(position).getId());
 					bundle.putString(EXTRA_IMG_PATH, photos.get(position).getPath());

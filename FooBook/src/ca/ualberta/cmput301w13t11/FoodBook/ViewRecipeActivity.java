@@ -88,7 +88,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 				//make the popup
 				LinearLayout layout = new LinearLayout(ViewRecipeActivity.this);
 				LayoutInflater inflater = LayoutInflater.from(ViewRecipeActivity.this);
-				popUp = new PopupWindow(inflater.inflate(R.layout.popup_recipe_upload_success, null, false),300,300,true);
+				popUp = new PopupWindow(inflater.inflate(R.layout.popup_recipe_upload_success, null, false),380,300,true);
 				popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
 			} else if (ret == ReturnCode.BUSY) {
 				
