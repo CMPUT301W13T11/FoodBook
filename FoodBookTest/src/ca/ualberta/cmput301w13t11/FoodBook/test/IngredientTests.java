@@ -3,7 +3,10 @@ package ca.ualberta.cmput301w13t11.FoodBook.test;
 import android.content.ContentValues;
 import android.test.AndroidTestCase;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
-
+/**
+ * Unit tests for the Ingredient class.
+ * @author Marko Babic
+ */
 public class IngredientTests extends AndroidTestCase {
 
 	protected void setUp() throws Exception

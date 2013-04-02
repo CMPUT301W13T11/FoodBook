@@ -5,19 +5,29 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 /**
- * Class representing a photo in the program.
+ * Class representing a photo object.
  * @author mbabic
  *
  */
 public class Photo {
 
+	/**
+	 * The name of the photo.
+	 */
 	private String id;
+	
+	/**
+	 * A path indicating where the photo has been saved on a device if it has been saved at all.
+	 */
 	private String path;
+	/**
+	 * The byte array which stores the actual image file's data.
+	 */
 	private byte[] bit_data;
 	
 	/**
-	 * Construct photo from file name (data is already stored on disk, must read it if needed)
-	 * @param name
+	 * Construct photo from given id.
+	 * @param name The id/name of the Photo.
 	 */
 	public Photo(String id)
 	{
@@ -27,22 +37,22 @@ public class Photo {
 	}
 	
 	/**
-	 * Construct photo from given name and byte array.
-	 * @param name
-	 * @param data
+	 * Construct photo from given id and byte array.
+	 * @param id The id/name of the Photo.
+	 * @param data The byte array storing the image file's data.
 	 */
 	public Photo(String id, byte[] byte_array)
 	{
 		this.id = id;
+		this.path = null;
 		bit_data = byte_array;
 		
 	}
 	
-	
 	/**
-	 * Construct photo from given name and byte array.
-	 * @param name
-	 * @param data
+	 * Construct photo from given id and path.
+	 * @param id The id/name of the Photo.
+	 * @param path The path where the Photo is stored on the local device.
 	 */
 	public Photo(String id, String path)
 	{
@@ -52,9 +62,10 @@ public class Photo {
 	}
 	
 	/**
-	 * Construct photo from given name, path, and byte_array.
-	 * @param name
-	 * @param data
+	 * Construct photo from given id, path, and byte_array.
+	 * @param id The id/name of the Photo.
+	 * @param path The path where the Photo is stored on the local device.
+	 * @param byte_array The byte array storing the image file's data.
 	 */
 	public Photo(String id, String path, byte[] byte_array)
 	{
@@ -66,6 +77,8 @@ public class Photo {
 	/**
 	 * Create a photo from the given bitmap (we first compress the data to make sure
 	 * we aren't storing/downloading/uploading huge files).
+	 * @param id The id/name of the Photo.
+	 * @param path The path where the Photo is stored on the local device.
 	 * @param bitmap The Bitmap which encodes the photo information.
 	 */
 	public Photo(String id, String path, Bitmap bitmap)
@@ -93,8 +106,7 @@ public class Photo {
 	}
 	
 	/**
-	 *Returns the bitmap associated with this photo.
-	 *@return Bitmap associated with the photo.
+	 *@return The bitmap associated with the photo.
 	 */
 	public Bitmap getPhotoBitmap()
 	{
