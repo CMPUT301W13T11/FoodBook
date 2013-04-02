@@ -210,8 +210,14 @@ public class DbManager extends FModel<FView> {
 	 * @return An ArrayList of all the Recipes stored in the table.
 	 */
 	public ArrayList<Recipe> getRecipes() {
-	    Cursor cursor = db.rawQuery(getSQL, null);
-	    return cursorToRecipes(cursor);
+		Cursor cursor;
+		try {
+			cursor = db.rawQuery(getSQL, null);
+		} catch (SQLiteException sqle) {
+    		sqle.printStackTrace();
+    		return new ArrayList<Recipe>();
+		}
+		return cursorToRecipes(cursor);
 	}
 
 	/**
@@ -221,7 +227,13 @@ public class DbManager extends FModel<FView> {
 	 */
 	public Recipe getRecipe(long uri) {
 		String query = new String("SELECT * FROM " + recipesTable + " WHERE URI = " + uri);
-	    Cursor cursor = db.rawQuery(query, null);
+	    Cursor cursor;
+		try {
+	    	cursor = db.rawQuery(query, null);
+		} catch (SQLiteException sqle) {
+    		sqle.printStackTrace();
+    		return null;
+		}
 	    return cursorToRecipe(cursor);
 	}
     
@@ -231,7 +243,13 @@ public class DbManager extends FModel<FView> {
      * @return An ArrayList of the Ingredients associated with the recipe.
      */
     public ArrayList<Ingredient> getRecipeIngredients(long uri) {
-    	Cursor cursor = db.rawQuery("Select * From " + ingredsTable + " Where recipeURI = " + uri, null);
+    	Cursor cursor;
+    	try {
+    		cursor = db.rawQuery("Select * From " + ingredsTable + " Where recipeURI = " + uri, null);
+		} catch (SQLiteException sqle) {
+    		sqle.printStackTrace();
+    		return new ArrayList<Ingredient>();
+		}
     	return cursorToIngredients(cursor);
     }
     
@@ -241,7 +259,13 @@ public class DbManager extends FModel<FView> {
      * @return An ArrayList of the Photos associated with the recipe.
      */
     public ArrayList<Photo> getRecipePhotos(long uri) {
-    	Cursor cursor = db.rawQuery("Select * From " + photosTable + " Where recipeURI = " + uri, null);
+    	Cursor cursor;
+    	try {
+    		cursor = db.rawQuery("Select * From " + photosTable + " Where recipeURI = " + uri, null);
+		} catch (SQLiteException sqle) {
+    		sqle.printStackTrace();
+    		return new ArrayList<Photo>();
+		}
     	return cursorToPhotos(cursor);
     }
 	
@@ -358,13 +382,8 @@ public class DbManager extends FModel<FView> {
 	       ArrayList<Photo> photos = getRecipePhotos(uri);
 	       ArrayList<Photo> fullPhotos = getFullPhotos(photos);
 	       Recipe recipe = new Recipe(uri, author, title, instructions, ingredients, fullPhotos);
-	
-	       if (cursor.getCount()!=0) {
-	    	   //print error message here
-	       }
 	       return recipe;
-       }
-       else{
+       } else {
     	   return null;
        }
    }
@@ -436,7 +455,6 @@ public class DbManager extends FModel<FView> {
 			imgPath = file.getAbsolutePath();
 
 		} catch (Exception ex) {
-			// TODO Auto-generated catch block
 			ex.printStackTrace();
 			Log.d("Failed to save image.", "Failed to save image.");
 			return false;
