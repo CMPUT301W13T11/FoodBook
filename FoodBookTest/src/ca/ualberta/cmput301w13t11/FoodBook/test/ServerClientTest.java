@@ -21,7 +21,6 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 /**
  * Unit tests for the ServerClient class.
  * @author mbabic
- *
  */
 public class ServerClientTest extends AndroidTestCase {
 	
@@ -55,6 +54,9 @@ public class ServerClientTest extends AndroidTestCase {
 	/**
 	 * Test the functionality of the checkForRecipe() function.
 	 * We ensure that a Recipe known to exist on the server is correctly found.
+	 * NOTE: this test may stall the run of the unit tests -- in practice, it is run in
+	 * dismissisable thread with timeout but here we simply make a raw call to it.  In such
+	 * a case, the AVD must be restarted be reattempting. BE ADVISED.
 	 */
 	public void testCheckForRecipe1()
 	{
@@ -83,6 +85,9 @@ public class ServerClientTest extends AndroidTestCase {
 	/**
 	 * Test the functionality of the checkForRecipe() function.
 	 * We ensure that a Recipe known to not exist on the server is correctly not found.
+	 * NOTE: this test may stall the run of the unit tests -- in practice, it is run in
+	 * dismissisable thread with timeout but here we simply make a raw call to it.  In such
+	 * a case, the AVD must be restarted be reattempting. BE ADVISED.
 	 */
 	public void testCheckForRecipe2()
 	{
@@ -182,8 +187,7 @@ public class ServerClientTest extends AndroidTestCase {
 	
 	/**
 	 * Test to see if searchByIngredients will return a recipe known to have the ingredients
-	 * beng passed to S
-	 * WILL FAIL, NOT YET IMPLEMENTED.
+	 * being passed as the search parameters.
 	 */
 	public void testSearchByIngredients()
 	{
@@ -216,7 +220,6 @@ public class ServerClientTest extends AndroidTestCase {
 	/**
 	 * Test uploadPhotoToRecipe() by trying to add a Photo to a recipe known to exist on the server 
 	 * and check against return code.
-	 * WILL FAIL, NOT YET IMPLEMENTED
 	 */
 	public void testUploadPhotoToRecipe()
 	{

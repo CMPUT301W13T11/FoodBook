@@ -18,7 +18,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -108,15 +107,11 @@ public class ServerClient {
 			HttpResponse response = httpclient.execute(get);
 			int ret = response.getStatusLine().getStatusCode();
 			logger.log(Level.INFO, "Connection test return status: " + Integer.toString(ret));
-			if (ret == HttpStatus.SC_OK) {
-				return true;
-			}
+			return true;
 		} catch (Exception e) {
 			logger.log(Level.SEVERE, "Exception occured when testing connection:" + e.getMessage());
+			return false;
 		}
-		/* Something above failed, so we return false. */
-
-		return false;
 	}
 
 
@@ -217,6 +212,9 @@ public class ServerClient {
 
 		@Override
 		public ReturnCode call() {
+			
+			httpclient = getThreadSafeClient();
+			
 			ReturnCode checkForRecipe = checkForRecipe(recipe.getUri());
 			if (checkForRecipe == ReturnCode.SUCCESS) {
 				return ReturnCode.ALREADY_EXISTS;
@@ -419,6 +417,9 @@ public class ServerClient {
 
 		@Override
 		public ReturnCode call() {
+
+			httpclient = getThreadSafeClient();
+			
 			ArrayList<Recipe> search_results = null;
 
 			String ingredients_str = ingredientsToString(ingredients);	
@@ -499,7 +500,11 @@ public class ServerClient {
 	/**
 	 * Query the server for Recipes which contains at subset of the given ingredients list.
 	 * @param ingredients The list of ingredients by which to search.
-	 * @return TODO
+	 * @return  ReturnCode.ERROR if anything goes wrong, ReturnCode.NO_RESULTS if
+	 * the search returned no results, ReturnCode.SUCCESS if the search was successful,
+	 * in which case the results are written to the database and the observing views
+	 * are notified, ReturnCode.BUSY if the server was busy or the operation took
+	 * longer than TIME_PERIOD seconds.
 	 */
 	public ReturnCode searchByIngredients(ArrayList<Ingredient> ingredients)
 	{

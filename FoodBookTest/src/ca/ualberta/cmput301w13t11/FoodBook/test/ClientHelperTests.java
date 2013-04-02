@@ -1,26 +1,26 @@
 package ca.ualberta.cmput301w13t11.FoodBook.test;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
-
-import junit.framework.TestCase;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.junit.Test;
 
+import android.graphics.Bitmap;
+import android.test.AndroidTestCase;
 import ca.ualberta.cmput301w13t11.FoodBook.model.ClientHelper;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient;
+import ca.ualberta.cmput301w13t11.FoodBook.model.ServerPhoto;
 import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 /**
  * Unit tests for the ClientHelper class.
@@ -29,12 +29,19 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.User;
  * @author mbabic
  *
  */
-public class ClientHelperTests extends TestCase {
+public class ClientHelperTests extends AndroidTestCase {
+	
 	private ClientHelper helper = new ClientHelper();
 	private HttpClient httpclient = new DefaultHttpClient();
 	
 	
-	@Test
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+		helper = new ClientHelper();
+		httpclient = ServerClient.getThreadSafeClient();
+	}	
+	
 	/**
 	 * Test that a recipe is converted to a JSON object successfully.
 	 */
@@ -50,11 +57,9 @@ public class ClientHelperTests extends TestCase {
 		
 		StringEntity ret = helper.recipeToJSON(test_recipe);
 		
-		/* TODO: IDEA: could maybe include JSON parser here? */
-		assertTrue(ret != null);
+		assertTrue("Returned StringEntity should be non-null.", ret != null);
 	}
 	
-	@Test
 	/**
 	 * Give toRecipe a response with no JSON in it; the method should fail to extract any information.
 	 */
@@ -79,46 +84,36 @@ public class ClientHelperTests extends TestCase {
 		
 	}
 	
-	@Test
 	/**
 	 * Pass valid server response to toRecipeList() and make sure it returns the known
 	 * contents of the response in a Recipe.
 	 */
 	public void testToRecipeListPass()
 	{
-		String out, json = "";
+		String json = "{\"took\":5,\"timed_out\":false,\"_shards\":{\"total\":5,\"successful\":5,\"failed\":0},\"hits\""
+				+ ":{\"total\":1,\"max_score\":1.5397208,\"hits\":[{\"_index\":\"testing\",\"_type\":\"cmput301w13t11\",\"_id\"" +
+				":\"test\",\"_score\":1.5397208, \"_source\" : {\"author\":{\"name\":\"tester\"},\"title\":\"test\",\"instructions\"" +
+				":\"\",\"ingredients\":[],\"photos\":[],\"uri\":0}}]}}";
 
 		ArrayList<Recipe> result = null;
 
 		/* Extract the JSON string from the test file. */
 		try {
-			FileReader file = new FileReader("docs/JSONServerResponse.txt");
-			BufferedReader br = new BufferedReader(file);
-			
-			while ((out = br.readLine()) != null) {
-				json += out;
-			}
 			result = helper.toRecipeList(json);
-
-		} catch (FileNotFoundException fnfe) {
-			fail("file not found");
 		} catch (IOException ioe) {
 			fail("IOException");
 		}
 		
-		long test_long = 1363130068665L;
-
 		for (Recipe r: result) {
 			
-			assertTrue("Title failed.", r.getTitle().equals("cgy"));
-			assertTrue("User name failed.", r.getAuthor().getName().equals("fgg"));
-			assertTrue("Uri failed.", r.getUri() == test_long);
-			assertTrue("Instructions failed.", r.getInstructions().equals("ghhh"));
+			assertTrue("Title failed.", r.getTitle().equals("test"));
+			assertTrue("User name failed.", r.getAuthor().getName().equals("tester"));
+			assertTrue("Uri failed.", r.getUri() == 0);
+			assertTrue("Instructions failed.", r.getInstructions().equals(""));
 		}
 		assertTrue(!(result.isEmpty()));
 	}
 	
-	@Test
 	/**
 	 * Pass garbage string to toRecipeList() and insure no recipe object is created.
 	 */
@@ -134,8 +129,46 @@ public class ClientHelperTests extends TestCase {
 		fail("Should'nt get here.");
 	}
 	
-	public void testResponseStringToRecipe()
+	/**
+	 * Test the functionality of the serverPhotoToJSON() method by ensuring it returns
+	 * a non-null string when passed a non-null ServerPhoto() object.  
+	 */
+	public void testServerPhotoToJSON()
 	{
+		String testId = "test id";
+		String testPath = "test path";
+		Bitmap testBitmap = BogoPicGen.generateBitmap(100, 100);
+		Photo testPhoto = new Photo(testId, testPath, testBitmap);
+		ServerPhoto sp = new ServerPhoto(testPhoto);
+		
+		String ret = helper.serverPhotoToJSON(sp);
+		assertTrue("Returned string should not be null", ret != null);
+	}
+	
+	/**
+	 * Test the responseToString() method by ensuring that a non-null HttpResponse
+	 * is transformed to a non-null String -- accuracy of the conversion should be confirmed
+	 * by logging the results of the method's return if the HttpResponse is known.
+	 * NOTE: this test may stall the run of the unit tests.  In such
+	 * a case, the AVD must be restarted be reattempting. BE ADVISED.
+	 */
+	public void testResponseToString()
+	{
+		HttpGet get = new HttpGet("http://www.google.ca");
+		HttpResponse response = null;
+		try {
+			response = httpclient.execute(get);
+		} catch (Exception e) {
+			fail("Exception thrown.");
+		}
+		assertTrue("HttpResponse snould not be null -- server contact failure, test results INCONCLUSIVE.", response != null);
+		
+		try {
+			String ret = helper.responseToString(response);
+			assertTrue("Returned string should not be null", ret != null);
+		} catch (Exception e) {
+			fail("Exception thrown.");
+		}
 		
 	}
 
