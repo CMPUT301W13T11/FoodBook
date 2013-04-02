@@ -130,6 +130,7 @@ public class DbManager extends FModel<FView> {
      * recipe identified by recipeURI.
      * @param ingred The ingredient to be inserted.
      * @param recipeURI The URI of the Recipe with which to associate the Ingredient.
+     * @return True on success, False on failure.
      */
     public boolean insertRecipeIngredients(Ingredient ingred, long recipeURI) {
         ContentValues values = ingred.toContentValues();
@@ -142,7 +143,9 @@ public class DbManager extends FModel<FView> {
      * Inserts the given Photo into the database such that it is associated with the
      * recipe identified by recipeURI.
      * @param photo The photo to be inserted.
+     * @param bitmap The bitmap of the photo to be inserted.
      * @param recipeURI The URI of the Recipe with which to associate the Photo.
+     * @return True on success, False on failure.
      */
     public boolean insertRecipePhotos(Photo photo, Bitmap bitmap, long recipeURI) {
         // We first attempt to store the bitmap associated with the photo to disk
@@ -189,6 +192,7 @@ public class DbManager extends FModel<FView> {
 
 	/**
 	 * Returns Recipe stored in the table, given recipe's uri
+	 * @param uri The URI of the recipe we are fetching.
 	 * @return A Recipe stored in the table.
 	 */
 	public Recipe getRecipe(long uri) {
