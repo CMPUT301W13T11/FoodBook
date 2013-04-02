@@ -72,7 +72,7 @@ public class IngredientsDbManager extends DbManager {
     		sqle.printStackTrace();
     		return new ArrayList<Ingredient>();
     	}
-		return cursorToIngredients(cursor);
+		return cursorToMyIngredients(cursor);
 	}
 
 	/**
@@ -113,6 +113,25 @@ public class IngredientsDbManager extends DbManager {
 		return true;
 	}
 
+    /**
+     * Given a cursor, convert it to an ArrayList of Ingredients.
+     * @param cursor The cursor over which we will iterate to get ingredients from.
+     * @return An ArrayList of Ingredients.
+     */
+    private ArrayList<Ingredient> cursorToMyIngredients(Cursor cursor) {
+        ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            String name = cursor.getString(0);
+            String unit = cursor.getString(1);
+            float quantity = cursor.getFloat(2);
+            Ingredient ingred = new Ingredient(name, unit, quantity);
+            ingreds.add(ingred);
+            cursor.moveToNext();
+        }
+        return ingreds;
+    }
+	
 	public String getTableName() {
 		return this.tableName;
 	}

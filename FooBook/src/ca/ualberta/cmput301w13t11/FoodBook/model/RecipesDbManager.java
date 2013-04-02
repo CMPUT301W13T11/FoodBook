@@ -6,10 +6,6 @@ import android.content.Context;
  * Implements the functionality required to manage the table of Recipes for the application.
  * @author Marko Babic, Marko Tupala
  *
- *------------------------------------------------------------------------------------------------------------
- * NOTE: REFACTORTING IS NOT COMPLETE AS OF THIS ITERATION.  IN THE FUTURE, MORE FUNCTIONALITY FROM DbManager
- * WILL APPEAR IN THIS CLASS.
- *------------------------------------------------------------------------------------------------------------
  */
 public class RecipesDbManager extends DbManager {
 	
