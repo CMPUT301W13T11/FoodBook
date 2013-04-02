@@ -54,7 +54,7 @@ public class ServerClient {
 	static private final long TIMEOUT_PERIOD = 10;
 	static private final long UPLOAD_PHOTO_GRACE_PERIOD = 5;
 	static private String test_server_string = "http://cmput301.softwareprocess.es:8080/testing/cmput301w13t11/";
-	static private String serverString = "http://cmput301.softwareprocess.es:8080/cmput301w13t11/recipes/";
+	static private String serverString = "http://cmput301.softwareprocess.es:8080/cmput301w13t11/newrecipes/";
 	private static HttpClient httpclient = null;
 	private static ClientHelper helper = null;
 	private ArrayList<Recipe> results;
