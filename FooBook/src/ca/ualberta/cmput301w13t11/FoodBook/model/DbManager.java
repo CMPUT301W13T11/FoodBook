@@ -106,12 +106,14 @@ public class DbManager extends FModel<FView> {
      * @param recipe The Recipe to be stored.
      */
     public void insertRecipe(Recipe recipe) {
+    	// insert recipe into database
         ContentValues values = recipe.toContentValues();
         db.insert(recipesTable, null, values);
+        // insert the recipe's ingredients into database
         for (Ingredient ingred : recipe.getIngredients()) {
             insertRecipeIngredients(ingred, recipe.getUri());
         }
-
+        // insert the recipe's photos into database
         Bitmap temp = null;
         ArrayList<Photo> photos = recipe.getPhotos();
         ArrayList<Photo> fullPhotos = getFullPhotos(photos);
@@ -122,7 +124,6 @@ public class DbManager extends FModel<FView> {
         		insertRecipePhotos(photos.get(i), temp, recipe.getUri());
         }
     }
-    
 
     /**
      * Inserts the given Ingredient into the database such that it is associated with the
@@ -144,23 +145,15 @@ public class DbManager extends FModel<FView> {
      * @param recipeURI The URI of the Recipe with which to associate the Photo.
      */
     public boolean insertRecipePhotos(Photo photo, Bitmap bitmap, long recipeURI) {
-    	
-        /* We first attempt to store the bitmap associated with the photo to the Db */
-    	
+        // We first attempt to store the bitmap associated with the photo to disk
         if (!savePhotoToDevice(bitmap, photo)) {
             /* Saving failed, return false. */
             return false;
         }
-
-        /* Else, we can safely place the photo information into the database. */
-        
-        ContentValues values = new ContentValues();
+        // Now we can put the photo information into the database
+        ContentValues values = photo.toContentValues();
         values.put("recipeURI", recipeURI);
-        values.put("id", photo.getId());
-        values.put("path", photo.getPath());
         db.insert(photosTable, null, values);
-        
-        /* If we got here, everything was successful. */
         return true;
     }
 	
