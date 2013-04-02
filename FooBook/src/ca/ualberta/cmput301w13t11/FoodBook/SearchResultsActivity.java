@@ -129,26 +129,36 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_results);
 		Intent intent = getIntent();
-		Bundle extras = intent.getExtras();
-		String searchType = "";
-		
+		Bundle extras = intent.getExtras();		
 		if (extras != null) {
-			searchType = extras.getString(FoodBookApplication.SEARCH_TYPE);
-			if (searchType.equals(FoodBookApplication.KEYWORDS_SEARCH)) {
-				new SearchByKeywordsTask().execute(extras.getString(SearchActivity.KEYWORD));
-			}
-			
-			else if (searchType.equals(FoodBookApplication.ALL_INGREDIENTS_SEARCH)) {
-				DbController dbc = DbController.getInstance(this, this);
-				ArrayList<Ingredient> ingredients = dbc.getUserIngredients();
-				new SearchByAllIngredientsTask().execute(ingredients);
-			}
-			
-			else if (searchType.equals(FoodBookApplication.SUBSET_INGREDIENTS_SEARCH)) {
-				displayToastByResult(FoodBookApplication.SEARCH_RESULT);
-			}
+			executeSearch(extras);
 		}
 		updateList();
+	}
+	
+	/**
+	 * Executes the desired search type based on the extras passed to the Activity --
+	 * in the case of an "SUBSET_INGREDIENTS_SEARCH" we simply display the correct
+	 * toast message.
+	 * @param searchType
+	 */
+	private void executeSearch(Bundle extras) {
+		
+		String searchType = "";
+		if (searchType.equals(FoodBookApplication.KEYWORDS_SEARCH)) {
+			searchType = extras.getString(FoodBookApplication.SEARCH_TYPE);
+			new SearchByKeywordsTask().execute(extras.getString(SearchActivity.KEYWORD));
+		}
+		
+		else if (searchType.equals(FoodBookApplication.ALL_INGREDIENTS_SEARCH)) {
+			DbController dbc = DbController.getInstance(this, this);
+			ArrayList<Ingredient> ingredients = dbc.getUserIngredients();
+			new SearchByAllIngredientsTask().execute(ingredients);
+		}
+		
+		else if (searchType.equals(FoodBookApplication.SUBSET_INGREDIENTS_SEARCH)) {
+			displayToastByResult(FoodBookApplication.SEARCH_RESULT);
+		}
 	}
 
 	/**
