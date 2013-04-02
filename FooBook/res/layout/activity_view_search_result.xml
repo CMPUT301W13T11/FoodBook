@@ -1,8 +1,8 @@
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:gravity="top"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -36,7 +36,7 @@
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
-        android:layout_height="138dp">
+        android:layout_height="50dp" >
     </ListView>
 
     <TextView
@@ -49,10 +49,10 @@
     <TextView
         android:id="@+id/Instructions"
         android:layout_width="wrap_content"
-        android:layout_height="63dp"
-        android:lines="5"
+        android:layout_height="110dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="0.68"
         android:scrollbars="vertical" >
-        
     </TextView>
 
     <Button
@@ -76,22 +76,22 @@
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/goback_searchresults"
-        style="@style/OrangeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="OnGobacktoSearchResults"
-        android:text="@string/go_back_to_search_results"
-        android:textSize="18sp" />
-
-    <Button
         android:id="@+id/delete_search"
         style="@style/BlueButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:onClick="OnDeleteResult"
         android:text="@string/delete_search"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/goback_searchresults"
+        style="@style/OrangeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="OnGobacktoSearchResults"
+        android:text="@string/go_back_to_search_results"
         android:textSize="18sp" />
 
 </TableLayout>

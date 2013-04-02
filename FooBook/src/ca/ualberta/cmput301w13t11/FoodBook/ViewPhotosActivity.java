@@ -152,7 +152,7 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 				ImageView imageView = (ImageView) v.findViewById(R.id.imageView1);
 				imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 				imageView.setPadding(8, 8, 8, 8);
-				Bitmap bmp = decodeURI(photos.get(position).getPath());
+				Bitmap bmp = BitmapFactory.decodeFile(photos.get(position).getPath());
 				imageView.setImageBitmap(bmp);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -162,36 +162,38 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 	}
 	
 	/**
-	 *  This method retrieves a bitmap image  stored in a compressed format.
+	 * Perhaps this method makes bitmap image generation faster but it is long according to JDeodorant.
+	 * I chose to comment it out. Decompression works without it. 
+	 * This method retrieves a bitmap image  stored in a compressed format.
 	 * @param filePath- complete path where the actual compressed image (jpg, pgn, etc) is stored 
 	 * @return a possibly scaled down bitmap image 
 	 */
-	public Bitmap decodeURI(String filePath){
-
-		Options options = new Options();
-		options.inJustDecodeBounds = true;
-		BitmapFactory.decodeFile(filePath, options);
-
-		// Only scale if we need to 
-		// (16384 buffer for img processing)
-		Boolean scaleByHeight = Math.abs(options.outHeight - 100) >= Math.abs(options.outWidth - 100);
-		if(options.outHeight * options.outWidth * 2 >= 16384){
-			// Load, scaling to smallest power of 2 that'll get it <= desired dimensions
-			double sampleSize = scaleByHeight
-					? options.outHeight / 100
-							: options.outWidth / 100;
-			options.inSampleSize = 
-					(int)Math.pow(2d, Math.floor(
-							Math.log(sampleSize)/Math.log(2d)));
-		}
-
-		// Do the actual decoding
-		options.inJustDecodeBounds = false;
-		options.inTempStorage = new byte[512];  
-		Bitmap output = BitmapFactory.decodeFile(filePath, options);
-
-		return output;
-	}
+//	public Bitmap decodeURI(String filePath){
+//
+//		Options options = new Options();
+//		options.inJustDecodeBounds = true;
+//		BitmapFactory.decodeFile(filePath, options);
+//
+//		// Only scale if we need to 
+//		// (16384 buffer for img processing)
+//		Boolean scaleByHeight = Math.abs(options.outHeight - 100) >= Math.abs(options.outWidth - 100);
+//		if(options.outHeight * options.outWidth * 2 >= 16384){
+//			// Load, scaling to smallest power of 2 that'll get it <= desired dimensions
+//			double sampleSize = scaleByHeight
+//					? options.outHeight / 100
+//							: options.outWidth / 100;
+//			options.inSampleSize = 
+//					(int)Math.pow(2d, Math.floor(
+//							Math.log(sampleSize)/Math.log(2d)));
+//		}
+//
+//		// Do the actual decoding
+//		options.inJustDecodeBounds = false;
+//		options.inTempStorage = new byte[512];  
+//		Bitmap output = BitmapFactory.decodeFile(filePath, options);
+//
+//		return output;
+//	}
 	/**
 	 *  Returns the user to the previous screen, called on pressing the Go Back button.
 	 * @param View - The view calling this method.

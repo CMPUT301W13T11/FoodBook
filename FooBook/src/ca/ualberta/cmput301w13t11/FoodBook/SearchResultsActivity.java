@@ -145,8 +145,8 @@ public class SearchResultsActivity extends Activity implements FView<DbManager>
 	private void executeSearch(Bundle extras) {
 		
 		String searchType = "";
+		searchType = extras.getString(FoodBookApplication.SEARCH_TYPE);
 		if (searchType.equals(FoodBookApplication.KEYWORDS_SEARCH)) {
-			searchType = extras.getString(FoodBookApplication.SEARCH_TYPE);
 			new SearchByKeywordsTask().execute(extras.getString(SearchActivity.KEYWORD));
 		}
 		
