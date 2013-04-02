@@ -57,16 +57,25 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 		Intent intent = getIntent();
 		Bundle extras = intent.getExtras();
 		if (extras != null) {
-			
-			caller = extras.getString(CALLER);
-			if (caller.equals("ViewSearchResultActivity")) {
-				queryResultsDb = true;
-			}
+			setQueryResultsDb(extras);
 		}
 		uri = intent.getLongExtra(EXTRA_URI, 0);
 		Log.d("ViewPhotosActivity in onCreate()", "uri passed to activity = " + uri);
 		this.updateView();
 
+	}
+	
+	/**
+	 * Sets the queryResultsDb flag based on the "caller" extra passed to the method.
+	 * @param extras The extras Bundle passed to the Activity on creation.
+	 */
+	public void setQueryResultsDb(Bundle extras)
+	{
+		String caller = "";
+		caller = extras.getString(CALLER);
+		if (caller.equals("ViewSearchResultActivity")) {
+			queryResultsDb = true;
+		}
 	}
 	
 	/**
