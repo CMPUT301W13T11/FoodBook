@@ -37,12 +37,11 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
  */
 
 
-public class MyIngredients extends Activity implements FView<DbManager>
+public class MyIngredients extends ActivityWithPopup implements FView<DbManager>
 {
 	public static String NO_RESULTS = "no_results";
 	public static String SEARCH_TIMEOUT = "timeout";
 
-	private PopupWindow popUp;
 	private ImageView darkenScreen;
 	@SuppressWarnings("all")
 	private LayoutParams darkenParams;
@@ -130,11 +129,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 	{
 		//responds to button Add ingredient
 
-		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 1000;
-		darkenParams.width = 1000;
-		darkenScreen.setLayoutParams(darkenParams);
+		darkenScreen();
 		//make the popup
 		LinearLayout layout = new LinearLayout(MyIngredients.this);
 		LayoutInflater inflater = LayoutInflater.from(MyIngredients.this);
@@ -197,24 +192,8 @@ public class MyIngredients extends Activity implements FView<DbManager>
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id)
 			{	
-				/*ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-				LayoutParams darkenParams = darkenScreen.getLayoutParams();
-				darkenParams.height = 1000;
-				darkenParams.width = 1000;
-				darkenScreen.setLayoutParams(darkenParams);
-				//make the popup
-				LinearLayout layout = new LinearLayout(MyIngredients.this);
-				LayoutInflater inflater = LayoutInflater.from(MyIngredients.this);
-				popUpView = inflater.inflate(R.layout.popup_edit_ingredient, null, false);
-				popUp = new PopupWindow(popUpView,popUpView.getWidth(),popUpView.getHeight(),true);
-				popUp.showAtLocation(layout, Gravity.CENTER, 0, 0);
-*/
 				
-				ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-				LayoutParams darkenParams = darkenScreen.getLayoutParams();
-				darkenParams.height = 1000;
-				darkenParams.width = 1000;
-				darkenScreen.setLayoutParams(darkenParams);
+				darkenScreen();
 				//make the popup
 				LinearLayout layout = new LinearLayout(MyIngredients.this);
 				LayoutInflater inflater = LayoutInflater.from(MyIngredients.this);
@@ -272,11 +251,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		popUp.dismiss();
 
 		//remove the darkScreen
-		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 0;
-		darkenParams.width = 0;
-		darkenScreen.setLayoutParams(darkenParams);
+		normalizeScreen();
 	}
 	/**
 	 * Responds to the "Ok" button in the pop-up, which closes the pop-up and saves
@@ -301,11 +276,7 @@ public class MyIngredients extends Activity implements FView<DbManager>
 		popUp.dismiss();
 
 		//remove the darkScreen
-		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 0;
-		darkenParams.width = 0;
-		darkenScreen.setLayoutParams(darkenParams);
+		normalizeScreen();
 		Ingredient ingredient = new Ingredient(type, unit, amount);
 		
 		if (update) {

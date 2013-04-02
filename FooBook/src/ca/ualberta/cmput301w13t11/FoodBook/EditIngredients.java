@@ -31,12 +31,11 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
  *
  */
 
-public class EditIngredients extends Activity implements FView<DbManager>
+public class EditIngredients extends ActivityWithPopup implements FView<DbManager>
 {
 	public static String NO_RESULTS = "no_results";
 	public static String SEARCH_TIMEOUT = "timeout";
 
-	private PopupWindow popUp;
 	private PopupWindow popUpIncomplete;
 	private ImageView darkenScreen;
 	private View popUpView;
@@ -95,11 +94,7 @@ public class EditIngredients extends Activity implements FView<DbManager>
 	{
 		//responds to button Add ingredient
 
-		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 1000;
-		darkenParams.width = 1000;
-		darkenScreen.setLayoutParams(darkenParams);
+		darkenScreen();
 		//make the popup
 		LinearLayout layout = new LinearLayout(EditIngredients.this);
 		LayoutInflater inflater = LayoutInflater.from(EditIngredients.this);
@@ -205,11 +200,7 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		popUp.dismiss();
 
 		//remove the darkScreen
-		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 0;
-		darkenParams.width = 0;
-		darkenScreen.setLayoutParams(darkenParams);
+		normalizeScreen();
 	}
 
 	//called by the second popup
@@ -253,11 +244,7 @@ public class EditIngredients extends Activity implements FView<DbManager>
 		popUp.dismiss();
 
 		//remove the darkScreen
-		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 0;
-		darkenParams.width = 0;
-		darkenScreen.setLayoutParams(darkenParams);
+		normalizeScreen();
 		
 		if(update) {       
 		    changedIngred = RecipeIngredients.get(pos);

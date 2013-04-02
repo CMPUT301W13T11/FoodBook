@@ -32,7 +32,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
  * @author Thomas Cline, Marko Babic, and Pablo Jaramillo
  *
  */
-public class ViewRecipeActivity extends Activity implements FView<DbManager>
+public class ViewRecipeActivity extends ActivityWithPopup implements FView<DbManager>
 {
 
 	static final String EXTRA_URI = "extra_uri";
@@ -79,11 +79,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 		{
 			progressDialog.dismiss();
 			if (ret == ReturnCode.SUCCESS) {
-				ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-				LayoutParams darkenParams = darkenScreen.getLayoutParams();
-				darkenParams.height = 1000;
-				darkenParams.width = 1000;
-				darkenScreen.setLayoutParams(darkenParams);
+				darkenScreen();
 				//make the popup
 				LinearLayout layout = new LinearLayout(ViewRecipeActivity.this);
 				LayoutInflater inflater = LayoutInflater.from(ViewRecipeActivity.this);
@@ -227,11 +223,7 @@ public class ViewRecipeActivity extends Activity implements FView<DbManager>
 	public void OnOK(View v){
 		popUp.dismiss();
 		//remove the darkScreen
-		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 0;
-		darkenParams.width = 0;
-		darkenScreen.setLayoutParams(darkenParams);
+		normalizeScreen();
 	}
 	@Override
 	public void update(DbManager db)

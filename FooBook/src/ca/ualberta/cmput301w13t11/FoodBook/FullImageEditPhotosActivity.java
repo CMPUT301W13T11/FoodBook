@@ -28,7 +28,7 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.ServerClient.ReturnCode;
  * @author Pablo Jaramillo and Marko Babic
  * 
  */
-public class FullImageEditPhotosActivity extends Activity implements FView<DbManager>{
+public class FullImageEditPhotosActivity extends ActivityWithPopup implements FView<DbManager>{
 
 	//intent 'handshakes'
 	static final String EXTRA_IMG_ID = "extra_img_id";		//image id (timestamp), incoming
@@ -40,7 +40,6 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 	private long uri = 0;					//recipe uri, changed Long to long (? causing bug)
 	private ImageView imageView = null;	//image container
 	private Bitmap bitmap = null;			//bitmap being displayed
-	private PopupWindow popUp;
 
 	//
 	@Override
@@ -167,14 +166,7 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 	public void OnDeletePhoto(View View)
 	{
 		// responds to button Delete Recipe
-		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		LayoutParams darkenParams =darkenScreen.getLayoutParams();
-
-		//first darken the screen
-		//LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 1000;
-		darkenParams.width = 1000;
-		darkenScreen.setLayoutParams(darkenParams);
+		darkenScreen();
 		//make the popup
 		LinearLayout layout = new LinearLayout(this);
 		LayoutInflater inflater = LayoutInflater.from(this);
@@ -191,11 +183,7 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 	 */
 	public void OnOK(View View){
 		//remove the dark screen and popup
-		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 0;
-		darkenParams.width = 0;
-		darkenScreen.setLayoutParams(darkenParams);
+		normalizeScreen();
 		popUp.dismiss();
 		//ready controller, wrap id and image path in photo object
 		DbController DbC = DbController.getInstance(this, this);
@@ -220,11 +208,7 @@ public class FullImageEditPhotosActivity extends Activity implements FView<DbMan
 	public void OnCancel(View View){
 
 		//remove the darkScreen
-		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 0;
-		darkenParams.width = 0;
-		darkenScreen.setLayoutParams(darkenParams);
+		normalizeScreen();
 		popUp.dismiss();
 	}
 	/**

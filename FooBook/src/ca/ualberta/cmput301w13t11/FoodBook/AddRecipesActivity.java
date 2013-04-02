@@ -8,7 +8,6 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
 import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,10 +24,10 @@ import android.widget.PopupWindow;
  */
 
 
-public class AddRecipesActivity extends Activity implements FView<DbManager>
+public class AddRecipesActivity extends ActivityWithPopup implements FView<DbManager>
 {
 
-	PopupWindow popUp;
+	
 	static private final Logger logger = Logger.getLogger(AddRecipesActivity.class.getName());
 	private long mRecipeUri; /* timestamp the recipe on entry into the  */
 	public static String EXTRA_URI = "extra_uri"; /*passed with intent to newly launched "edit" acitivities */
@@ -131,12 +130,7 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 		//validate input
 		if(Title.isEmpty()||Instructions.isEmpty()||Author.isEmpty()) {
 			//first darken the screen
-			ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-			LayoutParams darkenParams = darkenScreen.getLayoutParams();
-			darkenParams.height = 1000;
-			darkenParams.width = 1000;
-			darkenScreen.setLayoutParams(darkenParams);
-
+			darkenScreen();
 			//make the popup
 			LinearLayout layout = new LinearLayout(this);
 			LayoutInflater inflater = LayoutInflater.from(this);
@@ -164,13 +158,7 @@ public class AddRecipesActivity extends Activity implements FView<DbManager>
 	 */
 	
 	public void OnOK(View v){
-		//remove the darkScreen
-		ImageView darkenScreen = (ImageView) findViewById(R.id.darkenScreen);
-		LayoutParams darkenParams = darkenScreen.getLayoutParams();
-		darkenParams.height = 0;
-		darkenParams.width = 0;
-		darkenScreen.setLayoutParams(darkenParams);
-
+		normalizeScreen();
 		popUp.dismiss();
 	}
 	
