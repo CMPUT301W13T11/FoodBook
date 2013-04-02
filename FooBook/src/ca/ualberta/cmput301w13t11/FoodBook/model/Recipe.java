@@ -53,6 +53,7 @@ public class Recipe {
 	public Recipe(long uri)
 	{
 		this.uri = uri;
+		this.title = "";
 		this.author = new User("");
 		this.instructions = "";
 		this.ingredients = new ArrayList<Ingredient>();
@@ -67,13 +68,12 @@ public class Recipe {
 	 */
 	public Recipe(User author, String title, String instructions)
 	{
-		this.setAuthor(author);
+		this.author = author;
 		this.title = title;
 		this.setInstructions(instructions);
 		this.ingredients = new ArrayList<Ingredient>();
 		this.photos = new ArrayList<Photo>();
 		this.uri = System.currentTimeMillis();
-		
 	}
 	
 	/**
@@ -85,35 +85,59 @@ public class Recipe {
 		return this.title;
 	}
 	
+	/**
+	 * @return The title of the Recipe.
+	 */
 	public String getTitle()
 	{
 		return this.title;
 	}
 
+	/**
+	 * @return The author of the Recipe.
+	 */
 	public User getAuthor() {
 		return author;
 	}
 
+	/**
+	 * @param author The new author for this recipe; this.author = author
+	 */
 	public void setAuthor(User author) {
 		this.author = author;
 	}
 
+	/**
+	 * @return The instructions for the Recipe.
+	 */
 	public String getInstructions() {
 		return instructions;
 	}
 
+	/**
+	 * @param instructions The new set of instructions for this recipe; this.instructions = instructions
+	 */
 	public void setInstructions(String instructions) {
 		this.instructions = instructions;
 	}
 
+	/**
+	 * @return An ArrayList of the ingredients of this recipe.
+	 */
 	public ArrayList<Ingredient> getIngredients() {
 		return ingredients;
 	}
 
+	/**
+	 * @param ingredients The new set of ingredients for thsi recipe; this.ingredients = ingredients
+	 */
 	public void setIngredients(ArrayList<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
 
+	/**
+	 * @return An ArrayList of the photos of this recipe.
+	 */
 	public ArrayList<Photo> getPhotos() {
 		return photos;
 	}
@@ -206,6 +230,9 @@ public class Recipe {
 		return returnString;
 	}
 
+	/**
+	 * @param title The new title for the Recipe; this.title = title
+	 */
 	public void setTitle(String title) {
 		this.title = title;
 	}
