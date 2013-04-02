@@ -143,20 +143,21 @@ public class EditRecipeActivity extends Activity implements FView<DbManager>
 		
 		/* Get the updated fields. */
 		String newTitle = recipeName.getText().toString();
-		String newInstructions = instructions.getText().toString();
+		String newInstructions = instructions.getText().toString();  
 		viewedRecipe.setTitle(newTitle);
 		viewedRecipe.setInstructions(newInstructions);
 		
 		/* Put the results in the Db */
 		DbC.updateRecipe(viewedRecipe);
 		
-		/**
-		 * Responds to the button to the "Delete" button and deletes the current recipe
-		 * from the My Recipes list, returning the user to "My Recipes"
-		 * @param The View that is calling the method
-		 *
-		 */
+		
 	}
+	/**
+	 * Responds to the button to the "Delete" button and deletes the current recipe
+	 * from the My Recipes list, returning the user to "My Recipes"
+	 * @param The View that is calling the method
+	 *
+	 */
 	public void OnDeleteRecipe (View View)
 	{
 		// responds to button Delete Recipe
