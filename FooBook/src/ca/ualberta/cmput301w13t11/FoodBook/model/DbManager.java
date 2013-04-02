@@ -104,11 +104,17 @@ public class DbManager extends FModel<FView> {
     /**
      * Inserts a recipe into the table.
      * @param recipe The Recipe to be stored.
+     * @return True on success, False on failure.
      */
-    public void insertRecipe(Recipe recipe) {
+    public boolean insertRecipe(Recipe recipe) {
     	// insert recipe into database
         ContentValues values = recipe.toContentValues();
-        db.insert(recipesTable, null, values);
+        try {
+        	db.insert(recipesTable, null, values);
+        } catch (SQLiteException sqle) {
+    		sqle.printStackTrace();
+    		return false;
+    	}
         // insert the recipe's ingredients into database
         for (Ingredient ingred : recipe.getIngredients()) {
             insertRecipeIngredients(ingred, recipe.getUri());
@@ -123,6 +129,7 @@ public class DbManager extends FModel<FView> {
         		temp = fullPhotos.get(i).getPhotoBitmap();
         		insertRecipePhotos(photos.get(i), temp, recipe.getUri());
         }
+        return true;
     }
 
     /**
@@ -135,7 +142,12 @@ public class DbManager extends FModel<FView> {
     public boolean insertRecipeIngredients(Ingredient ingred, long recipeURI) {
         ContentValues values = ingred.toContentValues();
         values.put("recipeURI", recipeURI);
-        db.insert(ingredsTable, null, values);
+        try {
+        	db.insert(ingredsTable, null, values);
+        } catch (SQLiteException sqle) {
+    		sqle.printStackTrace();
+    		return false;
+    	}
         return true;
     }
 
@@ -156,7 +168,12 @@ public class DbManager extends FModel<FView> {
         // Now we can put the photo information into the database
         ContentValues values = photo.toContentValues();
         values.put("recipeURI", recipeURI);
-        db.insert(photosTable, null, values);
+        try {
+        	db.insert(photosTable, null, values);
+        } catch (SQLiteException sqle) {
+    		sqle.printStackTrace();
+    		return false;
+    	}
         return true;
     }
 	
@@ -168,13 +185,20 @@ public class DbManager extends FModel<FView> {
 	 * Update the entry in the Db with the URI given by the Recipe parameter with the values
 	 * given by the Recipe parameter.
 	 * @param recipe The updated recipe to be stored in the database.
+	 * @return True on success, False on failure.
 	 */
-	public void updateRecipe(Recipe recipe) {
+	public boolean updateRecipe(Recipe recipe) {
 		String filter = "URI=" + Long.toString(recipe.getUri());
 		ContentValues args = new ContentValues();
 		args.put("title", recipe.getTitle());
 		args.put("instructions", recipe.getInstructions());
-		db.update(recipesTable, args, filter, null);
+		try {
+			db.update(recipesTable, args, filter, null);
+		} catch (SQLiteException sqle) {
+    		sqle.printStackTrace();
+    		return false;
+    	}
+		return true;
 	}
     
 	// *********************************************
