@@ -189,7 +189,7 @@ public class DbController {
     		return false;
     	for (int i = 0; i < ingredients.size(); i++) {
     		temp = recipesManager.insertRecipeIngredients(ingredients.get(i), uri);
-    		if (temp = false) {
+    		if (temp == false) {
     			success = false;
     			break;
     		}

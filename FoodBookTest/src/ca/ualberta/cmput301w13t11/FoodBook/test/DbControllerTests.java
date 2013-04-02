@@ -1,24 +1,26 @@
 package ca.ualberta.cmput301w13t11.FoodBook.test;
 
-import java.util.ArrayList;
-
+import android.graphics.Bitmap;
 import android.test.AndroidTestCase;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
 import ca.ualberta.cmput301w13t11.FoodBook.model.DbManager;
 import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
+import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
-import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 
 /**
- * Unit tests for he DbController class.
- * @author mbabic
+ * Unit tests for the DbController class.
+ * NOTE: A large number of DbController methods are simple calls to DbManager methods followed by calls to the FModel<> method
+ * notifyViews().  For these methods, we simply attempt to invoke them without error -- the underlying methods are _thoroughly_
+ * vetted in DbManagerTests, RecipesDbManagerTests, ResultsDbManagerTests, FModelTests, and IngredientsDbManager tests. 
+ * @author Marko Babic
  *
  */
 public class DbControllerTests extends AndroidTestCase {
 
 	private DbController dbc = null;
-	
+
 	/**
 	 * Mock View implementing the FView<DbManager> interface for testing purposes.
 	 * @author mbabic
@@ -31,20 +33,22 @@ public class DbControllerTests extends AndroidTestCase {
 		{
 			this.x = x;
 		}
-		
+
 		@Override
 		public void update(DbManager m)
 		{
 			this.x++;
 		}
 	}
-	
-	
+
+
 	protected void setUp() throws Exception
 	{
 		super.setUp();
+		MockView view = new MockView(1);
+		dbc = DbController.getInstance(this.getContext(), view);
 	}	
-	
+
 	/**
 	 * Test getInstance method.
 	 */
@@ -54,7 +58,7 @@ public class DbControllerTests extends AndroidTestCase {
 		dbc = DbController.getInstance(this.getContext(), view);
 		assertTrue("instance should not be null", dbc != null);
 	}
-	
+
 	/**
 	 * Test the functionality of the updateResultsDb() method by simiply ensuring it can be called
 	 * without error.
@@ -65,122 +69,125 @@ public class DbControllerTests extends AndroidTestCase {
 		dbc = DbController.getInstance(this.getContext(), view);
 		dbc.updateResultsDb();
 	}
-	
+
 	/**
 	 * Test getUserRecipes() -- attempt to get recipes from database without error using 
 	 * the controller's functionality.
 	 */
 	public void testGetUserRecipes()
 	{
-		MockView view = new MockView(1);
-		dbc = DbController.getInstance(this.getContext(), view);
-		
 		try {
-			ArrayList<Recipe> recipes = dbc.getUserRecipes();
-			assertTrue(true);
+			dbc.getUserRecipes();
 		} catch (Exception e) {
 			fail();
 		}
 	}
-	
+
 	/**
-	 * Test insertRecipe() -- attempt to insert recipe into database without error using 
-	 * the controller's functionality.
+	 * Test getUserRecipe() by simply ensuring it can be called without error.
 	 */
-	public void testInsertRecipeNoErrors()
+	public void testGetUserRecipe()
 	{
-		Recipe recipe = Recipe.generateTestRecipe();
-		MockView view = new MockView(1);
-		dbc = DbController.getInstance(this.getContext(), view);
-		
 		try {
-			dbc.addRecipe(recipe);
+			dbc.getUserRecipe(0);
 		} catch (Exception e) {
 			fail();
 		}
-		
 	}
-	
+
 	/**
-	 * Test insertRecipe() and getUserRecipes() -- attempt to insert recipe into database without error using 
-	 * the controller's functionality.
+	 * Test addRecipe() by simply ensuring it can be called without error.
 	 */
-	public void testInsertRecipeAndGetUserRecipes()
+	public void testAddRecipe()
 	{
-		Recipe recipe = Recipe.generateTestRecipe();
-		MockView view = new MockView(1);
-		dbc = DbController.getInstance(this.getContext(), view);
-		
 		try {
-			dbc.addRecipe(recipe);
+			dbc.addRecipe(Recipe.generateTestRecipe());
 		} catch (Exception e) {
 			fail();
 		}
-		
-		ArrayList<Recipe> ret = dbc.getUserRecipes();
-		assertTrue("Database should not be empty.", !ret.isEmpty());
 	}
-	
+
+
 	/**
-	 * Test deleteRecipe() -- attempt to delete a recipe known to not exist from the database and ensure
-	 * it's size has not changed and no errors occur.
-	 * the controller's functionality.
+	 * Test deleteRecipe() by simply ensuring it can be called without error.
 	 */
 	public void testDeleteRecipe()
 	{
-		Recipe recipe = Recipe.generateTestRecipe();
-		Recipe r1 = new Recipe(new User("tester"), "title1", "insructions");
-		Recipe r2 = new Recipe(new User("tester"), "title2", "insructions");
-		Recipe not_in_db = new Recipe((long)9999, new User(";aljfpoiwefu qwu"), "uicy9w2y9 hjkwleh ", "w8u q7yt",
-							new ArrayList<Ingredient>());
-
-		MockView view = new MockView(1);
-		dbc = DbController.getInstance(this.getContext(), view);
-		
 		try {
-			dbc.addRecipe(recipe);
-			dbc.addRecipe(r1);
-			dbc.addRecipe(r2);
+			dbc.deleteRecipe(Recipe.generateTestRecipe());
 		} catch (Exception e) {
 			fail();
 		}
-		
-		int size = dbc.getUserRecipes().size();
-		dbc.deleteRecipe(not_in_db);
-		assertTrue("Size should not have changed.", size == dbc.getUserRecipes().size());	
 	}
-	
+
 	/**
-	 * Test addIngedientToRecipe() -- ensures that a recipe can be added to a recipe.
+	 * Test updateRecipe() by simply ensuring it can be called without error.
+	 */
+	public void testUpdateRecipe()
+	{
+		try {
+			dbc.deleteRecipe(Recipe.generateTestRecipe());
+		} catch (Exception e) {
+			fail();
+		}
+	}
+
+	/**
+	 * Test addPhotoToRecipe() by simply ensuring it can be called without error.
+	 */
+	public void testAddPhotoToRecipe()
+	{
+		Bitmap bitmap = BogoPicGen.generateBitmap(100, 100);
+		Photo photo = new Photo("test id", "test path");
+		try {
+			dbc.addPhotoToRecipe(photo, bitmap, 0);
+		} catch (Exception e) {
+			fail();
+		}
+	}
+
+
+	/**
+	 * Test getRecipePhotos() by simply ensuring it can be called without error.
+	 */
+	public void testGetRecipePhotos()
+	{
+
+		try {
+			dbc.getRecipePhotos(0);
+		} catch (Exception e) {
+			fail();
+		}
+	}
+
+
+
+	/**
+	 * Test addIngredientToRecipe() by simply ensuring it can be called without error.
 	 */
 	public void testAddIngredientToRecipe()
 	{
-		Recipe recipe = new Recipe((long)9009, new User("test"), "title", "instructions",
-							new ArrayList<Ingredient>());
-		
-		MockView view = new MockView(1);
-		dbc = DbController.getInstance(this.getContext(), view);
-
+		Ingredient ingredient = new Ingredient("test", "test", (float) 100);
 		try {
-			dbc.addRecipe(recipe);
+			dbc.addIngredientToRecipe(ingredient, 0);
 		} catch (Exception e) {
-			fail();
+			fail("Exception thrown.");
 		}
-		int flag = 0;
-		
-		Ingredient ingredient = new Ingredient("x", "x", 1);
-		dbc.addIngredientToRecipe(ingredient, recipe.getUri());
-		for (Recipe r : dbc.getUserRecipes())
-		{
-			if (!r.getIngredients().isEmpty()) {
-				if (!r.getIngredients().get(0).equals("x")) {
-					flag = 1;
-				}
-			}
-		}
-		assertTrue("Ingredient should have been found.", flag == 1);
-
 	}
 	
-	
+	/**
+	 * Test getRecipeIngredients() by simply ensuring it can be called without error.
+	 */
+	public void testGetRecipeIngredients()
+	{
+		try {
+			dbc.getRecipeIngredients(0);
+		} catch (Exception e) {
+			fail("Exception thrown.");
+		}
+	}
+
+
+
+
 }
