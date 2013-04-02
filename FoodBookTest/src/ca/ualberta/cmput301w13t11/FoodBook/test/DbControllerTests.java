@@ -1,5 +1,7 @@
 package ca.ualberta.cmput301w13t11.FoodBook.test;
 
+import java.util.ArrayList;
+
 import android.graphics.Bitmap;
 import android.test.AndroidTestCase;
 import ca.ualberta.cmput301w13t11.FoodBook.controller.DbController;
@@ -8,6 +10,8 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.FView;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Ingredient;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 import ca.ualberta.cmput301w13t11.FoodBook.model.Recipe;
+import ca.ualberta.cmput301w13t11.FoodBook.model.RecipesDbManager;
+import ca.ualberta.cmput301w13t11.FoodBook.model.User;
 
 /**
  * Unit tests for the DbController class.
@@ -57,17 +61,6 @@ public class DbControllerTests extends AndroidTestCase {
 		MockView view = new MockView(1);
 		dbc = DbController.getInstance(this.getContext(), view);
 		assertTrue("instance should not be null", dbc != null);
-	}
-
-	/**
-	 * Test the functionality of the updateResultsDb() method by simiply ensuring it can be called
-	 * without error.
-	 */
-	public void testupdateResultsDb()
-	{
-		MockView view = new MockView(1);
-		dbc = DbController.getInstance(this.getContext(), view);
-		dbc.updateResultsDb();
 	}
 
 	/**
@@ -160,8 +153,6 @@ public class DbControllerTests extends AndroidTestCase {
 		}
 	}
 
-
-
 	/**
 	 * Test addIngredientToRecipe() by simply ensuring it can be called without error.
 	 */
@@ -188,6 +179,150 @@ public class DbControllerTests extends AndroidTestCase {
 	}
 
 
+	/**
+	 * Test the functionality of the storeRecipeIngredients() method -- this is the only
+	 * non-trivial test in this set of unit tests.  We ensure that the new list of
+	 * ingredients overwrites the old one in the database.
+	 */
+	public void testStoreRecipeIngredients()
+	{
+		RecipesDbManager dbm = RecipesDbManager.getInstance(this.getContext());
+		long testUri = 10101019999L;
+		String testTitle = "test title";
+		User testAuthor = new User("test name");
+		String testInstructions = "test instructions";
+		ArrayList<Ingredient> testIngredients1 = new ArrayList<Ingredient>();
+		ArrayList<Ingredient> testIngredients2 = new ArrayList<Ingredient>();
+		Ingredient testIngredient1 = new Ingredient("test1", "x", (float) 100);
+		Ingredient testIngredient2 = new Ingredient("test1", "x", (float) 100);
+		testIngredients1.add(testIngredient1);
+		testIngredients2.add(testIngredient2);
 
+		
+		Recipe recipe = new Recipe(testUri, testAuthor, testTitle, testInstructions, testIngredients1);
+		dbm.insertRecipe(recipe);
+		
+		/* 
+		 * Given the correct functionality of DbManager methods (verified in th eset of unit tests
+		 * for RecipesDbManager) we proceed as follows.
+		 */
+		dbc.storeRecipeIngredients(testIngredients2, testUri);
+		
+		Recipe ret = dbm.getRecipe(testUri);
+		
+		assertTrue("Returned recipe should only have one ingredient.", ret.getIngredients().size() == 1);
+		assertTrue("Returned recipe should consist of only testIngredient2 (names should be equal)",
+				ret.getIngredients().get(0).getName().equals(testIngredient2.getName()));
+		assertTrue("Returned recipe should consist of only testIngredient2 (units should be equal)",
+				ret.getIngredients().get(0).getUnit().equals(testIngredient2.getUnit()));
+		assertTrue("Returned recipe should consist of only testIngredient2 (quantity should be equal)",
+				ret.getIngredients().get(0).getQuantity() == testIngredient2.getQuantity());
+	}
 
+	/**
+	 * Test the functionality of the updateResultsDb() method by simply ensuring it can be called
+	 * without error.
+	 */
+	public void testUpdateResultsDb()
+	{
+		try {
+			dbc.updateResultsDb();
+		} catch (Exception e) {
+			fail("Exception thrown.");
+		}
+	}
+	
+	/**
+	 * Test the functionality of the getStoredRecipes() method by simply ensuring it can be called
+	 * without error.
+	 */
+	public void testGetStoredRecipes()
+	{
+		try {
+			dbc.updateResultsDb();
+		} catch (Exception e) {
+			fail("Exception thrown.");
+		}
+	}
+	
+	/**
+	 * Test the functionality of the deleteStoredRecipe() method by simply ensuring it can be called
+	 * without error.
+	 */
+	public void testDeleteStoredRecipe()
+	{
+		Recipe recipe = Recipe.generateRandomTestRecipe();
+		try {
+			dbc.deleteStoredRecipe(recipe);
+		} catch (Exception e) {
+			fail("Exception thrown.");
+		}
+	}
+
+	/**
+	 * Test the functionality of the getStoredRecipePhotos() method by simply ensuring it can be called
+	 * without error.
+	 */
+	public void testGetStoredRecipePhotos()
+	{
+		try {
+			dbc.getStoredRecipePhotos(0);
+		} catch (Exception e) {
+			fail("Exception thrown.");
+		}
+	}
+	
+	/**
+	 * Test the functionality of the getStoredRecipeIngredients() method by simply ensuring it can be called
+	 * without error.
+	 */
+	public void testGetStoredRecipeIngredients()
+	{
+		try {
+			dbc.getStoredRecipeIngredients(0);
+		} catch (Exception e) {
+			fail("Exception thrown.");
+		}
+	}
+	
+	/**
+	 * Test the functionality of the addIngredient() method by simply ensuring it can be called
+	 * without error.
+	 */
+	public void testAddIngredient()
+	{
+		try {
+			dbc.addIngredient(new Ingredient("", "", 0));
+		} catch (Exception e) {
+			fail("Exception thrown.");
+		}
+	}
+	
+	/**
+	 * Test the functionality of the deleteIngredient() method by simply ensuring it can be called
+	 * without error.
+	 */
+	public void testDeleteIngredient()
+	{
+		try {
+			dbc.deleteIngredient(new Ingredient("", "", 0));
+		} catch (Exception e) {
+			fail("Exception thrown.");
+		}
+	}
+	
+	/**
+	 * Test the functionality of the getUserIngredients() method by simply ensuring it can be called
+	 * without error.
+	 */
+	public void testGetUserIngredients()
+	{
+		try {
+			dbc.getUserIngredients();
+		} catch (Exception e) {
+			fail("Exception thrown.");
+		}
+	}
+	
+	
 }
