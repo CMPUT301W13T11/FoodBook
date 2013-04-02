@@ -279,24 +279,23 @@ public class DbManager extends FModel<FView> {
      * @return True on success, False on failure.
      */
     public boolean removeRecipe(Recipe recipe) {
-    	long uri = recipe.getUri();
-    	int recipes_removed = 0;
     	boolean deleted_pictures = true;
-
-    	try{
-    		recipes_removed = db.delete(recipesTable, "URI = " + uri, null);
-    		ArrayList<Photo> photos = getRecipePhotos(uri); 
-    		for (Photo p: photos){
-    			if (removeRecipePhoto(p)!=true){
-    				deleted_pictures=false;
-    			}
-    		}
-  
-    		removeRecipeIngredients(uri);
-
-    	} catch(Exception e){e.printStackTrace();};
-
-    	return (recipes_removed==1 && deleted_pictures==true);
+    	// delete recipe's photos
+    	for (Photo p: recipe.getPhotos()) {
+			if (removeRecipePhoto(p) != true){
+				deleted_pictures = false;
+			}
+		}
+    	// delete recipe's ingredients
+    	removeRecipeIngredients(recipe.getUri());
+    	// delete recipe
+    	try {
+    		db.delete(recipesTable, "URI = " + recipe.getUri(), null);
+    	} catch (SQLiteException sqle) {
+    		sqle.printStackTrace();
+    		return false;
+		}
+    	return (deleted_pictures);
     }
     
     /**
@@ -304,20 +303,16 @@ public class DbManager extends FModel<FView> {
      * @param photo The photo to be deleted.
      * @return true on success, false on failure
      */
-    public boolean removeRecipePhoto(Photo photo) {
-   	
-    	int success = db.delete(photosTable, "id = " + photo.getId(), null); 
- 
+    public boolean removeRecipePhoto(Photo photo) { 
     	Boolean deleted = false;
-    	
-    		try{
-		    	File file = new File(photo.getPath());
-		        deleted = file.delete();
-    		}
-    		catch(Exception e){
-    			e.printStackTrace();
-    		}  	
-    	return (success >= 1 && deleted == true);
+    	try {
+    		File file = new File(photo.getPath());
+		    deleted = file.delete();
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	}
+    	int success = db.delete(photosTable, "id = " + photo.getId(), null);
+    	return (success >= 1 && deleted);
     }
         
     /**
@@ -327,14 +322,12 @@ public class DbManager extends FModel<FView> {
      * @return true on success, false on failure
      */
     public boolean removeRecipeIngredients(long uri) {
-    	
     	int success = 0;
     	try {
     		success = db.delete(ingredsTable, "recipeURI = " + uri, null); 
     	} catch (SQLiteException sqle) {
     		sqle.printStackTrace();
-    	}
-    	    	
+    	}	
     	return (success>=1);
     }
     
