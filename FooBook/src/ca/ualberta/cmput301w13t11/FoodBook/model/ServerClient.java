@@ -137,6 +137,9 @@ public class ServerClient {
 	 */
 	public void writeResultsToDb()
 	{
+		if (results == null)
+			return;
+		
 		if (results.get(0).getPhotos().isEmpty()) {
 			logger.log(Level.SEVERE, "Result's 0 photos are null!");
 		}
