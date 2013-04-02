@@ -17,7 +17,6 @@ import java.util.Collection;
  * @author Marko Babic
  *
  */
-
 public class ServerPhoto {
 
 	private String id;

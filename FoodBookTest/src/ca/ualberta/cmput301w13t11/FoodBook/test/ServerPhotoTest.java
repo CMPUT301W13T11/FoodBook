@@ -31,7 +31,9 @@ public class ServerPhotoTest extends AndroidTestCase {
 	}
 
 	/**
-	 * Test toPhoto() by ensuring a ServerPhoto by simply ensuring it can be called without error.
+	 * Test toPhoto() by ensuring a ServerPhoto by simply ensuring it can be called without error
+	 * and returns non-null image object (id and path are not meant to be preserved, and thus
+	 * this cannot be tested.
 	 * Equality of the created image with have to be inspected visually at run time.
 	 */
 	public void testToPhoto() {
@@ -41,6 +43,10 @@ public class ServerPhotoTest extends AndroidTestCase {
 		ServerPhoto sp = new ServerPhoto(photo);
 
 		Photo newPhoto = ServerPhoto.toPhoto(sp);
+		assertTrue("newPhoto should not be null", newPhoto != null);
+		assertTrue("newPhoto should not have null id", newPhoto.getId() != null);
+		assertTrue("newPhoto should not have null path", newPhoto.getPath() != null);
+		assertTrue("newPhoto should not have null bit data", newPhoto.getBitData() != null);
 	}
 
 }
