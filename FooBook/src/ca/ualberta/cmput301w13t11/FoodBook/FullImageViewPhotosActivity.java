@@ -29,6 +29,7 @@ public class FullImageViewPhotosActivity extends Activity implements FView<DbMan
 	static final String EXTRA_IMG_ID = "extra_img_id";		//image id, incoming
 	static final String EXTRA_IMG_PATH = "extra_img_path";	//image path, incoming
 	static final String EXTRA_URI = "extra_uri";				//recipe uri, incoming
+	static final String EXTRA_NO_UPLOAD ="extra_no_upload";	//another way to receive the caller to ViewPhotos
 	
 	private String imgPath = null;				//image path
 	@SuppressWarnings("all")
@@ -37,6 +38,8 @@ public class FullImageViewPhotosActivity extends Activity implements FView<DbMan
 	private long uri;								//recipe uri, changed Long to long (? causing bug)
 	private ImageView imageView = null;			//image container
 	private Bitmap bitmap = null;					//bitmap being displayed
+	
+	private boolean queryResultsDb = false;			//true if viewing photo from online (searched) recipe
 
 	/**
 	 * Performs an photo upload operation asynchronously (ie. not on the UI thread) and reports
@@ -48,8 +51,8 @@ public class FullImageViewPhotosActivity extends Activity implements FView<DbMan
     @Override
     public void onCreate(Bundle savedInstanceState) {
     	
-    	setContentView(R.layout.activity_full_image_view_photos);
-    	imageView = (ImageView) findViewById(R.id.imageView1);
+    	//setContentView(R.layout.activity_full_image_view_photos);
+    	//imageView = (ImageView) findViewById(R.id.imageView1);
         super.onCreate(savedInstanceState);
         
 		Intent intent = getIntent();
@@ -57,6 +60,13 @@ public class FullImageViewPhotosActivity extends Activity implements FView<DbMan
 		id = bundle.getString(EXTRA_IMG_ID);
 		imgPath = bundle.getString(EXTRA_IMG_PATH);
 		uri = bundle.getLong(EXTRA_URI); 
+		queryResultsDb = bundle.getBoolean(EXTRA_NO_UPLOAD);
+		if (queryResultsDb){
+			setContentView(R.layout.activity_full_image_view_photos_no_upload);
+		}else{
+			setContentView(R.layout.activity_full_image_view_photos);
+		}
+		imageView = (ImageView) findViewById(R.id.imageView1);
         this.updateView();
     }
     

@@ -27,10 +27,10 @@ import ca.ualberta.cmput301w13t11.FoodBook.model.Photo;
 /**
  * This class only shows the recipe's pictures in a gallery. Capturing or deleting is not allowed.
  * Images are enlarged by clicking on them (starts FullImageViewPhotosActivity.java). 
+ * Depending on who the caller is, the upload button is enabled/disabled on the full image screeen.
+ * 
  * @author jaramill
  * 
- * ! We have to make the upload button work you guys, or delete the button. -Pablo
- *
  */
 public class ViewPhotosActivity extends Activity implements FView<DbManager>
 {
@@ -38,8 +38,10 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 	static final String EXTRA_URI = "extra_uri";				//recipe uri, incoming
 	static final String EXTRA_IMG_ID = "extra_img_id";		//image id (timestamp), incoming
 	static final String EXTRA_IMG_PATH = "extra_img_path";	//image path, incoming
-	public static String CALLER = "caller";
-	private boolean queryResultsDb = false;
+	static final String EXTRA_NO_UPLOAD ="extra_no_upload";	//another way to pass the caller to FullImage...
+		
+	public static String CALLER = "caller";			
+	private boolean queryResultsDb = false;			//true if viewing photos from online (searched) recipe
 	private long uri = 0; 							// photos (no bitmap data in them)	
 	private ArrayList<Photo> photos;
 
@@ -93,6 +95,8 @@ public class ViewPhotosActivity extends Activity implements FView<DbManager>
 					bundle.putString(EXTRA_IMG_ID, photos.get(position).getId());
 					bundle.putString(EXTRA_IMG_PATH, photos.get(position).getPath());
 					bundle.putLong(EXTRA_URI, uri);
+					//Tells FullImageViewPhotosActivity to disable the upload button if the caller is ViewSearchResultsActivity 
+					bundle.putBoolean(EXTRA_NO_UPLOAD, queryResultsDb);
 					//Log.d("recipe", Long.toString(uri));
 					//Log.d("filename", photos.get(position).getName());
 					i.putExtras(bundle);

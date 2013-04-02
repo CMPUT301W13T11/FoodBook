@@ -3,58 +3,17 @@
     style="@style/AppBaseTheme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainScreen" 
-    android:background="@color/grey">
-
+    android:background="@color/grey"
+    tools:context=".MainScreen" >
+
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/search"
-        android:layout_alignRight="@+id/search"
-        android:layout_centerVertical="true"
-        android:src="@drawable/foodbook_title1" />
-
-    <Button
-        android:id="@+id/search"
-        style="@style/GreenButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/my_ingredients"
-        android:layout_alignRight="@+id/my_recipes_button"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginTop="43dp"
-        android:fitsSystemWindows="false"
-        android:onClick="OnSearch"
-        android:text="@string/search"
-        android:textSize="30sp" />
-
-    <Button
-        android:id="@+id/my_ingredients"
-        style="@style/BlueButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_above="@+id/search"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/search"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="29dp"
-        android:onClick="OnMyIngredients"
-        android:text="@string/my_ingredients"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/my_recipes_button"
-        style="@style/BlueButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/my_ingredients"
-        android:layout_alignBottom="@+id/my_ingredients"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="17dp"
-        android:layout_toRightOf="@+id/my_ingredients"
-        android:onClick="OnMyRecipes"
-        android:text="@string/my_recipes"
-        android:textSize="20sp" />
+        android:src="@drawable/foodbook_title1" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -62,7 +21,56 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/imageView1"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="16dp"
+        android:layout_alignParentRight="true"
         android:src="@drawable/possible_logo" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="21dp" >
+
+        <Button
+            android:id="@+id/my_ingredients"
+            style="@style/BlueButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:onClick="OnMyIngredients"
+            android:text="@string/my_ingredients"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/my_recipes_button"
+            style="@style/BlueButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:onClick="OnMyRecipes"
+            android:text="@string/my_recipes"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/search"
+        style="@style/GreenButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/linearLayout1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:fitsSystemWindows="false"
+        android:onClick="OnSearch"
+        android:text="@string/search"
+        android:textSize="30sp" />
 
 </RelativeLayout>

@@ -67,10 +67,12 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		logger.log(Level.INFO, "Uri passed to TakePhotosActivity: " + uri);
 		imageView = (ImageView)this.findViewById(R.id.imageView1);
 		DbC = DbController.getInstance(this, this);
-		
-		
+			
 		updateView();
-		
+	/**
+	 * UpdateView sets the bitmap image on the layout.
+	 * It is called on creation of the activity and by the update method (called by the database manager).	
+	 */
 	}
 	protected void updateView(){
 		
@@ -85,7 +87,10 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
             updateView();
         }  
 	}
-	// responds to button Go Back
+	/**
+	 * This method takes the user back to the previous activity.
+	 * @param View - The view calling the method.
+	 */
 	public void OnGoBack(View View)
     {
 		if (imgPath!=null){
@@ -102,39 +107,11 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 			finish();
 		}
     }
-	// Weird bug here
-	public void OnCaptureProgressBar(View View)
-    {
-		// responds to button Capture
-		//if (SDCARD_INSTALLED){
-		if (Environment.MEDIA_MOUNTED.equals(state)) {
-			Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-			startActivityForResult(cameraIntent, CAMERA_REQUEST);
-		}
-		else{
-			//If sd card not installed on vm, use BogoPicGen 
-			//progressDialog = ProgressDialog.show(TakePhotosActivity.this, "", "Making BogoPic...");
-
-			new DownloadImageTask().execute();
-			progressDialog.dismiss();
-		}
-    }
-
-	private class DownloadImageTask extends AsyncTask<Void, Void, Bitmap> {
-		/** The system calls this to perform work in a worker thread and
-		 * delivers it the parameters given to AsyncTask.execute() */
-		protected Bitmap doInBackground(Void...voids) {
-			return BogoPicGen.generateBitmap(640, 480);
-		}
-		
-
-		/** The system calls this to perform work in the UI thread and delivers
-		 * the result from doInBackground() */
-		protected void onPostExecute(Bitmap result) {
-			//xif (bitmap==null){ Log.d("what", "what");};
-			imageView.setImageBitmap(bitmap);    	
-		}		
-	}
+/**
+ * Depending on whether an SDcard is installed on the device, this method
+ * obtains a bitmap either from the camera or from BogoPicGen.
+ * @param View - The view that called this method.
+ */
 	public void OnCapture(View View)
     {	
 		// responds to button Capture
@@ -151,7 +128,12 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 		}
     }
 	
-	//With progress bar (spinner)
+	/**
+	 * This method saves a bitmap to the device in compressed form (.png)
+	 * Depending on whether an SD card is installed, the png image is saved on the SD card or in main memory.
+	 * Saving is delegated to the database. The bitmap, filepath, and unique photo id (a timestamp) are passed on to the database controller.  
+	 * @param View - The view calling this method.
+	 */
 	public void OnSavePhoto (View View)
 	{
 		String timeStampId = String.valueOf(System.currentTimeMillis());
@@ -182,7 +164,10 @@ public class TakePhotosActivity extends Activity implements FView<DbManager>
 						"Error during image saving", Toast.LENGTH_LONG).show();
 			}
 		}
-	}	
+	}
+	/**
+	 *  Called by the database manager to update views, part of MVC
+	 */
 
 	@Override
 	public void update(DbManager db)
